@@ -10,6 +10,12 @@
   <name>fesf-model</name>
   <url>http://maven.apache.org</url>
 
+  	<scm>
+		<connection>scm:svn:http://fesf.googlecode.com/svn/trunk/fesf-model/</connection>
+		<url>http://fesf.googlecode.com/svn/trunk/fesf-model/</url>
+	</scm>
+	
+	
   <parent>
   <groupId>ar.edu.unq</groupId>
   <artifactId>aunq-parent</artifactId>
