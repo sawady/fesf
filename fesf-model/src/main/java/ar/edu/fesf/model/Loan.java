@@ -1,38 +1,49 @@
 package ar.edu.fesf.model;
 
-import java.util.Date;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 
 public class Loan {
 
-    private Date loanDate;
+    private DateTime loanDate;
 
-    private Date loanPeriod;
+    private Period loanPeriod;
 
-    private Date returnDate;
+    private DateTime returnDate;
 
     private BookCopy bookCopy;
 
-    public Date getLoanDate() {
+    private User user;
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(final User user) {
+        this.user = user;
+    }
+
+    public DateTime getLoanDate() {
         return this.loanDate;
     }
 
-    public void setLoanDate(final Date loanDate) {
+    public void setLoanDate(final DateTime loanDate) {
         this.loanDate = loanDate;
     }
 
-    public Date getLoanPeriod() {
+    public Period getLoanPeriod() {
         return this.loanPeriod;
     }
 
-    public void setLoanPeriod(final Date loanPeriod) {
-        this.loanPeriod = loanPeriod;
+    public void setLoanPeriod(final Period period) {
+        this.loanPeriod = period;
     }
 
-    public Date getReturnDate() {
+    public DateTime getReturnDate() {
         return this.returnDate;
     }
 
-    public void setReturnDate(final Date returnDate) {
+    public void setReturnDate(final DateTime returnDate) {
         this.returnDate = returnDate;
     }
 
@@ -44,8 +55,7 @@ public class Loan {
         this.bookCopy = bookCopy;
     }
 
-    public boolean hasReturned() {
-        return this.getReturnDate() != null;
+    public boolean hasFinished() {
+        return this.getReturnDate() != null && this.getReturnDate().isBeforeNow();
     }
-
 }
