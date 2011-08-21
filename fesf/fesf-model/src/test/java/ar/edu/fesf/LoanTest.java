@@ -8,6 +8,7 @@ import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Loan;
 
 /**
@@ -22,6 +23,7 @@ public class LoanTest {
         this.loanExample = new Loan();
         this.loanExample.setLoanDate(new DateTime());
         this.loanExample.setLoanPeriod(new Period(new DateTime(), new DateTime().plusDays(7)));
+        this.loanExample.setBookCopy(new BookCopy());
     }
 
     @Test
