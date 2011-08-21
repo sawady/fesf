@@ -9,6 +9,7 @@
 		<module>fesf-interface</module>
 		<module>fesf-persistence</module>
 		<module>fesf-model</module>
+		<module>fesf-services</module>
 	</modules>
 	<scm>
 		<connection>scm:svn:http://fesf.googlecode.com/svn/trunk/fesf/</connection>
