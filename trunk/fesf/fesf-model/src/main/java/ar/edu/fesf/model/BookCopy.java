@@ -3,7 +3,7 @@ package ar.edu.fesf.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.fesf.exceptions.LastLoanNotFinishedException;
+import ar.edu.fesf.exceptions.UserException;
 
 /**
  * TODO: description
@@ -36,10 +36,10 @@ public class BookCopy {
 
     public void addLoan(final Loan loan) {
         if (!this.getLoans().isEmpty() && !this.lastLoan().hasFinished()) {
-            throw new LastLoanNotFinishedException("Last loan has not finished");
-        } else {
-            this.getLoans().add(0, loan);
+            throw new UserException("Last loan has not finished");
         }
+
+        this.getLoans().add(0, loan);
     }
 
     public Loan lastLoan() {

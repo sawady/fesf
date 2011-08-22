@@ -1,5 +1,6 @@
 package ar.edu.fesf.application;
 
+import java.util.List;
 import java.util.Map;
 
 public abstract class HomeFactory {
@@ -8,7 +9,9 @@ public abstract class HomeFactory {
 
     public final void addHomes(final Map<Class<?>, Home<?>> homes) {
 
-        for (Class<?> clazz : new FesfEntities().getEntities()) {
+        List<Class<?>> entities = new FesfEntities().getEntities();
+
+        for (Class<?> clazz : entities) {
             homes.put(clazz, this.newHomeInstance(clazz));
         }
 

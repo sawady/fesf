@@ -3,6 +3,8 @@ package ar.edu.fesf.model;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
+import ar.edu.fesf.exceptions.UserException;
+
 public class Loan {
 
     private DateTime loanDate;
@@ -44,6 +46,9 @@ public class Loan {
     }
 
     public void setReturnDate(final DateTime returnDate) {
+        if (returnDate.isAfterNow()) {
+            throw new UserException("Your date of return is a future date");
+        }
         this.returnDate = returnDate;
     }
 
