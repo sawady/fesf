@@ -96,15 +96,15 @@ public class BookInfo {
 
     public BookCopy getAvailableCopy() {
         BookCopy result = null;
-        boolean notAvailable = true;
+        boolean oneAvailable = false;
         Iterator<BookCopy> it = this.getCopies().iterator();
 
-        while (it.hasNext() && notAvailable) {
+        while (it.hasNext() && !oneAvailable) {
             result = it.next();
-            notAvailable = !result.isAvailable();
+            oneAvailable = result.isAvailable();
         }
 
-        if (this.getCopies().isEmpty() || notAvailable) {
+        if (this.getCopies().isEmpty() || !oneAvailable) {
             throw new UserException("There are not any copy available of this book");
         }
 
