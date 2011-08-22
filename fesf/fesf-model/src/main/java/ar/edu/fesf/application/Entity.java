@@ -10,9 +10,6 @@ public abstract class Entity implements Persistible {
 
     /* CONSTRUCTOR ************************************************** */
 
-    public Entity() {
-    }
-
     public Entity(final int id) {
         this.id = id;
     }

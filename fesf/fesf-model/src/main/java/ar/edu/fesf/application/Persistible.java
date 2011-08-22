@@ -4,14 +4,14 @@ public interface Persistible {
 
     /* METODOS///////////////////////////////////////////////////////////////////////////////// */
 
-    public int getId();
+    int getId();
 
-    public void setId(int id);
+    void setId(int id);
 
-    public abstract void printValues();
+    void printValues();
 
-    public int getVersion();
+    int getVersion();
 
-    public void setVersion(int version);
+    void setVersion(int version);
 
 }

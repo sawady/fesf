@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.fesf.exceptions.LastLoanNotFinishedException;
+import ar.edu.fesf.exceptions.UserException;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Loan;
 
@@ -25,7 +25,7 @@ public class BookCopyTest {
     private BookCopy bookExample;
 
     @Before
-    public void setup() {
+    public void setUp() {
         this.loanMock = mock(Loan.class);
         this.lastLoanMock = mock(Loan.class);
         when(this.loanMock.hasFinished()).thenReturn(true);
@@ -34,7 +34,7 @@ public class BookCopyTest {
         this.bookExample = new BookCopy();
     }
 
-    @Test(expected = LastLoanNotFinishedException.class)
+    @Test(expected = UserException.class)
     public void addTwoLoansLastNotFinished() {
         when(this.loanMock.hasFinished()).thenReturn(false);
         this.bookExample.addLoan(this.loanMock);
@@ -45,33 +45,33 @@ public class BookCopyTest {
     public void addTwoLoansLastHasFinished() {
         this.bookExample.addLoan(this.loanMock);
         this.bookExample.addLoan(this.lastLoanMock);
-        assertEquals(this.bookExample.getLoans().size(), 2);
-        assertTrue(this.bookExample.getLoans().contains(this.loanMock));
-        assertTrue(this.bookExample.getLoans().contains(this.lastLoanMock));
+        assertEquals("Length of list must be 2", this.bookExample.getLoans().size(), 2);
+        assertTrue("Loans must containt this Loan", this.bookExample.getLoans().contains(this.loanMock));
+        assertTrue("Loans must containt this Loan", this.bookExample.getLoans().contains(this.lastLoanMock));
     }
 
     @Test
     public void lastLoan() {
         this.bookExample.addLoan(this.loanMock);
         this.bookExample.addLoan(this.lastLoanMock);
-        assertEquals(this.bookExample.lastLoan(), this.lastLoanMock);
+        assertEquals("Last loan must be equal to last loan added", this.bookExample.lastLoan(), this.lastLoanMock);
     }
 
     @Test
     public void isAvailableCaseEmptyLoans() {
-        assertTrue(this.bookExample.isAvailable());
+        assertTrue("When Empty Loans the bookcopy must be available", this.bookExample.isAvailable());
     }
 
     @Test
     public void isAvailableCaseLastLoanFinished() {
         this.bookExample.addLoan(this.loanMock);
-        assertTrue(this.bookExample.isAvailable());
+        assertTrue("When not empty and last loan finished, bookcopy must be available", this.bookExample.isAvailable());
     }
 
     @Test
     public void isNotAvailableCaseLastLoanNotFinished() {
         this.bookExample.addLoan(this.lastLoanMock);
-        assertFalse(this.bookExample.isAvailable());
+        assertFalse("When last loan has not finished, bookcopy must not be available", this.bookExample.isAvailable());
     }
 
 }
