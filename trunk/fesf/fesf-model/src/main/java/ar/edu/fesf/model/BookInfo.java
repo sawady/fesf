@@ -1,6 +1,10 @@
 package ar.edu.fesf.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import ar.edu.fesf.exceptions.UserException;
 
 /**
  * 
@@ -16,11 +20,11 @@ public class BookInfo {
 
     private String description;
 
-    private List<Author> authors;
+    private List<Author> authors = new ArrayList<Author>();
 
-    private List<BookCopy> copies;
+    private List<BookCopy> copies = new ArrayList<BookCopy>();
 
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<Category>();
 
     public String getTitle() {
         return this.title;
@@ -86,4 +90,24 @@ public class BookInfo {
         this.categories = categories;
     }
 
+    public void addCopy(final BookCopy copy) {
+        this.getCopies().add(copy);
+    }
+
+    public BookCopy getAvailableCopy() {
+        BookCopy result = null;
+        boolean notAvailable = true;
+        Iterator<BookCopy> it = this.getCopies().iterator();
+
+        while (it.hasNext() && notAvailable) {
+            result = it.next();
+            notAvailable = !result.isAvailable();
+        }
+
+        if (this.getCopies().isEmpty() || notAvailable) {
+            throw new UserException("There are not any copy available of this book");
+        }
+
+        return result;
+    }
 }
