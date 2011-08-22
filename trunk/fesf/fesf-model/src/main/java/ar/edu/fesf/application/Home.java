@@ -8,11 +8,11 @@ public interface Home<T extends Persistible> {
     // ** ABM
     // ********************************************************
 
-    void agregar(T object);
+    void add(T object);
 
-    void eliminar(T object);
+    void delete(T object);
 
-    void actualizar(T object);
+    void update(T object);
 
     void deleteAllEntities();
 
@@ -23,7 +23,5 @@ public interface Home<T extends Persistible> {
     T getWithId(int id);
 
     List<T> getAllEntities();
-
-    T getNombrable(String nombre);
 
 }
