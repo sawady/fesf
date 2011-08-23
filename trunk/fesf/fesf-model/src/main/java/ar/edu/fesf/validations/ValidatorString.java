@@ -9,7 +9,7 @@ public class ValidatorString {
     }
 
     public static void validate(final String toValidate, final String fieldName) {
-        if (toValidate == null || toValidate.isEmpty()) {
+        if (toValidate.isEmpty()) {
             throw new UserException(fieldName + " cannot be empty");
         }
     }
