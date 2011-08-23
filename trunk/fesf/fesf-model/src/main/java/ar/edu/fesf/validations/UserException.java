@@ -1,4 +1,4 @@
-package ar.edu.fesf.exceptions;
+package ar.edu.fesf.validations;
 
 /**
  * TODO: description

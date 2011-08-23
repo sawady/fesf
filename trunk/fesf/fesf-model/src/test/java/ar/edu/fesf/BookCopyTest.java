@@ -9,9 +9,9 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.fesf.exceptions.UserException;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Loan;
+import ar.edu.fesf.validations.UserException;
 
 /**
  * BookCopy Test

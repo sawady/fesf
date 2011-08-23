@@ -3,7 +3,7 @@ package ar.edu.fesf.model;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
-import ar.edu.fesf.exceptions.UserException;
+import ar.edu.fesf.validations.UserException;
 
 public class Loan {
 
