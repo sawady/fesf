@@ -5,6 +5,9 @@
 	<artifactId>fesf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	
+	
+	
 	<modules>
 		<module>fesf-interface</module>
 		<module>fesf-persistence</module>

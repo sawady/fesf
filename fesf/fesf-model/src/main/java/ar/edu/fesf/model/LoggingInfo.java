@@ -1,11 +1,14 @@
 package ar.edu.fesf.model;
 
-public class LoggingInfo {
+import ar.edu.fesf.application.Entity;
+
+public class LoggingInfo extends Entity {
 
     private String pass;
 
     private String userid;
 
+    /* Accessors */
     public String getPass() {
         return this.pass;
     }

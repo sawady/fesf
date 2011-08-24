@@ -2,7 +2,9 @@ package ar.edu.fesf.model;
 
 import java.util.List;
 
-public class User {
+import ar.edu.fesf.application.Entity;
+
+public class User extends Entity {
 
     private int age;
 
@@ -20,6 +22,7 @@ public class User {
 
     private List<Reservation> reservations;
 
+    /* Accessors */
     public int getAge() {
         return this.age;
     }

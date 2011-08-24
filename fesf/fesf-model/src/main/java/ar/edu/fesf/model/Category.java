@@ -2,10 +2,9 @@ package ar.edu.fesf.model;
 
 import java.util.List;
 
-/**
- * TODO: description
- */
-public class Category {
+import ar.edu.fesf.application.Entity;
+
+public class Category extends Entity {
     private String name;
 
     private List<BookInfo> books;

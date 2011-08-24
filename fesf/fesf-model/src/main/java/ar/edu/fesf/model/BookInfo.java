@@ -1,15 +1,13 @@
 package ar.edu.fesf.model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
+import ar.edu.fesf.application.Entity;
 import ar.edu.fesf.validations.UserException;
 
-/**
- * 
- */
-public class BookInfo {
+public class BookInfo extends Entity {
     private String title;
 
     private String isbn;
@@ -20,12 +18,38 @@ public class BookInfo {
 
     private String description;
 
-    private List<Author> authors = new ArrayList<Author>();
+    private Set<Author> authors = new HashSet<Author>();
 
-    private List<BookCopy> copies = new ArrayList<BookCopy>();
+    private Set<BookCopy> registedCopies = new HashSet<BookCopy>();
 
-    private List<Category> categories = new ArrayList<Category>();
+    private Set<BookCopy> availableCopies = new HashSet<BookCopy>();
 
+    private Set<Category> categories = new HashSet<Category>();
+
+    /* Methods */
+    public void addCopy() {
+        BookCopy newCopy = new BookCopy();
+        this.getRegistedCopies().add(newCopy);
+        this.getAvailableCopies().add(newCopy);
+    }
+
+    public BookCopy getAvailableCopy() {
+        Iterator<BookCopy> it = this.getAvailableCopies().iterator();
+
+        if (!it.hasNext()) {
+            throw new UserException("There are no available copies of this book");
+        }
+
+        BookCopy result = it.next();
+        this.getAvailableCopies().remove(result);
+        return result;
+    }
+
+    public void returnCopy(final BookCopy copy) {
+        this.getAvailableCopies().add(copy);
+    }
+
+    /* Accessors */
     public String getTitle() {
         return this.title;
     }
@@ -66,48 +90,36 @@ public class BookInfo {
         this.description = description;
     }
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return this.authors;
     }
 
-    public void setAuthors(final List<Author> authors) {
+    public void setAuthors(final Set<Author> authors) {
         this.authors = authors;
     }
 
-    public List<BookCopy> getCopies() {
-        return this.copies;
+    public Set<BookCopy> getRegistedCopies() {
+        return this.registedCopies;
     }
 
-    public void setCopies(final List<BookCopy> copies) {
-        this.copies = copies;
+    public void setRegistedCopies(final Set<BookCopy> registedCopies) {
+        this.registedCopies = registedCopies;
     }
 
-    public List<Category> getCategories() {
+    public Set<BookCopy> getAvailableCopies() {
+        return this.availableCopies;
+    }
+
+    public void setAvailableCopies(final Set<BookCopy> availableCopies) {
+        this.availableCopies = availableCopies;
+    }
+
+    public Set<Category> getCategories() {
         return this.categories;
     }
 
-    public void setCategories(final List<Category> categories) {
+    public void setCategories(final Set<Category> categories) {
         this.categories = categories;
     }
 
-    public void addCopy(final BookCopy copy) {
-        this.getCopies().add(copy);
-    }
-
-    public BookCopy getAvailableCopy() {
-        BookCopy result = null;
-        boolean oneAvailable = false;
-        Iterator<BookCopy> it = this.getCopies().iterator();
-
-        while (it.hasNext() && !oneAvailable) {
-            result = it.next();
-            oneAvailable = result.isAvailable();
-        }
-
-        if (this.getCopies().isEmpty() || !oneAvailable) {
-            throw new UserException("There are not any copy available of this book");
-        }
-
-        return result;
-    }
 }

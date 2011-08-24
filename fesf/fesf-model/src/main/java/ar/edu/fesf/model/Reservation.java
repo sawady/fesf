@@ -2,7 +2,9 @@ package ar.edu.fesf.model;
 
 import java.util.Date;
 
-public class Reservation {
+import ar.edu.fesf.application.Entity;
+
+public class Reservation extends Entity {
 
     private Date date;
 
@@ -10,6 +12,7 @@ public class Reservation {
 
     private User user;
 
+    /* Accessors */
     public Date getDate() {
         return this.date;
     }
