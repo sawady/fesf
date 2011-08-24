@@ -2,7 +2,9 @@ package ar.edu.fesf.model;
 
 import java.util.List;
 
-public class Ranking {
+import ar.edu.fesf.application.Entity;
+
+public class Ranking extends Entity {
 
     private List<BookInfo> top20;
 

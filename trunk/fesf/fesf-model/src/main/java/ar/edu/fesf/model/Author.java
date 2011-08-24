@@ -2,10 +2,10 @@ package ar.edu.fesf.model;
 
 import java.util.List;
 
-/**
- * TODO: description
- */
-public class Author {
+import ar.edu.fesf.application.Entity;
+
+public class Author extends Entity {
+
     private String name;
 
     private List<BookInfo> books;

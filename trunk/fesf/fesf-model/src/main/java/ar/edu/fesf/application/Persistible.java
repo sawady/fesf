@@ -8,8 +8,6 @@ public interface Persistible {
 
     void setId(int id);
 
-    void printValues();
-
     int getVersion();
 
     void setVersion(int version);

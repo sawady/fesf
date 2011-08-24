@@ -2,16 +2,19 @@ package ar.edu.fesf.model;
 
 import java.util.Date;
 
+import ar.edu.fesf.application.Entity;
+
 /**
  * TODO: description
  */
-public class Comment {
+public class Comment extends Entity {
     private User user;
 
     private Date date;
 
     private String body;
 
+    /* Accessors */
     public User getUser() {
         return this.user;
     }
