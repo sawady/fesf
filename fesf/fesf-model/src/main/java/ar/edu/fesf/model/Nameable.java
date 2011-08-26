@@ -7,6 +7,7 @@ public abstract class Nameable extends Entity {
 
     private String name;
 
+    /* Accessors */
     public String getName() {
         return this.name;
     }
