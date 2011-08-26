@@ -1,34 +1,42 @@
 package ar.edu.fesf.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.fesf.application.Entity;
 
-/**
- * TODO: description
- */
 public class Review extends Entity {
-    private Integer calification;
+    private int calification;
 
-    private List<Integer> califications;
+    private int sumOfCalifications = 0;
 
-    private List<Comment> comments;
+    private int countOfCalifications = 0;
+
+    private List<Comment> comments = new ArrayList<Comment>();
 
     /* Accessors */
-    public Integer getCalification() {
+    public int getCalification() {
         return this.calification;
     }
 
-    public void setCalification(final Integer calification) {
+    public void setCalification(final int calification) {
         this.calification = calification;
     }
 
-    public List<Integer> getCalifications() {
-        return this.califications;
+    public int getSumOfCalifications() {
+        return this.sumOfCalifications;
     }
 
-    public void setCalifications(final List<Integer> califications) {
-        this.califications = califications;
+    public void setSumOfCalifications(final int sumOfCalifications) {
+        this.sumOfCalifications = sumOfCalifications;
+    }
+
+    public int getCountOfCalifications() {
+        return this.countOfCalifications;
+    }
+
+    public void setCountOfCalifications(final int countOfCalifications) {
+        this.countOfCalifications = countOfCalifications;
     }
 
     public List<Comment> getComments() {
@@ -39,4 +47,12 @@ public class Review extends Entity {
         this.comments = comments;
     }
 
+    public void addCalification(final int calif) {
+
+        this.setSumOfCalifications(this.getSumOfCalifications() + calif);
+        this.setCountOfCalifications(this.getCountOfCalifications() + 1);
+
+        this.setCalification(this.getSumOfCalifications() / this.getCountOfCalifications());
+
+    }
 }

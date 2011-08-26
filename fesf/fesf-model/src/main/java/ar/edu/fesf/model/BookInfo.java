@@ -6,8 +6,10 @@ import java.util.Set;
 
 import ar.edu.fesf.application.Entity;
 import ar.edu.fesf.validations.UserException;
+import ar.edu.fesf.validations.ValidatorString;
 
 public class BookInfo extends Entity {
+
     private String title;
 
     private String isbn;
@@ -16,9 +18,11 @@ public class BookInfo extends Entity {
 
     private String imagepath;
 
-    private String description;
+    private String description = "";
 
     private Set<Author> authors = new HashSet<Author>();
+
+    private int countOfLouns = 0;
 
     private Set<BookCopy> registedCopies = new HashSet<BookCopy>();
 
@@ -45,6 +49,10 @@ public class BookInfo extends Entity {
         return result;
     }
 
+    public void incrementCountOfLoans() {
+        this.setCountOfLouns(this.getCountOfLouns() + 1);
+    }
+
     public void returnCopy(final BookCopy copy) {
         this.getAvailableCopies().add(copy);
     }
@@ -55,6 +63,7 @@ public class BookInfo extends Entity {
     }
 
     public void setTitle(final String title) {
+        ValidatorString.validate(title, "Title");
         this.title = title;
     }
 
@@ -71,6 +80,7 @@ public class BookInfo extends Entity {
     }
 
     public void setPublisher(final String publisher) {
+        ValidatorString.validate(publisher, "Publisher");
         this.publisher = publisher;
     }
 
@@ -120,6 +130,14 @@ public class BookInfo extends Entity {
 
     public void setCategories(final Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public int getCountOfLouns() {
+        return this.countOfLouns;
+    }
+
+    public void setCountOfLouns(final int countOfLouns) {
+        this.countOfLouns = countOfLouns;
     }
 
 }

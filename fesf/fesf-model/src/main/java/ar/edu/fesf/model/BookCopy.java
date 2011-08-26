@@ -8,7 +8,9 @@ import ar.edu.fesf.validations.UserException;
 
 public class BookCopy extends Entity {
 
-    private String observations;
+    private BookInfo book;
+
+    private String observations = "";
 
     private List<Loan> loans = new ArrayList<Loan>();
 
@@ -22,6 +24,7 @@ public class BookCopy extends Entity {
             throw new UserException("Last loan has not finished");
         }
         this.getLoans().add(0, loan);
+        this.getBook().incrementCountOfLoans();
     }
 
     public Loan lastLoan() {
@@ -43,6 +46,14 @@ public class BookCopy extends Entity {
 
     public void setLoans(final List<Loan> loans) {
         this.loans = loans;
+    }
+
+    public BookInfo getBook() {
+        return this.book;
+    }
+
+    public void setBook(final BookInfo book) {
+        this.book = book;
     }
 
 }

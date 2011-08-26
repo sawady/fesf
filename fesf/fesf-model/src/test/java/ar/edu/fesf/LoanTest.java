@@ -22,7 +22,7 @@ public class LoanTest {
     @Before
     public void setUp() {
         this.loanExample = new Loan();
-        this.loanExample.setLoanDate(new DateTime());
+        this.loanExample.setDate(new DateTime());
         this.loanExample.setLoanPeriod(new Period(new DateTime(), new DateTime().plusDays(7)));
         this.loanExample.setBookCopy(new BookCopy());
     }

@@ -1,10 +1,15 @@
 package ar.edu.fesf.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import ar.edu.fesf.application.Entity;
+import ar.edu.fesf.validations.ValidatorPositiveNumber;
+import ar.edu.fesf.validations.ValidatorRequiredField;
+import ar.edu.fesf.validations.ValidatorString;
 
-public class User extends Entity {
+public class User extends Nameable {
 
     private int age;
 
@@ -14,13 +19,13 @@ public class User extends Entity {
 
     private String email;
 
-    private List<Category> categories;
+    private Set<Category> categories = new HashSet<Category>();
 
     private LoggingInfo loggingInfo;
 
-    private List<Loan> loans;
+    private List<Loan> loans = new ArrayList<Loan>();
 
-    private List<Reservation> reservations;
+    private List<Reservation> reservations = new ArrayList<Reservation>();
 
     /* Accessors */
     public int getAge() {
@@ -28,6 +33,8 @@ public class User extends Entity {
     }
 
     public void setAge(final int age) {
+        ValidatorRequiredField.validate(age, "Age");
+        ValidatorPositiveNumber.validate(age, "Age");
         this.age = age;
     }
 
@@ -36,6 +43,7 @@ public class User extends Entity {
     }
 
     public void setAddress(final String address) {
+        ValidatorString.validate(address, "Address");
         this.address = address;
     }
 
@@ -44,6 +52,7 @@ public class User extends Entity {
     }
 
     public void setPhone(final String phone) {
+        ValidatorString.validate(phone, "Phone");
         this.phone = phone;
     }
 
@@ -52,14 +61,15 @@ public class User extends Entity {
     }
 
     public void setEmail(final String email) {
+        ValidatorString.validate(email, "Email");
         this.email = email;
     }
 
-    public List<Category> getCategories() {
+    public Set<Category> getCategories() {
         return this.categories;
     }
 
-    public void setCategories(final List<Category> categories) {
+    public void setCategories(final Set<Category> categories) {
         this.categories = categories;
     }
 
