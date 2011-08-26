@@ -13,6 +13,12 @@ public abstract class Event extends Entity {
 
     private BookInfo book;
 
+    /* Methods */
+    public void updateUserCategories() {
+        this.getUser().getCategories().addAll(this.getBook().getCategories());
+    }
+
+    /* Accessors */
     public User getUser() {
         return this.user;
     }
@@ -37,10 +43,6 @@ public abstract class Event extends Entity {
     public void setBook(final BookInfo book) {
         ValidatorRequiredField.validate(book, "Book");
         this.book = book;
-    }
-
-    public void updateUserCategories() {
-        this.getUser().getCategories().addAll(this.getBook().getCategories());
     }
 
 }

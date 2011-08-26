@@ -1,5 +1,5 @@
 package ar.edu.fesf;
 
-public class UserTest {
+public class EventTest {
 
 }

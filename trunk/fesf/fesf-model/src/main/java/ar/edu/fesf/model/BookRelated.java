@@ -7,6 +7,7 @@ public abstract class BookRelated extends Nameable {
 
     private List<BookInfo> books = new ArrayList<BookInfo>();
 
+    /* Accessors */
     public List<BookInfo> getBooks() {
         return this.books;
     }

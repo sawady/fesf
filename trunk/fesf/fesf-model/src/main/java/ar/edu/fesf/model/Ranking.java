@@ -13,6 +13,49 @@ public class Ranking extends Entity {
 
     private int limitOfRecentlyBooks = 20;
 
+    private int minLoansForUpdate = 0;
+
+    /* Methods */
+
+    /***
+     * Includes a recently added book into the recentlyAvailable list, removing the oldest addition.
+     */
+    public void addToRecents(final BookInfo book) {
+        if (this.getLimitOfRecentlyBooks() == this.getRecentlyAvailable().size()) {
+            this.getRecentlyAvailable().remove(0);
+        }
+
+        this.getRecentlyAvailable().add(book);
+    }
+
+    public void updateRanking(final BookInfo newBook) {
+        if (newBook.getCountOfLouns() > this.getMinLoansForUpdate()) {
+            List<BookInfo> newList = new ArrayList<BookInfo>();
+            Boolean added = false;
+
+            for (BookInfo bookInfo : this.getTop20()) {
+                if (!added && newBook.getCountOfLouns() > bookInfo.getCountOfLouns()) {
+                    newList.add(newBook);
+                    newList.add(bookInfo);
+                    added = true;
+                } else {
+                    newList.add(bookInfo);
+                }
+            }
+            if (!added && newList.size() < 20) {
+                newList.add(newBook);
+            } else {
+                if (newList.size() > 20) {
+                    newList.remove(newList.size() - 1);
+                    this.setMinLoansForUpdate(newList.get(newList.size() - 1).getCountOfLouns());
+                }
+            }
+            this.setTop20(newList);
+        }
+    }
+
+    /* Accessors */
+
     public List<BookInfo> getTop20() {
         return this.top20;
     }
@@ -37,34 +80,12 @@ public class Ranking extends Entity {
         this.limitOfRecentlyBooks = limitOfRecentlyBooks;
     }
 
-    public void addToRecents(final BookInfo book) {
-        if (this.getLimitOfRecentlyBooks() == this.getRecentlyAvailable().size()) {
-            this.getRecentlyAvailable().remove(0);
-        }
-
-        this.getRecentlyAvailable().add(book);
+    public int getMinLoansForUpdate() {
+        return this.minLoansForUpdate;
     }
 
-    public void updateRanking(final BookInfo book) {
-
-        List<BookInfo> newList = new ArrayList<BookInfo>();
-        List<BookInfo> copyList = new ArrayList<BookInfo>();
-        copyList.addAll(this.getTop20());
-
-        for (BookInfo bookInfo : this.getTop20()) {
-            if (book.getCountOfLouns() > bookInfo.getCountOfLouns()) {
-                newList.add(book);
-                break;
-            } else {
-                newList.add(copyList.get(0));
-                copyList.remove(0);
-            }
-        }
-
-        if (!copyList.isEmpty()) {
-            copyList.remove(copyList.size() - 1);
-        }
-
-        newList.addAll(copyList);
+    public void setMinLoansForUpdate(final int minLoansForUpdate) {
+        this.minLoansForUpdate = minLoansForUpdate;
     }
+
 }
