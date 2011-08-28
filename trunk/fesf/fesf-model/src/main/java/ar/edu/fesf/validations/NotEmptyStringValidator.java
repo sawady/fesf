@@ -1,8 +1,5 @@
 package ar.edu.fesf.validations;
 
-/**
- * ValidatorString validates strings with validate()
- */
 public class NotEmptyStringValidator {
 
     private NotEmptyStringValidator() {

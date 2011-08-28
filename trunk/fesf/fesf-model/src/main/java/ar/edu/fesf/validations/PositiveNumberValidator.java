@@ -1,8 +1,5 @@
 package ar.edu.fesf.validations;
 
-/**
- * TODO: description
- */
 public class PositiveNumberValidator {
 
     private PositiveNumberValidator() {
