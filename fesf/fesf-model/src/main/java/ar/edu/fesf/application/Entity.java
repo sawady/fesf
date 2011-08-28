@@ -11,6 +11,7 @@ public abstract class Entity implements Persistible {
     /* CONSTRUCTOR ************************************************** */
 
     public Entity() {
+        super();
     }
 
     public Entity(final int id) {
