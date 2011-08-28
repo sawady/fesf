@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ar.edu.fesf.validations.ValidatorPositiveNumber;
-import ar.edu.fesf.validations.ValidatorRequiredField;
-import ar.edu.fesf.validations.ValidatorString;
+import ar.edu.fesf.validations.PositiveNumberValidator;
+import ar.edu.fesf.validations.NotNullFieldValidator;
+import ar.edu.fesf.validations.NotEmptyStringValidator;
 
 public class User extends Nameable {
 
@@ -33,8 +33,8 @@ public class User extends Nameable {
     }
 
     public void setAge(final int age) {
-        ValidatorRequiredField.validate(age, "Age");
-        ValidatorPositiveNumber.validate(age, "Age");
+        NotNullFieldValidator.validate(age, "Age");
+        PositiveNumberValidator.validate(age, "Age");
         this.age = age;
     }
 
@@ -43,7 +43,7 @@ public class User extends Nameable {
     }
 
     public void setAddress(final String address) {
-        ValidatorString.validate(address, "Address");
+        NotEmptyStringValidator.validate(address, "Address");
         this.address = address;
     }
 
@@ -52,7 +52,7 @@ public class User extends Nameable {
     }
 
     public void setPhone(final String phone) {
-        ValidatorString.validate(phone, "Phone");
+        NotEmptyStringValidator.validate(phone, "Phone");
         this.phone = phone;
     }
 
@@ -61,7 +61,7 @@ public class User extends Nameable {
     }
 
     public void setEmail(final String email) {
-        ValidatorString.validate(email, "Email");
+        NotEmptyStringValidator.validate(email, "Email");
         this.email = email;
     }
 

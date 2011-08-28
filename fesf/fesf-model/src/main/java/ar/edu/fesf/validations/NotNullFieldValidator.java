@@ -3,9 +3,9 @@ package ar.edu.fesf.validations;
 /**
  * TODO: description
  */
-public class ValidatorRequiredField {
+public class NotNullFieldValidator {
 
-    private ValidatorRequiredField() {
+    private NotNullFieldValidator() {
     }
 
     public static void validate(final Object toValidate, final String fieldName) {

@@ -3,7 +3,7 @@ package ar.edu.fesf.model;
 import org.joda.time.DateTime;
 
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.ValidatorRequiredField;
+import ar.edu.fesf.validations.NotNullFieldValidator;
 
 public abstract class Event extends Entity {
 
@@ -24,7 +24,7 @@ public abstract class Event extends Entity {
     }
 
     public void setUser(final User user) {
-        ValidatorRequiredField.validate(user, "User");
+        NotNullFieldValidator.validate(user, "User");
         this.user = user;
     }
 
@@ -41,7 +41,7 @@ public abstract class Event extends Entity {
     }
 
     public void setBook(final BookInfo book) {
-        ValidatorRequiredField.validate(book, "Book");
+        NotNullFieldValidator.validate(book, "Book");
         this.book = book;
     }
 

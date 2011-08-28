@@ -3,9 +3,9 @@ package ar.edu.fesf.validations;
 /**
  * ValidatorString validates strings with validate()
  */
-public class ValidatorString {
+public class NotEmptyStringValidator {
 
-    private ValidatorString() {
+    private NotEmptyStringValidator() {
     }
 
     public static void validate(final String toValidate, final String fieldName) {

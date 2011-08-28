@@ -15,6 +15,10 @@ import ar.edu.fesf.model.Ranking;
 
 public class RankingTest {
 
+    private static final String UNEXPECTED_LIST_SIZE = "Unexpected list size";
+
+    private static final String UNEXPECTED_INDEX_WHEN_UPDATING = "Unexpected index when updating";
+
     private BookInfo bookMock;
 
     private Ranking rank;
@@ -52,7 +56,7 @@ public class RankingTest {
 
     @Test
     public void updateRankingWhenEmpty() {
-        assertEquals("Unexpected list size", 0, this.rank.getTop20().size());
+        assertEquals(UNEXPECTED_LIST_SIZE, 0, this.rank.getTop20().size());
         BookInfo bookMock1 = mock(BookInfo.class);
         BookInfo bookMock2 = mock(BookInfo.class);
         BookInfo bookMock3 = mock(BookInfo.class);
@@ -65,11 +69,11 @@ public class RankingTest {
         this.rank.updateRanking(bookMock2);
         this.rank.updateRanking(bookMock3);
         this.rank.updateRanking(bookMock4);
-        assertEquals("Unexpected index when updating0", 0, this.rank.getTop20().indexOf(bookMock4));// 8
-        assertEquals("Unexpected index when updating", 1, this.rank.getTop20().indexOf(bookMock1));// 5
-        assertEquals("Unexpected index when updating", 2, this.rank.getTop20().indexOf(bookMock3));// 3
-        assertEquals("Unexpected index when updating", 3, this.rank.getTop20().indexOf(bookMock2));// 1
-        assertEquals("Unexpected list size", 4, this.rank.getTop20().size());
+        assertEquals(UNEXPECTED_INDEX_WHEN_UPDATING, 0, this.rank.getTop20().indexOf(bookMock4));// 8
+        assertEquals(UNEXPECTED_INDEX_WHEN_UPDATING, 1, this.rank.getTop20().indexOf(bookMock1));// 5
+        assertEquals(UNEXPECTED_INDEX_WHEN_UPDATING, 2, this.rank.getTop20().indexOf(bookMock3));// 3
+        assertEquals(UNEXPECTED_INDEX_WHEN_UPDATING, 3, this.rank.getTop20().indexOf(bookMock2));// 1
+        assertEquals(UNEXPECTED_LIST_SIZE, 4, this.rank.getTop20().size());
     }
 
     @Test
@@ -81,12 +85,12 @@ public class RankingTest {
             this.rank.getTop20().add(book);
         }
         when(this.bookMock.getCountOfLouns()).thenReturn(5);
-        assertEquals("Unexpected list size", 20, this.rank.getTop20().size());
+        assertEquals(UNEXPECTED_LIST_SIZE, 20, this.rank.getTop20().size());
         this.rank.updateRanking(this.bookMock);
         assertTrue("Recent addition is not contained", this.rank.getTop20().contains(this.bookMock));
         assertEquals("Unexpected index", 16, this.rank.getTop20().indexOf(this.bookMock));
         assertNotSame("Unexpected index", this.rank.getTop20().indexOf(this.bookMock) == 15);
         assertNotSame("Unexpected index", this.rank.getTop20().indexOf(this.bookMock) == 17);
-        assertEquals("Unexpected list size", 20, this.rank.getTop20().size());
+        assertEquals(UNEXPECTED_LIST_SIZE, 20, this.rank.getTop20().size());
     }
 }

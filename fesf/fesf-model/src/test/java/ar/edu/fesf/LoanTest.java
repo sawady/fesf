@@ -1,7 +1,6 @@
 package ar.edu.fesf;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -38,15 +37,4 @@ public class LoanTest {
         this.loanExample.setReturnDate(new DateTime().plus(10));
     }
 
-    @Test
-    public void hasFinishedCaseToday() {
-        this.loanExample.setReturnDate(new DateTime());
-        assertFalse("Loan must not finished if return date is exactly now", this.loanExample.hasFinished());
-    }
-
-    @Test
-    public void hasFinishedCaseBeforeToday() {
-        this.loanExample.setReturnDate(new DateTime().minusDays(1));
-        assertTrue("Loan must be finished if the return date was before today", this.loanExample.hasFinished());
-    }
 }
