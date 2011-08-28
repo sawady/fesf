@@ -1,8 +1,8 @@
 package ar.edu.fesf.model;
 
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.ValidatorRequiredField;
-import ar.edu.fesf.validations.ValidatorString;
+import ar.edu.fesf.validations.NotNullFieldValidator;
+import ar.edu.fesf.validations.NotEmptyStringValidator;
 
 public class LoggingInfo extends Entity {
 
@@ -16,8 +16,8 @@ public class LoggingInfo extends Entity {
     }
 
     public void setPass(final String pass) {
-        ValidatorRequiredField.validate(pass, "Password");
-        ValidatorString.validate(pass, "Password");
+        NotNullFieldValidator.validate(pass, "Password");
+        NotEmptyStringValidator.validate(pass, "Password");
         this.pass = pass;
     }
 
@@ -26,8 +26,8 @@ public class LoggingInfo extends Entity {
     }
 
     public void setUserid(final String userid) {
-        ValidatorRequiredField.validate(userid, "User Id");
-        ValidatorString.validate(userid, "User Id");
+        NotNullFieldValidator.validate(userid, "User Id");
+        NotEmptyStringValidator.validate(userid, "User Id");
         this.userid = userid;
     }
 

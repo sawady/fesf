@@ -17,7 +17,7 @@ public class Ranking extends Entity {
 
     /* Methods */
 
-    /***
+    /**
      * Includes a recently added book into the recentlyAvailable list, removing the oldest addition.
      */
     public void addToRecents(final BookInfo book) {

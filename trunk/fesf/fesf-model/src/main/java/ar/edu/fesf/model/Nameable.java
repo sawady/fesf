@@ -1,7 +1,7 @@
 package ar.edu.fesf.model;
 
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.ValidatorString;
+import ar.edu.fesf.validations.NotEmptyStringValidator;
 
 public abstract class Nameable extends Entity {
 
@@ -13,7 +13,7 @@ public abstract class Nameable extends Entity {
     }
 
     public void setName(final String name) {
-        ValidatorString.validate(name, "Name");
+        NotEmptyStringValidator.validate(name, "Name");
         this.name = name;
     }
 

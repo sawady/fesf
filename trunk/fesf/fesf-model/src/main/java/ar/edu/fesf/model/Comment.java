@@ -1,9 +1,8 @@
 package ar.edu.fesf.model;
 
-import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.ValidatorRequiredField;
+import ar.edu.fesf.validations.NotNullFieldValidator;
 
-public class Comment extends Entity {
+public class Comment extends Event {
 
     private String body;
 
@@ -14,7 +13,7 @@ public class Comment extends Entity {
     }
 
     public void setBody(final String body) {
-        ValidatorRequiredField.validate(body, "Body");
+        NotNullFieldValidator.validate(body, "Body");
         this.body = body;
     }
 

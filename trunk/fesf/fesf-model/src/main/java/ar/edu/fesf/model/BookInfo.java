@@ -6,7 +6,7 @@ import java.util.Set;
 
 import ar.edu.fesf.application.Entity;
 import ar.edu.fesf.validations.UserException;
-import ar.edu.fesf.validations.ValidatorString;
+import ar.edu.fesf.validations.NotEmptyStringValidator;
 
 public class BookInfo extends Entity {
 
@@ -63,7 +63,7 @@ public class BookInfo extends Entity {
     }
 
     public void setTitle(final String title) {
-        ValidatorString.validate(title, "Title");
+        NotEmptyStringValidator.validate(title, "Title");
         this.title = title;
     }
 
@@ -80,7 +80,7 @@ public class BookInfo extends Entity {
     }
 
     public void setPublisher(final String publisher) {
-        ValidatorString.validate(publisher, "Publisher");
+        NotEmptyStringValidator.validate(publisher, "Publisher");
         this.publisher = publisher;
     }
 

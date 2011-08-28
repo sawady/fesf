@@ -20,7 +20,7 @@ public class BookCopy extends Entity {
     }
 
     public void addLoan(final Loan loan) {
-        if (!this.getLoans().isEmpty() && !this.lastLoan().hasFinished()) {
+        if (!this.isAvailable()) {
             throw new UserException("Last loan has not finished");
         }
         this.getLoans().add(0, loan);

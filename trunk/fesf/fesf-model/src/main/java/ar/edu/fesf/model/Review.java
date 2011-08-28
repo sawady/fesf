@@ -6,7 +6,7 @@ import java.util.List;
 import ar.edu.fesf.application.Entity;
 
 public class Review extends Entity {
-    private int calification;
+    private int calification = 0;
 
     private int sumOfCalifications = 0;
 
