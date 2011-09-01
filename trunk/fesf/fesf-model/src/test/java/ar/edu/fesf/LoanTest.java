@@ -3,7 +3,6 @@ package ar.edu.fesf;
 import static org.junit.Assert.assertFalse;
 
 import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +21,7 @@ public class LoanTest {
     public void setUp() {
         this.loanExample = new Loan();
         this.loanExample.setDate(new DateTime());
-        this.loanExample.setLoanPeriod(new Period(new DateTime(), new DateTime().plusDays(7)));
+        this.loanExample.setAgreedReturnDate(new DateTime().plusDays(7));
         this.loanExample.setBookCopy(new BookCopy());
     }
 

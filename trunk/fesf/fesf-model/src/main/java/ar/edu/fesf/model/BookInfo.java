@@ -1,12 +1,14 @@
 package ar.edu.fesf.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.UserException;
 import ar.edu.fesf.validations.NotEmptyStringValidator;
+import ar.edu.fesf.validations.UserException;
 
 public class BookInfo extends Entity {
 
@@ -29,6 +31,8 @@ public class BookInfo extends Entity {
     private Set<BookCopy> availableCopies = new HashSet<BookCopy>();
 
     private Set<Category> categories = new HashSet<Category>();
+
+    private List<InterestedUser> reservations = new ArrayList<InterestedUser>();
 
     /* Methods */
     public void addCopy() {
@@ -55,6 +59,19 @@ public class BookInfo extends Entity {
 
     public void returnCopy(final BookCopy copy) {
         this.getAvailableCopies().add(copy);
+    }
+
+    public void addReservation(final InterestedUser reservation) {
+        this.getReservations().add(reservation);
+    }
+
+    public InterestedUser getUserToInformAvailability() {
+        if (this.getRegistedCopies().isEmpty()) {
+            throw new UserException("Nobody made a reservation of this book");
+        }
+        InterestedUser res = this.getReservations().get(0);
+        this.getReservations().remove(0);
+        return res;
     }
 
     /* Accessors */
@@ -138,6 +155,14 @@ public class BookInfo extends Entity {
 
     public void setCountOfLouns(final int countOfLouns) {
         this.countOfLouns = countOfLouns;
+    }
+
+    public List<InterestedUser> getReservations() {
+        return this.reservations;
+    }
+
+    public void setReservations(final List<InterestedUser> reservations) {
+        this.reservations = reservations;
     }
 
 }

@@ -10,6 +10,8 @@ public class Library extends Application {
 
     private Ranking ranking = new Ranking();
 
+    private int maxLoanPeriodInDays = 60;
+
     public Library(final HomeFactory factory) {
         super(factory);
     }
@@ -28,6 +30,14 @@ public class Library extends Application {
 
     public void updateRanking(final BookInfo book) {
         this.getRanking().updateRanking(book);
+    }
+
+    public int getMaxLoanPeriodInDays() {
+        return this.maxLoanPeriodInDays;
+    }
+
+    public void setMaxLoanPeriodInDays(final int maxLoanPeriodInDays) {
+        this.maxLoanPeriodInDays = maxLoanPeriodInDays;
     }
 
 }

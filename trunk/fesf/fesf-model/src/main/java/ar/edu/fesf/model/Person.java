@@ -5,11 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ar.edu.fesf.validations.PositiveNumberValidator;
-import ar.edu.fesf.validations.NotNullFieldValidator;
-import ar.edu.fesf.validations.NotEmptyStringValidator;
+import org.joda.time.DateTime;
 
-public class User extends Nameable {
+import ar.edu.fesf.validations.NotEmptyStringValidator;
+import ar.edu.fesf.validations.NotNullFieldValidator;
+import ar.edu.fesf.validations.PositiveNumberValidator;
+import ar.edu.fesf.validations.UserException;
+
+public class Person extends Nameable {
 
     private int age;
 
@@ -23,9 +26,29 @@ public class User extends Nameable {
 
     private LoggingInfo loggingInfo;
 
-    private List<Loan> loans = new ArrayList<Loan>();
+    private List<Loan> oldLoans = new ArrayList<Loan>();
 
-    private List<Reservation> reservations = new ArrayList<Reservation>();
+    private List<Loan> currentLoans = new ArrayList<Loan>();
+
+    private List<InterestedUser> reservations = new ArrayList<InterestedUser>();
+
+    /* Methods */
+
+    public void addNewLoan(final Loan loan) {
+        if (this.getCurrentLoans().size() >= 3) {
+            throw new UserException("Users cannot borrow more than 3 books.");
+        }
+        this.getCurrentLoans().add(loan);
+    }
+
+    public void removeCurrentLoan(final Loan loan) {
+        if (this.getCurrentLoans().isEmpty()) {
+            throw new UserException("The list of loans is empty.");
+        }
+        loan.setReturnDate(new DateTime());
+        this.getOldLoans().add(loan);
+        this.getCurrentLoans().remove(loan);
+    }
 
     /* Accessors */
     public int getAge() {
@@ -81,20 +104,28 @@ public class User extends Nameable {
         this.loggingInfo = loggingInfo;
     }
 
-    public List<Loan> getLoans() {
-        return this.loans;
-    }
-
-    public void setLoans(final List<Loan> loans) {
-        this.loans = loans;
-    }
-
-    public List<Reservation> getReservations() {
+    public List<InterestedUser> getReservations() {
         return this.reservations;
     }
 
-    public void setReservations(final List<Reservation> reservations) {
+    public void setReservations(final List<InterestedUser> reservations) {
         this.reservations = reservations;
+    }
+
+    public List<Loan> getOldLoans() {
+        return this.oldLoans;
+    }
+
+    public void setOldLoans(final List<Loan> oldLoans) {
+        this.oldLoans = oldLoans;
+    }
+
+    public List<Loan> getCurrentLoans() {
+        return this.currentLoans;
+    }
+
+    public void setCurrentLoans(final List<Loan> currentLoans) {
+        this.currentLoans = currentLoans;
     }
 
 }
