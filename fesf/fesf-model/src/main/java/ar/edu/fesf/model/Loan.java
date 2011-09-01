@@ -3,11 +3,14 @@ package ar.edu.fesf.model;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
+import ar.edu.fesf.validations.BusinessDayValidator;
 import ar.edu.fesf.validations.UserException;
 
 public class Loan extends Event {
 
-    private Period loanPeriod;
+    private static int maxLoanPeriodInDays = 60;
+
+    private DateTime agreedReturnDate;
 
     private DateTime returnDate;
 
@@ -20,16 +23,23 @@ public class Loan extends Event {
 
     /* Accessors */
 
-    public Period getLoanPeriod() {
-        return this.loanPeriod;
-    }
-
-    public void setLoanPeriod(final Period period) {
-        this.loanPeriod = period;
-    }
-
     public DateTime getReturnDate() {
         return this.returnDate;
+    }
+
+    public DateTime getAgreedReturnDate() {
+        return this.agreedReturnDate;
+    }
+
+    public void setAgreedReturnDate(final DateTime agreedReturnDate) {
+
+        BusinessDayValidator.validate(agreedReturnDate);
+
+        if (new Period(this.getDate(), agreedReturnDate).getDays() > Loan.maxLoanPeriodInDays) {
+            throw new UserException("Loans can only last " + Loan.maxLoanPeriodInDays);
+        }
+
+        this.agreedReturnDate = agreedReturnDate;
     }
 
     public void setReturnDate(final DateTime returnDate) {
@@ -50,6 +60,14 @@ public class Loan extends Event {
 
     public void setBookCopy(final BookCopy bookCopy) {
         this.bookCopy = bookCopy;
+    }
+
+    public static int getMaxLoanPeriodInDays() {
+        return maxLoanPeriodInDays;
+    }
+
+    public static void setMaxLoanPeriodInDays(final int maxLoanPeriodInDays) {
+        Loan.maxLoanPeriodInDays = maxLoanPeriodInDays;
     }
 
 }

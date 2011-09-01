@@ -7,7 +7,7 @@ import ar.edu.fesf.validations.NotNullFieldValidator;
 
 public abstract class Event extends Entity {
 
-    private User user;
+    private Person user;
 
     private DateTime date = new DateTime();
 
@@ -19,11 +19,11 @@ public abstract class Event extends Entity {
     }
 
     /* Accessors */
-    public User getUser() {
+    public Person getUser() {
         return this.user;
     }
 
-    public void setUser(final User user) {
+    public void setUser(final Person user) {
         NotNullFieldValidator.validate(user, "User");
         this.user = user;
     }
