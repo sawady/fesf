@@ -32,7 +32,7 @@ public class BookInfo extends Entity {
 
     private Set<Category> categories = new HashSet<Category>();
 
-    private List<InterestedUser> reservations = new ArrayList<InterestedUser>();
+    private List<InterestEvent> interestEvents = new ArrayList<InterestEvent>();
 
     /* Methods */
     public void addCopy() {
@@ -61,16 +61,16 @@ public class BookInfo extends Entity {
         this.getAvailableCopies().add(copy);
     }
 
-    public void addReservation(final InterestedUser reservation) {
-        this.getReservations().add(reservation);
+    public void addInterestEvent(final InterestEvent reservation) {
+        this.getInterestEvents().add(reservation);
     }
 
-    public InterestedUser getUserToInformAvailability() {
-        if (this.getRegistedCopies().isEmpty()) {
-            throw new UserException("Nobody made a reservation of this book");
+    public InterestEvent getInterestEventToInformAvailability() {
+        if (this.getInterestEvents().isEmpty()) {
+            throw new UserException("No interested users are in the queue");
         }
-        InterestedUser res = this.getReservations().get(0);
-        this.getReservations().remove(0);
+        InterestEvent res = this.getInterestEvents().get(0);
+        this.getInterestEvents().remove(0);
         return res;
     }
 
@@ -157,12 +157,12 @@ public class BookInfo extends Entity {
         this.countOfLouns = countOfLouns;
     }
 
-    public List<InterestedUser> getReservations() {
-        return this.reservations;
+    public List<InterestEvent> getInterestEvents() {
+        return this.interestEvents;
     }
 
-    public void setReservations(final List<InterestedUser> reservations) {
-        this.reservations = reservations;
+    public void setInterestEvents(final List<InterestEvent> interestEvents) {
+        this.interestEvents = interestEvents;
     }
 
 }
