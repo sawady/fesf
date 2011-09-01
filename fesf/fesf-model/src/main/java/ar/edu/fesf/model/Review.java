@@ -14,6 +14,16 @@ public class Review extends Entity {
 
     private List<Comment> comments = new ArrayList<Comment>();
 
+    /* Methods */
+    public void addCalification(final int calif) {
+
+        this.setSumOfCalifications(this.getSumOfCalifications() + calif);
+        this.setCountOfCalifications(this.getCountOfCalifications() + 1);
+
+        this.setCalification(this.getSumOfCalifications() / this.getCountOfCalifications());
+
+    }
+
     /* Accessors */
     public int getCalification() {
         return this.calification;
@@ -47,12 +57,4 @@ public class Review extends Entity {
         this.comments = comments;
     }
 
-    public void addCalification(final int calif) {
-
-        this.setSumOfCalifications(this.getSumOfCalifications() + calif);
-        this.setCountOfCalifications(this.getCountOfCalifications() + 1);
-
-        this.setCalification(this.getSumOfCalifications() / this.getCountOfCalifications());
-
-    }
 }

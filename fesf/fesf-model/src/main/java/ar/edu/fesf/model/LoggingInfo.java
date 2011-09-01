@@ -1,14 +1,16 @@
 package ar.edu.fesf.model;
 
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.NotNullFieldValidator;
 import ar.edu.fesf.validations.NotEmptyStringValidator;
+import ar.edu.fesf.validations.NotNullFieldValidator;
 
 public class LoggingInfo extends Entity {
 
     private String pass;
 
     private String userid;
+
+    private Permission permission;
 
     /* Accessors */
     public String getPass() {

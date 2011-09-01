@@ -30,10 +30,9 @@ public class Person extends Nameable {
 
     private List<Loan> currentLoans = new ArrayList<Loan>();
 
-    private List<InterestedUser> reservations = new ArrayList<InterestedUser>();
+    private List<InterestEvent> reservations = new ArrayList<InterestEvent>();
 
     /* Methods */
-
     public void addNewLoan(final Loan loan) {
         if (this.getCurrentLoans().size() >= 3) {
             throw new UserException("Users cannot borrow more than 3 books.");
@@ -104,11 +103,11 @@ public class Person extends Nameable {
         this.loggingInfo = loggingInfo;
     }
 
-    public List<InterestedUser> getReservations() {
+    public List<InterestEvent> getReservations() {
         return this.reservations;
     }
 
-    public void setReservations(final List<InterestedUser> reservations) {
+    public void setReservations(final List<InterestEvent> reservations) {
         this.reservations = reservations;
     }
 
