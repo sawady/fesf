@@ -8,6 +8,7 @@ import java.util.Set;
 
 import ar.edu.fesf.application.Entity;
 import ar.edu.fesf.validations.NotEmptyStringValidator;
+import ar.edu.fesf.validations.NotNullFieldValidator;
 import ar.edu.fesf.validations.UserException;
 
 public class BookInfo extends Entity {
@@ -16,7 +17,7 @@ public class BookInfo extends Entity {
 
     private String isbn;
 
-    private String publisher;
+    private Publisher publisher;
 
     private String imagepath;
 
@@ -92,12 +93,12 @@ public class BookInfo extends Entity {
         this.isbn = isbn;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return this.publisher;
     }
 
-    public void setPublisher(final String publisher) {
-        NotEmptyStringValidator.validate(publisher, "Publisher");
+    public void setPublisher(final Publisher publisher) {
+        NotNullFieldValidator.validate(publisher, "Publisher");
         this.publisher = publisher;
     }
 
