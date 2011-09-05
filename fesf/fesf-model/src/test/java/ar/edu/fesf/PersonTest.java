@@ -17,7 +17,7 @@ public class PersonTest {
         Loan loan = mock(Loan.class);
         Person person = new Person();
         person.addNewLoan(loan);
-        assertEquals(1, person.getCurrentLoans().size());
+        assertEquals("The size must be equals 1", 1, person.getCurrentLoans().size());
     }
 
     @Test
@@ -29,10 +29,10 @@ public class PersonTest {
         person.addNewLoan(loan1);
         person.addNewLoan(loan2);
         person.addNewLoan(loan3);
-        assertEquals(3, person.getCurrentLoans().size());
-        assertTrue(person.getCurrentLoans().contains(loan1));
-        assertTrue(person.getCurrentLoans().contains(loan2));
-        assertTrue(person.getCurrentLoans().contains(loan3));
+        assertEquals("The size must be equals 3", 3, person.getCurrentLoans().size());
+        assertTrue("The list must contain loan1", person.getCurrentLoans().contains(loan1));
+        assertTrue("The list must contain loan2", person.getCurrentLoans().contains(loan2));
+        assertTrue("The list must contain loan3", person.getCurrentLoans().contains(loan3));
     }
 
     @Test(expected = UserException.class)
@@ -54,7 +54,7 @@ public class PersonTest {
         Person person = new Person();
 
         person.removeCurrentLoan(loan);
-        assertTrue(person.getCurrentLoans().isEmpty());
+        assertTrue("The list must be empty", person.getCurrentLoans().isEmpty());
     }
 
     @Test
@@ -66,8 +66,8 @@ public class PersonTest {
         person.getCurrentLoans().add(loan2);
 
         person.removeCurrentLoan(loan1);
-        assertEquals(1, person.getCurrentLoans().size());
-        assertTrue(person.getCurrentLoans().contains(loan2));
-        assertTrue(person.getOldLoans().contains(loan1));
+        assertEquals("The size must be equals 1", 1, person.getCurrentLoans().size());
+        assertTrue("The list must be contain loan2", person.getCurrentLoans().contains(loan2));
+        assertTrue("The list of old loans must be contain loan1", person.getOldLoans().contains(loan1));
     }
 }
