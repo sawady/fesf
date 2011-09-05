@@ -33,4 +33,12 @@ public class LoggingInfo extends Entity {
         this.userid = userid;
     }
 
+    public Permission getPermission() {
+        return this.permission;
+    }
+
+    public void setPermission(final Permission permission) {
+        this.permission = permission;
+    }
+
 }
