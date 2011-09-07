@@ -1,5 +1,9 @@
 package ar.edu.fesf.model;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -7,9 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.NotEmptyStringValidator;
-import ar.edu.fesf.validations.NotNullFieldValidator;
-import ar.edu.fesf.validations.UserException;
 
 public class BookInfo extends Entity {
 
@@ -45,9 +46,7 @@ public class BookInfo extends Entity {
     public BookCopy getAvailableCopy() {
         Iterator<BookCopy> it = this.getAvailableCopies().iterator();
 
-        if (!it.hasNext()) {
-            throw new UserException("There are no available copies of this book");
-        }
+        checkState(it.hasNext(), "There are no available copies of this book");
 
         BookCopy result = it.next();
         this.getAvailableCopies().remove(result);
@@ -67,9 +66,7 @@ public class BookInfo extends Entity {
     }
 
     public InterestEvent getInterestEventToInformAvailability() {
-        if (this.getInterestEvents().isEmpty()) {
-            throw new UserException("No interested users are in the queue");
-        }
+        checkState(!this.getInterestEvents().isEmpty(), "No interested users are in the queue");
         InterestEvent res = this.getInterestEvents().get(0);
         this.getInterestEvents().remove(0);
         return res;
@@ -81,7 +78,7 @@ public class BookInfo extends Entity {
     }
 
     public void setTitle(final String title) {
-        NotEmptyStringValidator.validate(title, "Title");
+        checkArgument(!title.isEmpty());
         this.title = title;
     }
 
@@ -98,7 +95,7 @@ public class BookInfo extends Entity {
     }
 
     public void setPublisher(final Publisher publisher) {
-        NotNullFieldValidator.validate(publisher, "Publisher");
+        checkNotNull(publisher);
         this.publisher = publisher;
     }
 

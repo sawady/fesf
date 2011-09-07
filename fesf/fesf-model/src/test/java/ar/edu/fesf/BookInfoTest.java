@@ -11,7 +11,6 @@ import org.junit.Test;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.BookInfo;
 import ar.edu.fesf.model.InterestEvent;
-import ar.edu.fesf.validations.UserException;
 
 public class BookInfoTest {
 
@@ -39,7 +38,7 @@ public class BookInfoTest {
         assertEquals("Available Copies must be 2", this.bookInfoExample.getAvailableCopies().size(), 2);
     }
 
-    @Test(expected = UserException.class)
+    @Test(expected = RuntimeException.class)
     public void getUserToInformAvailabilityWhenNoUserIsInterested() {
         this.bookInfoExample.getInterestEventToInformAvailability();
     }
@@ -59,12 +58,12 @@ public class BookInfoTest {
                 this.bookInfoExample.getInterestEvents().contains(interestEvent2));
     }
 
-    @Test(expected = UserException.class)
+    @Test(expected = RuntimeException.class)
     public void getAvailableCopyCaseEmpty() {
         this.bookInfoExample.getAvailableCopy();
     }
 
-    @Test(expected = UserException.class)
+    @Test(expected = RuntimeException.class)
     public void getAvailableCopyCaseCopiesHaveLoans() {
 
         this.bookInfoExample.addCopy();

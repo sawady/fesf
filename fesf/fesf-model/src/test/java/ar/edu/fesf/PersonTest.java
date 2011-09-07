@@ -8,9 +8,14 @@ import org.junit.Test;
 
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
-import ar.edu.fesf.validations.UserException;
 
 public class PersonTest {
+
+    @Test(expected = IllegalArgumentException.class)
+    public void personaNameCantBeEmpty() {
+        Person person = new Person();
+        person.setName("");
+    }
 
     @Test
     public void addNewLoanWhenNoLoans() {
@@ -35,7 +40,7 @@ public class PersonTest {
         assertTrue("The list must contain loan3", person.getCurrentLoans().contains(loan3));
     }
 
-    @Test(expected = UserException.class)
+    @Test(expected = RuntimeException.class)
     public void addNewLoanWhen3Loans() {
         Loan loan1 = mock(Loan.class);
         Loan loan2 = mock(Loan.class);
@@ -48,7 +53,7 @@ public class PersonTest {
         person.addNewLoan(loan4);
     }
 
-    @Test(expected = UserException.class)
+    @Test(expected = RuntimeException.class)
     public void removeCurrentLoanWhenNoLoans() {
         Loan loan = mock(Loan.class);
         Person person = new Person();

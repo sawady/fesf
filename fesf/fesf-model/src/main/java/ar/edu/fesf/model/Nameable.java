@@ -1,7 +1,7 @@
 package ar.edu.fesf.model;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.NotEmptyStringValidator;
 
 public abstract class Nameable extends Entity {
 
@@ -13,7 +13,7 @@ public abstract class Nameable extends Entity {
     }
 
     public void setName(final String name) {
-        NotEmptyStringValidator.validate(name, "Name");
+        checkArgument(!name.isEmpty(), "The name cannot be empty");
         this.name = name;
     }
 
