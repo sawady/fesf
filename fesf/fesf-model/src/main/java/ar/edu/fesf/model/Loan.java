@@ -32,14 +32,14 @@ public class Loan extends Event {
         return this.returnDate;
     }
 
-    public void setAgreedReturnDate(final DateTime agreedReturnDate, final BusinessDayValidator bsdvalidator) {
+    public void setAgreedReturnDate(final DateTime date, final BusinessDayValidator bsdvalidator) {
 
-        bsdvalidator.validate(agreedReturnDate);
-
-        checkState(new Period(this.getDate(), agreedReturnDate).getDays() <= Loan.maxLoanPeriodInDays,
+        bsdvalidator.validate(date);
+        
+        checkState(new Period(this.getDate(), date).getDays() <= Loan.maxLoanPeriodInDays,
                 "Loans can only last " + Loan.maxLoanPeriodInDays);
 
-        this.agreedReturnDate = agreedReturnDate;
+        this.agreedReturnDate = date;
     }
 
     public void setReturnDate(final DateTime returnDate) {
