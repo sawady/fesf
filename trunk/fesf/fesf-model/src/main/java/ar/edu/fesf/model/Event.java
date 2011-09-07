@@ -1,9 +1,10 @@
 package ar.edu.fesf.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.joda.time.DateTime;
 
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.NotNullFieldValidator;
 
 public abstract class Event extends Entity {
 
@@ -24,7 +25,7 @@ public abstract class Event extends Entity {
     }
 
     public void setUser(final Person user) {
-        NotNullFieldValidator.validate(user, "User");
+        checkNotNull(user);
         this.user = user;
     }
 
@@ -41,7 +42,7 @@ public abstract class Event extends Entity {
     }
 
     public void setBook(final BookInfo book) {
-        NotNullFieldValidator.validate(book, "Book");
+        checkNotNull(book);
         this.book = book;
     }
 

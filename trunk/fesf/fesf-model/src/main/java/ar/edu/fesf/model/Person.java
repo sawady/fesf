@@ -1,16 +1,15 @@
 package ar.edu.fesf.model;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
-
-import ar.edu.fesf.validations.NotEmptyStringValidator;
-import ar.edu.fesf.validations.NotNullFieldValidator;
-import ar.edu.fesf.validations.PositiveNumberValidator;
-import ar.edu.fesf.validations.UserException;
 
 public class Person extends Nameable {
 
@@ -34,16 +33,12 @@ public class Person extends Nameable {
 
     /* Methods */
     public void addNewLoan(final Loan loan) {
-        if (this.getCurrentLoans().size() >= 3) {
-            throw new UserException("Users cannot borrow more than 3 books.");
-        }
+        checkState(this.getCurrentLoans().size() < 3, "Users cannot borrow more than 3 books.");
         this.getCurrentLoans().add(loan);
     }
 
     public void removeCurrentLoan(final Loan loan) {
-        if (this.getCurrentLoans().isEmpty()) {
-            throw new UserException("The list of loans is empty.");
-        }
+        checkState(!this.getCurrentLoans().isEmpty(), "The list of loans is empty.");
         loan.setReturnDate(new DateTime());
         this.getOldLoans().add(loan);
         this.getCurrentLoans().remove(loan);
@@ -55,8 +50,8 @@ public class Person extends Nameable {
     }
 
     public void setAge(final int age) {
-        NotNullFieldValidator.validate(age, "Age");
-        PositiveNumberValidator.validate(age, "Age");
+        checkNotNull(age);
+        checkArgument(age > 0);
         this.age = age;
     }
 
@@ -65,7 +60,7 @@ public class Person extends Nameable {
     }
 
     public void setAddress(final String address) {
-        NotEmptyStringValidator.validate(address, "Address");
+        checkArgument(!address.isEmpty());
         this.address = address;
     }
 
@@ -74,7 +69,7 @@ public class Person extends Nameable {
     }
 
     public void setPhone(final String phone) {
-        NotEmptyStringValidator.validate(phone, "Phone");
+        checkArgument(!phone.isEmpty());
         this.phone = phone;
     }
 
@@ -83,7 +78,7 @@ public class Person extends Nameable {
     }
 
     public void setEmail(final String email) {
-        NotEmptyStringValidator.validate(email, "Email");
+        checkArgument(!email.isEmpty());
         this.email = email;
     }
 

@@ -1,6 +1,6 @@
 package ar.edu.fesf.model;
 
-import ar.edu.fesf.validations.NotNullFieldValidator;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Comment extends Event {
 
@@ -13,7 +13,7 @@ public class Comment extends Event {
     }
 
     public void setBody(final String body) {
-        NotNullFieldValidator.validate(body, "Body");
+        checkNotNull(body);
         this.body = body;
     }
 

@@ -3,9 +3,6 @@ package ar.edu.fesf.application;
 import ar.edu.fesf.model.BookInfo;
 import ar.edu.fesf.model.Ranking;
 
-/**
- * TODO: description
- */
 public class Library extends Application {
 
     private Ranking ranking = new Ranking();

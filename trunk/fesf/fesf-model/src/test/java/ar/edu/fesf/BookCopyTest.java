@@ -14,7 +14,6 @@ import org.junit.Test;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.BookInfo;
 import ar.edu.fesf.model.Loan;
-import ar.edu.fesf.validations.UserException;
 
 /**
  * BookCopy Test
@@ -41,7 +40,7 @@ public class BookCopyTest {
         this.bookExample.setBook(this.book);
     }
 
-    @Test(expected = UserException.class)
+    @Test(expected = RuntimeException.class)
     public void addLoanWhenLastNotFinished() {
         when(this.loanMock.hasFinished()).thenReturn(false);
         this.bookExample.addLoan(this.loanMock);

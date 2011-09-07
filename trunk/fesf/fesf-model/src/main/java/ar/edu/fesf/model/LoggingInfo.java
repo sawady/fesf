@@ -1,8 +1,8 @@
 package ar.edu.fesf.model;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.NotEmptyStringValidator;
-import ar.edu.fesf.validations.NotNullFieldValidator;
 
 public class LoggingInfo extends Entity {
 
@@ -18,8 +18,8 @@ public class LoggingInfo extends Entity {
     }
 
     public void setPass(final String pass) {
-        NotNullFieldValidator.validate(pass, "Password");
-        NotEmptyStringValidator.validate(pass, "Password");
+        checkNotNull(pass);
+        checkArgument(!pass.isEmpty());
         this.pass = pass;
     }
 
@@ -28,8 +28,8 @@ public class LoggingInfo extends Entity {
     }
 
     public void setUserid(final String userid) {
-        NotNullFieldValidator.validate(userid, "User Id");
-        NotEmptyStringValidator.validate(userid, "User Id");
+        checkNotNull(userid);
+        checkArgument(!userid.isEmpty());
         this.userid = userid;
     }
 

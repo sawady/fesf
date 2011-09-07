@@ -1,10 +1,11 @@
 package ar.edu.fesf.model;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.fesf.application.Entity;
-import ar.edu.fesf.validations.UserException;
 
 public class BookCopy extends Entity {
 
@@ -20,9 +21,7 @@ public class BookCopy extends Entity {
     }
 
     public void addLoan(final Loan loan) {
-        if (!this.isAvailable()) {
-            throw new UserException("Last loan has not finished");
-        }
+        checkState(this.isAvailable(), "Last loan has not finished");
         this.getLoans().add(0, loan);
         this.getBook().incrementCountOfLoans();
     }
