@@ -1,6 +1,8 @@
 package ar.edu.fesf;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ public class BusinessDayValidatorTest {
     @Test
     public void isNonBusinessDayWhenNoListOfNonBusinessDays() {
         BusinessDayValidator bs = new BusinessDayValidator();
-        bs.isNonBusinessDay(new DateTime());
+        assertFalse("The date must be non business", bs.isNonBusinessDay(new DateTime()));
     }
 
     @Test
@@ -30,7 +32,7 @@ public class BusinessDayValidatorTest {
 
         bs.setNonBusinessDays(list);
 
-        bs.isNonBusinessDay(new DateTime());
+        assertFalse("The date must be non business", bs.isNonBusinessDay(new DateTime()));
     }
 
     @Test
@@ -39,13 +41,14 @@ public class BusinessDayValidatorTest {
 
         List<DateTime> list = new ArrayList<DateTime>();
 
-        list.add(new DateTime("10102010"));
+        DateTime example = new DateTime("10102010");
+        list.add(example);
         list.add(new DateTime().plusDays(2));
         list.add(new DateTime().plusDays(3));
 
         bs.setNonBusinessDays(list);
 
-        bs.isNonBusinessDay(new DateTime("10102010"));
+        assertTrue("The date must be business", bs.isNonBusinessDay(example));
     }
 
     @Test
