@@ -1,17 +1,15 @@
 package ar.edu.fesf.application;
 
-import ar.edu.fesf.model.BookInfo;
+import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Ranking;
 
-public class Library extends Application {
+public class Library {
+
+    private HomeRepository homeRepository;
 
     private Ranking ranking = new Ranking();
 
     private int maxLoanPeriodInDays = 60;
-
-    public Library(final HomeFactory factory) {
-        super(factory);
-    }
 
     public Ranking getRanking() {
         return this.ranking;
@@ -21,11 +19,11 @@ public class Library extends Application {
         this.ranking = ranking;
     }
 
-    public void updateRecents(final BookInfo book) {
+    public void updateRecents(final Book book) {
         this.getRanking().addToRecents(book);
     }
 
-    public void updateRanking(final BookInfo book) {
+    public void updateRanking(final Book book) {
         this.getRanking().updateRanking(book);
     }
 
@@ -35,6 +33,14 @@ public class Library extends Application {
 
     public void setMaxLoanPeriodInDays(final int maxLoanPeriodInDays) {
         this.maxLoanPeriodInDays = maxLoanPeriodInDays;
+    }
+
+    public HomeRepository getHomeRepository() {
+        return this.homeRepository;
+    }
+
+    public void setHomeRepository(final HomeRepository homeRepository) {
+        this.homeRepository = homeRepository;
     }
 
 }

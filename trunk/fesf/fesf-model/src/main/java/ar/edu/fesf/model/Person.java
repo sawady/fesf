@@ -23,7 +23,7 @@ public class Person extends Nameable {
 
     private Set<Category> categories = new HashSet<Category>();
 
-    private LoggingInfo loggingInfo;
+    private UserInfo loggingInfo;
 
     private List<Loan> oldLoans = new ArrayList<Loan>();
 
@@ -32,9 +32,8 @@ public class Person extends Nameable {
     private List<InterestEvent> reservations = new ArrayList<InterestEvent>();
 
     /**
-     * TODO una practica recomendada es reificar este tipo de reglas para
-     * permitir agregar, modificar y eliminar reglas mas simples. Por ejemplo
-     * modelando el objeto Rule y haciendo un apply.
+     * TODO una practica recomendada es reificar este tipo de reglas para permitir agregar, modificar y eliminar reglas
+     * mas simples. Por ejemplo modelando el objeto Rule y haciendo un apply.
      */
     /* Methods */
     public void addNewLoan(final Loan loan) {
@@ -51,7 +50,7 @@ public class Person extends Nameable {
 
     /* Accessors */
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public void setAge(final int age) {
@@ -61,7 +60,7 @@ public class Person extends Nameable {
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public void setAddress(final String address) {
@@ -70,7 +69,7 @@ public class Person extends Nameable {
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 
     public void setPhone(final String phone) {
@@ -79,7 +78,7 @@ public class Person extends Nameable {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(final String email) {
@@ -88,23 +87,23 @@ public class Person extends Nameable {
     }
 
     public Set<Category> getCategories() {
-        return categories;
+        return this.categories;
     }
 
     public void setCategories(final Set<Category> categories) {
         this.categories = categories;
     }
 
-    public LoggingInfo getLoggingInfo() {
-        return loggingInfo;
+    public UserInfo getLoggingInfo() {
+        return this.loggingInfo;
     }
 
-    public void setLoggingInfo(final LoggingInfo loggingInfo) {
+    public void setLoggingInfo(final UserInfo loggingInfo) {
         this.loggingInfo = loggingInfo;
     }
 
     public List<InterestEvent> getReservations() {
-        return reservations;
+        return this.reservations;
     }
 
     public void setReservations(final List<InterestEvent> reservations) {
@@ -112,7 +111,7 @@ public class Person extends Nameable {
     }
 
     public List<Loan> getOldLoans() {
-        return oldLoans;
+        return this.oldLoans;
     }
 
     public void setOldLoans(final List<Loan> oldLoans) {
@@ -120,7 +119,7 @@ public class Person extends Nameable {
     }
 
     public List<Loan> getCurrentLoans() {
-        return currentLoans;
+        return this.currentLoans;
     }
 
     public void setCurrentLoans(final List<Loan> currentLoans) {

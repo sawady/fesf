@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.fesf.model.BookCopy;
-import ar.edu.fesf.model.BookInfo;
+import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
 
 /**
@@ -26,7 +26,7 @@ public class BookCopyTest {
 
     private BookCopy bookExample;
 
-    private BookInfo book;
+    private Book book;
 
     @Before
     public void setUp() {
@@ -35,7 +35,7 @@ public class BookCopyTest {
         when(this.loanMock.hasFinished()).thenReturn(true);
         when(this.lastLoanMock.hasFinished()).thenReturn(false);
 
-        this.book = mock(BookInfo.class);
+        this.book = mock(Book.class);
         this.bookExample = new BookCopy();
         this.bookExample.setBook(this.book);
     }

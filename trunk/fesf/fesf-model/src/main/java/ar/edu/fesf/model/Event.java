@@ -12,7 +12,7 @@ public abstract class Event extends Entity {
 
     private DateTime date = new DateTime();
 
-    private BookInfo book;
+    private Book book;
 
     /* Methods */
     public void updateUserCategories() {
@@ -37,11 +37,11 @@ public abstract class Event extends Entity {
         this.date = date;
     }
 
-    public BookInfo getBook() {
+    public Book getBook() {
         return this.book;
     }
 
-    public void setBook(final BookInfo book) {
+    public void setBook(final Book book) {
         checkNotNull(book);
         this.book = book;
     }

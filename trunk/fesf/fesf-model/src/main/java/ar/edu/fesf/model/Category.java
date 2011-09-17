@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Category extends Nameable {
 
-    private List<BookInfo> books = new ArrayList<BookInfo>();
+    private List<Book> books = new ArrayList<Book>();
 
     /* Accessors */
-    public List<BookInfo> getBooks() {
+    public List<Book> getBooks() {
         return this.books;
     }
 
-    public void setBooks(final List<BookInfo> books) {
+    public void setBooks(final List<Book> books) {
         this.books = books;
     }
 

@@ -2,7 +2,7 @@ package ar.edu.fesf.model;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class Comment extends Event {
+public class SimpleComment extends Event {
 
     private String body;
 

@@ -35,9 +35,9 @@ public class Loan extends Event {
     public void setAgreedReturnDate(final DateTime date, final BusinessDayValidator bsdvalidator) {
 
         bsdvalidator.validate(date);
-        
-        checkState(new Period(this.getDate(), date).getDays() <= Loan.maxLoanPeriodInDays,
-                "Loans can only last " + Loan.maxLoanPeriodInDays);
+
+        checkState(new Period(this.getDate(), date).getDays() <= Loan.maxLoanPeriodInDays, "Loans can only last "
+                + Loan.maxLoanPeriodInDays);
 
         this.agreedReturnDate = date;
     }
