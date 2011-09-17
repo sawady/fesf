@@ -18,7 +18,8 @@ public class Ranking extends Entity {
     /* Methods */
 
     /**
-     * Includes a recently added book into the recentlyAvailable list, removing the oldest addition.
+     * Includes a recently added book into the recentlyAvailable list, removing
+     * the oldest addition.
      */
     public void addToRecents(final BookInfo book) {
         if (this.getLimitOfRecentlyBooks() == this.getRecentlyAvailable().size()) {
@@ -28,6 +29,10 @@ public class Ranking extends Entity {
         this.getRecentlyAvailable().add(book);
     }
 
+    /**
+     * TODO, este metodos les quedo muy complejo con diferentes abstracción es y
+     * NCC mas de 5. Huele a refactor
+     */
     public void updateRanking(final BookInfo newBook) {
         if (newBook.getCountOfLouns() > this.getMinLoansForUpdate()) {
             List<BookInfo> newList = new ArrayList<BookInfo>();
@@ -57,7 +62,7 @@ public class Ranking extends Entity {
     /* Accessors */
 
     public List<BookInfo> getTop20() {
-        return this.top20;
+        return top20;
     }
 
     public void setTop20(final List<BookInfo> top20) {
@@ -65,7 +70,7 @@ public class Ranking extends Entity {
     }
 
     public List<BookInfo> getRecentlyAvailable() {
-        return this.recentlyAvailable;
+        return recentlyAvailable;
     }
 
     public void setRecentlyAvailable(final List<BookInfo> recentlyAvailable) {
@@ -73,7 +78,7 @@ public class Ranking extends Entity {
     }
 
     public int getLimitOfRecentlyBooks() {
-        return this.limitOfRecentlyBooks;
+        return limitOfRecentlyBooks;
     }
 
     public void setLimitOfRecentlyBooks(final int limitOfRecentlyBooks) {
@@ -81,7 +86,7 @@ public class Ranking extends Entity {
     }
 
     public int getMinLoansForUpdate() {
-        return this.minLoansForUpdate;
+        return minLoansForUpdate;
     }
 
     public void setMinLoansForUpdate(final int minLoansForUpdate) {

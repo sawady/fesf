@@ -31,6 +31,11 @@ public class Person extends Nameable {
 
     private List<InterestEvent> reservations = new ArrayList<InterestEvent>();
 
+    /**
+     * TODO una practica recomendada es reificar este tipo de reglas para
+     * permitir agregar, modificar y eliminar reglas mas simples. Por ejemplo
+     * modelando el objeto Rule y haciendo un apply.
+     */
     /* Methods */
     public void addNewLoan(final Loan loan) {
         checkState(this.getCurrentLoans().size() < 3, "Users cannot borrow more than 3 books.");
@@ -46,7 +51,7 @@ public class Person extends Nameable {
 
     /* Accessors */
     public int getAge() {
-        return this.age;
+        return age;
     }
 
     public void setAge(final int age) {
@@ -56,7 +61,7 @@ public class Person extends Nameable {
     }
 
     public String getAddress() {
-        return this.address;
+        return address;
     }
 
     public void setAddress(final String address) {
@@ -65,7 +70,7 @@ public class Person extends Nameable {
     }
 
     public String getPhone() {
-        return this.phone;
+        return phone;
     }
 
     public void setPhone(final String phone) {
@@ -74,7 +79,7 @@ public class Person extends Nameable {
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(final String email) {
@@ -83,7 +88,7 @@ public class Person extends Nameable {
     }
 
     public Set<Category> getCategories() {
-        return this.categories;
+        return categories;
     }
 
     public void setCategories(final Set<Category> categories) {
@@ -91,7 +96,7 @@ public class Person extends Nameable {
     }
 
     public LoggingInfo getLoggingInfo() {
-        return this.loggingInfo;
+        return loggingInfo;
     }
 
     public void setLoggingInfo(final LoggingInfo loggingInfo) {
@@ -99,7 +104,7 @@ public class Person extends Nameable {
     }
 
     public List<InterestEvent> getReservations() {
-        return this.reservations;
+        return reservations;
     }
 
     public void setReservations(final List<InterestEvent> reservations) {
@@ -107,7 +112,7 @@ public class Person extends Nameable {
     }
 
     public List<Loan> getOldLoans() {
-        return this.oldLoans;
+        return oldLoans;
     }
 
     public void setOldLoans(final List<Loan> oldLoans) {
@@ -115,7 +120,7 @@ public class Person extends Nameable {
     }
 
     public List<Loan> getCurrentLoans() {
-        return this.currentLoans;
+        return currentLoans;
     }
 
     public void setCurrentLoans(final List<Loan> currentLoans) {

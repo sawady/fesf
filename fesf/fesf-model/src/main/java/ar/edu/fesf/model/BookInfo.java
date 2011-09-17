@@ -12,6 +12,10 @@ import java.util.Set;
 
 import ar.edu.fesf.application.Entity;
 
+/**
+ * 
+ * TODO: No seria solo "BOOK" ??
+ */
 public class BookInfo extends Entity {
 
     private String title;
@@ -74,7 +78,7 @@ public class BookInfo extends Entity {
 
     /* Accessors */
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public void setTitle(final String title) {
@@ -83,7 +87,7 @@ public class BookInfo extends Entity {
     }
 
     public String getIsbn() {
-        return this.isbn;
+        return isbn;
     }
 
     public void setIsbn(final String isbn) {
@@ -91,7 +95,7 @@ public class BookInfo extends Entity {
     }
 
     public Publisher getPublisher() {
-        return this.publisher;
+        return publisher;
     }
 
     public void setPublisher(final Publisher publisher) {
@@ -100,7 +104,7 @@ public class BookInfo extends Entity {
     }
 
     public String getImagepath() {
-        return this.imagepath;
+        return imagepath;
     }
 
     public void setImagepath(final String imagepath) {
@@ -108,7 +112,7 @@ public class BookInfo extends Entity {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(final String description) {
@@ -116,7 +120,7 @@ public class BookInfo extends Entity {
     }
 
     public Set<Author> getAuthors() {
-        return this.authors;
+        return authors;
     }
 
     public void setAuthors(final Set<Author> authors) {
@@ -124,7 +128,7 @@ public class BookInfo extends Entity {
     }
 
     public Set<BookCopy> getRegistedCopies() {
-        return this.registedCopies;
+        return registedCopies;
     }
 
     public void setRegistedCopies(final Set<BookCopy> registedCopies) {
@@ -132,7 +136,7 @@ public class BookInfo extends Entity {
     }
 
     public Set<BookCopy> getAvailableCopies() {
-        return this.availableCopies;
+        return availableCopies;
     }
 
     public void setAvailableCopies(final Set<BookCopy> availableCopies) {
@@ -140,7 +144,7 @@ public class BookInfo extends Entity {
     }
 
     public Set<Category> getCategories() {
-        return this.categories;
+        return categories;
     }
 
     public void setCategories(final Set<Category> categories) {
@@ -148,7 +152,7 @@ public class BookInfo extends Entity {
     }
 
     public int getCountOfLouns() {
-        return this.countOfLouns;
+        return countOfLouns;
     }
 
     public void setCountOfLouns(final int countOfLouns) {
@@ -156,7 +160,7 @@ public class BookInfo extends Entity {
     }
 
     public List<InterestEvent> getInterestEvents() {
-        return this.interestEvents;
+        return interestEvents;
     }
 
     public void setInterestEvents(final List<InterestEvent> interestEvents) {

@@ -4,6 +4,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 
+ * TODO No entiendo que hace esta clase, la utilizan para algo ??
+ */
 public class Application {
 
     /* VARIABLES ************************************************** */
@@ -13,13 +17,13 @@ public class Application {
     /* CONSTRUCTOR ************************************************** */
 
     public Application(final HomeFactory factory) {
-        factory.addHomes(this.homes);
+        factory.addHomes(homes);
     }
 
     /* GET&SET************************************************** */
 
     public Map<Class<?>, Home<?>> getHomes() {
-        return this.homes;
+        return homes;
     }
 
     public void setHomes(final Map<Class<?>, Home<?>> homes) {
@@ -32,7 +36,7 @@ public class Application {
 
     @SuppressWarnings("unchecked")
     public <T extends Persistible> Home<T> getHome(final Class<? extends T> type) {
-        return (Home<T>) this.homes.get(type);
+        return (Home<T>) homes.get(type);
     }
 
 }
