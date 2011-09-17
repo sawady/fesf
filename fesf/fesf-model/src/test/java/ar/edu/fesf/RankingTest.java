@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.fesf.model.BookInfo;
+import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Ranking;
 
 public class RankingTest {
@@ -19,13 +19,13 @@ public class RankingTest {
 
     private static final String UNEXPECTED_INDEX_WHEN_UPDATING = "Unexpected index when updating";
 
-    private BookInfo bookMock;
+    private Book bookMock;
 
     private Ranking rank;
 
     @Before
     public void setUp() {
-        this.bookMock = mock(BookInfo.class);
+        this.bookMock = mock(Book.class);
         this.rank = new Ranking();
     }
 
@@ -40,10 +40,10 @@ public class RankingTest {
 
     @Test
     public void addToRecentsWhenFull() {
-        BookInfo firstBook = new BookInfo();
+        Book firstBook = new Book();
         this.rank.addToRecents(firstBook);
         for (int i = this.rank.getLimitOfRecentlyBooks() - 1; i > 0; i = i - 1) {
-            this.rank.addToRecents(mock(BookInfo.class));
+            this.rank.addToRecents(mock(Book.class));
         }
         this.rank.addToRecents(this.bookMock);
         assertTrue("Recent addition is not contained when full",
@@ -57,10 +57,10 @@ public class RankingTest {
     @Test
     public void updateRankingWhenEmpty() {
         assertEquals(UNEXPECTED_LIST_SIZE, 0, this.rank.getTop20().size());
-        BookInfo bookMock1 = mock(BookInfo.class);
-        BookInfo bookMock2 = mock(BookInfo.class);
-        BookInfo bookMock3 = mock(BookInfo.class);
-        BookInfo bookMock4 = mock(BookInfo.class);
+        Book bookMock1 = mock(Book.class);
+        Book bookMock2 = mock(Book.class);
+        Book bookMock3 = mock(Book.class);
+        Book bookMock4 = mock(Book.class);
         when(bookMock1.getCountOfLouns()).thenReturn(5);
         when(bookMock2.getCountOfLouns()).thenReturn(1);
         when(bookMock3.getCountOfLouns()).thenReturn(3);
@@ -78,9 +78,9 @@ public class RankingTest {
 
     @Test
     public void updateRankingWhenFull() {
-        BookInfo book;
+        Book book;
         for (int i = 20; i > 0; i = i - 1) {
-            book = mock(BookInfo.class);
+            book = mock(Book.class);
             when(book.getCountOfLouns()).thenReturn(i);
             this.rank.getTop20().add(book);
         }
@@ -89,8 +89,8 @@ public class RankingTest {
         this.rank.updateRanking(this.bookMock);
         assertTrue("Recent addition is not contained", this.rank.getTop20().contains(this.bookMock));
         assertEquals("Unexpected index", 16, this.rank.getTop20().indexOf(this.bookMock));
-        assertNotSame("Unexpected index", this.rank.getTop20().indexOf(this.bookMock) == 15);
-        assertNotSame("Unexpected index", this.rank.getTop20().indexOf(this.bookMock) == 17);
+        assertNotSame("Unexpected index", this.rank.getTop20().indexOf(this.bookMock), 15);
+        assertNotSame("Unexpected index", this.rank.getTop20().indexOf(this.bookMock), 17);
         assertEquals(UNEXPECTED_LIST_SIZE, 20, this.rank.getTop20().size());
     }
 }

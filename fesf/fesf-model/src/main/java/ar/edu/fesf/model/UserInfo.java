@@ -4,11 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import ar.edu.fesf.application.Entity;
 
-/**
- * 
- * TODO: No seria userINFO o Logininfo en todo caso ?
- */
-public class LoggingInfo extends Entity {
+public class UserInfo extends Entity {
 
     private String pass;
 
@@ -18,7 +14,7 @@ public class LoggingInfo extends Entity {
 
     /* Accessors */
     public String getPass() {
-        return pass;
+        return this.pass;
     }
 
     public void setPass(final String pass) {
@@ -28,7 +24,7 @@ public class LoggingInfo extends Entity {
     }
 
     public String getUserid() {
-        return userid;
+        return this.userid;
     }
 
     public void setUserid(final String userid) {
@@ -38,7 +34,7 @@ public class LoggingInfo extends Entity {
     }
 
     public Permission getPermission() {
-        return permission;
+        return this.permission;
     }
 
     public void setPermission(final Permission permission) {

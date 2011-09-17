@@ -9,7 +9,7 @@ import ar.edu.fesf.application.Entity;
 
 public class BookCopy extends Entity {
 
-    private BookInfo book;
+    private Book book;
 
     private String observations = "";
 
@@ -47,11 +47,11 @@ public class BookCopy extends Entity {
         this.loans = loans;
     }
 
-    public BookInfo getBook() {
+    public Book getBook() {
         return this.book;
     }
 
-    public void setBook(final BookInfo book) {
+    public void setBook(final Book book) {
         this.book = book;
     }
 

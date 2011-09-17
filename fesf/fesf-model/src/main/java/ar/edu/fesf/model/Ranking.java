@@ -1,27 +1,25 @@
 package ar.edu.fesf.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import ar.edu.fesf.application.Entity;
 
 public class Ranking extends Entity {
 
-    private List<BookInfo> top20 = new ArrayList<BookInfo>();
+    private List<Book> top20 = new ArrayList<Book>();
 
-    private List<BookInfo> recentlyAvailable = new ArrayList<BookInfo>();
+    private List<Book> recentlyAvailable = new ArrayList<Book>();
 
     private int limitOfRecentlyBooks = 20;
-
-    private int minLoansForUpdate = 0;
 
     /* Methods */
 
     /**
-     * Includes a recently added book into the recentlyAvailable list, removing
-     * the oldest addition.
+     * Includes a recently added book into the recentlyAvailable list, removing the oldest addition.
      */
-    public void addToRecents(final BookInfo book) {
+    public void addToRecents(final Book book) {
         if (this.getLimitOfRecentlyBooks() == this.getRecentlyAvailable().size()) {
             this.getRecentlyAvailable().remove(0);
         }
@@ -29,68 +27,58 @@ public class Ranking extends Entity {
         this.getRecentlyAvailable().add(book);
     }
 
-    /**
-     * TODO, este metodos les quedo muy complejo con diferentes abstracción es y
-     * NCC mas de 5. Huele a refactor
-     */
-    public void updateRanking(final BookInfo newBook) {
-        if (newBook.getCountOfLouns() > this.getMinLoansForUpdate()) {
-            List<BookInfo> newList = new ArrayList<BookInfo>();
-            Boolean added = false;
+    public void updateRanking(final Book newBook) {
 
-            for (BookInfo bookInfo : this.getTop20()) {
-                if (!added && newBook.getCountOfLouns() > bookInfo.getCountOfLouns()) {
-                    newList.add(newBook);
-                    newList.add(bookInfo);
-                    added = true;
-                } else {
-                    newList.add(bookInfo);
-                }
-            }
-            if (!added && newList.size() < 20) {
-                newList.add(newBook);
+        boolean wasAdded = false;
+        int addToIndex = 0;
+        Iterator<Book> it = this.getTop20().iterator();
+
+        // recorre para ponerlo en posicion
+        while (it.hasNext() && !wasAdded) {
+            if (newBook.getCountOfLouns() > it.next().getCountOfLouns()) {
+                this.getTop20().add(addToIndex, newBook);
+                wasAdded = true;
             } else {
-                if (newList.size() > 20) {
-                    newList.remove(newList.size() - 1);
-                    this.setMinLoansForUpdate(newList.get(newList.size() - 1).getCountOfLouns());
-                }
+                addToIndex++;
             }
-            this.setTop20(newList);
         }
+
+        // si no lo inserto pero la lista tiene espacio
+        if (this.getLimitOfRecentlyBooks() > this.getTop20().size() && !wasAdded) {
+            this.getTop20().add(newBook);
+        }
+
+        // si lo inserto y la lista sobrepaso su limite
+        if (this.getLimitOfRecentlyBooks() < this.getTop20().size() && wasAdded) {
+            this.getTop20().remove(this.getLimitOfRecentlyBooks() - 1);
+        }
+
     }
 
     /* Accessors */
 
-    public List<BookInfo> getTop20() {
-        return top20;
+    public List<Book> getTop20() {
+        return this.top20;
     }
 
-    public void setTop20(final List<BookInfo> top20) {
+    public void setTop20(final List<Book> top20) {
         this.top20 = top20;
     }
 
-    public List<BookInfo> getRecentlyAvailable() {
-        return recentlyAvailable;
+    public List<Book> getRecentlyAvailable() {
+        return this.recentlyAvailable;
     }
 
-    public void setRecentlyAvailable(final List<BookInfo> recentlyAvailable) {
+    public void setRecentlyAvailable(final List<Book> recentlyAvailable) {
         this.recentlyAvailable = recentlyAvailable;
     }
 
     public int getLimitOfRecentlyBooks() {
-        return limitOfRecentlyBooks;
+        return this.limitOfRecentlyBooks;
     }
 
     public void setLimitOfRecentlyBooks(final int limitOfRecentlyBooks) {
         this.limitOfRecentlyBooks = limitOfRecentlyBooks;
-    }
-
-    public int getMinLoansForUpdate() {
-        return minLoansForUpdate;
-    }
-
-    public void setMinLoansForUpdate(final int minLoansForUpdate) {
-        this.minLoansForUpdate = minLoansForUpdate;
     }
 
 }

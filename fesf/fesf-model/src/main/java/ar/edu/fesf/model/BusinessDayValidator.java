@@ -10,17 +10,20 @@ import org.joda.time.DateTime;
 public class BusinessDayValidator {
 
     /**
-     * TODO, deberian ademas agregar info sobre en concepto de que es feriado
-     * (una descripcion)
+     * This list represents the days when the library is not open.
      */
     private List<DateTime> nonBusinessDays = new ArrayList<DateTime>();
 
+    public List<DateTime> getNonBusinessDays() {
+        return this.nonBusinessDays;
+    }
+
     public void setNonBusinessDays(final List<DateTime> listOfNonBusinessDays) {
-        nonBusinessDays = listOfNonBusinessDays;
+        this.nonBusinessDays = listOfNonBusinessDays;
     }
 
     public boolean isNonBusinessDay(final DateTime date) {
-        for (DateTime nbday : nonBusinessDays) {
+        for (DateTime nbday : this.nonBusinessDays) {
             if (nbday.getDayOfYear() == date.getDayOfYear()) {
                 return true;
             }
