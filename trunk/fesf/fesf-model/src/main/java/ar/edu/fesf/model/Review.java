@@ -5,6 +5,11 @@ import java.util.List;
 
 import ar.edu.fesf.application.Entity;
 
+/**
+ * 
+ * TODO El review tambien tiene un comentario, por ende la calificacion deberia
+ * tambien acompaniar el comentario
+ */
 public class Review extends Entity {
     private int calification = 0;
 
@@ -26,7 +31,7 @@ public class Review extends Entity {
 
     /* Accessors */
     public int getCalification() {
-        return this.calification;
+        return calification;
     }
 
     public void setCalification(final int calification) {
@@ -34,7 +39,7 @@ public class Review extends Entity {
     }
 
     public int getSumOfCalifications() {
-        return this.sumOfCalifications;
+        return sumOfCalifications;
     }
 
     public void setSumOfCalifications(final int sumOfCalifications) {
@@ -42,7 +47,7 @@ public class Review extends Entity {
     }
 
     public int getCountOfCalifications() {
-        return this.countOfCalifications;
+        return countOfCalifications;
     }
 
     public void setCountOfCalifications(final int countOfCalifications) {
@@ -50,7 +55,7 @@ public class Review extends Entity {
     }
 
     public List<Comment> getComments() {
-        return this.comments;
+        return comments;
     }
 
     public void setComments(final List<Comment> comments) {
