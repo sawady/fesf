@@ -16,7 +16,7 @@ public class Book extends Entity {
 
     private String title;
 
-    private String isbn;
+    private ISBN isbn;
 
     private Publisher publisher;
 
@@ -82,11 +82,11 @@ public class Book extends Entity {
         this.title = title;
     }
 
-    public String getIsbn() {
+    public ISBN getIsbn() {
         return this.isbn;
     }
 
-    public void setIsbn(final String isbn) {
+    public void setIsbn(final ISBN isbn) {
         this.isbn = isbn;
     }
 

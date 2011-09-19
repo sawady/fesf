@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.joda.time.DateTime;
 
+import ar.edu.fesf.model.rules.LoansPerUserRule;
+
 public class Person extends Nameable {
 
     private int age;
@@ -19,7 +21,7 @@ public class Person extends Nameable {
 
     private String phone;
 
-    private String email;
+    private EmailAddress email;
 
     private Set<Category> categories = new HashSet<Category>();
 
@@ -31,13 +33,10 @@ public class Person extends Nameable {
 
     private List<InterestEvent> reservations = new ArrayList<InterestEvent>();
 
-    /**
-     * TODO una practica recomendada es reificar este tipo de reglas para permitir agregar, modificar y eliminar reglas
-     * mas simples. Por ejemplo modelando el objeto Rule y haciendo un apply.
-     */
     /* Methods */
     public void addNewLoan(final Loan loan) {
-        checkState(this.getCurrentLoans().size() < 3, "Users cannot borrow more than 3 books.");
+        checkState(new LoansPerUserRule().apply(this.getCurrentLoans().size()),
+                "Users cannot borrow more than 3 books.");
         this.getCurrentLoans().add(loan);
     }
 
@@ -77,12 +76,11 @@ public class Person extends Nameable {
         this.phone = phone;
     }
 
-    public String getEmail() {
+    public EmailAddress getEmail() {
         return this.email;
     }
 
-    public void setEmail(final String email) {
-        checkArgument(!email.isEmpty());
+    public void setEmail(final EmailAddress email) {
         this.email = email;
     }
 
