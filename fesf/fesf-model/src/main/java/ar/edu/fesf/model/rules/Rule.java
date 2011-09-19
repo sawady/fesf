@@ -1,7 +1,7 @@
 package ar.edu.fesf.model.rules;
 
-public interface Rule {
+public interface Rule<T> {
 
-    void apply();
+    boolean apply(T value);
 
 }

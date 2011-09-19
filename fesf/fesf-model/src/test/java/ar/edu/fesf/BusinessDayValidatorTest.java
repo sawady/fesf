@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 
 import ar.edu.fesf.model.BusinessDayValidator;
+import ar.edu.fesf.model.NonBusinessDay;
 
 public class BusinessDayValidatorTest {
 
@@ -24,11 +25,11 @@ public class BusinessDayValidatorTest {
     public void isNonBusinessDayWhenNotInTheList() {
         BusinessDayValidator bs = new BusinessDayValidator();
 
-        List<DateTime> list = new ArrayList<DateTime>();
+        List<NonBusinessDay> list = new ArrayList<NonBusinessDay>();
 
-        list.add(new DateTime().plusDays(1));
-        list.add(new DateTime().plusDays(2));
-        list.add(new DateTime().plusDays(3));
+        list.add(new NonBusinessDay(new DateTime().plusDays(1)));
+        list.add(new NonBusinessDay(new DateTime().plusDays(2)));
+        list.add(new NonBusinessDay(new DateTime().plusDays(3)));
 
         bs.setNonBusinessDays(list);
 
@@ -39,12 +40,12 @@ public class BusinessDayValidatorTest {
     public void isNonBusinessDayWhenInTheList() {
         BusinessDayValidator bs = new BusinessDayValidator();
 
-        List<DateTime> list = new ArrayList<DateTime>();
+        List<NonBusinessDay> list = new ArrayList<NonBusinessDay>();
 
         DateTime example = new DateTime("10102010");
-        list.add(example);
-        list.add(new DateTime().plusDays(2));
-        list.add(new DateTime().plusDays(3));
+        list.add(new NonBusinessDay(example));
+        list.add(new NonBusinessDay(new DateTime().plusDays(2)));
+        list.add(new NonBusinessDay(new DateTime().plusDays(3)));
 
         bs.setNonBusinessDays(list);
 
@@ -56,12 +57,12 @@ public class BusinessDayValidatorTest {
 
         BusinessDayValidator bs = new BusinessDayValidator();
 
-        List<DateTime> list = new ArrayList<DateTime>();
+        List<NonBusinessDay> list = new ArrayList<NonBusinessDay>();
 
         DateTime example = new DateTime("10102010");
-        list.add(example);
-        list.add(new DateTime().plusDays(2));
-        list.add(new DateTime().plusDays(3));
+        list.add(new NonBusinessDay(example));
+        list.add(new NonBusinessDay(new DateTime().plusDays(2)));
+        list.add(new NonBusinessDay(new DateTime().plusDays(3)));
 
         bs.setNonBusinessDays(list);
 
@@ -76,13 +77,13 @@ public class BusinessDayValidatorTest {
 
         BusinessDayValidator bs = new BusinessDayValidator();
 
-        List<DateTime> list = new ArrayList<DateTime>();
+        List<NonBusinessDay> list = new ArrayList<NonBusinessDay>();
 
         DateTime example = new DateTime("10102010");
-        list.add(example.plusDays(1));
-        list.add(example.plusDays(2));
-        list.add(example.plusDays(3));
-        list.add(example.plusDays(4));
+        list.add(new NonBusinessDay(example.plusDays(1)));
+        list.add(new NonBusinessDay(example.plusDays(2)));
+        list.add(new NonBusinessDay(example.plusDays(3)));
+        list.add(new NonBusinessDay(example.plusDays(4)));
 
         bs.setNonBusinessDays(list);
 

@@ -12,19 +12,19 @@ public class BusinessDayValidator {
     /**
      * This list represents the days when the library is not open.
      */
-    private List<DateTime> nonBusinessDays = new ArrayList<DateTime>();
+    private List<NonBusinessDay> nonBusinessDays = new ArrayList<NonBusinessDay>();
 
-    public List<DateTime> getNonBusinessDays() {
+    public List<NonBusinessDay> getNonBusinessDays() {
         return this.nonBusinessDays;
     }
 
-    public void setNonBusinessDays(final List<DateTime> listOfNonBusinessDays) {
+    public void setNonBusinessDays(final List<NonBusinessDay> listOfNonBusinessDays) {
         this.nonBusinessDays = listOfNonBusinessDays;
     }
 
     public boolean isNonBusinessDay(final DateTime date) {
-        for (DateTime nbday : this.nonBusinessDays) {
-            if (nbday.getDayOfYear() == date.getDayOfYear()) {
+        for (NonBusinessDay nbday : this.nonBusinessDays) {
+            if (nbday.getDate().getDayOfYear() == date.getDayOfYear()) {
                 return true;
             }
         }
