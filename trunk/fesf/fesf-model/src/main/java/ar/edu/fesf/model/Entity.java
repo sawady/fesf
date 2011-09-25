@@ -1,4 +1,4 @@
-package ar.edu.fesf.application;
+package ar.edu.fesf.model;
 
 public abstract class Entity implements Persistible {
 

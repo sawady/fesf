@@ -2,7 +2,6 @@ package ar.edu.fesf.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import ar.edu.fesf.application.Entity;
 
 public class UserInfo extends Entity {
 

@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.joda.time.DateTime;
 
-import ar.edu.fesf.application.Entity;
 
 public abstract class Event extends Entity {
 

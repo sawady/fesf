@@ -6,7 +6,7 @@ import org.apache.wicket.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
-import ar.edu.unq.services.GeneralService;
+import ar.edu.fesf.services.GeneralService;
 
 public class MyApplication extends AuthenticatedWebApplication {
 
