@@ -3,12 +3,11 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field"
 	default-cascade="save-update">
-	<class name="ar.edu.unq.Person" >
-	  <id column="ID" name="id">
-            <generator class="native"/>
-        </id>
-		<property name="name" />
-
+	<class name="ar.edu.fesf.model.Person" >
+	  
+	<id column="ID" name="id">
+          <generator class="native"/>
+    </id>
 
 	</class>
 </hibernate-mapping>
