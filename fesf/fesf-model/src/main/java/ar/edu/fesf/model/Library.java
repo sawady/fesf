@@ -1,11 +1,7 @@
-package ar.edu.fesf.application;
+package ar.edu.fesf.model;
 
-import ar.edu.fesf.model.Book;
-import ar.edu.fesf.model.Ranking;
 
 public class Library {
-
-    private HomeRepository homeRepository;
 
     private Ranking ranking = new Ranking();
 
@@ -33,14 +29,6 @@ public class Library {
 
     public void setMaxLoanPeriodInDays(final int maxLoanPeriodInDays) {
         this.maxLoanPeriodInDays = maxLoanPeriodInDays;
-    }
-
-    public HomeRepository getHomeRepository() {
-        return this.homeRepository;
-    }
-
-    public void setHomeRepository(final HomeRepository homeRepository) {
-        this.homeRepository = homeRepository;
     }
 
 }

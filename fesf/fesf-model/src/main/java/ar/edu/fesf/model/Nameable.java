@@ -1,7 +1,6 @@
 package ar.edu.fesf.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import ar.edu.fesf.application.Entity;
 
 public abstract class Nameable extends Entity {
 

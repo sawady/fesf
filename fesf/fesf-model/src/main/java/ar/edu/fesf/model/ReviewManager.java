@@ -3,7 +3,6 @@ package ar.edu.fesf.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.fesf.application.Entity;
 
 /**
  * Contains a list of califications and a list of simple comments without califications.

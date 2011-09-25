@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import ar.edu.fesf.application.Entity;
 
 public class Book extends Entity {
 
