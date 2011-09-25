@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- Proxy to a set of filters that enforce authentication and authorization. -->
+	<bean id="filterChainProxy" class="org.springframework.security.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/**=httpSessionContextIntegrationFilter
+			</value>
+		</property>
+	</bean>
+
+	<!-- Maintains security context between requests (using the session). -->
+	<bean id="httpSessionContextIntegrationFilter"
+		class="org.springframework.security.context.HttpSessionContextIntegrationFilter">
+		<property name="forceEagerSessionCreation" value="true" />
+	</bean>
+	
+	<bean id="wicketApplication" class="ar.edu.unq.view.MyApplication">
+		<property name="generalService" ref="service.general" />
+	</bean>
+
+</beans>
