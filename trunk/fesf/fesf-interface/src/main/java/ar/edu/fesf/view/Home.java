@@ -4,11 +4,15 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import ar.edu.fesf.model.Person;
+import ar.edu.fesf.services.PersonService;
 
 public class Home extends WebPage {
 
-    // @SpringBean(name = "service.person")
-    // PersonService personService;
+    @SpringBean(name = "service.person")
+    private transient PersonService personService;
 
     public Home() {
         super();
@@ -16,7 +20,7 @@ public class Home extends WebPage {
     }
 
     public final void initialize() {
-        Label markupLabel = new Label("labelExample", "sarasa");
+        Label markupLabel = new Label("labelExample", String.valueOf(this.personService.getAllPerson().size()));
         markupLabel.setEscapeModelStrings(false);
         this.add(markupLabel);
 
@@ -35,7 +39,7 @@ public class Home extends WebPage {
             @Override
             protected void onSubmit() {
                 this.info("Form.onSubmit pre-executed");
-                // personService.addPerson(new Person());
+                Home.this.personService.addPerson(new Person());
                 this.info("Form.onSubmit post-executed");
                 this.setResponsePage(Home.class);
             }
@@ -45,4 +49,5 @@ public class Home extends WebPage {
         this.add(form);
 
     }
+
 }

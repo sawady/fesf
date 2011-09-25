@@ -22,10 +22,6 @@ public class MyApplication extends AuthenticatedWebApplication {
         this.generalService = generalService;
     }
 
-    // public MyApplication() {
-    // // System.out.println(" Constructor de MyApplication  ");
-    // }
-
     @Override
     public void init() {
         this.aMounterURL = new MounterURL(this);
