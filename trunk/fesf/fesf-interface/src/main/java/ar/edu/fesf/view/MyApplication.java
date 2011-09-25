@@ -1,4 +1,4 @@
-package ar.edu.unq.view;
+package ar.edu.fesf.view;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.authentication.AuthenticatedWebApplication;
@@ -10,7 +10,7 @@ import ar.edu.fesf.services.GeneralService;
 
 public class MyApplication extends AuthenticatedWebApplication {
 
-    private ar.edu.unq.view.MounterURL aMounterURL;
+    private ar.edu.fesf.view.MounterURL aMounterURL;
 
     private GeneralService generalService;
 

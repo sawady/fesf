@@ -21,7 +21,7 @@
 		<property name="forceEagerSessionCreation" value="true" />
 	</bean>
 	
-	<bean id="wicketApplication" class="ar.edu.unq.view.MyApplication">
+	<bean id="wicketApplication" class="ar.edu.fesf.view.MyApplication">
 		<property name="generalService" ref="service.general" />
 	</bean>
 

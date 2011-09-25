@@ -7,11 +7,11 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 	
 	<!-- beans de spring  -->
-	<bean id="service.general" class="ar.edu.unq.services.GeneralService" />
+	<bean id="service.general" class="ar.edu.fesf.services.GeneralService" />
 
-	<bean id="service.person" class="ar.edu.unq.services.PersonService">
-		<property name="personRepository" ref="persistence.personrepository" /> 
-	</bean>
+<!-- 	<bean id="service.person" class="ar.edu.fesf.services.PersonService"> -->
+<!-- 		<property name="personRepository" ref="persistence.personrepository" />  -->
+<!-- 	</bean> -->
 	
 
 </beans>

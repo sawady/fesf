@@ -1,4 +1,4 @@
-package ar.edu.unq.view;
+package ar.edu.fesf.view;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
