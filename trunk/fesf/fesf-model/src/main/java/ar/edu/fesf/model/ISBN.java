@@ -1,6 +1,6 @@
 package ar.edu.fesf.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import ar.edu.fesf.model.validations.ISBNValidator;
 
 public class ISBN {
 
@@ -11,12 +11,10 @@ public class ISBN {
     }
 
     public void setValue(final String value) {
-        checkArgument(this.isValid(value), "Not valid ISBN");
+
+        new ISBNValidator().checkISBN(value);
+
         this.value = value;
     }
 
-    private boolean isValid(final String isbn) {
-        // TODO Complete this definition
-        return isbn.length() == 10;
-    }
 }
