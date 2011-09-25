@@ -11,6 +11,7 @@ public class Home extends WebPage {
     // PersonService personService;
 
     public Home() {
+        super();
         this.initialize();
     }
 
@@ -28,7 +29,7 @@ public class Home extends WebPage {
             }
         };
 
-        Form form = new Form("form") {
+        Form<Object> form = new Form<Object>("form") {
             private static final long serialVersionUID = 1L;
 
             @Override
