@@ -1,4 +1,4 @@
-package ar.edu.fesf.model;
+package ar.edu.fesf.model.validations;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+
+import ar.edu.fesf.model.NonBusinessDay;
 
 public class BusinessDayValidator {
 

@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
 public class Book extends Entity {
 
     private String title;
@@ -33,7 +32,7 @@ public class Book extends Entity {
 
     private Set<Category> categories = new HashSet<Category>();
 
-    private List<InterestEvent> interestEvents = new ArrayList<InterestEvent>();
+    private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
 
     /* Methods */
     public void addCopy() {
@@ -60,14 +59,14 @@ public class Book extends Entity {
         this.getAvailableCopies().add(copy);
     }
 
-    public void addInterestEvent(final InterestEvent reservation) {
-        this.getInterestEvents().add(reservation);
+    public void addInterestEvent(final ReservationEvent reservation) {
+        this.getReservationEvents().add(reservation);
     }
 
-    public InterestEvent getInterestEventToInformAvailability() {
-        checkState(!this.getInterestEvents().isEmpty(), "No interested users are in the queue");
-        InterestEvent res = this.getInterestEvents().get(0);
-        this.getInterestEvents().remove(0);
+    public ReservationEvent getReservationEventToInformAvailability() {
+        checkState(!this.getReservationEvents().isEmpty(), "No interested users are in the queue");
+        ReservationEvent res = this.getReservationEvents().get(0);
+        this.getReservationEvents().remove(0);
         return res;
     }
 
@@ -154,12 +153,12 @@ public class Book extends Entity {
         this.countOfLouns = countOfLouns;
     }
 
-    public List<InterestEvent> getInterestEvents() {
-        return this.interestEvents;
+    public List<ReservationEvent> getReservationEvents() {
+        return this.reservationEvents;
     }
 
-    public void setInterestEvents(final List<InterestEvent> interestEvents) {
-        this.interestEvents = interestEvents;
+    public void setReservationEvents(final List<ReservationEvent> reservationEvents) {
+        this.reservationEvents = reservationEvents;
     }
 
 }
