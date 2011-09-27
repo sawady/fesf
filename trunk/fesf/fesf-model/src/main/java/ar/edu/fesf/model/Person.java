@@ -31,7 +31,7 @@ public class Person extends Nameable {
 
     private List<Loan> currentLoans = new ArrayList<Loan>();
 
-    private List<InterestEvent> reservations = new ArrayList<InterestEvent>();
+    private List<ReservationEvent> reservations = new ArrayList<ReservationEvent>();
 
     /* Methods */
     public void addNewLoan(final Loan loan) {
@@ -99,11 +99,11 @@ public class Person extends Nameable {
         this.loggingInfo = loggingInfo;
     }
 
-    public List<InterestEvent> getReservations() {
+    public List<ReservationEvent> getReservations() {
         return this.reservations;
     }
 
-    public void setReservations(final List<InterestEvent> reservations) {
+    public void setReservations(final List<ReservationEvent> reservations) {
         this.reservations = reservations;
     }
 
@@ -121,6 +121,11 @@ public class Person extends Nameable {
 
     public void setCurrentLoans(final List<Loan> currentLoans) {
         this.currentLoans = currentLoans;
+    }
+
+    public List<Book> reservedBooks() {
+        // TODO hay que listar los libros que reservo el usuario
+        return null;
     }
 
 }

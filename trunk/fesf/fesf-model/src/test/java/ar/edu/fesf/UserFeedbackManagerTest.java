@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import ar.edu.fesf.model.Calification;
-import ar.edu.fesf.model.ReviewManager;
+import ar.edu.fesf.model.UserFeedbackManager;
 
-public class ReviewTest {
+public class UserFeedbackManagerTest {
 
-    private ReviewManager review = new ReviewManager();
+    private UserFeedbackManager review = new UserFeedbackManager();
 
     @Test
     public void initialState() {

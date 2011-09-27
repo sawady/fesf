@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.fesf.model.BookCopy;
-import ar.edu.fesf.model.BusinessDayValidator;
 import ar.edu.fesf.model.Loan;
+import ar.edu.fesf.model.validations.BusinessDayValidator;
 
 /**
  * LoanTest

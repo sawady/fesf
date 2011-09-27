@@ -9,7 +9,7 @@ public class UserInfo extends Entity {
 
     private String userid;
 
-    private Permission permission;
+    private Role role;
 
     /* Accessors */
     public String getPass() {
@@ -32,12 +32,12 @@ public class UserInfo extends Entity {
         this.userid = userid;
     }
 
-    public Permission getPermission() {
-        return this.permission;
+    public Role getRole() {
+        return this.role;
     }
 
-    public void setPermission(final Permission permission) {
-        this.permission = permission;
+    public void setRole(final Role role) {
+        this.role = role;
     }
 
 }

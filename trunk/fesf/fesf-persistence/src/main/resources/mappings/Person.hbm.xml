@@ -10,6 +10,31 @@
     </id>
     
     <property name="name"></property>
+    <property name="age"></property>
+	<property name="address"></property>
+	<property name="phone"></property>
+	<one-to-one name="userInfo" class="UserInfo" cascade="all"/>
+	<one-to-one name="email" class="EmailAddress" cascade="all"/>
+	
+    <set name="categories" table="FavouriteCategories">
+        <key column="person"/>
+        <many-to-many column="category" class="Category"/>
+    </set>
+    
+    <set name="oldLoans" cascade="all" inverse="true">
+            <key column="person"/>
+            <one-to-many class="Loan"/>
+    </set>
+    
+    <set name="currentLoans" cascade="all" inverse="true">
+            <key column="person"/>
+            <one-to-many class="Loan"/>
+    </set>
+    
+    <set name="reservations" cascade="all" inverse="true">
+            <key column="person"/>
+            <one-to-many class="ReservationEvent"/>
+    </set>
 
 	</class>
 </hibernate-mapping>

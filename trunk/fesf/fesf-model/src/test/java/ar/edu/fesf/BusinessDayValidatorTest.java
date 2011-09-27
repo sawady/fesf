@@ -10,8 +10,8 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import ar.edu.fesf.model.BusinessDayValidator;
 import ar.edu.fesf.model.NonBusinessDay;
+import ar.edu.fesf.model.validations.BusinessDayValidator;
 
 public class BusinessDayValidatorTest {
 

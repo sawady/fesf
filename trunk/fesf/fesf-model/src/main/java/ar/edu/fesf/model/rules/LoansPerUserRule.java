@@ -5,8 +5,7 @@ import ar.edu.fesf.model.Person;
 
 public class LoansPerUserRule implements Rule<Person> {
     @Override
-    public boolean apply(final Person person) {
+    public void apply(final Person person) {
         checkState(person.getCurrentLoans().size() < 3, "Users cannot borrow more than 3 books.");
-        return true;
     }
 }

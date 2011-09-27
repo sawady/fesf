@@ -7,6 +7,8 @@ import static com.google.common.base.Preconditions.checkState;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
+import ar.edu.fesf.model.validations.BusinessDayValidator;
+
 public class Loan extends Event {
 
     private static int maxLoanPeriodInDays = 60;
@@ -33,7 +35,6 @@ public class Loan extends Event {
     }
 
     public void setAgreedReturnDate(final DateTime date, final BusinessDayValidator bsdvalidator) {
-
         bsdvalidator.validate(date);
 
         checkState(new Period(this.getDate(), date).getDays() <= Loan.maxLoanPeriodInDays, "Loans can only last "

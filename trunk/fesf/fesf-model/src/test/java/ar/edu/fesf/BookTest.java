@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Book;
-import ar.edu.fesf.model.InterestEvent;
+import ar.edu.fesf.model.ReservationEvent;
 
 public class BookTest {
 
@@ -40,22 +40,22 @@ public class BookTest {
 
     @Test(expected = RuntimeException.class)
     public void getUserToInformAvailabilityWhenNoUserIsInterested() {
-        this.bookExample.getInterestEventToInformAvailability();
+        this.bookExample.getReservationEventToInformAvailability();
     }
 
     @Test
     public void getUserToInformAvailabilityWhenUsersAreInterested() {
-        InterestEvent interestEvent1 = mock(InterestEvent.class);
-        InterestEvent interestEvent2 = mock(InterestEvent.class);
+        ReservationEvent interestEvent1 = mock(ReservationEvent.class);
+        ReservationEvent interestEvent2 = mock(ReservationEvent.class);
 
         this.bookExample.addInterestEvent(interestEvent1);
         this.bookExample.addInterestEvent(interestEvent2);
 
-        InterestEvent result = this.bookExample.getInterestEventToInformAvailability();
+        ReservationEvent result = this.bookExample.getReservationEventToInformAvailability();
 
         assertEquals("Must be the first interest event", interestEvent1, result);
         assertTrue("The other interest event must be in the list",
-                this.bookExample.getInterestEvents().contains(interestEvent2));
+                this.bookExample.getReservationEvents().contains(interestEvent2));
     }
 
     @Test(expected = RuntimeException.class)

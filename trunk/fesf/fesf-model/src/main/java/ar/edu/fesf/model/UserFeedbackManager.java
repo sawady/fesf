@@ -3,11 +3,10 @@ package ar.edu.fesf.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Contains a list of califications and a list of simple comments without califications.
  */
-public class ReviewManager extends Entity {
+public class UserFeedbackManager extends Entity {
 
     private List<Calification> califications = new ArrayList<Calification>();
 
@@ -17,16 +16,35 @@ public class ReviewManager extends Entity {
 
     private int countOfCalifications = 0;
 
-    private List<SimpleComment> comments = new ArrayList<SimpleComment>();
+    private List<Comment> comments = new ArrayList<Comment>();
 
     /* Methods */
     public void addCalification(final Calification calif) {
-
+        this.getCalifications().add(calif);
         this.setSumOfCalifications(this.getSumOfCalifications() + calif.getUserCalification());
         this.setCountOfCalifications(this.getCountOfCalifications() + 1);
 
         this.setAvgCalification(this.getSumOfCalifications() / this.getCountOfCalifications());
 
+    }
+
+    public void removeCalification(final Calification calif) {
+        this.getCalifications().remove(calif);
+        this.setSumOfCalifications(this.getSumOfCalifications() - calif.getUserCalification());
+        this.setCountOfCalifications(this.getCountOfCalifications() - 1);
+
+        this.setAvgCalification(this.getSumOfCalifications() / this.getCountOfCalifications());
+
+    }
+
+    public void addComment(final Comment comment) {
+        this.addCalification(comment.getCalification());
+        this.comments.add(comment);
+    }
+
+    public void removeComment(final Comment comment) {
+        this.removeCalification(comment.getCalification());
+        this.comments.remove(comment);
     }
 
     /* Accessors */
@@ -54,11 +72,11 @@ public class ReviewManager extends Entity {
         this.countOfCalifications = countOfCalifications;
     }
 
-    public List<SimpleComment> getComments() {
+    public List<Comment> getComments() {
         return this.comments;
     }
 
-    public void setComments(final List<SimpleComment> comments) {
+    public void setComments(final List<Comment> comments) {
         this.comments = comments;
     }
 
