@@ -35,8 +35,7 @@ public class Person extends Nameable {
 
     /* Methods */
     public void addNewLoan(final Loan loan) {
-        checkState(new LoansPerUserRule().apply(this.getCurrentLoans().size()),
-                "Users cannot borrow more than 3 books.");
+        new LoansPerUserRule().apply(this);
         this.getCurrentLoans().add(loan);
     }
 

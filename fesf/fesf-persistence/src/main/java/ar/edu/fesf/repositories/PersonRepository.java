@@ -11,7 +11,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import ar.edu.fesf.model.Person;
 
-public class PersonRepository extends HibernateGenericDAO<Person> implements GenericRepository<Person> {
+public class PersonRepository extends HibernateGenericDAO<Person> {
 
     @Override
     protected Class<Person> getDomainClass() {
