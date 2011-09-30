@@ -2,8 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping default-access="field"
-	default-cascade="save-update">
-	<class name="ar.edu.fesf.model.Person" >
+	default-cascade="save-update"
+	package="ar.edu.fesf.model">
+	<class name="Person" >
 	  
 	<id column="ID" name="id">
           <generator class="native"/>
@@ -21,20 +22,20 @@
         <many-to-many column="category" class="Category"/>
     </set>
     
-    <set name="oldLoans" cascade="all" inverse="true">
-            <key column="person"/>
-            <one-to-many class="Loan"/>
-    </set>
+<!--     <set name="oldLoans" cascade="all" inverse="true"> -->
+<!--             <key column="person"/> -->
+<!--             <one-to-many class="Loan"/> -->
+<!--     </set> -->
     
-    <set name="currentLoans" cascade="all" inverse="true">
-            <key column="person"/>
-            <one-to-many class="Loan"/>
-    </set>
+<!--     <set name="currentLoans" cascade="all" inverse="true"> -->
+<!--             <key column="person"/> -->
+<!--             <one-to-many class="Loan"/> -->
+<!--     </set> -->
     
-    <set name="reservations" cascade="all" inverse="true">
-            <key column="person"/>
-            <one-to-many class="ReservationEvent"/>
-    </set>
+<!--     <set name="reservations" cascade="all" inverse="true"> -->
+<!--             <key column="person"/> -->
+<!--             <one-to-many class="ReservationEvent"/> -->
+<!--     </set> -->
 
 	</class>
 </hibernate-mapping>

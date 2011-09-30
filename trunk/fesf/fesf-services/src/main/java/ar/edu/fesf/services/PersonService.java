@@ -7,9 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.repositories.PersonRepository;
 
-/**
- * TODO: description
- */
 public class PersonService {
 
     private PersonRepository personRepository;

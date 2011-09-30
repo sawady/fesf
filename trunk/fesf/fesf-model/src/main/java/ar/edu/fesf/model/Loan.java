@@ -11,6 +11,7 @@ import ar.edu.fesf.model.validations.BusinessDayValidator;
 
 public class Loan extends Event {
 
+    // TODO arreglar esto
     private static int maxLoanPeriodInDays = 60;
 
     private DateTime agreedReturnDate;

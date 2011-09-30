@@ -1,10 +1,10 @@
 package ar.edu.fesf.model;
 
-
 public class Library {
 
     private Ranking ranking = new Ranking();
 
+    // TODO esto no va aca
     private int maxLoanPeriodInDays = 60;
 
     public Ranking getRanking() {

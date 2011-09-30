@@ -8,7 +8,12 @@ import java.util.Properties;
 
 import org.joda.time.DateTime;
 
+// TODO completar esta clase
 public class LibraryConfiguration {
+
+    private LibraryConfiguration() {
+
+    }
 
     public static void main(final String[] args) throws IOException, InterruptedException {
         // create and load default properties
@@ -27,7 +32,7 @@ public class LibraryConfiguration {
 
         applicationProps.put("lastRegisteredDate", new DateTime().toString());
 
-        System.out.println(DateTime.parse((String) applicationProps.get("lastRegisteredDate")).toString());
+        // System.out.println(DateTime.parse((String) applicationProps.get("lastRegisteredDate")).toString());
 
         OutputStream out = new FileOutputStream("appProperties.properties");
         applicationProps.store(out, "estamos haciendo una prueba loco");

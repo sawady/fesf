@@ -25,7 +25,7 @@ public class Person extends Nameable {
 
     private Set<Category> categories = new HashSet<Category>();
 
-    private UserInfo loggingInfo;
+    private UserInfo userInfo;
 
     private List<Loan> oldLoans = new ArrayList<Loan>();
 
@@ -91,12 +91,12 @@ public class Person extends Nameable {
         this.categories = categories;
     }
 
-    public UserInfo getLoggingInfo() {
-        return this.loggingInfo;
+    public UserInfo getUserInfo() {
+        return this.userInfo;
     }
 
-    public void setLoggingInfo(final UserInfo loggingInfo) {
-        this.loggingInfo = loggingInfo;
+    public void setUserInfo(final UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     public List<ReservationEvent> getReservations() {
