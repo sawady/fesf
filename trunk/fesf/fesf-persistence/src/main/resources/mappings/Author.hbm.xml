@@ -12,10 +12,10 @@
     
     <property name="name"></property>
     
-<!--     <set name="books" table="BookCategory"> -->
-<!--         <key column="category"/> -->
-<!--         <many-to-many column="book" class="Book"/> -->
-<!--     </set> -->
+    <set name="books" table="BookCategory">
+        <key column="author"/>
+        <many-to-many column="book" class="Book"/>
+    </set>
     
 	</class>
 </hibernate-mapping>

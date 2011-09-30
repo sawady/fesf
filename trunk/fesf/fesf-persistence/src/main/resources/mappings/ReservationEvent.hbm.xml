@@ -12,7 +12,7 @@
     
     <property name="date"></property>
     <many-to-one name="user" class="Person"/>
-<!--     <many-to-one name="book" class="Book"/> -->
+    <many-to-one name="book" class="Book"/>
     
 	</class>
 </hibernate-mapping>
