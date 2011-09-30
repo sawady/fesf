@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 
 public abstract class Event extends Entity {
 
-    private Person user;
+    private Person person;
 
     private DateTime date = new DateTime();
 
@@ -15,17 +15,17 @@ public abstract class Event extends Entity {
 
     /* Methods */
     public void updateUserCategories() {
-        this.getUser().getCategories().addAll(this.getBook().getCategories());
+        this.getPerson().getCategories().addAll(this.getBook().getCategories());
     }
 
     /* Accessors */
-    public Person getUser() {
-        return this.user;
+    public Person getPerson() {
+        return this.person;
     }
 
-    public void setUser(final Person user) {
-        checkNotNull(user);
-        this.user = user;
+    public void setPerson(final Person Person) {
+        checkNotNull(Person);
+        this.person = Person;
     }
 
     public DateTime getDate() {
