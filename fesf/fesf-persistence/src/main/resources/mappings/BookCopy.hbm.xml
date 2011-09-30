@@ -4,18 +4,20 @@
 <hibernate-mapping default-access="field"
 	default-cascade="save-update"
 	package="ar.edu.fesf.model">
-	<class name="Publisher" >
+	<class name="BookCopy" >
 	  
 	<id column="ID" name="id">
           <generator class="native"/>
     </id>
     
-    <property name="name"></property>
+    <property name="observations"/>
+    <many-to-one name="book" class="Book"/>
     
-    <set name="books" table="BookCategory">
-        <key column="publisher"/>
-        <many-to-many column="book" class="Book"/>
-    </set>
-    
+    <list name="loans" table="LoansOfCopies">
+        <key column="bookCopy"/>
+        <index column="indice"/>
+        <one-to-many class="Loan"/>
+    </list>    
+     
 	</class>
 </hibernate-mapping>

@@ -11,18 +11,20 @@ public class NonBusinessDay extends Entity {
     private String description;
 
     public NonBusinessDay(final DateTime date) {
+        super();
         this.date = date;
         this.description = "";
     }
 
     public NonBusinessDay(final DateTime date, final String desString) {
+        super();
         this.date = date;
         this.description = desString;
     }
 
     // Basura de Hibernate
     public NonBusinessDay() {
-
+        super();
     }
 
     public DateTime getDate() {

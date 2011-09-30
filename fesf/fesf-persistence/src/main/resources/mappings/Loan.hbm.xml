@@ -4,18 +4,18 @@
 <hibernate-mapping default-access="field"
 	default-cascade="save-update"
 	package="ar.edu.fesf.model">
-	<class name="Publisher" >
+	<class name="Loan" >
 	  
 	<id column="ID" name="id">
           <generator class="native"/>
     </id>
     
-    <property name="name"></property>
-    
-    <set name="books" table="BookCategory">
-        <key column="publisher"/>
-        <many-to-many column="book" class="Book"/>
-    </set>
-    
+    <property name="agreedReturnDate"/>
+    <property name="returnDate"/>
+    <property name="date"/>
+    <many-to-one name="book" class="Book"/>
+    <many-to-one name="person" class="Person"/>
+    <many-to-one name="bookCopy" class="BookCopy"/>
+     
 	</class>
 </hibernate-mapping>

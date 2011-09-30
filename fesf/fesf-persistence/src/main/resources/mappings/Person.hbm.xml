@@ -22,20 +22,20 @@
         <many-to-many column="category" class="Category"/>
     </set>
     
-<!--     <set name="oldLoans" cascade="all" inverse="true"> -->
-<!--             <key column="person"/> -->
-<!--             <one-to-many class="Loan"/> -->
-<!--     </set> -->
+    <set name="oldLoans" cascade="all" inverse="true">
+            <key column="person"/>
+            <one-to-many class="Loan"/>
+    </set>
     
-<!--     <set name="currentLoans" cascade="all" inverse="true"> -->
-<!--             <key column="person"/> -->
-<!--             <one-to-many class="Loan"/> -->
-<!--     </set> -->
+    <set name="currentLoans" cascade="all" inverse="true">
+            <key column="person"/>
+            <one-to-many class="Loan"/>
+    </set>
     
-<!--     <set name="reservations" cascade="all" inverse="true"> -->
-<!--             <key column="person"/> -->
-<!--             <one-to-many class="ReservationEvent"/> -->
-<!--     </set> -->
+    <set name="reservations" cascade="all" inverse="true">
+            <key column="person"/>
+            <one-to-many class="ReservationEvent"/>
+    </set>
 
 	</class>
 </hibernate-mapping>
