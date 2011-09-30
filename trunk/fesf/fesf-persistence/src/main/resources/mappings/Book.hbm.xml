@@ -38,7 +38,7 @@
         <one-to-many class="Category"/>
     </set>
     
-    <set name="registedCopies" table="AvailableCopiesOfBooks">
+    <set name="availableCopies" table="AvailableCopiesOfBooks">
         <key column="book"/>
         <one-to-many class="Category"/>
     </set>
