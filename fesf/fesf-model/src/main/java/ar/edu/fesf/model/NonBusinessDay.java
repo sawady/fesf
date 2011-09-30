@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.joda.time.DateTime;
 
-public class NonBusinessDay {
+public class NonBusinessDay extends Entity {
 
     private DateTime date;
 
@@ -18,6 +18,11 @@ public class NonBusinessDay {
     public NonBusinessDay(final DateTime date, final String desString) {
         this.date = date;
         this.description = desString;
+    }
+
+    // Basura de Hibernate
+    public NonBusinessDay() {
+
     }
 
     public DateTime getDate() {

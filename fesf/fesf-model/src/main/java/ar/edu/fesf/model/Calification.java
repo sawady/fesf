@@ -2,7 +2,7 @@ package ar.edu.fesf.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public class Calification {
+public class Calification extends Entity {
 
     private int userCalification;
 
