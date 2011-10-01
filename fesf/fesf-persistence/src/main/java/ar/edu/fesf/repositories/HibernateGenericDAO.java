@@ -1,8 +1,14 @@
 package ar.edu.fesf.repositories;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -32,8 +38,8 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
         this.getHibernateTemplate().update(entity);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     public T findById(final Serializable id) {
         return (T) this.getHibernateTemplate().get(this.persistentClass, id);
     }
@@ -66,6 +72,18 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
     public List<T> findByExample(final T exampleObject) {
         return this.getHibernateTemplate().findByExample(exampleObject);
 
+    }
+
+    @SuppressWarnings("unchecked")
+    public T findByProperty(final String property, final Object userinfo) {
+        return (T) this.getHibernateTemplate().execute(new HibernateCallback() {
+            @Override
+            public T doInHibernate(final Session session) throws HibernateException, SQLException {
+                Criteria criteria = session.createCriteria(this.getClass());
+                criteria.add(Restrictions.eq(property, userinfo));
+                return (T) criteria.uniqueResult();
+            }
+        });
     }
 
 }

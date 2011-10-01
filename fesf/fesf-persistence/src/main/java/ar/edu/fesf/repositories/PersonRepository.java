@@ -23,7 +23,7 @@ public class PersonRepository extends HibernateGenericDAO<Person> {
         return (List<Person>) this.getHibernateTemplate().execute(new HibernateCallback() {
             @Override
             public List<Person> doInHibernate(final Session session) throws HibernateException, SQLException {
-                Criteria criteria = session.createCriteria(Person.class);
+                final Criteria criteria = session.createCriteria(Person.class);
                 criteria.add(Restrictions.like("name", "%" + pattern + "%"));
                 return criteria.list();
             }

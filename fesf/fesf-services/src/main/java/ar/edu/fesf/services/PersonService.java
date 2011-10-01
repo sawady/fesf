@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.PersonRepository;
 
 public class PersonService {
@@ -21,16 +22,22 @@ public class PersonService {
 
     @Transactional(readOnly = true)
     public List<Person> getAllPerson() {
-        return this.personRepository.findAll();
+        return this.getPersonRepository().findAll();
     }
 
     @Transactional
     public void addPerson(final Person person) {
-        this.personRepository.save(person);
+        this.getPersonRepository().save(person);
     }
 
     @Transactional(readOnly = true)
     public List<Person> filterPeople(final String pattern) {
-        return this.personRepository.filterPeople(pattern);
+        return this.getPersonRepository().filterPeople(pattern);
     }
+
+    @Transactional
+    public Person findPersonWithUserInfo(final UserInfo userinfo) {
+        return this.getPersonRepository().findByProperty("userinfo", userinfo);
+    }
+
 }
