@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.joda.time.DateTime;
 
-
 public abstract class Event extends Entity {
 
     private Person person;
@@ -23,9 +22,9 @@ public abstract class Event extends Entity {
         return this.person;
     }
 
-    public void setPerson(final Person Person) {
-        checkNotNull(Person);
-        this.person = Person;
+    public void setPerson(final Person person) {
+        checkNotNull(person);
+        this.person = person;
     }
 
     public DateTime getDate() {
