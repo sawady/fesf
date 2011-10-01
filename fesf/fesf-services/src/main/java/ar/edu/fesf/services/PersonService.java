@@ -7,10 +7,21 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.PersonRepository;
+import ar.edu.fesf.repositories.UserInfoRepository;
 
 public class PersonService {
 
+    private UserInfoRepository userInfoRepository;
+
     private PersonRepository personRepository;
+
+    public UserInfoRepository getUserInfoRepository() {
+        return this.userInfoRepository;
+    }
+
+    public void setUserInfoRepository(final UserInfoRepository userInfoRepository) {
+        this.userInfoRepository = userInfoRepository;
+    }
 
     public PersonRepository getPersonRepository() {
         return this.personRepository;

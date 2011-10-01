@@ -1,5 +1,7 @@
 package ar.edu.fesf.services;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.model.Person;
@@ -57,6 +59,12 @@ public class AuthenticationService {
     @Transactional
     public UserInfo findUserInfo(final String pattern) {
         return this.getUserInfoRepository().findUserInfo(pattern);
+    }
+
+    public void addUserInfo(final UserInfo userinfo) {
+        UserInfo existingUserInfo = this.getUserInfoRepository().findUserInfo(userinfo.getUserid());
+        checkState(existingUserInfo == null, "Userid alredy exists");
+        this.getUserInfoRepository().save(userinfo);
     }
 
 }
