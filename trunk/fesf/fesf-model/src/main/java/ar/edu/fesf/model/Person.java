@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +14,9 @@ import org.joda.time.DateTime;
 
 import ar.edu.fesf.model.rules.LoansPerUserRule;
 
-public class Person extends Nameable {
+public class Person extends Nameable implements Serializable {
+
+    private static final long serialVersionUID = -1117547495640219313L;
 
     private int age;
 
@@ -32,6 +35,15 @@ public class Person extends Nameable {
     private List<Loan> currentLoans = new ArrayList<Loan>();
 
     private List<ReservationEvent> reservations = new ArrayList<ReservationEvent>();
+
+    public Person(final String name) {
+        super();
+        this.setName(name);
+    }
+
+    public Person() {
+        super();
+    }
 
     /* Methods */
     public void addNewLoan(final Loan loan) {

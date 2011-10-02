@@ -1,5 +1,6 @@
 package ar.edu.fesf.repositories;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,7 +12,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import ar.edu.fesf.model.Person;
 
-public class PersonRepository extends HibernateGenericDAO<Person> {
+public class PersonRepository extends HibernateGenericDAO<Person> implements Serializable {
+
+    private static final long serialVersionUID = 6221677389349843898L;
 
     @Override
     protected Class<Person> getDomainClass() {

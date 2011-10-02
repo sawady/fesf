@@ -10,8 +10,8 @@
 	<bean id="service.general" class="ar.edu.fesf.services.GeneralService" />
 
 	<bean id="service.person" class="ar.edu.fesf.services.PersonService">
-		<property name="personRepository" ref="persistence.personrepository" /> 
-	</bean>
-	
+		<property name="personRepository" ref="persistence.personrepository" />
+		<property name="userInfoRepository" ref="persistence.userinforepository" />
+	</bean>	
 
 </beans>

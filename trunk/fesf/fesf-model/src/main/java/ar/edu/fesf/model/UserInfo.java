@@ -3,7 +3,11 @@ package ar.edu.fesf.model;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class UserInfo extends Entity {
+import java.io.Serializable;
+
+public class UserInfo extends Entity implements Serializable {
+
+    private static final long serialVersionUID = 3031596603243637940L;
 
     private String pass;
 
