@@ -105,6 +105,10 @@
 	
 	<bean id="persistence.personrepository" class="ar.edu.fesf.repositories.PersonRepository">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+	
+	<bean id="persistence.userinforepository" class="ar.edu.fesf.repositories.UserInfoRepository">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>	
 
 </beans>

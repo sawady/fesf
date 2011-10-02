@@ -2,7 +2,11 @@ package ar.edu.fesf.model;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public class EmailAddress extends Entity {
+import java.io.Serializable;
+
+public class EmailAddress extends Entity implements Serializable {
+
+    private static final long serialVersionUID = 4605094628949461850L;
 
     private String value;
 

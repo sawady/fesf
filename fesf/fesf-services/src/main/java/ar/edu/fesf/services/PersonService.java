@@ -1,5 +1,6 @@
 package ar.edu.fesf.services;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +10,9 @@ import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.PersonRepository;
 import ar.edu.fesf.repositories.UserInfoRepository;
 
-public class PersonService {
+public class PersonService implements Serializable {
+
+    private static final long serialVersionUID = 281627290258132217L;
 
     private UserInfoRepository userInfoRepository;
 
