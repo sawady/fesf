@@ -6,8 +6,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.NavigationToolbar;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -40,28 +39,15 @@ public class Home extends WebPage {
         dataTable.addTopToolbar(new HeadersToolbar(dataTable, null));
         this.add(dataTable);
 
-        Button addPersonButton = new Button("addObjectButton") {
+        this.add(new Link<Object>("newPerson") {
 
-            private static final long serialVersionUID = 8828916903354913099L;
-
-            @Override
-            public void onSubmit() {
-
-            }
-        };
-
-        Form<Object> form = new Form<Object>("form") {
-
-            private static final long serialVersionUID = -4578693870902648117L;
+            private static final long serialVersionUID = 9066203239628200337L;
 
             @Override
-            protected void onSubmit() {
-                Home.this.personService.addPerson(new Person("Carlos"));
+            public void onClick() {
+                this.setResponsePage(new PersonEdit(new Person()));
             }
-        };
-
-        form.add(addPersonButton);
-        this.add(form);
+        });
 
     }
 }
