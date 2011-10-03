@@ -7,11 +7,19 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 	
 	<!-- beans de spring  -->
-	<bean id="service.general" class="ar.edu.fesf.services.GeneralService" />
 
 	<bean id="service.person" class="ar.edu.fesf.services.PersonService">
-		<property name="personRepository" ref="persistence.personrepository" />
-		<property name="userInfoRepository" ref="persistence.userinforepository" />
-	</bean>	
+		<property name="repository" ref="persistence.personRepository" />
+	</bean>
+	
+	<bean id="service.authentication" class="ar.edu.fesf.services.AuthenticationService">
+		<property name="userInfoRepository" ref="persistence.userInfoRepository" />
+		<property name="personService" ref="service.person" />
+	</bean>
+	
+	<bean id="service.book" class="ar.edu.fesf.services.BookService">
+		<property name="repository" ref="persistence.BookRepository" />
+		<property name="categoryRepository" ref="persistence.CategoryRepository" />
+	</bean>
 
 </beans>

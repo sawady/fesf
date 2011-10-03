@@ -6,27 +6,19 @@ import org.apache.wicket.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
-import ar.edu.fesf.services.GeneralService;
-
 public class MyApplication extends AuthenticatedWebApplication {
 
     private ar.edu.fesf.view.MounterURL aMounterURL;
-
-    private GeneralService generalService;
-
-    public GeneralService getGeneralService() {
-        return this.generalService;
-    }
-
-    public void setGeneralService(final GeneralService generalService) {
-        this.generalService = generalService;
-    }
 
     @Override
     public void init() {
         this.aMounterURL = new MounterURL(this);
         this.addComponentInstantiationListener(new SpringComponentInjector(this));
         this.mountUrl("home", Home.class, "");
+        this.mountUrl("users", HomeUser.class, "");
+        // TODO agregar estas homes con sus respectivos logueos
+        // this.mountUrl("librarian", HomeLibrarian.class, "");
+        // this.mountUrl("admin", HomeAdmin.class, "");
     }
 
     private void mountUrl(final String mountPath, final Class<? extends WebPage> pageClass, final String... parameters) {

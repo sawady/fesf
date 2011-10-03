@@ -22,11 +22,6 @@
 	</bean>
 	
 	<bean id="wicketApplication" class="ar.edu.fesf.view.MyApplication">
-		<property name="generalService" ref="service.general" />
-	</bean>
-	
-	<bean id="personExample" class="ar.edu.fesf.model.Person">
-		<property name="name" value="Carlos"></property>		
 	</bean>
 
 </beans>

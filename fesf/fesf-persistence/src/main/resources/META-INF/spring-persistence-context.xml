@@ -103,12 +103,20 @@
 	<!-- ________________________________________ -->
 	<!-- ________________________________________ -->
 	
-	<bean id="persistence.personrepository" class="ar.edu.fesf.repositories.PersonRepository">
+	<bean id="persistence.personRepository" class="ar.edu.fesf.repositories.PersonRepository">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 	
-	<bean id="persistence.userinforepository" class="ar.edu.fesf.repositories.UserInfoRepository">
+	<bean id="persistence.userInfoRepository" class="ar.edu.fesf.repositories.UserInfoRepository">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>	
+	
+	<bean id="persistence.CategoryRepository" class="ar.edu.fesf.repositories.CategoryRepository">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>	
+	
+	<bean id="persistence.BookRepository" class="ar.edu.fesf.repositories.BookRepository">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>		
 
 </beans>

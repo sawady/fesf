@@ -1,5 +1,9 @@
 package ar.edu.fesf.model;
 
 public enum Role {
-    ADMIN, LIBRARIAN, USER
+    USER, LIBRARIAN, ADMIN;
+
+    public boolean isInferior(final Role role) {
+        return this.compareTo(role) >= 0;
+    }
 }

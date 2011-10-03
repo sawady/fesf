@@ -35,12 +35,12 @@ public class PersonProvider implements IDataProvider<Person> {
 
     @Override
     public Iterator<Person> iterator(final int first, final int count) {
-        return this.getPersonService().getAllPerson().iterator();
+        return this.getPersonService().getIterator();
     }
 
     @Override
     public int size() {
-        return this.getPersonService().getAllPerson().size();
+        return this.getPersonService().count();
     }
 
     @Override

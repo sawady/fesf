@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkState;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.UserInfoRepository;
 
@@ -30,7 +31,7 @@ public class AuthenticationService {
         this.userInfoRepository = userInfoRepository;
     }
 
-    public Person authenticate(final String userid, final String password) {
+    public Person authenticate(final String userid, final String password, final Role role) {
 
         Person person;
         UserInfo userinfo = this.findUserInfo(userid);
@@ -38,6 +39,11 @@ public class AuthenticationService {
         // usuario no encontrado
         if (userinfo == null) {
             throw new AuthenticationException("Invalid userid");
+        }
+
+        // se quiere loguear con mas privilegios de los que tiene
+        if (userinfo.getRole().isInferior(role)) {
+            throw new AuthenticationException("You have not such privileges");
         }
 
         // el password no es valido
