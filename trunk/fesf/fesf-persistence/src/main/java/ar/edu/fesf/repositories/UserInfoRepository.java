@@ -14,7 +14,7 @@ public class UserInfoRepository extends HibernateGenericDAO<UserInfo> implements
     }
 
     public UserInfo findUserInfo(final String pattern) {
-        return this.findByProperty("userinfo", pattern);
+        return this.findByPropertyUnique("userinfo", pattern);
     }
 
 }

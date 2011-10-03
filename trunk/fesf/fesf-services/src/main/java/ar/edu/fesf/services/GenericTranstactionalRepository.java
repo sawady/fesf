@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.repositories.GenericRepository;
 
-public interface GenericTranstactionalRepositoryInterface<T> extends Serializable {
+public interface GenericTranstactionalRepository<T> extends Serializable {
 
     GenericRepository<T> getRepository();
 
@@ -39,7 +39,13 @@ public interface GenericTranstactionalRepositoryInterface<T> extends Serializabl
     List<T> findByExample(final T exampleObject);
 
     @Transactional(readOnly = true)
-    T findByProperty(final String property, final Object object);
+    T findByPropertyUnique(final String property, final Object object);
+
+    @Transactional(readOnly = true)
+    List<T> findByProperty(final String property, final Object object);
+
+    @Transactional(readOnly = true)
+    List<T> findLikeProperty(final String property, final String pattern);
 
     Iterator<T> getIterator();
 
