@@ -27,7 +27,11 @@ public interface GenericRepository<T> extends Serializable {
 
     List<T> findByExample(T exampleObject);
 
-    T findByProperty(final String property, final Object object);
+    T findByPropertyUnique(final String property, final Object object);
+
+    List<T> findByProperty(final String property, final Object object);
+
+    List<T> findLikeProperty(final String property, final String pattern);
 
     Iterator<T> getIterator();
 

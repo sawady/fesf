@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.repositories.GenericRepository;
 
-public class GenericTransactionalRepositoryService<T> implements GenericTranstactionalRepositoryInterface<T> {
+public class GenericTransactionalRepositoryService<T> implements GenericTranstactionalRepository<T> {
 
     private static final long serialVersionUID = -6913034947685604978L;
 
@@ -74,13 +74,26 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
 
     @Override
     @Transactional(readOnly = true)
-    public T findByProperty(final String property, final Object object) {
+    public T findByPropertyUnique(final String property, final Object object) {
+        return this.repository.findByPropertyUnique(property, object);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<T> findByProperty(final String property, final Object object) {
         return this.repository.findByProperty(property, object);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Iterator<T> getIterator() {
         return this.repository.getIterator();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<T> findLikeProperty(final String property, final String pattern) {
+        return this.repository.findLikeProperty(property, pattern);
     }
 
 }

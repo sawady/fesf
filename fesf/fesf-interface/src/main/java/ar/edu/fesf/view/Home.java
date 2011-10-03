@@ -1,8 +1,12 @@
 package ar.edu.fesf.view;
 
+import java.util.ArrayList;
+
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
 
 public class Home extends WebPage {
@@ -29,6 +33,13 @@ public class Home extends WebPage {
 
         // TODO terminar el buscador
         // Panel panel = new Panel("searchPanel", new Model<Search>(new ()));
-    }
+        this.add(new Link<Object>("search") {
+            private static final long serialVersionUID = -4296821998512737231L;
 
+            @Override
+            public void onClick() {
+                this.setResponsePage(new SearchBook(new ArrayList<Book>()));
+            }
+        });
+    }
 }

@@ -1,5 +1,7 @@
 package ar.edu.fesf.services;
 
+import java.util.List;
+
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.repositories.CategoryRepository;
 
@@ -15,6 +17,14 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     public CategoryRepository getCategoryRepository() {
         return this.categoryRepository;
+    }
+
+    public List<Book> searchLikeTitle(final String name) {
+        return this.findLikeProperty("title", name);
+    }
+
+    public List<Book> searchLikeAuthor(final String name) {
+        return this.findLikeProperty("author", name);
     }
 
 }

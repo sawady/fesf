@@ -12,18 +12,19 @@
 	<br/>
 	
 	<div class="title">
-			<h3> Welcome to Hell! </h3>
+			<h3> Search of Books! </h3>
 	</div>
 	
-	<div class="topTen"/>
+	<form wicket:id="form">
+		<input wicket:id="title" type="text" />
+		<input wicket:id="save" type="submit" />
+	</form>
 	
-	<div class="recentlyAvailable"/>
+   <table wicket:id="table"></table>
 	
-	<div class="search">
-			<h3> Search your soul below </h3>
-	</div>
+	<a wicket:id="new">Add a new book!</a>
 	
-	<a wicket:id="search">Common! Search a Book!</a>
+	<wicket:child/>
 	
   </body>
 </html>

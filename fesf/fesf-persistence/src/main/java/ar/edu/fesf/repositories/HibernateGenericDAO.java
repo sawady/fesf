@@ -82,15 +82,41 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
         return this.findAll().iterator();
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public T findByProperty(final String property, final Object userinfo) {
+    @Override
+    public T findByPropertyUnique(final String property, final Object object) {
         return (T) this.getHibernateTemplate().execute(new HibernateCallback() {
             @Override
             public T doInHibernate(final Session session) throws HibernateException, SQLException {
-                Criteria criteria = session.createCriteria(this.getClass());
-                criteria.add(Restrictions.eq(property, userinfo));
+                final Criteria criteria = session.createCriteria(this.getClass());
+                criteria.add(Restrictions.eq(property, object));
                 return (T) criteria.uniqueResult();
+            }
+        });
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<T> findByProperty(final String property, final Object object) {
+        return (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
+            @Override
+            public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
+                Criteria criteria = session.createCriteria(this.getClass());
+                criteria.add(Restrictions.eq(property, object));
+                return criteria.list();
+            }
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<T> findLikeProperty(final String property, final String pattern) {
+        return (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
+            @Override
+            public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
+                Criteria criteria = session.createCriteria(this.getClass());
+                criteria.add(Restrictions.like(property, "%" + pattern + "%"));
+                return criteria.list();
             }
         });
     }

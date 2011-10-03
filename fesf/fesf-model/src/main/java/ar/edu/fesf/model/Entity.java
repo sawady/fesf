@@ -1,8 +1,12 @@
 package ar.edu.fesf.model;
 
-public abstract class Entity implements Persistible {
+import java.io.Serializable;
+
+public abstract class Entity implements Persistible, Serializable {
 
     /* VARIABLES ************************************************** */
+
+    private static final long serialVersionUID = -7830644979354059015L;
 
     private int id;
 

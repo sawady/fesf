@@ -10,7 +10,7 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.fesf.controllers.PersonProvider;
+import ar.edu.fesf.controllers.GenericProvider;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.PersonService;
 
@@ -33,19 +33,19 @@ public class HomeUser extends WebPage {
 
         columns[0] = new PropertyColumn<Person>(new Model<String>("Name"), "name");
 
-        DataTable<Person> dataTable = new DataTable<Person>("personTable", columns, new PersonProvider(
+        DataTable<Person> dataTable = new DataTable<Person>("table", columns, new GenericProvider<Person>(
                 this.personService), 5);
         dataTable.addBottomToolbar(new NavigationToolbar(dataTable));
         dataTable.addTopToolbar(new HeadersToolbar(dataTable, null));
         this.add(dataTable);
 
-        this.add(new Link<Object>("newPerson") {
+        this.add(new Link<Object>("new") {
 
             private static final long serialVersionUID = 9066203239628200337L;
 
             @Override
             public void onClick() {
-                this.setResponsePage(new PersonEdit(new Person()));
+                this.setResponsePage(new EditPerson(new Person()));
             }
         });
 
