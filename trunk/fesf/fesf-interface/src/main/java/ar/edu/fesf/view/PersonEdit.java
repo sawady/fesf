@@ -43,6 +43,7 @@ public class PersonEdit extends WebPage {
         this.add(new PersonForm("personForm", this.person));
     }
 
+    // TODO completar con todos los campos de persona
     class PersonForm extends Form<Person> {
         private static final long serialVersionUID = -3699540231028644958L;
 
@@ -54,8 +55,8 @@ public class PersonEdit extends WebPage {
 
         @Override
         public void onSubmit() {
-            PersonEdit.this.getPersonService().addPerson(PersonEdit.this.person);
-            this.setResponsePage(Home.class);
+            PersonEdit.this.getPersonService().save(PersonEdit.this.person);
+            this.setResponsePage(HomeUser.class);
         }
     }
 

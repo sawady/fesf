@@ -1,6 +1,7 @@
 package ar.edu.fesf.repositories;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * 
  * @param <T>
  */
-public interface GenericRepository<T> {
+public interface GenericRepository<T> extends Serializable {
 
     void save(T entity);
 
@@ -25,5 +26,9 @@ public interface GenericRepository<T> {
     int count();
 
     List<T> findByExample(T exampleObject);
+
+    T findByProperty(final String property, final Object object);
+
+    Iterator<T> getIterator();
 
 }

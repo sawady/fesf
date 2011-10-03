@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 public abstract class Nameable extends Entity {
 
-    private String name;
+    protected String name;
 
     /* Accessors */
     public String getName() {

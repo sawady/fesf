@@ -11,37 +11,37 @@
     </id>
     
     <property name="title"/>
-    <property name="imagepath"/>
-    <property name="description"/>
-    <property name="countOfLouns"/>
-    <one-to-one name="isbn" class="ISBN"/>
-    <one-to-one name="publisher" class="Publisher"/>
+<!--     <property name="imagepath"/> -->
+<!--     <property name="description"/> -->
+<!--     <property name="countOfLouns"/> -->
+<!--     <one-to-one name="isbn" class="ISBN"/> -->
+<!--     <one-to-one name="publisher" class="Publisher"/> -->
     
-    <set name="authors" table="BookAuthors">
-        <key column="book"/>
-        <many-to-many column="author" class="Author"/>
-    </set>
+<!--     <set name="authors" table="BookAuthors"> -->
+<!--         <key column="book"/> -->
+<!--         <many-to-many column="author" class="Author"/> -->
+<!--     </set> -->
     
     <set name="categories" table="BookCategories">
         <key column="book"/>
         <many-to-many column="category" class="Category"/>
     </set>
     
-    <list name="reservationEvents" table="ReservationEventsForBook">
-        <key column="book"/>
-        <index column="indice"/>
-        <one-to-many class="ReservationEvent"/>
-    </list>
+<!--     <list name="reservationEvents" table="ReservationEventsForBook"> -->
+<!--         <key column="book"/> -->
+<!--         <index column="indice"/> -->
+<!--         <one-to-many class="ReservationEvent"/> -->
+<!--     </list> -->
     
-    <set name="registedCopies" table="CopiesOfBooks">
-        <key column="book"/>
-        <one-to-many class="Category"/>
-    </set>
+<!--     <set name="registedCopies" table="CopiesOfBooks"> -->
+<!--         <key column="book"/> -->
+<!--         <one-to-many class="Category"/> -->
+<!--     </set> -->
     
-    <set name="availableCopies" table="AvailableCopiesOfBooks">
-        <key column="book"/>
-        <one-to-many class="Category"/>
-    </set>
+<!--     <set name="availableCopies" table="AvailableCopiesOfBooks"> -->
+<!--         <key column="book"/> -->
+<!--         <one-to-many class="Category"/> -->
+<!--     </set> -->
     
 	</class>
 </hibernate-mapping>

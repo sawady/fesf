@@ -2,6 +2,7 @@ package ar.edu.fesf.repositories;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -17,6 +18,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @param <T>
  */
 public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport implements GenericRepository<T> {
+
+    private static final long serialVersionUID = 1972615186739943794L;
 
     protected Class<T> persistentClass = this.getDomainClass();
 
@@ -74,6 +77,12 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
 
     }
 
+    @Override
+    public Iterator<T> getIterator() {
+        return this.findAll().iterator();
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public T findByProperty(final String property, final Object userinfo) {
         return (T) this.getHibernateTemplate().execute(new HibernateCallback() {
