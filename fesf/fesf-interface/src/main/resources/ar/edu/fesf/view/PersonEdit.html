@@ -9,15 +9,17 @@
   </head>
 
   <body>
-	<br/>
-	
+  	
+  	<br/>
+  	
 	<div class="title">
-			<wicket:message key="home.tittle"> Default message</wicket:message>
+			<h3> Edit Person </h3>
 	</div>
-	
-   <table wicket:id="personTable"></table>
-	
-	<a wicket:id="newPerson">Add a new person</a>
+		
+	<form wicket:id="personForm">
+		<input wicket:id="name" type="text" />
+		<input wicket:id="save" type="submit" />
+	</form>
 	
   </body>
 </html>
