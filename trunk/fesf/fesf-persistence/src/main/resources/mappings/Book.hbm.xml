@@ -22,10 +22,10 @@
 <!--         <many-to-many column="author" class="Author"/> -->
 <!--     </set> -->
     
-    <set name="categories" table="BookCategories">
-        <key column="book"/>
-        <many-to-many column="category" class="Category"/>
-    </set>
+<!--     <set name="categories" table="BookCategories"> -->
+<!--         <key column="book"/> -->
+<!--         <many-to-many column="category" class="Category"/> -->
+<!--     </set> -->
     
 <!--     <list name="reservationEvents" table="ReservationEventsForBook"> -->
 <!--         <key column="book"/> -->

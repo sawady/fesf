@@ -38,6 +38,6 @@ public class SearchBookForm extends Form<Book> {
     @Override
     protected void onSubmit() {
         this.setResponsePage(new SearchBook(this.getBookService().findLikeProperty("title",
-                this.getModelObject().getTitle()), this.getModelObject()));
+                this.getRequest().getParameter("title")), this.getModelObject()));
     }
 }

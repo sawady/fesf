@@ -22,6 +22,7 @@
 	</bean>
 	
 	<bean id="wicketApplication" class="ar.edu.fesf.view.MyApplication">
+		<property name="springInitializedService" ref="service.SpringInitializedService"></property>
 	</bean>
 
 </beans>

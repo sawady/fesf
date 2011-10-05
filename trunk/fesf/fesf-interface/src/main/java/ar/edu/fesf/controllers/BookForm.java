@@ -10,7 +10,6 @@ import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
 import ar.edu.fesf.view.SearchBook;
 
-// TODO completar con todos los campos
 public class BookForm extends Form<Book> {
 
     private static final long serialVersionUID = -2681835593630799248L;
@@ -31,6 +30,7 @@ public class BookForm extends Form<Book> {
         this.initialize();
     }
 
+    // TODO completar con todos los campos
     private void initialize() {
         this.add(new TextField<String>("title"));
         this.add(new Button("save"));

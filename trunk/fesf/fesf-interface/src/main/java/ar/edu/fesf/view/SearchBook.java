@@ -2,17 +2,10 @@ package ar.edu.fesf.view;
 
 import java.util.List;
 
-import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.HeadersToolbar;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.NavigationToolbar;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.fesf.controllers.GenericProvider;
 import ar.edu.fesf.controllers.SearchBookForm;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
@@ -55,16 +48,8 @@ public class SearchBook extends WebPage {
 
     private void initialize() {
 
-        @SuppressWarnings("unchecked")
-        IColumn<Book>[] columns = new PropertyColumn[1];
-
-        columns[0] = new PropertyColumn<Book>(new Model<String>("Title"), "title");
-
-        DataTable<Book> dataTable = new DataTable<Book>("table", columns, new GenericProvider<Book>(
-                this.getBookService()), 10);
-        dataTable.addBottomToolbar(new NavigationToolbar(dataTable));
-        dataTable.addTopToolbar(new HeadersToolbar(dataTable, null));
-        this.add(dataTable);
+        this.add(new AjaxDataTable<Book>("table", this.getBooks(), this.getBookService().getFieldForSort(), this
+                .getBookService().getFieldNames()));
 
         this.add(new Link<Object>("new") {
 

@@ -12,6 +12,8 @@ import java.util.Set;
 
 public class Book extends Entity {
 
+    private static final long serialVersionUID = 6298319531111903588L;
+
     private String title;
 
     private ISBN isbn;
@@ -33,6 +35,15 @@ public class Book extends Entity {
     private Set<Category> categories = new HashSet<Category>();
 
     private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
+
+    public Book(final String title) {
+        super();
+        this.title = title;
+    }
+
+    public Book() {
+        super();
+    }
 
     /* Methods */
     public void addCopy() {

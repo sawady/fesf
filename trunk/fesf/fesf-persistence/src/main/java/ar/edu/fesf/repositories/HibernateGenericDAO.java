@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -51,7 +52,6 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
         return this.getHibernateTemplate().find("from " + this.persistentClass.getName() + " o");
-
     }
 
     @Override
@@ -74,7 +74,6 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
     @SuppressWarnings("unchecked")
     public List<T> findByExample(final T exampleObject) {
         return this.getHibernateTemplate().findByExample(exampleObject);
-
     }
 
     @Override
@@ -82,43 +81,36 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
         return this.findAll().iterator();
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    public T findByEquality(final T object) {
+        return this.findByExample(object).get(0);
+    }
+
     @Override
     public T findByPropertyUnique(final String property, final Object object) {
-        return (T) this.getHibernateTemplate().execute(new HibernateCallback() {
-            @Override
-            public T doInHibernate(final Session session) throws HibernateException, SQLException {
-                final Criteria criteria = session.createCriteria(this.getClass());
-                criteria.add(Restrictions.eq(property, object));
-                return (T) criteria.uniqueResult();
-            }
-        });
+        return this.findByProperty(property, object).get(0);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public List<T> findByProperty(final String property, final Object object) {
+    private List<T> findBy(final Criterion rec) {
         return (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
             @Override
             public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
-                Criteria criteria = session.createCriteria(this.getClass());
-                criteria.add(Restrictions.eq(property, object));
+                Criteria criteria = session.createCriteria(HibernateGenericDAO.this.getDomainClass());
+                criteria.add(rec);
                 return criteria.list();
             }
         });
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    public List<T> findByProperty(final String property, final Object object) {
+        return this.findBy(Restrictions.eq(property, object));
+    }
+
     @Override
     public List<T> findLikeProperty(final String property, final String pattern) {
-        return (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
-            @Override
-            public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
-                Criteria criteria = session.createCriteria(this.getClass());
-                criteria.add(Restrictions.like(property, "%" + pattern + "%"));
-                return criteria.list();
-            }
-        });
+        return this.findBy(Restrictions.like(property, "%" + pattern + "%"));
     }
 
 }
