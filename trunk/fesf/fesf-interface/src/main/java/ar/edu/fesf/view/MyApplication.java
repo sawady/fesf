@@ -30,8 +30,7 @@ public class MyApplication extends AuthenticatedWebApplication {
         this.addComponentInstantiationListener(new SpringComponentInjector(this));
         this.getSpringInitializedService().initialize();
 
-        // this.mountUrl("home", Home.class, "");
-        this.mountUrl("home", HomeAlternativo.class, "");
+        this.mountUrl("home", Home.class, "");
         this.mountUrl("users", HomeUser.class, "");
 
         // TODO agregar estas homes con sus respectivos logueos
