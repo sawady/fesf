@@ -18,6 +18,8 @@ public class Person extends Nameable implements Serializable {
 
     private static final long serialVersionUID = -1117547495640219313L;
 
+    private String surname;
+
     private int age;
 
     private String address;
@@ -133,6 +135,16 @@ public class Person extends Nameable implements Serializable {
 
     public void setCurrentLoans(final List<Loan> currentLoans) {
         this.currentLoans = currentLoans;
+    }
+
+    public String getSurname() {
+        return this.surname;
+    }
+
+    public void setSurname(final String surname) {
+        checkNotNull(surname);
+        checkArgument(!surname.isEmpty(), "Surname cannot be empty");
+        this.surname = surname;
     }
 
     public List<Book> reservedBooks() {

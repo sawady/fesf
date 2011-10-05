@@ -25,6 +25,8 @@ public interface GenericRepository<T> extends Serializable {
 
     int count();
 
+    T findByEquality(T object);
+
     List<T> findByExample(T exampleObject);
 
     T findByPropertyUnique(final String property, final Object object);

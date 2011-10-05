@@ -11,6 +11,7 @@
     </id>
     
     <property name="name"></property>
+<!--     <property name="surname"></property> -->
 <!--     <property name="age"></property> -->
 <!-- 	<property name="address"></property> -->
 <!-- 	<property name="phone"></property> -->

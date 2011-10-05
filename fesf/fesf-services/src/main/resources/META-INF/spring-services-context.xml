@@ -21,5 +21,10 @@
 		<property name="repository" ref="persistence.BookRepository" />
 		<property name="categoryRepository" ref="persistence.CategoryRepository" />
 	</bean>
+	
+	<bean id="service.SpringInitializedService" class="ar.edu.fesf.services.SpringInitializedService">
+		<property name="bookService" ref="service.book" />
+		<property name="personService" ref="service.person" />
+	</bean>
 
 </beans>

@@ -85,7 +85,7 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Iterator<T> getIterator() {
         return this.repository.getIterator();
     }

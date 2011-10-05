@@ -10,7 +10,6 @@ import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.PersonService;
 import ar.edu.fesf.view.HomeUser;
 
-// TODO completar con todos los campos
 public class PersonForm extends Form<Person> {
 
     private static final long serialVersionUID = -3699540231028644958L;
@@ -31,6 +30,7 @@ public class PersonForm extends Form<Person> {
         this.initialize();
     }
 
+    // TODO completar con todos los campos
     private void initialize() {
         this.add(new TextField<String>("name"));
         this.add(new Button("save"));

@@ -67,9 +67,10 @@ public class AuthenticationService {
         return this.getUserInfoRepository().findUserInfo(pattern);
     }
 
+    @Transactional
     public void addUserInfo(final UserInfo userinfo) {
         UserInfo existingUserInfo = this.getUserInfoRepository().findUserInfo(userinfo.getUserid());
-        checkState(existingUserInfo == null, "Userid alredy exists");
+        checkState(existingUserInfo == null, "Userid already exists");
         this.getUserInfoRepository().save(userinfo);
     }
 
