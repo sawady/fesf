@@ -71,4 +71,14 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return books;
     }
 
+    public List<Book> getTop20() {
+        // TODO implementar bien
+        return this.findAll();
+    }
+
+    public List<Book> getRecentlyAvailable() {
+        // TODO implementar bien
+        return this.findAll();
+    }
+
 }

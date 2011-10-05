@@ -1,14 +1,13 @@
 package ar.edu.fesf.view;
 
-import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.fesf.controllers.BookForm;
-import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
 
-public class EditBook extends WebPage {
-    private Book book;
+public class RankingPanel extends Panel {
+
+    private static final long serialVersionUID = -7953872321445001861L;
 
     @SpringBean(name = "service.book")
     private BookService bookService;
@@ -21,22 +20,13 @@ public class EditBook extends WebPage {
         this.bookService = bookService;
     }
 
-    public Book getBook() {
-        return this.book;
-    }
-
-    public void setBook(final Book book) {
-        this.book = book;
-    }
-
-    public EditBook(final Book book) {
-        super();
-        this.book = book;
+    public RankingPanel(final String id) {
+        super(id);
         this.initialize();
     }
 
     private void initialize() {
-        this.add(new BookForm("form", this.getBook()));
+        this.add(new HorizontalBookPanel("top20", this.getBookService().getTop20()));
+        this.add(new HorizontalBookPanel("recentlyAvailable", this.getBookService().getRecentlyAvailable()));
     }
-
 }
