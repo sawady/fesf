@@ -4,6 +4,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 public class Calification extends Entity {
 
+    private static final long serialVersionUID = 1L;
+
     private int userCalification;
 
     public int getUserCalification() {

@@ -8,6 +8,8 @@ import ar.edu.fesf.services.BookService;
 
 public class Home extends WebPage {
 
+    Panel contentPanel;
+
     @SpringBean(name = "service.book")
     private BookService bookService;
 
@@ -30,8 +32,9 @@ public class Home extends WebPage {
 
     private void initializeWithPanel(final Panel contentPanel) {
         this.add(contentPanel);
+        contentPanel.setOutputMarkupId(true);
         this.add(new Sidebar("sidebar"));
-
+        this.add(new BookSearchPanel("searchbar"));
         // TODO terminar el buscador
         // this.add(new Link<Object>("search") {
         // private static final long serialVersionUID = -4296821998512737231L;

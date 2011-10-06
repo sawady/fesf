@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Publisher extends Nameable {
 
+    private static final long serialVersionUID = 1L;
+
     private List<Book> books = new ArrayList<Book>();
 
     /* Accessors */

@@ -11,6 +11,8 @@ import ar.edu.fesf.services.SpringInitializedService;
 
 public class MyApplication extends AuthenticatedWebApplication {
 
+    private static final long serialVersionUID = 1L;
+
     private ar.edu.fesf.view.MounterURL aMounterURL;
 
     @SpringBean(name = "service.SpringInitializedService")

@@ -8,7 +8,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
-import ar.edu.fesf.view.SearchBook;
 
 public class BookForm extends Form<Book> {
 
@@ -39,7 +38,7 @@ public class BookForm extends Form<Book> {
     @Override
     public void onSubmit() {
         this.getBookService().save(this.getModelObject());
-        this.setResponsePage(new SearchBook(this.getBookService().findAll()));
+        // this.setResponsePage(new BookSearchResultPanel(this.getBookService().findAll()));
     }
 
 }

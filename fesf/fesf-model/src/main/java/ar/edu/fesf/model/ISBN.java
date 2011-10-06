@@ -4,6 +4,8 @@ import ar.edu.fesf.model.validations.ISBNValidator;
 
 public class ISBN extends Entity {
 
+    private static final long serialVersionUID = 1L;
+
     private String value;
 
     public String getValue() {

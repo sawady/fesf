@@ -1,8 +1,5 @@
 package ar.edu.fesf.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +8,6 @@ public class Category extends Nameable {
     private static final long serialVersionUID = -161649226557449750L;
 
     private List<Book> books = new ArrayList<Book>();
-
-    protected String name;
 
     public Category(final String name) {
         super();
@@ -68,19 +63,6 @@ public class Category extends Nameable {
 
     public void setBooks(final List<Book> books) {
         this.books = books;
-    }
-
-    /* Accessors */
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public void setName(final String name) {
-        checkNotNull(name);
-        checkArgument(!name.isEmpty(), "The name cannot be empty");
-        this.name = name;
     }
 
 }
