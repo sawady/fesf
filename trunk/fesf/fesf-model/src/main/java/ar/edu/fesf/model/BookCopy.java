@@ -5,8 +5,9 @@ import static com.google.common.base.Preconditions.checkState;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class BookCopy extends Entity {
+
+    private static final long serialVersionUID = 1L;
 
     private Book book;
 

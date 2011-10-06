@@ -21,7 +21,7 @@ public class HomeUser extends WebPage {
 
     public final void initialize() {
 
-        this.add(new AjaxDataTable<Person>("table", this.personService.findAll(), this.personService.getFieldForSort(),
+        this.add(new AjaxDataTablePanel<Person>("table", this.personService.findAll(), this.personService.getFieldForSort(),
                 this.personService.getFieldNames()));
 
         this.add(new Link<Object>("new") {

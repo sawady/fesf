@@ -11,6 +11,8 @@ import ar.edu.fesf.model.validations.BusinessDayValidator;
 
 public class Loan extends Event {
 
+    private static final long serialVersionUID = 1L;
+
     // TODO arreglar esto
     private static int maxLoanPeriodInDays = 60;
 

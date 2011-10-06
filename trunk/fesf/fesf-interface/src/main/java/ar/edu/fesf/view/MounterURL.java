@@ -6,6 +6,8 @@ import org.apache.wicket.request.target.coding.MixedParamHybridUrlCodingStrategy
 
 public class MounterURL {
 
+    private static final long serialVersionUID = 1L;
+
     private WebApplication webApplication;
 
     /**
@@ -25,7 +27,7 @@ public class MounterURL {
      */
     public void mount(final String mountPath, final Class<? extends WebPage> pageClass, final String... parameters) {
         MixedParamHybridUrlCodingStrategy urls = new MixedParamHybridUrlCodingStrategy(mountPath, pageClass, parameters);
-        webApplication.mount(urls);
+        this.webApplication.mount(urls);
     }
 
     /**
@@ -34,9 +36,8 @@ public class MounterURL {
      * @param pageClass
      *            Class of mounted page (not null)
      * @param redirectOnBookmarkableRequest
-     *            Whether after hitting the page with URL in bookmarkable form
-     *            it should be redirected to hybrid URL - needed for ajax to
-     *            work properly after page refresh
+     *            Whether after hitting the page with URL in bookmarkable form it should be redirected to hybrid URL -
+     *            needed for ajax to work properly after page refresh
      * @param parameters
      *            The parameter names (not null)
      */
@@ -44,6 +45,6 @@ public class MounterURL {
             final boolean redirectOnBookmarkableRequest, final String... parameters) {
         MixedParamHybridUrlCodingStrategy urls = new MixedParamHybridUrlCodingStrategy(mountPath, pageClass,
                 redirectOnBookmarkableRequest, parameters);
-        webApplication.mount(urls);
+        this.webApplication.mount(urls);
     }
 }

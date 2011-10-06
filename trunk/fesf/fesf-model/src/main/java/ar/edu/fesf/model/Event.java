@@ -6,6 +6,8 @@ import org.joda.time.DateTime;
 
 public abstract class Event extends Entity {
 
+    private static final long serialVersionUID = 1L;
+
     private Person person;
 
     private DateTime date = new DateTime();

@@ -6,6 +6,8 @@ import org.joda.time.DateTime;
 
 public class NonBusinessDay extends Entity {
 
+    private static final long serialVersionUID = 1L;
+
     private DateTime date;
 
     private String description;

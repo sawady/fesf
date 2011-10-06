@@ -12,14 +12,14 @@ import org.apache.wicket.model.Model;
 
 import ar.edu.fesf.controllers.GenericSortableDataProvider;
 
-public class AjaxDataTable<T extends Serializable> extends Panel {
+public class AjaxDataTablePanel<T extends Serializable> extends Panel {
 
     private static final long serialVersionUID = 9141385162784081359L;
 
     /**
      * Constructor.
      */
-    public AjaxDataTable(final String id, final List<T> list, final String sortField, final List<String> columnNames) {
+    public AjaxDataTablePanel(final String id, final List<T> list, final String sortField, final List<String> columnNames) {
         super(id);
         List<IColumn<T>> columns = new ArrayList<IColumn<T>>();
 
