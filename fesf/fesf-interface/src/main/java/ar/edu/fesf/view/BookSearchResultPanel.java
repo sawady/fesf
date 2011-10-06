@@ -44,8 +44,10 @@ public class BookSearchResultPanel extends Panel {
     }
 
     private void initialize() {
-        this.add(new AjaxDataTablePanel<Book>("table", this.getBooks(), this.getBookService().getFieldForSort(), this
-                .getBookService().getFieldNames()));
+        AjaxDataTablePanel<Book> dataPanel = new AjaxDataTablePanel<Book>("table", this.getBooks(), this
+                .getBookService().getFieldForSort(), this.getBookService().getFieldNames());
+        dataPanel.setOutputMarkupId(true);
+        this.add(dataPanel);
     }
 
 }

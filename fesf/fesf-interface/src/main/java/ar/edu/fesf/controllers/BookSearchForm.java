@@ -1,7 +1,5 @@
 package ar.edu.fesf.controllers;
 
-import java.util.ArrayList;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Form;
@@ -11,7 +9,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
-import ar.edu.fesf.view.BookSearchResultPanel;
+import ar.edu.fesf.view.BookSearchPanel;
 
 public class BookSearchForm extends Form<Book> {
 
@@ -19,6 +17,16 @@ public class BookSearchForm extends Form<Book> {
 
     @SpringBean(name = "service.book")
     private BookService bookService;
+
+    private BookSearchPanel searchPanel;
+
+    public BookSearchPanel getSearchPanel() {
+        return this.searchPanel;
+    }
+
+    public void setSearchPanel(final BookSearchPanel searchPanel) {
+        this.searchPanel = searchPanel;
+    }
 
     public BookService getBookService() {
         return this.bookService;
@@ -28,8 +36,9 @@ public class BookSearchForm extends Form<Book> {
         this.bookService = bookService;
     }
 
-    public BookSearchForm(final String id, final Book book) {
+    public BookSearchForm(final String id, final Book book, final BookSearchPanel searchPanel) {
         super(id, new CompoundPropertyModel<Book>(book));
+        this.searchPanel = searchPanel;
         this.initialize();
     }
 
@@ -41,16 +50,11 @@ public class BookSearchForm extends Form<Book> {
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
-                this.getParent().getParent().getParent()
-                        .replaceWith(new BookSearchResultPanel("contentPanel", new ArrayList<Book>()));
+                BookSearchForm.this.getSearchPanel().recieveResult(
+                        target,
+                        BookSearchForm.this.getBookService().findLikeProperty("title",
+                                this.getRequest().getParameter("title")));
             }
         });
-        // this.add(new Button("submit"));
-    }
-
-    @Override
-    protected void onSubmit() {
-        // this.setResponsePage(new Home(new BookSearchResultPanel("contentPanel", BookSearchForm.this.getBookService()
-        // .findLikeProperty("title", this.getRequest().getParameter("title")))));
     }
 }
