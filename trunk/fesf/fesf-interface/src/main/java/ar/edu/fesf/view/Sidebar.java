@@ -34,8 +34,8 @@ public class Sidebar extends Panel {
 
                     @Override
                     public void onClick() {
-                        this.setResponsePage(new Home(new BookSearchResultPanel("contentPanel", Sidebar.this
-                                .getBookService().findByCategory(this.getModelObject()))));
+                        // this.setResponsePage(new Home(new BookSearchResultPanel("contentPanel", Sidebar.this
+                        // .getBookService().findByCategory(this.getModelObject()))));
                     }
                 };
 
