@@ -1,4 +1,4 @@
-package ar.edu.fesf.controllers;
+package ar.edu.fesf.view;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
