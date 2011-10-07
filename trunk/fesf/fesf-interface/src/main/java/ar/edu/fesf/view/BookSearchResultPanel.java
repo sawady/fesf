@@ -1,7 +1,9 @@
 package ar.edu.fesf.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -15,6 +17,8 @@ public class BookSearchResultPanel extends Panel {
     @SpringBean(name = "service.book")
     private BookService bookService;
 
+    private AjaxDataTablePanel<Book> ajaxDataTablePanel;
+
     public BookService getBookService() {
         return this.bookService;
     }
@@ -23,31 +27,27 @@ public class BookSearchResultPanel extends Panel {
         this.bookService = bookService;
     }
 
-    private List<Book> books;
-
-    public List<Book> getBooks() {
-        return this.books;
-    }
-
-    public void setBooks(final List<Book> books) {
-        this.books = books;
-    }
-
-    public BookSearchResultPanel(final String id, final List<Book> books) {
-        this(id, books, new Book());
-    }
-
-    public BookSearchResultPanel(final String id, final List<Book> books, final Book actualSearch) {
+    public BookSearchResultPanel(final String id) {
         super(id);
-        this.books = books;
         this.initialize();
     }
 
     private void initialize() {
-        AjaxDataTablePanel<Book> dataPanel = new AjaxDataTablePanel<Book>("table", this.getBooks(), this
-                .getBookService().getFieldForSort(), this.getBookService().getFieldNames());
-        dataPanel.setOutputMarkupId(true);
-        this.add(dataPanel);
+        this.setAjaxDataTablePanel(new AjaxDataTablePanel<Book>("table", new ArrayList<Book>(), this.getBookService()
+                .getFieldForSort(), this.getBookService().getFieldNames()));
+        this.getAjaxDataTablePanel().setOutputMarkupId(true);
+        this.add(this.getAjaxDataTablePanel());
     }
 
+    public void replaceTable(final AjaxRequestTarget target, final List<Book> books) {
+        this.getAjaxDataTablePanel().replaceTable(target, books);
+    }
+
+    private void setAjaxDataTablePanel(final AjaxDataTablePanel<Book> ajaxDataTablePanel) {
+        this.ajaxDataTablePanel = ajaxDataTablePanel;
+    }
+
+    private AjaxDataTablePanel<Book> getAjaxDataTablePanel() {
+        return this.ajaxDataTablePanel;
+    }
 }

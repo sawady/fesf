@@ -1,12 +1,17 @@
 package ar.edu.fesf.view;
 
+import java.util.List;
+
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.fesf.controllers.IAjaxCallback;
+import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.services.BookService;
 
@@ -15,10 +20,13 @@ public class Sidebar extends Panel {
     @SpringBean(name = "service.book")
     private BookService bookService;
 
+    private IAjaxCallback<List<Book>> callback;
+
     private static final long serialVersionUID = -4399991188117990545L;
 
-    public Sidebar(final String id) {
+    public Sidebar(final String id, final IAjaxCallback<List<Book>> callback) {
         super(id);
+        this.setCallback(callback);
         this.initialize();
     }
 
@@ -29,14 +37,17 @@ public class Sidebar extends Panel {
 
             @Override
             protected void populateItem(final ListItem<Category> item) {
-                Link<Category> link = new Link<Category>("link", item.getModel()) {
+
+                AjaxFallbackLink<Category> link = new AjaxFallbackLink<Category>("link", item.getModel()) {
+
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public void onClick() {
-                        // this.setResponsePage(new Home(new BookSearchResultPanel("contentPanel", Sidebar.this
-                        // .getBookService().findByCategory(this.getModelObject()))));
+                    public void onClick(final AjaxRequestTarget target) {
+                        Sidebar.this.getCallback().callback(target,
+                                Sidebar.this.getBookService().findByCategory(this.getModelObject()));
                     }
+
                 };
 
                 link.add(new Label("linkText", item.getModelObject().getName()));
@@ -52,5 +63,13 @@ public class Sidebar extends Panel {
 
     public BookService getBookService() {
         return this.bookService;
+    }
+
+    public void setCallback(final IAjaxCallback<List<Book>> callback) {
+        this.callback = callback;
+    }
+
+    public IAjaxCallback<List<Book>> getCallback() {
+        return this.callback;
     }
 }

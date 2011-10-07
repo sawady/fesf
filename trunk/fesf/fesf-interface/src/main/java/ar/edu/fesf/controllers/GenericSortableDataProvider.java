@@ -12,27 +12,36 @@ public class GenericSortableDataProvider<T extends Serializable> extends Sortabl
 
     private static final long serialVersionUID = 3674030688602763779L;
 
-    List<T> list;
+    private List<T> list;
 
     public GenericSortableDataProvider(final List<T> list, final String propertyToSort) {
         super();
-        this.list = list;
+        this.setList(list);
         this.setSort(propertyToSort, true);
     }
 
     @Override
     public Iterator<? extends T> iterator(final int first, final int count) {
-        return this.list.subList(first, first + count).iterator();
+        List<T> subList = this.getList().subList(first, first + count);
+        return subList.iterator();
     }
 
     @Override
     public int size() {
-        return this.list.size();
+        return this.getList().size();
     }
 
     @Override
     public IModel<T> model(final T object) {
         return new CompoundPropertyModel<T>(object);
+    }
+
+    private void setList(final List<T> list) {
+        this.list = list;
+    }
+
+    private List<T> getList() {
+        return this.list;
     }
 
 }
