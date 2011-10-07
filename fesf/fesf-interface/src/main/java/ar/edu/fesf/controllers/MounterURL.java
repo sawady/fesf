@@ -1,4 +1,4 @@
-package ar.edu.fesf.view;
+package ar.edu.fesf.controllers;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
@@ -14,7 +14,7 @@ public class MounterURL {
      * @param webApplication
      */
     public MounterURL(final WebApplication webApplication) {
-        this.webApplication = webApplication;
+        this.setWebApplication(webApplication);
     }
 
     /**
@@ -27,7 +27,7 @@ public class MounterURL {
      */
     public void mount(final String mountPath, final Class<? extends WebPage> pageClass, final String... parameters) {
         MixedParamHybridUrlCodingStrategy urls = new MixedParamHybridUrlCodingStrategy(mountPath, pageClass, parameters);
-        this.webApplication.mount(urls);
+        this.getWebApplication().mount(urls);
     }
 
     /**
@@ -45,6 +45,14 @@ public class MounterURL {
             final boolean redirectOnBookmarkableRequest, final String... parameters) {
         MixedParamHybridUrlCodingStrategy urls = new MixedParamHybridUrlCodingStrategy(mountPath, pageClass,
                 redirectOnBookmarkableRequest, parameters);
-        this.webApplication.mount(urls);
+        this.getWebApplication().mount(urls);
+    }
+
+    private void setWebApplication(final WebApplication webApplication) {
+        this.webApplication = webApplication;
+    }
+
+    private WebApplication getWebApplication() {
+        return this.webApplication;
     }
 }

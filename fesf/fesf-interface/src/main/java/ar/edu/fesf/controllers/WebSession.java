@@ -1,4 +1,4 @@
-package ar.edu.fesf.view;
+package ar.edu.fesf.controllers;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.authentication.AuthenticatedWebSession;

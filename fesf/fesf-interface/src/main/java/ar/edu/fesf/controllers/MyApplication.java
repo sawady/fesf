@@ -1,4 +1,4 @@
-package ar.edu.fesf.view;
+package ar.edu.fesf.controllers;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.authentication.AuthenticatedWebApplication;
@@ -8,12 +8,14 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import ar.edu.fesf.services.SpringInitializedService;
+import ar.edu.fesf.view.Home;
+import ar.edu.fesf.view.HomeUser;
 
 public class MyApplication extends AuthenticatedWebApplication {
 
     private static final long serialVersionUID = 1L;
 
-    private ar.edu.fesf.view.MounterURL aMounterURL;
+    private MounterURL aMounterURL;
 
     @SpringBean(name = "service.SpringInitializedService")
     private SpringInitializedService springInitializedService;
@@ -28,7 +30,7 @@ public class MyApplication extends AuthenticatedWebApplication {
 
     @Override
     public void init() {
-        this.aMounterURL = new MounterURL(this);
+        this.setAMounterURL(new MounterURL(this));
         this.addComponentInstantiationListener(new SpringComponentInjector(this));
         this.getSpringInitializedService().initialize();
 
@@ -41,7 +43,7 @@ public class MyApplication extends AuthenticatedWebApplication {
     }
 
     private void mountUrl(final String mountPath, final Class<? extends WebPage> pageClass, final String... parameters) {
-        this.aMounterURL.mount(mountPath, pageClass, parameters);
+        this.getAMounterURL().mount(mountPath, pageClass, parameters);
     }
 
     @Override
@@ -61,6 +63,14 @@ public class MyApplication extends AuthenticatedWebApplication {
 
     public String getContextPath() {
         return this.getServletContext().getContextPath();
+    }
+
+    private void setAMounterURL(final MounterURL aMounter) {
+        this.aMounterURL = aMounter;
+    }
+
+    private MounterURL getAMounterURL() {
+        return this.aMounterURL;
     }
 
 }
