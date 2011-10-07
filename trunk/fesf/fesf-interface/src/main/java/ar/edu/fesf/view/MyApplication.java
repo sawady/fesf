@@ -1,4 +1,4 @@
-package ar.edu.fesf.controllers;
+package ar.edu.fesf.view;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.authentication.AuthenticatedWebApplication;
@@ -8,8 +8,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import ar.edu.fesf.services.SpringInitializedService;
-import ar.edu.fesf.view.Home;
-import ar.edu.fesf.view.HomeUser;
 
 public class MyApplication extends AuthenticatedWebApplication {
 
