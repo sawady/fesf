@@ -1,10 +1,10 @@
 package ar.edu.fesf.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationManager {
 
-    private ArrayList<OverdueNotification> pendingNotifications;
+    private List<OverdueNotification> pendingNotifications;
 
     public void notifyOverdue(final Loan loan) {
         this.getNotifications().add(new OverdueNotification(loan));
@@ -18,6 +18,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(final OverdueNotification overdueNotification) {
+        // TODO
         // Verifica si aun corresponde enviar el mail
         // Intenta enviarla
         // - si puede, registra el exito en la notificacion, y la elimina de las pendientes
@@ -25,19 +26,19 @@ public class NotificationManager {
 
     /* Accessors */
 
-    public ArrayList<OverdueNotification> getNotifications() {
+    public List<OverdueNotification> getNotifications() {
         return this.pendingNotifications;
     }
 
-    public void setNotifications(final ArrayList<OverdueNotification> notifications) {
+    public void setNotifications(final List<OverdueNotification> notifications) {
         this.pendingNotifications = notifications;
     }
 
-    public void setPendingNotifications(final ArrayList<OverdueNotification> pendingNotifications) {
+    public void setPendingNotifications(final List<OverdueNotification> pendingNotifications) {
         this.pendingNotifications = pendingNotifications;
     }
 
-    public ArrayList<OverdueNotification> getPendingNotifications() {
+    public List<OverdueNotification> getPendingNotifications() {
         return this.pendingNotifications;
     }
 

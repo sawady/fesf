@@ -1,6 +1,5 @@
 package ar.edu.fesf.model;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
@@ -87,7 +86,6 @@ public class Book extends Entity {
     }
 
     public void setTitle(final String title) {
-        checkArgument(!title.isEmpty());
         this.title = title;
     }
 

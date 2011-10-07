@@ -20,6 +20,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  */
 public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport implements GenericRepository<T> {
 
+    private static final String UNCHECKED = "unchecked";
+
     private static final long serialVersionUID = 1972615186739943794L;
 
     protected Class<T> persistentClass = this.getDomainClass();
@@ -42,14 +44,14 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
         this.getHibernateTemplate().update(entity);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(UNCHECKED)
     @Override
     public T findById(final Serializable id) {
         return (T) this.getHibernateTemplate().get(this.persistentClass, id);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(UNCHECKED)
     public List<T> findAll() {
         return this.getHibernateTemplate().find("from " + this.persistentClass.getName() + " o");
     }
@@ -61,7 +63,7 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(UNCHECKED)
     public int count() {
         List<Long> list = this.getHibernateTemplate().find(
                 "select count(*) from " + this.persistentClass.getName() + " o");
@@ -71,7 +73,7 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(UNCHECKED)
     public List<T> findByExample(final T exampleObject) {
         return this.getHibernateTemplate().findByExample(exampleObject);
     }
@@ -91,7 +93,7 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
         return this.findByProperty(property, object).get(0);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(UNCHECKED)
     private List<T> findBy(final Criterion rec) {
         return (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
             @Override
