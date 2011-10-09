@@ -43,8 +43,6 @@ public class ISBNValidator {
     /**
      * Validates if the given <code>String</code> is a valid ISBN.
      * 
-     * @return IsbnValidatorResult type
-     * @see de.fhm.jkf.bookshop.clsv.IsbnValidatorResult
      */
     public void checkISBN(final String isbn) {
         checkArgument(isbn != null, ISBNValidator.VALIDATION_ERROR_LENGTH);

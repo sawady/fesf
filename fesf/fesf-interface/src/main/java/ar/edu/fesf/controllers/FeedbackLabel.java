@@ -74,7 +74,7 @@ public class FeedbackLabel extends Label {
      * @param id
      *            The non-null id of this component
      * @param component
-     *            The {@link FormComponent} to show the custom text for.
+     *            The FormComponent to show the custom text for.
      * @param text
      *            The custom text to show when the FormComponent has a FeedbackMessage
      */
@@ -88,7 +88,7 @@ public class FeedbackLabel extends Label {
      * @param id
      *            The non-null id of this component
      * @param component
-     *            The {@link FormComponent} to show the custom model for.
+     *            The FormComponent to show the custom model for.
      * @param iModel
      *            The custom model to show when the {@link FormComponent} has a FeedbackMessage
      */
@@ -107,8 +107,6 @@ public class FeedbackLabel extends Label {
      * class = "feedbacklabel INFO" class = "feedbacklabel ERROR" class = "feedbacklabel DEBUG" class =
      * "feedbacklabel FATAL"
      * 
-     * 
-     * @see Component
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
