@@ -39,11 +39,12 @@ public class Home extends WebPage {
 
             @Override
             public void callback(final AjaxRequestTarget target, final List<Book> books) {
+                // Primera vez
                 if (!Home.this.getContentPanel().equals(Home.this.getBookSearchResultPanel())) {
                     Home.this.getContentPanel().replaceWith(Home.this.getBookSearchResultPanel());
                     Home.this.setContentPanel(Home.this.getBookSearchResultPanel());
+                    target.addComponent(Home.this.getContentPanel());
                 }
-                target.addComponent(Home.this.getContentPanel());
                 Home.this.getBookSearchResultPanel().replaceTable(target, books);
             }
         };

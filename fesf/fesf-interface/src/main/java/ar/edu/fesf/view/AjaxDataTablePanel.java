@@ -46,6 +46,7 @@ public class AjaxDataTablePanel<T extends Serializable> extends Panel {
     public void replaceTable(final AjaxRequestTarget target, final List<T> list) {
         this.replace(new AjaxFallbackDefaultDataTable<T>("table", this.getColumns(),
                 new GenericSortableDataProvider<T>(list, this.getSortField()), 5));
+        target.addComponent(this);
     }
 
     private void setColumns(final List<IColumn<T>> columns) {
