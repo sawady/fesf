@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.fesf.builders.PersonBuilder;
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
 
 public class PersonService extends GenericTransactionalRepositoryService<Person> implements Serializable {
@@ -19,15 +21,16 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
     }
 
     public void initialize() {
-        this.save(new Person("Pepe"));
-        this.save(new Person("Carlos"));
-        this.save(new Person("Tomas"));
-        this.save(new Person("Eustaquio"));
-        this.save(new Person("Delincuente"));
-        this.save(new Person("Gomez"));
-        this.save(new Person("Klose"));
-        this.save(new Person("Mariano"));
-        this.save(new Person("Niembro"));
+        this.save(new Person("Ariel"));
+        this.save(new PersonBuilder().withName("Jose").withUserInfo(new UserInfo("jose", "jose", Role.LIBRARIAN))
+                .build());
+        this.save(new PersonBuilder().withName("Pepe").withUserInfo(new UserInfo("pepe", "pepe", Role.LIBRARIAN))
+                .build());
+        this.save(new PersonBuilder().withName("Carlos").withUserInfo(new UserInfo("carlos", "carlos", Role.USER))
+                .build());
+        this.save(new PersonBuilder().withName("Tomas").withUserInfo(new UserInfo("tomas", "tomas", Role.USER)).build());
+        this.save(new PersonBuilder().withName("matias").withUserInfo(new UserInfo("matias", "matias", Role.USER))
+                .build());
     }
 
     public String getFieldForSort() {

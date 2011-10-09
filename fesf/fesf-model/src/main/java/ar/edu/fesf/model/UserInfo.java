@@ -15,6 +15,17 @@ public class UserInfo extends Entity implements Serializable {
 
     private Role role;
 
+    public UserInfo() {
+        super();
+    }
+
+    public UserInfo(final String pass, final String userid, final Role role) {
+        super();
+        this.pass = pass;
+        this.userid = userid;
+        this.role = role;
+    }
+
     /* Accessors */
     public String getPass() {
         return this.pass;
