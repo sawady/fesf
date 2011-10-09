@@ -39,6 +39,22 @@ public class FeedbackLabel extends Label {
     /** Field text holds a model of the text to be shown in the FeedbackLabel */
     private IModel<?> text = null;
 
+    public FormComponent<?> getComponent() {
+        return this.component;
+    }
+
+    public void setComponent(final FormComponent<?> component) {
+        this.component = component;
+    }
+
+    public IModel<?> getText() {
+        return this.text;
+    }
+
+    public void setText(final IModel<?> text) {
+        this.text = text;
+    }
+
     /**
      * Call this constructor if you just want to display the FeedbackMessage of the component
      * 
@@ -111,4 +127,5 @@ public class FeedbackLabel extends Label {
                     + this.component.getFeedbackMessage().getLevelAsString())));
         }
     }
+
 }

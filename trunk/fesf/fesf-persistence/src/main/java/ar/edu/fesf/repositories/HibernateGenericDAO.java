@@ -115,4 +115,12 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
         return this.findBy(Restrictions.like(property, "%" + pattern + "%"));
     }
 
+    public Class<T> getPersistentClass() {
+        return this.persistentClass;
+    }
+
+    public void setPersistentClass(final Class<T> persistentClass) {
+        this.persistentClass = persistentClass;
+    }
+
 }
