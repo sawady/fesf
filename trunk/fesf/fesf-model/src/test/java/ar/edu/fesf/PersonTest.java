@@ -11,11 +11,11 @@ import ar.edu.fesf.model.Person;
 
 public class PersonTest {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void personaNameCantBeEmpty() {
-        Person person = new Person();
-        person.setName("");
-    }
+    // @Test(expected = IllegalArgumentException.class)
+    // public void personaNameCantBeEmpty() {
+    // Person person = new Person();
+    // person.setName("");
+    // }
 
     @Test
     public void addNewLoanWhenNoLoans() {
