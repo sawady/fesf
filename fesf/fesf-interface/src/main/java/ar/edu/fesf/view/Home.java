@@ -35,6 +35,8 @@ public class Home extends WebPage {
 
     private IAjaxCallback<List<Book>> changeContentPanelCallback() {
         return new IAjaxCallback<List<Book>>() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void callback(final AjaxRequestTarget target, final List<Book> books) {
                 if (!Home.this.getContentPanel().equals(Home.this.getBookSearchResultPanel())) {
