@@ -38,9 +38,7 @@ public class BooksPanel extends Panel {
 
             @Override
             public void callback(final AjaxRequestTarget target, final List<Book> books) {
-                // TODO ver si se puede mejorar
                 BooksPanel.this.getBookSearchResultPanel().replaceTable(target, books);
-                target.addComponent(BooksPanel.this.getBookSearchResultPanel());
             }
 
         };
