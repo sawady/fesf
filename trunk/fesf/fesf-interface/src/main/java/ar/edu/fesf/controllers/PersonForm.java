@@ -8,7 +8,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.PersonService;
-import ar.edu.fesf.view.HomeUser;
 
 public class PersonForm extends Form<Person> {
 
@@ -39,6 +38,6 @@ public class PersonForm extends Form<Person> {
     @Override
     public void onSubmit() {
         this.getPersonService().save(this.getModelObject());
-        this.setResponsePage(HomeUser.class);
+        // this.setResponsePage(UsersPanel.class);
     }
 }

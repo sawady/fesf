@@ -28,12 +28,16 @@ public class BookSearchResultPanel extends Panel {
     }
 
     public BookSearchResultPanel(final String id) {
-        super(id);
-        this.initialize();
+        this(id, new ArrayList<Book>());
     }
 
-    private void initialize() {
-        this.setAjaxDataTablePanel(new AjaxDataTablePanel<Book>("table", new ArrayList<Book>(), this.getBookService()
+    public BookSearchResultPanel(final String id, final List<Book> initialBooks) {
+        super(id);
+        this.initialize(initialBooks);
+    }
+
+    private void initialize(final List<Book> initialBooks) {
+        this.setAjaxDataTablePanel(new AjaxDataTablePanel<Book>("table", initialBooks, this.getBookService()
                 .getFieldForSort(), this.getBookService().getFieldNames()));
         this.getAjaxDataTablePanel().setOutputMarkupId(true);
         this.add(this.getAjaxDataTablePanel());

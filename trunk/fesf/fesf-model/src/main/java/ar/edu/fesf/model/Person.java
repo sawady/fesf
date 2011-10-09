@@ -14,9 +14,11 @@ import org.joda.time.DateTime;
 
 import ar.edu.fesf.model.rules.LoansPerUserRule;
 
-public class Person extends Nameable implements Serializable {
+public class Person extends Entity implements Nameable, Serializable {
 
     private static final long serialVersionUID = -1117547495640219313L;
+
+    private String name;
 
     private String surname;
 
@@ -45,6 +47,23 @@ public class Person extends Nameable implements Serializable {
 
     public Person() {
         super();
+    }
+
+    public Person(final String name, final String surname, final int age, final String address, final String phone,
+            final EmailAddress email, final Set<Category> categories, final UserInfo userInfo,
+            final List<Loan> oldLoans, final List<Loan> currentLoans, final List<ReservationEvent> reservations) {
+        super();
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.categories = categories;
+        this.userInfo = userInfo;
+        this.oldLoans = oldLoans;
+        this.currentLoans = currentLoans;
+        this.reservations = reservations;
     }
 
     /* Methods */
@@ -135,6 +154,16 @@ public class Person extends Nameable implements Serializable {
 
     public void setCurrentLoans(final List<Loan> currentLoans) {
         this.currentLoans = currentLoans;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public String getSurname() {

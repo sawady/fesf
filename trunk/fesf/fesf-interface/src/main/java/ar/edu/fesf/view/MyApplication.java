@@ -33,10 +33,9 @@ public class MyApplication extends AuthenticatedWebApplication {
         this.getSpringInitializedService().initialize();
 
         this.mountUrl("home", Home.class, "");
-        this.mountUrl("users", HomeUser.class, "");
+        this.mountUrl("librarian", LibrarianHome.class, "");
 
         // TODO agregar estas homes con sus respectivos logueos
-        // this.mountUrl("librarian", HomeLibrarian.class, "");
         // this.mountUrl("admin", HomeAdmin.class, "");
     }
 

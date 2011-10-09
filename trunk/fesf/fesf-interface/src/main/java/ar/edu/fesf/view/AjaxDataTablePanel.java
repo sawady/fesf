@@ -29,7 +29,6 @@ public class AjaxDataTablePanel<T extends Serializable> extends Panel {
         super(id);
         this.setSortField(sortField);
         this.initalize(list, columnNames);
-
     }
 
     private void initalize(final List<T> list, final List<String> columnNames) {
