@@ -35,9 +35,30 @@ public class AuthenticationService implements Serializable {
         this.userInfoRepository = userInfoRepository;
     }
 
-    public boolean authenticate(final String userid, final String password) {
+    public Person authenticate(final String userid, final String password) {
+
+        Person person;
         UserInfo userinfo = this.findUserInfo(userid);
-        return userinfo != null && userinfo.getPass().equals(password);
+
+        // usuario no encontrado
+        if (userinfo == null) {
+            throw new AuthenticationException("Invalid userid");
+        }
+
+        // el password no es valido
+        if (!userinfo.getPass().equals(password)) {
+            throw new AuthenticationException("Invalid password");
+        }
+
+        person = this.getPersonService().findPersonWithUserInfo(userinfo);
+
+        // ninguna persona posee esta informacion de usuario
+        if (person == null) {
+            throw new AuthenticationException("Cant find person associated with this user");
+        }
+
+        return person;
+
     }
 
     public Person authenticate(final String userid, final String password, final Role role) {

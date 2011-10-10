@@ -5,12 +5,15 @@ import org.apache.wicket.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authorization.strategies.role.Roles;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.AuthenticationService;
 
 public class WebSession extends AuthenticatedWebSession {
 
     @SpringBean(name = "service.authentication")
     private AuthenticationService authenticationService;
+
+    private Person person;
 
     public WebSession(final Request request) {
         super(request);
@@ -20,7 +23,14 @@ public class WebSession extends AuthenticatedWebSession {
 
     @Override
     public boolean authenticate(final String username, final String password) {
-        return this.getAuthenticationService().authenticate(username, password);
+        Person aPerson = this.getAuthenticationService().authenticate(username, password);
+
+        if (aPerson != null) {
+            this.setPerson(aPerson);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -38,6 +48,14 @@ public class WebSession extends AuthenticatedWebSession {
 
     public AuthenticationService getAuthenticationService() {
         return this.authenticationService;
+    }
+
+    public void setPerson(final Person person) {
+        this.person = person;
+    }
+
+    public Person getPerson() {
+        return this.person;
     }
 
 }

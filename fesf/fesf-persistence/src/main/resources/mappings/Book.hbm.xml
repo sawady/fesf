@@ -11,20 +11,22 @@
     </id>
     
     <property name="title"/>
+    
+    <property name="countOfLouns"/>
+    
+    <set name="categories">
+        <key column="book"/>
+        <many-to-many class="Category"/>
+    </set>
+    
 <!--     <property name="imagepath"/> -->
-<!--     <property name="description"/> -->
-<!--     <property name="countOfLouns"/> -->
+<!--     <property name="description"/> -->    
 <!--     <one-to-one name="isbn" class="ISBN"/> -->
 <!--     <one-to-one name="publisher" class="Publisher"/> -->
     
 <!--     <set name="authors" table="BookAuthors"> -->
 <!--         <key column="book"/> -->
 <!--         <many-to-many column="author" class="Author"/> -->
-<!--     </set> -->
-    
-<!--     <set name="categories" table="BookCategories"> -->
-<!--         <key column="book"/> -->
-<!--         <many-to-many column="category" class="Category"/> -->
 <!--     </set> -->
     
 <!--     <list name="reservationEvents" table="ReservationEventsForBook"> -->

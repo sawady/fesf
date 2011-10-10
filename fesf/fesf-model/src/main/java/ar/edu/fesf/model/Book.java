@@ -51,11 +51,10 @@ public class Book extends Entity {
         this.availableCopies = availableCopies;
         this.categories = categories;
         this.reservationEvents = reservationEvents;
-    }
 
-    public Book(final String title) {
-        super();
-        this.title = title;
+        for (Category category : categories) {
+            category.addBook(this);
+        }
     }
 
     public Book() {
@@ -63,6 +62,11 @@ public class Book extends Entity {
     }
 
     /* Methods */
+    public void addCategory(final Category category) {
+        this.getCategories().add(category);
+        category.addBook(this);
+    }
+
     public void addCopy() {
         BookCopy newCopy = new BookCopy();
         this.getRegistedCopies().add(newCopy);
