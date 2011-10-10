@@ -1,7 +1,7 @@
 package ar.edu.fesf.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Category extends Entity implements Nameable {
 
@@ -9,7 +9,7 @@ public class Category extends Entity implements Nameable {
 
     private String name;
 
-    private List<Book> books = new ArrayList<Book>();
+    private Set<Book> books = new HashSet<Book>();
 
     public Category(final String name) {
         super();
@@ -59,11 +59,11 @@ public class Category extends Entity implements Nameable {
     }
 
     /* Accessors */
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return this.books;
     }
 
-    public void setBooks(final List<Book> books) {
+    public void setBooks(final Set<Book> books) {
         this.books = books;
     }
 

@@ -26,7 +26,7 @@ public class CategoriesSidebar extends Panel {
 
     public CategoriesSidebar(final String id, final IAjaxCallback<List<Book>> callback) {
         super(id);
-        this.setCallback(callback);
+        this.callback = callback;
         this.initialize();
     }
 
