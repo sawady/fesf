@@ -35,6 +35,24 @@ public class Book extends Entity {
 
     private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
 
+    public Book(final String title, final ISBN isbn, final Publisher publisher, final String imagepath,
+            final String description, final Set<Author> authors, final int countOfLouns,
+            final Set<BookCopy> registedCopies, final Set<BookCopy> availableCopies, final Set<Category> categories,
+            final List<ReservationEvent> reservationEvents) {
+        super();
+        this.title = title;
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.imagepath = imagepath;
+        this.description = description;
+        this.authors = authors;
+        this.countOfLouns = countOfLouns;
+        this.registedCopies = registedCopies;
+        this.availableCopies = availableCopies;
+        this.categories = categories;
+        this.reservationEvents = reservationEvents;
+    }
+
     public Book(final String title) {
         super();
         this.title = title;

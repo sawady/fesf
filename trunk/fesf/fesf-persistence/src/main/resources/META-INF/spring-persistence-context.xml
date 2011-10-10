@@ -117,6 +117,10 @@
 	
 	<bean id="persistence.BookRepository" class="ar.edu.fesf.repositories.BookRepository">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+	
+	<bean id="persistence.RankingRepository" class="ar.edu.fesf.repositories.RankingRepository">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>		
 
 </beans>

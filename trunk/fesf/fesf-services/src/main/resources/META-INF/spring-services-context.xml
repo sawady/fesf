@@ -19,6 +19,7 @@
 	
 	<bean id="service.book" class="ar.edu.fesf.services.BookService">
 		<property name="repository" ref="persistence.BookRepository" />
+		<property name="rankingRepository" ref="persistence.RankingRepository" />
 		<property name="categoryRepository" ref="persistence.CategoryRepository" />
 	</bean>
 	
