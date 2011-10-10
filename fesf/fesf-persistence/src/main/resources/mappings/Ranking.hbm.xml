@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field"
+	default-cascade="save-update"
+	package="ar.edu.fesf.model">
+	<class name="Ranking" >
+	  
+	<id column="ID" name="id">
+          <generator class="native"/>
+    </id>
+    
+    <property name="limitOfRecentlyBooks"></property>
+    
+    <list name="top20" table="Top20">
+        <key column="ranking"/>
+        <index column="indice"/>
+        <one-to-many class="Book"/>
+    </list>
+    
+    <list name="recentlyAvailable" table="RecentlyAvailable">
+        <key column="ranking"/>
+        <index column="indice"/>
+        <one-to-many class="Book"/>
+    </list>
+    
+	</class>
+</hibernate-mapping>

@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.fesf.builders.BookBuilder;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
+import ar.edu.fesf.model.Ranking;
 import ar.edu.fesf.repositories.CategoryRepository;
+import ar.edu.fesf.repositories.RankingRepository;
 
 public class BookService extends GenericTransactionalRepositoryService<Book> {
 
@@ -15,36 +18,61 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private CategoryRepository categoryRepository;
 
-    public void setCategoryRepository(final CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    private RankingRepository rankingRepository;
 
-    public CategoryRepository getCategoryRepository() {
-        return this.categoryRepository;
-    }
+    private Ranking ranking;
 
     public void initialize() {
+        Ranking aRanking = new Ranking();
+        this.setRanking(aRanking);
+        this.getRankingRepository().save(aRanking);
 
-        Book mago = new Book("Un Mago de Terramar");
         Category drama = new Category("Drama");
-        drama.addBook(mago);
-
-        this.save(mago);
-        this.save(new Book("Los Crimenes de la Calle Morgue"));
-        this.save(new Book("Maleficio"));
-        this.save(new Book("Cementerio de Animales"));
-        this.save(new Book("El camino hacia el dodario"));
-        this.save(new Book("Las Aventuras de Crista y Zack"));
-        this.save(new Book("Mi Planta de Naranja Lima"));
-        this.save(new Book("Locademia de Policias"));
-        this.save(new Book("La pistola"));
-        this.save(new Book("Caroso y narizota"));
-
         this.getCategoryRepository().save(drama);
-        this.getCategoryRepository().save(new Category("Accion"));
-        this.getCategoryRepository().save(new Category("Policial"));
-        this.getCategoryRepository().save(new Category("Aventura"));
-        this.getCategoryRepository().save(new Category("Comedia"));
+        Category terror = new Category("Terror");
+        this.getCategoryRepository().save(terror);
+        Category policial = new Category("Policial");
+        this.getCategoryRepository().save(policial);
+        Category aventura = new Category("Aventura");
+        this.getCategoryRepository().save(aventura);
+        Category comedia = new Category("Comedia");
+        this.getCategoryRepository().save(comedia);
+        Category filosofia = new Category("Filosofia");
+        this.getCategoryRepository().save(filosofia);
+
+        this.save(new BookBuilder().withTitle("Un Mago de Terramar").withCategory(drama).withCategory(aventura).build());
+
+        this.save(new BookBuilder().withTitle("Los Crimenes de la Calle Morgue").withCategory(drama)
+                .withCategory(policial).build());
+
+        this.save(new BookBuilder().withTitle("Maleficio").withCategory(terror).build());
+        this.save(new BookBuilder().withTitle("Cementerio de Animales").withCategory(terror).build());
+        this.save(new BookBuilder().withTitle("Carrie").withCategory(terror).build());
+        this.save(new BookBuilder().withTitle("Ojos de Fuego").withCategory(terror).build());
+        this.save(new BookBuilder().withTitle("I.T. El Payaso Maldito").withCategory(terror).build());
+
+        this.save(new BookBuilder().withTitle("El camino hacia el dorado").withCategory(aventura).build());
+        this.save(new BookBuilder().withTitle("Tosti").withCategory(aventura).build());
+        this.save(new BookBuilder().withTitle("Mickey y las Abichuelas").withCategory(aventura).build());
+
+        this.save(new BookBuilder().withTitle("Mi Planta de Naranja Lima").withCountOfLouns(4).withCategory(drama)
+                .build());
+        this.save(new BookBuilder().withTitle("El Genio en la botella").withCountOfLouns(3).withCategory(drama).build());
+        this.save(new BookBuilder().withTitle("Mi Nombre es Sam").withCountOfLouns(2).withCategory(drama).build());
+        this.save(new BookBuilder().withTitle("Naufrago").withCountOfLouns(3).withCategory(drama).build());
+        this.save(new BookBuilder().withTitle("Full Metal Jacket").withCountOfLouns(1).withCategory(drama).build());
+
+        this.save(new BookBuilder().withTitle("El Manifiesto Comunista").withCategory(filosofia).withCountOfLouns(5)
+                .build());
+        this.save(new BookBuilder().withTitle("Principia Mathematica").withCategory(filosofia).build());
+        this.save(new BookBuilder().withTitle("Platon y sus amigos").withCategory(filosofia).withCountOfLouns(5)
+                .build());
+
+        this.save(new BookBuilder().withTitle("Locademia de Policias").withCategory(comedia).build());
+        this.save(new BookBuilder().withTitle("La pistola desnuda").withCategory(comedia).build());
+        this.save(new BookBuilder().withTitle("Esa maldita costilla").withCategory(comedia).build());
+        this.save(new BookBuilder().withTitle("Las locuras del emperador").withCategory(comedia).build());
+
     }
 
     public List<String> getFieldForSort() {
@@ -57,6 +85,13 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         List<String> names = new ArrayList<String>();
         names.add("title");
         return names;
+    }
+
+    @Override
+    public void save(final Book entity) {
+        super.save(entity);
+        this.getRanking().addToRecents(entity);
+        this.getRanking().updateRanking(entity);
     }
 
     @Transactional(readOnly = true)
@@ -74,13 +109,35 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     public List<Book> getTop20() {
-        // TODO implementar bien
-        return this.findAll();
+        return this.getRanking().getTop20();
     }
 
     public List<Book> getRecentlyAvailable() {
-        // TODO implementar bien
-        return this.findAll();
+        return this.getRanking().getRecentlyAvailable();
+    }
+
+    public void setRankingRepository(final RankingRepository rankingRepository) {
+        this.rankingRepository = rankingRepository;
+    }
+
+    public RankingRepository getRankingRepository() {
+        return this.rankingRepository;
+    }
+
+    public void setRanking(final Ranking ranking) {
+        this.ranking = ranking;
+    }
+
+    public Ranking getRanking() {
+        return this.ranking;
+    }
+
+    public void setCategoryRepository(final CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
+    public CategoryRepository getCategoryRepository() {
+        return this.categoryRepository;
     }
 
 }

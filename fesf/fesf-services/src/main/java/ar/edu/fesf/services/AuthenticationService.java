@@ -2,6 +2,8 @@ package ar.edu.fesf.services;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import java.io.Serializable;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.model.Person;
@@ -9,7 +11,9 @@ import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.UserInfoRepository;
 
-public class AuthenticationService {
+public class AuthenticationService implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private UserInfoRepository userInfoRepository;
 
@@ -29,6 +33,11 @@ public class AuthenticationService {
 
     public void setUserInfoRepository(final UserInfoRepository userInfoRepository) {
         this.userInfoRepository = userInfoRepository;
+    }
+
+    public boolean authenticate(final String userid, final String password) {
+        UserInfo userinfo = this.findUserInfo(userid);
+        return userinfo != null && userinfo.getPass().equals(password);
     }
 
     public Person authenticate(final String userid, final String password, final Role role) {
@@ -60,6 +69,10 @@ public class AuthenticationService {
 
         return person;
 
+    }
+
+    public Role[] getRoles() {
+        return Role.values();
     }
 
     @Transactional
