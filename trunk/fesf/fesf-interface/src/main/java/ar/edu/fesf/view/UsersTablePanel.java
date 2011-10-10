@@ -12,9 +12,6 @@ import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.PersonService;
 
-/**
- * TODO: description
- */
 public class UsersTablePanel extends AjaxDataTablePanel<Person> {
 
     private static final long serialVersionUID = 1L;
