@@ -47,8 +47,10 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         this.getCategoryRepository().save(new Category("Comedia"));
     }
 
-    public String getFieldForSort() {
-        return "title";
+    public List<String> getFieldForSort() {
+        List<String> names = new ArrayList<String>();
+        names.add("title");
+        return names;
     }
 
     public List<String> getFieldNames() {

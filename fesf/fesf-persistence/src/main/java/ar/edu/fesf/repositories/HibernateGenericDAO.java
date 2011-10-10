@@ -13,12 +13,14 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import ar.edu.fesf.model.Entity;
+
 /**
  * Generic hibernate DAO
  * 
  * @param <T>
  */
-public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport implements GenericRepository<T> {
+public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDaoSupport implements GenericRepository<T> {
 
     private static final String UNCHECKED = "unchecked";
 
@@ -30,8 +32,7 @@ public abstract class HibernateGenericDAO<T> extends HibernateDaoSupport impleme
 
     @Override
     public void save(final T entity) {
-        this.getHibernateTemplate().save(entity);
-        this.getHibernateTemplate().flush();
+        this.getHibernateTemplate().saveOrUpdate(entity);
     }
 
     @Override

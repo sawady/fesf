@@ -6,62 +6,83 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import ar.edu.fesf.controllers.GenericSortableDataProvider;
 
-public class AjaxDataTablePanel<T extends Serializable> extends Panel {
+public abstract class AjaxDataTablePanel<T extends Serializable> extends Panel {
 
     private static final long serialVersionUID = 9141385162784081359L;
 
     private List<IColumn<T>> columns;
 
-    private String sortField;
+    private int rowsPerPage = 5;
 
     /**
      * Constructor.
      */
-    public AjaxDataTablePanel(final String id, final List<T> list, final String sortField,
-            final List<String> columnNames) {
+    public AjaxDataTablePanel(final String id, final List<T> list) {
         super(id);
-        this.setSortField(sortField);
-        this.initalize(list, columnNames);
+        this.initialize(list);
     }
 
-    private void initalize(final List<T> list, final List<String> columnNames) {
+    private void initialize(final List<T> list) {
 
         this.setColumns(new ArrayList<IColumn<T>>());
 
-        for (String name : columnNames) {
+        this.getColumns().add(new AbstractColumn<T>(new Model<String>("Actions")) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void populateItem(final Item<ICellPopulator<T>> cellItem, final String componentId,
+                    final IModel<T> rowModel) {
+                cellItem.add(AjaxDataTablePanel.this.actionsPanel(componentId, rowModel));
+            }
+
+        });
+
+        for (String name : this.getColumnNames()) {
             this.getColumns().add(new PropertyColumn<T>(new Model<String>(name), name, name));
         }
 
         this.add(new AjaxFallbackDefaultDataTable<T>("table", this.getColumns(), new GenericSortableDataProvider<T>(
-                list, this.getSortField()), 5));
+                list, this.getSortFields()), this.getRowsPerPage()));
     }
+
+    public abstract Panel actionsPanel(final String componentId, final IModel<T> rowModel);
+
+    public abstract List<String> getColumnNames();
+
+    public abstract List<String> getSortFields();
 
     public void replaceTable(final AjaxRequestTarget target, final List<T> list) {
         this.replace(new AjaxFallbackDefaultDataTable<T>("table", this.getColumns(),
-                new GenericSortableDataProvider<T>(list, this.getSortField()), 5));
+                new GenericSortableDataProvider<T>(list, this.getSortFields()), this.getRowsPerPage()));
         target.addComponent(this);
     }
 
-    private void setColumns(final List<IColumn<T>> columns) {
+    public void setColumns(final List<IColumn<T>> columns) {
         this.columns = columns;
     }
 
-    private List<IColumn<T>> getColumns() {
+    public List<IColumn<T>> getColumns() {
         return this.columns;
     }
 
-    private void setSortField(final String sortField) {
-        this.sortField = sortField;
+    public void setRowsPerPage(final int rowsPerPage) {
+        this.rowsPerPage = rowsPerPage;
     }
 
-    private String getSortField() {
-        return this.sortField;
+    public int getRowsPerPage() {
+        return this.rowsPerPage;
     }
+
 }

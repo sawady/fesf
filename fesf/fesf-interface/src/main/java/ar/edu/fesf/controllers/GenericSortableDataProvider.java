@@ -14,10 +14,12 @@ public class GenericSortableDataProvider<T extends Serializable> extends Sortabl
 
     private List<T> list;
 
-    public GenericSortableDataProvider(final List<T> list, final String propertyToSort) {
+    public GenericSortableDataProvider(final List<T> list, final List<String> propertiesToSort) {
         super();
         this.setList(list);
-        this.setSort(propertyToSort, true);
+        for (String propertyName : propertiesToSort) {
+            this.setSort(propertyName, true);
+        }
     }
 
     @Override

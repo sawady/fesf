@@ -44,7 +44,7 @@ public class LibrarianHome extends WebPage {
 
             @Override
             public Panel getPanel(final String panelId) {
-                return new BooksPanel(panelId);
+                return new LibrarianBooksPanel(panelId);
             }
         });
 

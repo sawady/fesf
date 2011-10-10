@@ -15,7 +15,7 @@ import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.services.BookService;
 
-public class Sidebar extends Panel {
+public class CategoriesSidebar extends Panel {
 
     @SpringBean(name = "service.book")
     private BookService bookService;
@@ -24,7 +24,7 @@ public class Sidebar extends Panel {
 
     private static final long serialVersionUID = -4399991188117990545L;
 
-    public Sidebar(final String id, final IAjaxCallback<List<Book>> callback) {
+    public CategoriesSidebar(final String id, final IAjaxCallback<List<Book>> callback) {
         super(id);
         this.setCallback(callback);
         this.initialize();
@@ -44,8 +44,8 @@ public class Sidebar extends Panel {
 
                     @Override
                     public void onClick(final AjaxRequestTarget target) {
-                        Sidebar.this.getCallback().callback(target,
-                                Sidebar.this.getBookService().findByCategory(this.getModelObject()));
+                        CategoriesSidebar.this.getCallback().callback(target,
+                                CategoriesSidebar.this.getBookService().findByCategory(this.getModelObject()));
                     }
 
                 };
