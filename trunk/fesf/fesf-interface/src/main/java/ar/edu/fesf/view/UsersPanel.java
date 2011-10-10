@@ -1,8 +1,13 @@
 package ar.edu.fesf.view;
 
+import java.util.List;
+
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.fesf.controllers.AjaxReplacePanel;
+import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.PersonService;
 
@@ -11,7 +16,9 @@ public class UsersPanel extends Panel {
     private static final long serialVersionUID = 1L;
 
     @SpringBean(name = "service.person")
-    private transient PersonService personService;
+    private PersonService personService;
+
+    private UsersTablePanel usersTablePanel;
 
     public UsersPanel(final String id) {
         super(id);
@@ -19,10 +26,56 @@ public class UsersPanel extends Panel {
     }
 
     public final void initialize() {
+        this.setUsersTablePanel(new UsersTablePanel("content", this.getPersonService().findAll(), this
+                .changeToMoreInfoPanel()));
+        this.getUsersTablePanel().setOutputMarkupId(true);
+        this.add(this.getUsersTablePanel());
+    }
 
-        this.add(new AjaxDataTablePanel<Person>("table", this.personService.findAll(), this.personService
-                .getFieldForSort(), this.personService.getFieldNames()));
+    public void setPersonService(final PersonService personService) {
+        this.personService = personService;
+    }
 
+    public PersonService getPersonService() {
+        return this.personService;
+    }
+
+    public IAjaxCallback<Person> changeToMoreInfoPanel() {
+        return new AjaxReplacePanel<Person>(this) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
+                PersonInfoPanel personInfo = new PersonInfoPanel("content", person,
+                        UsersPanel.this.changeToTablePanel());
+                personInfo.setOutputMarkupId(true);
+                return personInfo;
+            }
+
+        };
+    }
+
+    public IAjaxCallback<List<Person>> changeToTablePanel() {
+        return new AjaxReplacePanel<List<Person>>(this) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Panel getNewPanel(final AjaxRequestTarget target, final List<Person> persons) {
+                UsersPanel.this.getUsersTablePanel().replaceTable(target, persons);
+                return UsersPanel.this.getUsersTablePanel();
+            }
+
+        };
+    }
+
+    private void setUsersTablePanel(final UsersTablePanel usersTablePanel) {
+        this.usersTablePanel = usersTablePanel;
+    }
+
+    private UsersTablePanel getUsersTablePanel() {
+        return this.usersTablePanel;
     }
 
 }

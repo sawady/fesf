@@ -1,13 +1,12 @@
 package ar.edu.fesf.controllers;
 
-import org.apache.wicket.feedback.FeedbackMessage;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
+import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.model.Book;
@@ -28,46 +27,37 @@ public class BookForm extends Form<Book> {
         this.bookService = bookService;
     }
 
-    public BookForm(final String id, final Book book) {
+    public BookForm(final String id, final Book book, final IAjaxCallback<Form<Book>> iAjaxCallback) {
         super(id, new CompoundPropertyModel<Book>(book));
-        this.initialize();
+        this.initialize(iAjaxCallback);
     }
 
     // TODO completar con todos los campos
-    private void initialize() {
+    private void initialize(final IAjaxCallback<Form<Book>> iAjaxCallback) {
 
-        // FeedbackPanel
-        final FeedbackPanel feedback = new FeedbackPanel("feedbackPanel");
-        feedback.setOutputMarkupId(true);
-        this.add(feedback);
-
-        // filteredErrorLevels will not be shown in the FeedbackPanel
-        int[] filteredErrorLevels = new int[] { FeedbackMessage.ERROR };
-        feedback.setFilter(new ErrorLevelsFeedbackMessageFilter(filteredErrorLevels));
-
-        // Textfield for entering a name
-        TextField<String> titleField = new TextField<String>("title", new PropertyModel<String>(this.getModelObject(),
-                "title"));
-        titleField.setOutputMarkupId(true);
-
-        // This shows feedback when the name input is not correct.
-        final FeedbackLabel titleFeedbackLabel = new FeedbackLabel("title_feedback", titleField);
-        titleFeedbackLabel.setOutputMarkupId(true);
-        this.add(titleFeedbackLabel);
-
-        titleField.add(new ComponentVisualErrorBehavior("onblur", titleFeedbackLabel));
+        RequiredTextField<String> titleField = new RequiredTextField<String>("title");
         this.add(titleField);
+        final FeedbackPanel titleFeedback = new FeedbackPanel("titleFeedback", new ComponentFeedbackMessageFilter(
+                titleField));
+        titleFeedback.setOutputMarkupId(true);
+        this.add(titleFeedback);
 
-        Label titleLabel = new Label("title.label", "Title");
-        this.add(titleLabel);
+        this.add(new AjaxFallbackButton("submit", this) {
 
-        this.add(new Button("save"));
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void onError(final AjaxRequestTarget target, final Form<?> form) {
+                target.addComponent(titleFeedback);
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
+                BookForm.this.getBookService().save((Book) form.getModelObject());
+                iAjaxCallback.callback(target, (Form<Book>) form);
+            }
+
+        });
     }
-
-    @Override
-    public void onSubmit() {
-        this.getBookService().save(this.getModelObject());
-        // this.setResponsePage(new BookSearchResultPanel(this.getBookService().findAll()));
-    }
-
 }
