@@ -1,6 +1,39 @@
 <wicket:head>
-	<wicket:link><link rel="stylesheet" type="text/css" href="HomeUserbarPanel.css"/></wicket:link>
-	<wicket:link><script type="text/javascript" src="HomeUserbarPanel.js"/></wicket:link>
+<wicket:link><link rel="stylesheet" type="text/css" href="HomeUserbarPanel.css"/></wicket:link>
+<script>
+$(document).ready( function () {
+		
+		if($.browser.msie){
+		$('.menu_wrap').css({'background-color' : '#b8e1fc','position' : 'absolute','width' : '100%'});
+		}
+		
+		$('.menu_wrap').css({'opacity' : '0.3'});
+	
+		
+		$('.menu_wrap').hover ( function () {
+			
+			$(this).animate({'margin-top' : '0px','opacity' : '1'});
+			$('.menu_buttons img').animate({'opacity' : '.5'});
+	
+	
+		}, function () {
+			
+			$(this).animate({'margin-top' : '-30px','opacity' : '0.3'});
+	
+		});
+		
+		$('.menu_buttons img').hover ( function () {
+					
+			$(this).animate({'opacity' : '1'});
+			
+		}, function () {
+			
+			$(this).animate({'opacity' : '0.5'});
+			
+		});
+		
+	});
+</script>	
 </wicket:head>
 <wicket:panel>
 <div class="menu_wrap">
@@ -10,5 +43,8 @@
         <li><span wicket:id="authentication"/></li>
       </ul>
     </div>
+    <div class="menu_title"> 
+    	<h1 class="title">Fesf Library</h1>
+    </div>    
 </div>
 </wicket:panel>
