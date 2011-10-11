@@ -2,17 +2,17 @@ package ar.edu.fesf.view;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
-import org.apache.wicket.markup.html.border.Border;
+import org.apache.wicket.markup.html.panel.Panel;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
 
-public class HomeUserbarBorder extends Border {
+public class HomeUserbarPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
     private IAjaxCallback<?> homeLinkCallback;
 
-    public HomeUserbarBorder(final String id, final IAjaxCallback<?> homeLinkCallback) {
+    public HomeUserbarPanel(final String id, final IAjaxCallback<?> homeLinkCallback) {
         super(id);
         this.setHomeLinkCallback(homeLinkCallback);
         this.initialize();
@@ -24,7 +24,7 @@ public class HomeUserbarBorder extends Border {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                HomeUserbarBorder.this.getHomeLinkCallback().callback(target, null);
+                HomeUserbarPanel.this.getHomeLinkCallback().callback(target, null);
             }
 
         });
