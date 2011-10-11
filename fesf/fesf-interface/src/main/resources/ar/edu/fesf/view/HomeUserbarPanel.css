@@ -11,7 +11,7 @@
     -moz-box-shadow: 0px 2px 5px #000000;
     box-shadow: 0px 2px 5px #000000;
     position: fixed;
-    margin-top:-30px;
+    margin-top:-30px;    
 }
 .menu_links ul {
     margin: 0px;
@@ -42,31 +42,6 @@
 background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* firefox */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6)); /* webkit */
 }
-.menu_buttons {
-    float:right;
-    line-height: 50px;
-    height: 50px;
-    margin-right: 30px;
-}
-.menu_buttons ul {
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-}
-.menu_buttons ul li {
-    display: inline;
-    height: 50px;
-}
-.menu_buttons ul li a {
-    float:left;
-    padding-right: 10px;
-    display: block;
-    border:none;
-    line-height: 50px;
-    padding-left: 10px;
-    height: 50px;
-    padding-top: 10px;
-     }
 .first {
     border-left-width: 1px;
     border-left-style: solid;
@@ -76,4 +51,28 @@ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fffff
     height: 50px;
     float: left;
     margin-left: 100px;
+}
+.menu_title {
+    float:right;
+    line-height: 50px;
+    height: 50px;
+    margin-right: 30px;
+}
+
+@font-face {
+  font-family: 'Gloria Hallelujah';
+  font-style: normal;
+  font-weight: normal;
+  src: url('http://themes.googleusercontent.com/static/fonts/gloriahallelujah/v2/CA1k7SlXcY5kvI81M_R28d8e37SXvEhDxPg1zCoHdaI.woff') format('woff'),
+url('http://themes.googleusercontent.com/static/fonts/gloriahallelujah/v2/CA1k7SlXcY5kvI81M_R28d8e37SXvEhDxPg1zCoHdaI.ttf') format('truetype');
+}
+
+.title {	
+  font-weight: bold;
+  text-align: right;
+  font-family: 'Gloria Hallelujah';
+  color: #FFFFFF;
+  font-size: 32.0px;
+  line-height: 35%;
+  text-shadow: 0px 2.0px 11.0px #214D48;
 }
