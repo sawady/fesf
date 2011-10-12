@@ -35,10 +35,15 @@ public class WebSession extends AuthenticatedWebSession {
 
     @Override
     public Roles getRoles() {
-        Roles roles = new Roles();
-        for (ar.edu.fesf.model.Role role : this.getAuthenticationService().getRoles()) {
-            roles.add(role.toString());
+
+        // not signed in
+        if (!this.isSignedIn()) {
+            return null;
         }
+
+        Roles roles = new Roles();
+        // roles.addAll(this.getAuthenticationService().getRolesOf(this.getPerson()));
+        roles.add("USER");
         return roles;
     }
 

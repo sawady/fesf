@@ -3,6 +3,8 @@ package ar.edu.fesf.services;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -106,6 +108,21 @@ public class AuthenticationService implements Serializable {
         UserInfo existingUserInfo = this.getUserInfoRepository().findUserInfo(userinfo.getUserid());
         checkState(existingUserInfo == null, "Userid already exists");
         this.getUserInfoRepository().save(userinfo);
+    }
+
+    public List<String> getRolesOf(final Person person) {
+
+        List<String> roles = new ArrayList<String>();
+
+        Role userRole = person.getUserInfo().getRole();
+
+        for (Role role : Role.values()) {
+            if (role.isInferior(userRole)) {
+                roles.add(role.toString());
+            }
+        }
+
+        return roles;
     }
 
 }

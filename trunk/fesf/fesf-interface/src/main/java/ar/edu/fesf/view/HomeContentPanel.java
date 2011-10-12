@@ -31,6 +31,9 @@ public class HomeContentPanel extends Panel {
         this.setBookSearchResultPanel(new BookSearchResultPanel("content", new ArrayList<Book>(), this
                 .changeToMoreInfoPanel()));
         this.getBookSearchResultPanel().setOutputMarkupId(true);
+
+        this.add(new CategoriesSidebar("sidebar", this.changeToResultsPanel()));
+        this.add(new BookSearchPanel("searchbar", this.changeToResultsPanel()));
     }
 
     public IAjaxCallback<?> changeToRakingPanel() {

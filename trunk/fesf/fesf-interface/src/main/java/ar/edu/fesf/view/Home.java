@@ -13,8 +13,6 @@ public class Home extends WebPage {
         final HomeContentPanel homeContentPanel = new HomeContentPanel("contentPanel");
         this.add(homeContentPanel);
         this.add(new HomeUserbarPanel("userbar", homeContentPanel.changeToRakingPanel()));
-        this.add(new CategoriesSidebar("sidebar", homeContentPanel.changeToResultsPanel()));
-        this.add(new BookSearchPanel("searchbar", homeContentPanel.changeToResultsPanel()));
     }
 
 }
