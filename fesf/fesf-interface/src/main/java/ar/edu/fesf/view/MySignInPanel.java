@@ -25,12 +25,12 @@ public class MySignInPanel extends SignInPanel {
         }
     }
 
-    public void setSucceedCallback(IAjaxCallback<?> succeedCallback) {
+    public void setSucceedCallback(final IAjaxCallback<?> succeedCallback) {
         this.succeedCallback = succeedCallback;
     }
 
     public IAjaxCallback<?> getSucceedCallback() {
-        return succeedCallback;
+        return this.succeedCallback;
     }
 
 }
