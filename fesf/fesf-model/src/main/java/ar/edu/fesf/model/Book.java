@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -27,9 +26,9 @@ public class Book extends Entity {
 
     private int countOfLouns = 0;
 
-    private Set<BookCopy> registedCopies = new HashSet<BookCopy>();
+    private List<BookCopy> registedCopies = new ArrayList<BookCopy>();
 
-    private Set<BookCopy> availableCopies = new HashSet<BookCopy>();
+    private List<BookCopy> availableCopies = new ArrayList<BookCopy>();
 
     private Set<Category> categories = new HashSet<Category>();
 
@@ -37,7 +36,7 @@ public class Book extends Entity {
 
     public Book(final String title, final ISBN isbn, final Publisher publisher, final String imagepath,
             final String description, final Set<Author> authors, final int countOfLouns,
-            final Set<BookCopy> registedCopies, final Set<BookCopy> availableCopies, final Set<Category> categories,
+            final List<BookCopy> registedCopies, final List<BookCopy> availableCopies, final Set<Category> categories,
             final List<ReservationEvent> reservationEvents) {
         super();
         this.title = title;
@@ -73,13 +72,14 @@ public class Book extends Entity {
         this.getAvailableCopies().add(newCopy);
     }
 
+    public boolean hasAvailableCopy() {
+        return !this.getAvailableCopies().isEmpty();
+    }
+
     public BookCopy getAvailableCopy() {
-        Iterator<BookCopy> it = this.getAvailableCopies().iterator();
+        checkState(this.hasAvailableCopy(), "There are no available copies of this book");
 
-        checkState(it.hasNext(), "There are no available copies of this book");
-
-        BookCopy result = it.next();
-        this.getAvailableCopies().remove(result);
+        BookCopy result = this.getAvailableCopies().remove(0);
         return result;
     }
 
@@ -91,7 +91,7 @@ public class Book extends Entity {
         this.getAvailableCopies().add(copy);
     }
 
-    public void addInterestEvent(final ReservationEvent reservation) {
+    public void addReservationEvent(final ReservationEvent reservation) {
         this.getReservationEvents().add(reservation);
     }
 
@@ -103,6 +103,7 @@ public class Book extends Entity {
     }
 
     /* Accessors */
+
     public String getTitle() {
         return this.title;
     }
@@ -152,22 +153,6 @@ public class Book extends Entity {
         this.authors = authors;
     }
 
-    public Set<BookCopy> getRegistedCopies() {
-        return this.registedCopies;
-    }
-
-    public void setRegistedCopies(final Set<BookCopy> registedCopies) {
-        this.registedCopies = registedCopies;
-    }
-
-    public Set<BookCopy> getAvailableCopies() {
-        return this.availableCopies;
-    }
-
-    public void setAvailableCopies(final Set<BookCopy> availableCopies) {
-        this.availableCopies = availableCopies;
-    }
-
     public Set<Category> getCategories() {
         return this.categories;
     }
@@ -190,6 +175,22 @@ public class Book extends Entity {
 
     public void setReservationEvents(final List<ReservationEvent> reservationEvents) {
         this.reservationEvents = reservationEvents;
+    }
+
+    public List<BookCopy> getRegistedCopies() {
+        return this.registedCopies;
+    }
+
+    public void setRegistedCopies(final List<BookCopy> registedCopies) {
+        this.registedCopies = registedCopies;
+    }
+
+    public List<BookCopy> getAvailableCopies() {
+        return this.availableCopies;
+    }
+
+    public void setAvailableCopies(final List<BookCopy> availableCopies) {
+        this.availableCopies = availableCopies;
     }
 
 }

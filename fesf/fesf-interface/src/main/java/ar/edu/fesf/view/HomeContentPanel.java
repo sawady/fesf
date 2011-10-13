@@ -32,6 +32,7 @@ public class HomeContentPanel extends Panel {
                 .changeToMoreInfoPanel()));
         this.getBookSearchResultPanel().setOutputMarkupId(true);
 
+        this.add(new HomeUserbarPanel("userbar", this.changeToRakingPanel()));
         this.add(new CategoriesSidebar("sidebar", this.changeToResultsPanel()));
         this.add(new BookSearchPanel("searchbar", this.changeToResultsPanel()));
     }
@@ -56,12 +57,34 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
-                BookInfoPanel bookInfo = new BookInfoPanel("content", book);
+                BookInfoPanel bookInfo = new BookInfoPanel("content", book,
+                        HomeContentPanel.this.changeToLoaningPanel());
                 bookInfo.setOutputMarkupId(true);
                 return bookInfo;
             }
 
         };
+    }
+
+    public IAjaxCallback<Book> changeToLoaningPanel() {
+        return new IAjaxCallback<Book>() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void callback(final AjaxRequestTarget target, final Book book) {
+
+                if (book.hasAvailableCopy()) {
+                    LoaningPanel loaningPanel = new LoaningPanel("content", book);
+                    loaningPanel.setOutputMarkupId(true);
+                    HomeContentPanel.this.replace(loaningPanel);
+                    target.addComponent(loaningPanel);
+                } else {
+                    target.appendJavascript("alert('You cannot motherfucker')");
+                }
+            }
+        };
+
     }
 
     public IAjaxCallback<List<Book>> changeToResultsPanel() {
@@ -78,6 +101,7 @@ public class HomeContentPanel extends Panel {
         };
     }
 
+    /* Accessors */
     public void setRankingPanel(final RankingPanel rankingPanel) {
         this.rankingPanel = rankingPanel;
     }

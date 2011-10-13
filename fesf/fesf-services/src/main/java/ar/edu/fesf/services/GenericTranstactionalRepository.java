@@ -16,8 +16,6 @@ public interface GenericTranstactionalRepository<T> extends Serializable {
 
     void delete(final T entity);
 
-    void update(final T entity);
-
     T findById(final Serializable id);
 
     List<T> findAll();

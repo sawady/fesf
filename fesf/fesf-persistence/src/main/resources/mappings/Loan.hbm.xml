@@ -13,7 +13,6 @@
     <property name="agreedReturnDate"/>
     <property name="returnDate"/>
     <property name="date"/>
-    <many-to-one name="book" class="Book"/>
     <many-to-one name="person" class="Person"/>
     <many-to-one name="bookCopy" class="BookCopy"/>
      

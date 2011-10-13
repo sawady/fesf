@@ -8,16 +8,16 @@ public abstract class Event extends Entity {
 
     private static final long serialVersionUID = 1L;
 
-    private Person person;
+    protected Person person;
 
     private DateTime date = new DateTime();
-
-    private Book book;
 
     /* Methods */
     public void updateUserCategories() {
         this.getPerson().getCategories().addAll(this.getBook().getCategories());
     }
+
+    public abstract Book getBook();
 
     /* Accessors */
     public Person getPerson() {
@@ -35,15 +35,6 @@ public abstract class Event extends Entity {
 
     public void setDate(final DateTime date) {
         this.date = date;
-    }
-
-    public Book getBook() {
-        return this.book;
-    }
-
-    public void setBook(final Book book) {
-        checkNotNull(book);
-        this.book = book;
     }
 
 }

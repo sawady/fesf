@@ -10,6 +10,8 @@ public class Comment extends Event {
 
     private Calification calification;
 
+    protected Book book;
+
     /* Accessors */
 
     public String getBody() {
@@ -27,6 +29,16 @@ public class Comment extends Event {
 
     public Calification getCalification() {
         return this.calification;
+    }
+
+    @Override
+    public Book getBook() {
+        return this.book;
+    }
+
+    public void setBook(final Book book) {
+        checkNotNull(book);
+        this.book = book;
     }
 
 }

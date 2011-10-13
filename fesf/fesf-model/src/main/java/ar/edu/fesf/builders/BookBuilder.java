@@ -29,9 +29,9 @@ public class BookBuilder {
 
     private int countOfLouns = 0;
 
-    private Set<BookCopy> registedCopies = new HashSet<BookCopy>();
+    private List<BookCopy> registedCopies = new ArrayList<BookCopy>();
 
-    private Set<BookCopy> availableCopies = new HashSet<BookCopy>();
+    private List<BookCopy> availableCopies = new ArrayList<BookCopy>();
 
     private Set<Category> categories = new HashSet<Category>();
 
@@ -82,7 +82,7 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder withRegistedCopies(final Set<BookCopy> aregistedCopies) {
+    public BookBuilder withRegistedCopies(final List<BookCopy> aregistedCopies) {
         this.registedCopies = aregistedCopies;
         return this;
     }
@@ -92,7 +92,7 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder withAvailableCopies(final Set<BookCopy> aavailableCopies) {
+    public BookBuilder withAvailableCopies(final List<BookCopy> aavailableCopies) {
         this.availableCopies = aavailableCopies;
         return this;
     }
@@ -152,11 +152,11 @@ public class BookBuilder {
         this.countOfLouns = countOfLouns;
     }
 
-    public void setRegistedCopies(final Set<BookCopy> registedCopies) {
+    public void setRegistedCopies(final List<BookCopy> registedCopies) {
         this.registedCopies = registedCopies;
     }
 
-    public void setAvailableCopies(final Set<BookCopy> availableCopies) {
+    public void setAvailableCopies(final List<BookCopy> availableCopies) {
         this.availableCopies = availableCopies;
     }
 
@@ -196,11 +196,11 @@ public class BookBuilder {
         return this.countOfLouns;
     }
 
-    public Set<BookCopy> getRegistedCopies() {
+    public List<BookCopy> getRegistedCopies() {
         return this.registedCopies;
     }
 
-    public Set<BookCopy> getAvailableCopies() {
+    public List<BookCopy> getAvailableCopies() {
         return this.availableCopies;
     }
 

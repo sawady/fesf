@@ -13,8 +13,7 @@ public class Loan extends Event {
 
     private static final long serialVersionUID = 1L;
 
-    // TODO arreglar esto
-    private static int maxLoanPeriodInDays = 60;
+    private int maxLoanPeriodInDays;
 
     private DateTime agreedReturnDate;
 
@@ -23,8 +22,19 @@ public class Loan extends Event {
     private BookCopy bookCopy;
 
     /* Methods */
+
+    public Loan() {
+        super();
+    }
+
     public boolean hasFinished() {
         return this.getReturnDate() != null && this.getReturnDate().isBeforeNow();
+    }
+
+    @Override
+    public void setPerson(final Person person) {
+        super.setPerson(person);
+        person.addNewLoan(this);
     }
 
     /* Accessors */
@@ -40,8 +50,8 @@ public class Loan extends Event {
     public void setAgreedReturnDate(final DateTime date, final BusinessDayValidator bsdvalidator) {
         bsdvalidator.validate(date);
 
-        checkState(new Period(this.getDate(), date).getDays() <= Loan.maxLoanPeriodInDays, "Loans can only last "
-                + Loan.maxLoanPeriodInDays);
+        checkState(new Period(this.getDate(), date).getDays() <= this.getMaxLoanPeriodInDays(), "Loans can only last "
+                + this.getMaxLoanPeriodInDays());
 
         this.agreedReturnDate = date;
     }
@@ -53,6 +63,20 @@ public class Loan extends Event {
         this.returnDate = returnDate;
     }
 
+    public void assignCopy(final BookCopy bookcopy) {
+        this.setBookCopy(bookcopy);
+        bookcopy.addLoan(this);
+        this.getPerson().addNewLoan(this);
+        this.updateUserCategories();
+    }
+
+    public void setFinished() {
+        checkState(this.hasFinished(), "This loan is already finished!");
+        this.setReturnDate(new DateTime());
+        this.getBook().returnCopy(this.getBookCopy());
+        this.getPerson().removeCurrentLoan(this);
+    }
+
     public BookCopy getBookCopy() {
         return this.bookCopy;
     }
@@ -61,12 +85,17 @@ public class Loan extends Event {
         this.bookCopy = bookCopy;
     }
 
-    public static int getMaxLoanPeriodInDays() {
-        return maxLoanPeriodInDays;
+    public int getMaxLoanPeriodInDays() {
+        return this.maxLoanPeriodInDays;
     }
 
-    public static void setMaxLoanPeriodInDays(final int maxLoanPeriodInDays) {
-        Loan.maxLoanPeriodInDays = maxLoanPeriodInDays;
+    public void setMaxLoanPeriodInDays(final int maxLoanPeriodInDays) {
+        this.maxLoanPeriodInDays = maxLoanPeriodInDays;
+    }
+
+    @Override
+    public Book getBook() {
+        return this.getBookCopy().getBook();
     }
 
 }
