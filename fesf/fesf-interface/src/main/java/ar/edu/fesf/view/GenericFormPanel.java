@@ -2,6 +2,7 @@ package ar.edu.fesf.view;
 
 import org.apache.wicket.markup.html.panel.Panel;
 
+import ar.edu.fesf.controllers.GenericForm;
 import ar.edu.fesf.controllers.ServiceToForm;
 
 public class GenericFormPanel<T> extends Panel {
@@ -10,7 +11,7 @@ public class GenericFormPanel<T> extends Panel {
 
     public GenericFormPanel(final String id, final ServiceToForm<T> serviceToForm) {
         super(id);
-        this.add(new GenericFormPanel<T>("form", serviceToForm));
+        this.add(new GenericForm<T>("form", serviceToForm));
     }
 
 }

@@ -14,13 +14,14 @@ public class GenericForm<T> extends Form<T> {
 
     public GenericForm(final String id, final ServiceToForm<T> serviceToForm) {
         super(id, new CompoundPropertyModel<T>(serviceToForm.getObject()));
-        this.setServiceToForm(serviceToForm);
+        this.serviceToForm = serviceToForm;
         this.initialize();
     }
 
     private void initialize() {
 
         final FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
+        feedbackPanel.setOutputMarkupId(true);
         this.add(feedbackPanel);
 
         this.add(this.getServiceToForm().getFieldsPanel("formFieldPanel"));

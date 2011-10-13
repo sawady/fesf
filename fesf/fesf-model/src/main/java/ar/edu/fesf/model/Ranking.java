@@ -21,10 +21,10 @@ public class Ranking extends Entity {
      */
     public void addToRecents(final Book book) {
         if (this.getLimitOfRecentlyBooks() == this.getRecentlyAvailable().size()) {
-            this.getRecentlyAvailable().remove(0);
+            this.getRecentlyAvailable().remove(this.getLimitOfRecentlyBooks() - 1);
         }
 
-        this.getRecentlyAvailable().add(book);
+        this.getRecentlyAvailable().add(0, book);
     }
 
     public void updateRanking(final Book newBook) {
