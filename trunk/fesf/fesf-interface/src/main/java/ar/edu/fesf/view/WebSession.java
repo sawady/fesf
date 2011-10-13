@@ -23,27 +23,27 @@ public class WebSession extends AuthenticatedWebSession {
 
     @Override
     public boolean authenticate(final String username, final String password) {
-        Person aPerson = this.getAuthenticationService().authenticate(username, password);
-
-        if (aPerson != null) {
-            this.setPerson(aPerson);
-            return true;
-        }
+        // Person aPerson = this.getAuthenticationService().authenticate(username, password);
+        //
+        // if (aPerson != null) {
+        // this.setPerson(aPerson);
+        // return true;
+        // }
 
         return false;
     }
 
     @Override
     public Roles getRoles() {
+        Roles roles = new Roles();
 
         // not signed in
-        if (!this.isSignedIn()) {
-            return null;
+        if (this.isSignedIn()) {
+            roles.add("USER");
         }
 
-        Roles roles = new Roles();
         // roles.addAll(this.getAuthenticationService().getRolesOf(this.getPerson()));
-        roles.add("USER");
+
         return roles;
     }
 

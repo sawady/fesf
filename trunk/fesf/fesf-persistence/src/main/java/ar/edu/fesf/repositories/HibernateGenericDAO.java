@@ -40,11 +40,6 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
         this.getHibernateTemplate().delete(entity);
     }
 
-    @Override
-    public void update(final T entity) {
-        this.getHibernateTemplate().update(entity);
-    }
-
     @SuppressWarnings(UNCHECKED)
     @Override
     public T findById(final Serializable id) {

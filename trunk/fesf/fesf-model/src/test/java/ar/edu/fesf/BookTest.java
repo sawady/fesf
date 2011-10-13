@@ -48,8 +48,8 @@ public class BookTest {
         ReservationEvent interestEvent1 = mock(ReservationEvent.class);
         ReservationEvent interestEvent2 = mock(ReservationEvent.class);
 
-        this.bookExample.addInterestEvent(interestEvent1);
-        this.bookExample.addInterestEvent(interestEvent2);
+        this.bookExample.addReservationEvent(interestEvent1);
+        this.bookExample.addReservationEvent(interestEvent2);
 
         ReservationEvent result = this.bookExample.getReservationEventToInformAvailability();
 

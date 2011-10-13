@@ -9,32 +9,30 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.fesf.model.Book;
-import ar.edu.fesf.services.BookService;
+import ar.edu.fesf.model.Loan;
+import ar.edu.fesf.services.LoaningService;
 
-public class BookForm extends Form<Book> {
+public class LoanForm extends Form<Loan> {
 
-    private static final long serialVersionUID = -2681835593630799248L;
+    private static final long serialVersionUID = 1L;
 
-    @SpringBean(name = "service.book")
-    private BookService bookService;
+    @SpringBean(name = "service.loan")
+    private LoaningService loaningService;
 
-    public BookService getBookService() {
-        return this.bookService;
+    public LoaningService getLoaningService() {
+        return this.loaningService;
     }
 
-    public void setBookService(final BookService bookService) {
-        this.bookService = bookService;
+    public void setLoaningService(final LoaningService loaningService) {
+        this.loaningService = loaningService;
     }
 
-    public BookForm(final String id, final Book book, final IAjaxCallback<Form<Book>> iAjaxCallback) {
-        super(id, new CompoundPropertyModel<Book>(book));
+    public LoanForm(final String id, final Loan loan, final IAjaxCallback<Form<Loan>> iAjaxCallback) {
+        super(id, new CompoundPropertyModel<Loan>(loan));
         this.initialize(iAjaxCallback);
     }
 
-    // TODO completar con todos los campos
-    private void initialize(final IAjaxCallback<Form<Book>> iAjaxCallback) {
-
+    private void initialize(final IAjaxCallback<Form<Loan>> iAjaxCallback) {
         RequiredTextField<String> titleField = new RequiredTextField<String>("title");
         this.add(titleField);
         final FeedbackPanel titleFeedback = new FeedbackPanel("titleFeedback", new ComponentFeedbackMessageFilter(
@@ -54,10 +52,12 @@ public class BookForm extends Form<Book> {
             @SuppressWarnings("unchecked")
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
-                BookForm.this.getBookService().save((Book) form.getModelObject());
-                iAjaxCallback.callback(target, (Form<Book>) form);
+                // TODO
+                // LoanForm.this.getBookService().save((Book) form.getModelObject());
+                // iAjaxCallback.callback(target, (Form<Book>) form);
             }
 
         });
     }
+
 }

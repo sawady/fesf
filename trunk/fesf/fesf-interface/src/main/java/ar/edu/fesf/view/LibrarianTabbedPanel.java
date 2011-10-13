@@ -10,7 +10,7 @@ import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-@AuthorizeAction(action = "ENABLE", roles = { "ADMIN", "LIBRARIAN" })
+@AuthorizeAction(action = "ENABLE", roles = { "LIBRARIAN" })
 public class LibrarianTabbedPanel extends Panel {
 
     private static final long serialVersionUID = 1L;

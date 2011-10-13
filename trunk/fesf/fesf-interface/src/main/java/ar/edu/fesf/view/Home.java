@@ -12,7 +12,6 @@ public class Home extends WebPage {
     private void initialize() {
         final HomeContentPanel homeContentPanel = new HomeContentPanel("contentPanel");
         this.add(homeContentPanel);
-        this.add(new HomeUserbarPanel("userbar", homeContentPanel.changeToRakingPanel()));
     }
 
 }

@@ -37,12 +37,6 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
     }
 
     @Override
-    @Transactional
-    public void update(final T entity) {
-        this.getRepository().update(entity);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public T findById(final Serializable id) {
         return this.getRepository().findById(id);

@@ -9,6 +9,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
+import ar.edu.fesf.controllers.ServiceToBookForm;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
 
@@ -72,8 +73,9 @@ public class LibrarianBooksContentPanel extends Panel {
         };
     }
 
-    public BookFormPanel getEditBookFormPanel(final Book book) {
-        BookFormPanel bookFormPanel = new BookFormPanel("content", book, this.showAllResults());
+    public GenericFormPanel<Book> getEditBookFormPanel(final Book book) {
+        GenericFormPanel<Book> bookFormPanel = new GenericFormPanel<Book>("content", new ServiceToBookForm(book,
+                this.showAllResults()));
         bookFormPanel.setOutputMarkupId(true);
         return bookFormPanel;
     }
