@@ -75,7 +75,7 @@ public class LibrarianBooksContentPanel extends Panel {
 
     public GenericFormPanel<Book> getEditBookFormPanel(final Book book) {
         GenericFormPanel<Book> bookFormPanel = new GenericFormPanel<Book>("content", new ServiceToBookForm(book,
-                this.showAllResults()));
+                this.showAllResults(), this.getBookService()));
         bookFormPanel.setOutputMarkupId(true);
         return bookFormPanel;
     }

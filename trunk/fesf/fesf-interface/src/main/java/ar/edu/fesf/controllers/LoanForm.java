@@ -49,7 +49,6 @@ public class LoanForm extends Form<Loan> {
                 target.addComponent(titleFeedback);
             }
 
-            @SuppressWarnings("unchecked")
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
                 // TODO

@@ -22,6 +22,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private Ranking ranking;
 
+    @Transactional
     public void initialize() {
         Ranking aRanking = new Ranking();
         this.setRanking(aRanking);
@@ -88,6 +89,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Override
+    @Transactional
     public void save(final Book entity) {
         super.save(entity);
         this.getRanking().addToRecents(entity);
@@ -108,10 +110,12 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return books;
     }
 
+    @Transactional
     public List<Book> getTop20() {
         return this.getRanking().getTop20();
     }
 
+    @Transactional
     public List<Book> getRecentlyAvailable() {
         return this.getRanking().getRecentlyAvailable();
     }

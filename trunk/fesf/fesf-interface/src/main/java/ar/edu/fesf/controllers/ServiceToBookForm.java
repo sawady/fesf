@@ -13,18 +13,20 @@ public class ServiceToBookForm implements ServiceToForm<Book> {
 
     private static final long serialVersionUID = -2681835593630799248L;
 
+    @SpringBean(name = "service.book")
+    private BookService bookService;
+
     private Book book;
 
     private IAjaxCallback<Form<Book>> iAjaxCallback;
 
-    @SpringBean(name = "service.book")
-    private BookService bookService;
-
     /* Methods */
 
-    public ServiceToBookForm(final Book book, final IAjaxCallback<Form<Book>> iAjaxCallback) {
-        this.setBook(book);
-        this.setiAjaxCallback(iAjaxCallback);
+    public ServiceToBookForm(final Book book, final IAjaxCallback<Form<Book>> iAjaxCallback,
+            final BookService bookService) {
+        this.book = book;
+        this.iAjaxCallback = iAjaxCallback;
+        this.bookService = bookService;
     }
 
     @Override
@@ -34,7 +36,9 @@ public class ServiceToBookForm implements ServiceToForm<Book> {
 
     @Override
     public Panel getFieldsPanel(final String id) {
-        return new BookFormFieldsPanel(id);
+        BookFormFieldsPanel bookFormFieldsPanel = new BookFormFieldsPanel(id);
+        bookFormFieldsPanel.setOutputMarkupId(true);
+        return bookFormFieldsPanel;
     }
 
     @Override
