@@ -79,6 +79,15 @@ public class Person extends Entity implements Nameable, Serializable {
         this.getCurrentLoans().remove(loan);
     }
 
+    public boolean isLoanee() {
+        return !this.getCurrentLoans().isEmpty();
+    }
+
+    public List<Book> reservedBooks() {
+        // TODO hay que listar los libros que reservo el usuario
+        return null;
+    }
+
     /* Accessors */
     public int getAge() {
         return this.age;
@@ -174,11 +183,6 @@ public class Person extends Entity implements Nameable, Serializable {
         checkNotNull(surname);
         checkArgument(!surname.isEmpty(), "Surname cannot be empty");
         this.surname = surname;
-    }
-
-    public List<Book> reservedBooks() {
-        // TODO hay que listar los libros que reservo el usuario
-        return null;
     }
 
 }

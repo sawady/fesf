@@ -7,7 +7,6 @@ import java.util.Set;
 
 import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
-import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Publisher;
@@ -25,21 +24,24 @@ public class BookBuilder {
 
     private String description = "";
 
-    private Set<Author> authors = new HashSet<Author>();
+    private List<Author> authors = new ArrayList<Author>();
 
     private int countOfLouns = 0;
-
-    private List<BookCopy> registedCopies = new ArrayList<BookCopy>();
-
-    private List<BookCopy> availableCopies = new ArrayList<BookCopy>();
 
     private Set<Category> categories = new HashSet<Category>();
 
     private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
 
+    private int countOfCopies;
+
     public Book build() {
         return new Book(this.title, this.isbn, this.publisher, this.imagepath, this.description, this.authors,
-                this.countOfLouns, this.registedCopies, this.availableCopies, this.categories, this.reservationEvents);
+                this.countOfLouns, this.categories, this.reservationEvents, this.countOfCopies);
+    }
+
+    public BookBuilder withCountOfCopies(final int i) {
+        this.setCountOfCopies(i);
+        return this;
     }
 
     public BookBuilder withTitle(final String aTitle) {
@@ -72,33 +74,13 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder withAuthors(final Set<Author> aauthors) {
+    public BookBuilder withAuthors(final List<Author> aauthors) {
         this.authors = aauthors;
         return this;
     }
 
     public BookBuilder withCountOfLouns(final int acountOfLouns) {
         this.countOfLouns = acountOfLouns;
-        return this;
-    }
-
-    public BookBuilder withRegistedCopies(final List<BookCopy> aregistedCopies) {
-        this.registedCopies = aregistedCopies;
-        return this;
-    }
-
-    public BookBuilder withRegistedCopy(final BookCopy copy) {
-        this.registedCopies.add(copy);
-        return this;
-    }
-
-    public BookBuilder withAvailableCopies(final List<BookCopy> aavailableCopies) {
-        this.availableCopies = aavailableCopies;
-        return this;
-    }
-
-    public BookBuilder withAvailableCopy(final BookCopy copy) {
-        this.availableCopies.add(copy);
         return this;
     }
 
@@ -144,20 +126,12 @@ public class BookBuilder {
         this.description = description;
     }
 
-    public void setAuthors(final Set<Author> authors) {
+    public void setAuthors(final List<Author> authors) {
         this.authors = authors;
     }
 
     public void setCountOfLouns(final int countOfLouns) {
         this.countOfLouns = countOfLouns;
-    }
-
-    public void setRegistedCopies(final List<BookCopy> registedCopies) {
-        this.registedCopies = registedCopies;
-    }
-
-    public void setAvailableCopies(final List<BookCopy> availableCopies) {
-        this.availableCopies = availableCopies;
     }
 
     public void setCategories(final Set<Category> categories) {
@@ -188,20 +162,12 @@ public class BookBuilder {
         return this.description;
     }
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return this.authors;
     }
 
     public int getCountOfLouns() {
         return this.countOfLouns;
-    }
-
-    public List<BookCopy> getRegistedCopies() {
-        return this.registedCopies;
-    }
-
-    public List<BookCopy> getAvailableCopies() {
-        return this.availableCopies;
     }
 
     public Set<Category> getCategories() {
@@ -210,6 +176,14 @@ public class BookBuilder {
 
     public List<ReservationEvent> getReservationEvents() {
         return this.reservationEvents;
+    }
+
+    public void setCountOfCopies(final int countOfCopies) {
+        this.countOfCopies = countOfCopies;
+    }
+
+    public int getCountOfCopies() {
+        return this.countOfCopies;
     }
 
 }

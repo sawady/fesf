@@ -11,8 +11,8 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Book;
+import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Loan;
 
 /**

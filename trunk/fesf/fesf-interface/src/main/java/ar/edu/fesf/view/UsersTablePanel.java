@@ -16,10 +16,12 @@ public class UsersTablePanel extends AjaxDataTablePanel<Person> {
 
     private static final long serialVersionUID = 1L;
 
+    private IAjaxCallback<Person> callBack;
+
     @SpringBean(name = "service.person")
     private PersonService personService;
 
-    private IAjaxCallback<Person> callBack;
+    /* Methods */
 
     public UsersTablePanel(final String id, final List<Person> list, final IAjaxCallback<Person> callBack) {
         super(id, list);
@@ -42,6 +44,8 @@ public class UsersTablePanel extends AjaxDataTablePanel<Person> {
     public List<String> getSortFields() {
         return this.getPersonService().getFieldsToSort();
     }
+
+    /* Accessors */
 
     public void setPersonService(final PersonService personService) {
         this.personService = personService;

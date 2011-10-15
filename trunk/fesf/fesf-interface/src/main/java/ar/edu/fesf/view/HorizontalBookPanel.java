@@ -12,15 +12,9 @@ public class HorizontalBookPanel extends Panel {
 
     private List<Book> books;
 
-    public List<Book> getBooks() {
-        return this.books;
-    }
-
-    public void setBooks(final List<Book> books) {
-        this.books = books;
-    }
-
     private static final long serialVersionUID = 5948221763418992422L;
+
+    /* Methods */
 
     public HorizontalBookPanel(final String id, final List<Book> books) {
         super(id);
@@ -38,5 +32,15 @@ public class HorizontalBookPanel extends Panel {
                 item.add(new BookInfoMiniPanel("bookMiniPanel", item.getModelObject()));
             }
         });
+    }
+
+    /* Accessors */
+
+    public List<Book> getBooks() {
+        return this.books;
+    }
+
+    public void setBooks(final List<Book> books) {
+        this.books = books;
     }
 }

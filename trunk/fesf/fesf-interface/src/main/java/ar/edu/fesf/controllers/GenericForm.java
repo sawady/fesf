@@ -38,7 +38,9 @@ public class GenericForm<T> extends Form<T> {
             @SuppressWarnings("unchecked")
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
-                GenericForm.this.getServiceToForm().doSubmit(target, (Form<T>) form);
+
+                GenericForm.this.getServiceToForm().doSubmitCallback(target, (Form<T>) form)
+                        .callback(target, (T) this.getModelObject());
             }
 
         });

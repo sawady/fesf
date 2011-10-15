@@ -19,6 +19,7 @@ public class BookInfoPanel extends Panel {
         this.initialize(callback, book);
     }
 
+    // TODO representar mejor el libro
     private void initialize(final IAjaxCallback<Book> callback, final Book book) {
         this.add(new Label("title"));
         this.add(new AjaxFallbackLink<String>("borrowIt", new Model<String>(null)) {
@@ -28,10 +29,8 @@ public class BookInfoPanel extends Panel {
             @Override
             public void onClick(final AjaxRequestTarget target) {
                 callback.callback(target, book);
-
             }
 
         });
-        // TODO representar mejor el libro
     }
 }

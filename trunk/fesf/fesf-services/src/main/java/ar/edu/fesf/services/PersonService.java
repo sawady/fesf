@@ -10,6 +10,7 @@ import ar.edu.fesf.builders.PersonBuilder;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
+import ar.edu.fesf.repositories.PersonRepository;
 
 public class PersonService extends GenericTransactionalRepositoryService<Person> implements Serializable {
 
@@ -45,4 +46,8 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         return names;
     }
 
+    @Transactional
+    public List<Person> getLoanees() {
+        return ((PersonRepository) this.getRepository()).getLoanees();
+    }
 }

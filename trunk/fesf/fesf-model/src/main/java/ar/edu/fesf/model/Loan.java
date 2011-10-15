@@ -71,7 +71,7 @@ public class Loan extends Event {
     }
 
     public void setFinished() {
-        checkState(this.hasFinished(), "This loan is already finished!");
+        checkState(!this.hasFinished(), "This loan is already finished!");
         this.setReturnDate(new DateTime());
         this.getBook().returnCopy(this.getBookCopy());
         this.getPerson().removeCurrentLoan(this);
