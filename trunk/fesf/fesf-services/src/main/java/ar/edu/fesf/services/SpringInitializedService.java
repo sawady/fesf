@@ -8,10 +8,13 @@ public class SpringInitializedService {
 
     private PersonService personService;
 
+    private LoaningService loaningService;
+
     @Transactional
     public void initialize() {
         this.bookService.initialize();
         this.personService.initialize();
+        this.loaningService.initialize();
     }
 
     public BookService getBookService() {
@@ -30,4 +33,11 @@ public class SpringInitializedService {
         this.personService = personService;
     }
 
+    public LoaningService getLoaningService() {
+        return this.loaningService;
+    }
+
+    public void setLoaningService(final LoaningService loaningService) {
+        this.loaningService = loaningService;
+    }
 }

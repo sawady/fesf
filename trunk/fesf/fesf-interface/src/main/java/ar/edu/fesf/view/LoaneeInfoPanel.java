@@ -16,10 +16,14 @@ import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.LoaningService;
+import ar.edu.fesf.services.PersonService;
 
 public class LoaneeInfoPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+
+    @SpringBean(name = "service.person")
+    private PersonService personService;
 
     @SpringBean(name = "service.loan")
     private LoaningService loaningService;
@@ -33,14 +37,14 @@ public class LoaneeInfoPanel extends Panel {
 
     private void initialize(final Person loanee) {
         this.add(new PersonInfoPanel("loanee", loanee));
-        this.add(new ListView<Loan>("loans", loanee.getCurrentLoans()) {
+        this.add(new ListView<Loan>("loans", this.getPersonService().getCurrentLoans(loanee)) {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             protected void populateItem(final ListItem<Loan> item) {
                 Loan loan = (Loan) item.getDefaultModelObject();
-                item.add(new Label("bookTitle", loan.getBook().getTitle()));
+                item.add(new Label("bookTitle", LoaneeInfoPanel.this.getLoaningService().getBookTitle(loan)));
                 item.add(new Label("loanDate", loan.getDate().toString("dd-MMMM-yyyy")));
                 item.add(new Label("agreedDate", loan.getAgreedReturnDate().toString("dd-MMMM-yyyy")));
                 item.add(new ActionsPanel<Loan>("actions", loan, LoaneeInfoPanel.this.actions()));
@@ -73,5 +77,13 @@ public class LoaneeInfoPanel extends Panel {
 
     public void setLoaningService(final LoaningService loaningService) {
         this.loaningService = loaningService;
+    }
+
+    public void setPersonService(final PersonService personService) {
+        this.personService = personService;
+    }
+
+    public PersonService getPersonService() {
+        return this.personService;
     }
 }

@@ -1,15 +1,11 @@
 package ar.edu.fesf.builders;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.EmailAddress;
-import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
-import ar.edu.fesf.model.ReservationEvent;
 import ar.edu.fesf.model.UserInfo;
 
 public class PersonBuilder {
@@ -29,12 +25,6 @@ public class PersonBuilder {
     private Set<Category> categories = new HashSet<Category>();
 
     private UserInfo userInfo;
-
-    private List<Loan> oldLoans = new ArrayList<Loan>();
-
-    private List<Loan> currentLoans = new ArrayList<Loan>();
-
-    private List<ReservationEvent> reservations = new ArrayList<ReservationEvent>();
 
     public PersonBuilder withName(final String aName) {
         this.name = aName;
@@ -76,24 +66,9 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withOldLoans(final List<Loan> someOldLoans) {
-        this.oldLoans = someOldLoans;
-        return this;
-    }
-
-    public PersonBuilder withCurrentLoans(final List<Loan> someCurrentLoans) {
-        this.currentLoans = someCurrentLoans;
-        return this;
-    }
-
-    public PersonBuilder withReservations(final List<ReservationEvent> someReservations) {
-        this.reservations = someReservations;
-        return this;
-    }
-
     public Person build() {
         return new Person(this.name, this.surname, this.age, this.address, this.phone, this.email, this.categories,
-                this.userInfo, this.oldLoans, this.currentLoans, this.reservations);
+                this.userInfo);
     }
 
     /**************************************** ACCESSORS ****************************************/
@@ -160,30 +135,6 @@ public class PersonBuilder {
 
     public void setUserInfo(final UserInfo userInfo) {
         this.userInfo = userInfo;
-    }
-
-    public List<Loan> getOldLoans() {
-        return this.oldLoans;
-    }
-
-    public void setOldLoans(final List<Loan> oldLoans) {
-        this.oldLoans = oldLoans;
-    }
-
-    public List<Loan> getCurrentLoans() {
-        return this.currentLoans;
-    }
-
-    public void setCurrentLoans(final List<Loan> currentLoans) {
-        this.currentLoans = currentLoans;
-    }
-
-    public List<ReservationEvent> getReservations() {
-        return this.reservations;
-    }
-
-    public void setReservations(final List<ReservationEvent> reservations) {
-        this.reservations = reservations;
     }
 
 }

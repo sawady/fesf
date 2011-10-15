@@ -65,14 +65,15 @@ public class Book extends Entity {
         category.addBook(this);
     }
 
-    public void addCopies(final int i) {
-        for (int n = 0; n < i; n++) {
+    public void addCopies(final int cant) {
+        for (int n = 0; n < cant; n++) {
             this.addCopy();
         }
     }
 
     public void addCopy() {
         BookCopy newCopy = new BookCopy();
+        newCopy.setBook(this);
         this.getRegistedCopies().add(newCopy);
         this.getAvailableCopies().add(newCopy);
     }
@@ -83,9 +84,7 @@ public class Book extends Entity {
 
     public BookCopy getAvailableCopy() {
         checkState(this.hasAvailableCopy(), "There are no available copies of this book");
-
-        BookCopy result = this.getAvailableCopies().remove(0);
-        return result;
+        return this.getAvailableCopies().remove(0);
     }
 
     public void incrementCountOfLoans() {

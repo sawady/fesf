@@ -25,7 +25,6 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private Ranking ranking;
 
-    @Transactional
     public void initialize() {
         Ranking aRanking = new Ranking();
         this.setRanking(aRanking);
@@ -59,7 +58,8 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         this.save(new BookBuilder().withTitle("Los Crimenes de la Calle Morgue").withCategory(drama)
                 .withCategory(policial).withPublisher(publisher1).withCountOfCopies(5).build());
 
-        this.save(new BookBuilder().withTitle("Maleficio").withCategory(terror).withPublisher(publisher1).build());
+        this.save(new BookBuilder().withTitle("Maleficio").withCategory(terror).withPublisher(publisher1)
+                .withCountOfCopies(10).build());
         this.save(new BookBuilder().withTitle("Cementerio de Animales").withCategory(terror).withPublisher(publisher1)
                 .withCountOfCopies(5).build());
         this.save(new BookBuilder().withTitle("Carrie").withCategory(terror).withPublisher(publisher1)
@@ -76,23 +76,23 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         this.save(new BookBuilder().withTitle("Mickey y las Abichuelas").withCategory(aventura)
                 .withPublisher(publisher2).withCountOfCopies(5).build());
 
-        this.save(new BookBuilder().withTitle("Mi Planta de Naranja Lima").withCountOfLouns(4).withCategory(drama)
+        this.save(new BookBuilder().withTitle("Mi Planta de Naranja Lima").withCategory(drama)
                 .withPublisher(publisher2).withCountOfCopies(5).build());
-        this.save(new BookBuilder().withTitle("El Genio en la botella").withCountOfLouns(3).withCategory(drama)
-                .withPublisher(publisher2).withCountOfCopies(5).build());
-        this.save(new BookBuilder().withTitle("Mi Nombre es Sam").withCountOfLouns(2).withCategory(drama)
-                .withPublisher(publisher2).withCountOfCopies(5).build());
-        this.save(new BookBuilder().withTitle("Naufrago").withCountOfLouns(3).withCategory(drama)
-                .withPublisher(publisher2).withCountOfCopies(5).build());
-        this.save(new BookBuilder().withTitle("Full Metal Jacket").withCountOfLouns(1).withCategory(drama)
-                .withPublisher(publisher2).withCountOfCopies(5).build());
+        this.save(new BookBuilder().withTitle("El Genio en la botella").withCategory(drama).withPublisher(publisher2)
+                .withCountOfCopies(5).build());
+        this.save(new BookBuilder().withTitle("Mi Nombre es Sam").withCategory(drama).withPublisher(publisher2)
+                .withCountOfCopies(5).build());
+        this.save(new BookBuilder().withTitle("Naufrago").withCategory(drama).withPublisher(publisher2)
+                .withCountOfCopies(5).build());
+        this.save(new BookBuilder().withTitle("Full Metal Jacket").withCategory(drama).withPublisher(publisher2)
+                .withCountOfCopies(5).build());
 
         this.save(new BookBuilder().withTitle("El Manifiesto Comunista").withCategory(filosofia)
-                .withPublisher(publisher2).withCountOfLouns(5).build());
+                .withPublisher(publisher2).withCountOfCopies(10).build());
         this.save(new BookBuilder().withTitle("Principia Mathematica").withCategory(filosofia)
                 .withPublisher(publisher2).withCountOfCopies(5).build());
         this.save(new BookBuilder().withTitle("Platon y sus amigos").withCategory(filosofia).withPublisher(publisher2)
-                .withCountOfLouns(5).withCountOfCopies(5).build());
+                .withCountOfCopies(5).build());
 
         this.save(new BookBuilder().withTitle("Locademia de Policias").withCategory(comedia).withPublisher(publisher2)
                 .withCountOfCopies(5).build());

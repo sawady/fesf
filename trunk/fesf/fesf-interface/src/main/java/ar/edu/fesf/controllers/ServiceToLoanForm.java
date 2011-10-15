@@ -41,8 +41,9 @@ public class ServiceToLoanForm implements ServiceToForm<Loan> {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void callback(final AjaxRequestTarget target, final Loan loan) {
-                ServiceToLoanForm.this.getLoaningService().registerLoan(loan, ServiceToLoanForm.this.getBook());
+            public void callback(final AjaxRequestTarget target, final Loan aLoan) {
+                ServiceToLoanForm.this.getLoaningService().registerLoan(ServiceToLoanForm.this.getLoan(),
+                        ServiceToLoanForm.this.getBook());
                 ServiceToLoanForm.this.getAjaxCallback().callback(target, ServiceToLoanForm.this.getBook());
             }
 

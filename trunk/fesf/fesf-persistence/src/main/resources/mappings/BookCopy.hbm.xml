@@ -11,13 +11,13 @@
     </id>
     
     <property name="observations"/>
+    
     <many-to-one name="book" class="Book"/>
     
-    <list name="loans" table="LoansOfCopies">
+    <bag name="loans" inverse="true">
         <key column="bookCopy"/>
-        <index column="indice"/>
         <one-to-many class="Loan"/>
-    </list>
+    </bag>
      
 	</class>
 </hibernate-mapping>

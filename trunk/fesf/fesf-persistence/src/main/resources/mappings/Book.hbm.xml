@@ -24,11 +24,10 @@
 <!--     <one-to-one name="isbn" class="ISBN"/> -->
 <!--     <one-to-one name="publisher" class="Publisher"/> -->
     
-    <list name="authors" table="BookAuthors">
+    <bag name="authors" table="BookAuthors" inverse="true">
         <key column="book"/>
-        <index column="index"/>
         <many-to-many column="author" class="Author"/>
-    </list>
+    </bag>
     
 <!--     <list name="reservationEvents" table="ReservationEventsForBook"> -->
 <!--         <key column="book"/> -->
@@ -36,17 +35,15 @@
 <!--         <one-to-many class="ReservationEvent"/> -->
 <!--     </list> -->
     
-    <list name="registedCopies">
+    <bag name="registedCopies" inverse="true">
         <key column="book"/>
-        <index column="index"/>
         <one-to-many class="BookCopy"/>
-    </list>
+    </bag>
     
-    <list name="availableCopies">
+    <bag name="availableCopies" inverse="true">
         <key column="book"/>
-        <index column="index"/>
         <one-to-many class="BookCopy"/>
-    </list>
+    </bag>
     
 	</class>
 </hibernate-mapping>
