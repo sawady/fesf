@@ -27,6 +27,15 @@ public class Loan extends Event {
         super();
     }
 
+    public Loan(final Person person, final int maxLoanPeriodInDays, final DateTime agreedReturnDate,
+            final BookCopy bookCopy) {
+        super();
+        this.person = person;
+        this.maxLoanPeriodInDays = maxLoanPeriodInDays;
+        this.agreedReturnDate = agreedReturnDate;
+        this.bookCopy = bookCopy;
+    }
+
     public boolean hasFinished() {
         return this.getReturnDate() != null && this.getReturnDate().isBeforeNow();
     }
@@ -34,7 +43,6 @@ public class Loan extends Event {
     @Override
     public void setPerson(final Person person) {
         super.setPerson(person);
-        person.addNewLoan(this);
     }
 
     /* Accessors */
@@ -77,6 +85,13 @@ public class Loan extends Event {
         this.getPerson().removeCurrentLoan(this);
     }
 
+    @Override
+    public Book getBook() {
+        return this.getBookCopy().getBook();
+    }
+
+    /* Accesors */
+
     public BookCopy getBookCopy() {
         return this.bookCopy;
     }
@@ -91,11 +106,6 @@ public class Loan extends Event {
 
     public void setMaxLoanPeriodInDays(final int maxLoanPeriodInDays) {
         this.maxLoanPeriodInDays = maxLoanPeriodInDays;
-    }
-
-    @Override
-    public Book getBook() {
-        return this.getBookCopy().getBook();
     }
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.builders.PersonBuilder;
+import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
@@ -22,7 +23,6 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
     }
 
     public void initialize() {
-        this.save(new Person("Ariel"));
         this.save(new PersonBuilder().withName("Jose").withUserInfo(new UserInfo("jose", "jose", Role.LIBRARIAN))
                 .build());
         this.save(new PersonBuilder().withName("Pepe").withUserInfo(new UserInfo("pepe", "pepe", Role.LIBRARIAN))
@@ -46,8 +46,15 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         return names;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Person> getLoanees() {
         return ((PersonRepository) this.getRepository()).getLoanees();
+    }
+
+    @Transactional
+    public List<Loan> getCurrentLoans(final Person loanee) {
+        List<Loan> loans = new ArrayList<Loan>();
+        loans.addAll(this.findById(loanee.getId()).getCurrentLoans());
+        return loans;
     }
 }

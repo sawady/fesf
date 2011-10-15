@@ -7,6 +7,7 @@ import static com.google.common.base.Preconditions.checkState;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -34,9 +35,9 @@ public class Person extends Entity implements Nameable, Serializable {
 
     private UserInfo userInfo;
 
-    private List<Loan> oldLoans = new ArrayList<Loan>();
+    private List<Loan> oldLoans = new LinkedList<Loan>();
 
-    private List<Loan> currentLoans = new ArrayList<Loan>();
+    private List<Loan> currentLoans = new LinkedList<Loan>();
 
     private List<ReservationEvent> reservations = new ArrayList<ReservationEvent>();
 
@@ -50,8 +51,7 @@ public class Person extends Entity implements Nameable, Serializable {
     }
 
     public Person(final String name, final String surname, final int age, final String address, final String phone,
-            final EmailAddress email, final Set<Category> categories, final UserInfo userInfo,
-            final List<Loan> oldLoans, final List<Loan> currentLoans, final List<ReservationEvent> reservations) {
+            final EmailAddress email, final Set<Category> categories, final UserInfo userInfo) {
         super();
         this.name = name;
         this.surname = surname;
@@ -61,12 +61,10 @@ public class Person extends Entity implements Nameable, Serializable {
         this.email = email;
         this.categories = categories;
         this.userInfo = userInfo;
-        this.oldLoans = oldLoans;
-        this.currentLoans = currentLoans;
-        this.reservations = reservations;
     }
 
     /* Methods */
+
     public void addNewLoan(final Loan loan) {
         new LoansPerUserRule().apply(this);
         this.getCurrentLoans().add(loan);

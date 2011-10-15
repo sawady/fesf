@@ -23,15 +23,16 @@
 		<property name="categoryRepository" ref="persistence.CategoryRepository" />
 	</bean>
 	
-	<bean id="service.SpringInitializedService" class="ar.edu.fesf.services.SpringInitializedService">
-		<property name="bookService" ref="service.book" />
-		<property name="personService" ref="service.person" />
-	</bean>
-	
 	<bean id="service.loan" class="ar.edu.fesf.services.LoaningService">
 		<property name="repository" ref="persistence.LoanRepository" />
 		<property name="personService" ref="service.person" />
 		<property name="bookService" ref="service.book" />
+	</bean>
+	
+	<bean id="service.SpringInitializedService" class="ar.edu.fesf.services.SpringInitializedService">
+		<property name="bookService" ref="service.book" />
+		<property name="personService" ref="service.person" />
+		<property name="loaningService" ref="service.loan" />		
 	</bean>
 
 </beans>

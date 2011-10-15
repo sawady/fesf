@@ -11,28 +11,41 @@
     </id>
     
     <property name="name"></property>
-<!--     <property name="surname"></property> -->
-<!--     <property name="age"></property> -->
+    <one-to-one name="userInfo" class="UserInfo" cascade="all"/>
+    
+    <set name="categories">
+        <key column="person"/>
+        <one-to-many class="Category"/>
+    </set>
+    
+    <bag name="oldLoans">
+	    <key column="person"/>
+	    <one-to-many class="Loan"/>
+    </bag>
+    
+    <bag name="currentLoans">
+	    <key column="person"/>
+	    <one-to-many class="Loan"/>
+    </bag>
+    
+<!--     <list name="currentLoans" cascade="all"> -->
+<!--             <key column="person"/> -->
+<!--             <list-index column="index"/> -->
+<!--             <one-to-many class="Loan"/> -->
+<!--     </list> -->
+
+<!--     <list name="oldLoans" cascade="all"> -->
+<!--             <key column="person"/> -->
+<!--             <list-index column="index"/> -->
+<!--             <one-to-many class="Loan"/> -->
+<!--     </list> -->
+    
+<!--    <property name="surname"></property> -->
+<!--    <property name="age"></property> -->
 <!-- 	<property name="address"></property> -->
-<!-- 	<property name="phone"></property> -->
-<!-- 	<one-to-one name="userInfo" class="UserInfo" cascade="all"/> -->
+<!-- 	<property name="phone"></property> -->	
 <!-- 	<one-to-one name="email" class="EmailAddress" cascade="all"/> -->
 	
-<!--     <set name="categories" table="FavouriteCategories"> -->
-<!--         <key column="person"/> -->
-<!--         <many-to-many column="category" class="Category"/> -->
-<!--     </set> -->
-    
-<!--     <set name="oldLoans" cascade="all" inverse="true"> -->
-<!--             <key column="person"/> -->
-<!--             <one-to-many class="Loan"/> -->
-<!--     </set> -->
-    
-<!--     <set name="currentLoans" cascade="all" inverse="true"> -->
-<!--             <key column="person"/> -->
-<!--             <one-to-many class="Loan"/> -->
-<!--     </set> -->
-    
 <!--     <set name="reservations" cascade="all" inverse="true"> -->
 <!--             <key column="person"/> -->
 <!--             <one-to-many class="ReservationEvent"/> -->

@@ -79,11 +79,6 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder withCountOfLouns(final int acountOfLouns) {
-        this.countOfLouns = acountOfLouns;
-        return this;
-    }
-
     public BookBuilder withCategories(final Set<Category> acategories) {
         this.categories = acategories;
         return this;

@@ -12,11 +12,10 @@
     
     <property name="name"></property>
     
-    <list name="books" table="BookCategory">
+    <bag name="books" table="BookAuthors" inverse="true">
         <key column="author"/>
-        <index column="index"/>
         <many-to-many column="book" class="Book"/>
-    </list>
+    </bag>
     
 	</class>
 </hibernate-mapping>
