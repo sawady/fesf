@@ -24,10 +24,11 @@
 <!--     <one-to-one name="isbn" class="ISBN"/> -->
 <!--     <one-to-one name="publisher" class="Publisher"/> -->
     
-<!--     <set name="authors" table="BookAuthors"> -->
-<!--         <key column="book"/> -->
-<!--         <many-to-many column="author" class="Author"/> -->
-<!--     </set> -->
+    <list name="authors" table="BookAuthors">
+        <key column="book"/>
+        <index column="index"/>
+        <many-to-many column="author" class="Author"/>
+    </list>
     
 <!--     <list name="reservationEvents" table="ReservationEventsForBook"> -->
 <!--         <key column="book"/> -->
@@ -35,15 +36,17 @@
 <!--         <one-to-many class="ReservationEvent"/> -->
 <!--     </list> -->
     
-<!--     <set name="registedCopies" table="CopiesOfBooks"> -->
-<!--         <key column="book"/> -->
-<!--         <one-to-many class="Category"/> -->
-<!--     </set> -->
+    <list name="registedCopies">
+        <key column="book"/>
+        <index column="index"/>
+        <one-to-many class="BookCopy"/>
+    </list>
     
-<!--     <set name="availableCopies" table="AvailableCopiesOfBooks"> -->
-<!--         <key column="book"/> -->
-<!--         <one-to-many class="Category"/> -->
-<!--     </set> -->
+    <list name="availableCopies">
+        <key column="book"/>
+        <index column="index"/>
+        <one-to-many class="BookCopy"/>
+    </list>
     
 	</class>
 </hibernate-mapping>

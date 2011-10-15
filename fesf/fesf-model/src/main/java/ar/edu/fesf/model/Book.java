@@ -22,7 +22,7 @@ public class Book extends Entity {
 
     private String description = "";
 
-    private Set<Author> authors = new HashSet<Author>();
+    private List<Author> authors = new ArrayList<Author>();
 
     private int countOfLouns = 0;
 
@@ -35,9 +35,8 @@ public class Book extends Entity {
     private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
 
     public Book(final String title, final ISBN isbn, final Publisher publisher, final String imagepath,
-            final String description, final Set<Author> authors, final int countOfLouns,
-            final List<BookCopy> registedCopies, final List<BookCopy> availableCopies, final Set<Category> categories,
-            final List<ReservationEvent> reservationEvents) {
+            final String description, final List<Author> authors, final int countOfLouns,
+            final Set<Category> categories, final List<ReservationEvent> reservationEvents, final int countOfCopies) {
         super();
         this.title = title;
         this.isbn = isbn;
@@ -46,14 +45,14 @@ public class Book extends Entity {
         this.description = description;
         this.authors = authors;
         this.countOfLouns = countOfLouns;
-        this.registedCopies = registedCopies;
-        this.availableCopies = availableCopies;
         this.categories = categories;
         this.reservationEvents = reservationEvents;
 
         for (Category category : categories) {
             category.addBook(this);
         }
+
+        this.addCopies(countOfCopies);
     }
 
     public Book() {
@@ -64,6 +63,12 @@ public class Book extends Entity {
     public void addCategory(final Category category) {
         this.getCategories().add(category);
         category.addBook(this);
+    }
+
+    public void addCopies(final int i) {
+        for (int n = 0; n < i; n++) {
+            this.addCopy();
+        }
     }
 
     public void addCopy() {
@@ -145,11 +150,11 @@ public class Book extends Entity {
         this.description = description;
     }
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return this.authors;
     }
 
-    public void setAuthors(final Set<Author> authors) {
+    public void setAuthors(final List<Author> authors) {
         this.authors = authors;
     }
 

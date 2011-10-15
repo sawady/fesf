@@ -13,6 +13,8 @@ public class LibrarianHomeContentPanel extends Panel {
 
     private LibrarianTabbedPanel librarianTabbedPanel;
 
+    /* Methods */
+
     public LibrarianHomeContentPanel(final String id) {
         super(id);
         this.initialize();
@@ -43,6 +45,8 @@ public class LibrarianHomeContentPanel extends Panel {
         };
 
     }
+
+    /* Accessors */
 
     public void setLibrarianTabbedPanel(final LibrarianTabbedPanel librarianTabbedPanel) {
         this.librarianTabbedPanel = librarianTabbedPanel;

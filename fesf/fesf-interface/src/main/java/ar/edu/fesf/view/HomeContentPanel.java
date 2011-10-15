@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Book;
+import ar.edu.fesf.services.BookService;
 
 public class HomeContentPanel extends Panel {
 
@@ -17,6 +19,9 @@ public class HomeContentPanel extends Panel {
     private RankingPanel rankingPanel;
 
     private BookSearchResultPanel bookSearchResultPanel;
+
+    @SpringBean
+    private BookService bookService;
 
     public HomeContentPanel(final String id) {
         super(id);
@@ -58,7 +63,7 @@ public class HomeContentPanel extends Panel {
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
                 BookInfoPanel bookInfo = new BookInfoPanel("content", book,
-                        HomeContentPanel.this.changeToLoaningPanel());
+                        HomeContentPanel.this.changeToLoaningFormPanel());
                 bookInfo.setOutputMarkupId(true);
                 return bookInfo;
             }
@@ -66,7 +71,7 @@ public class HomeContentPanel extends Panel {
         };
     }
 
-    public IAjaxCallback<Book> changeToLoaningPanel() {
+    public IAjaxCallback<Book> changeToLoaningFormPanel() {
         return new IAjaxCallback<Book>() {
 
             private static final long serialVersionUID = 1L;
@@ -74,11 +79,12 @@ public class HomeContentPanel extends Panel {
             @Override
             public void callback(final AjaxRequestTarget target, final Book book) {
 
-                if (book.hasAvailableCopy()) {
-                    LoaningPanel loaningPanel = new LoaningPanel("content", book);
-                    loaningPanel.setOutputMarkupId(true);
-                    HomeContentPanel.this.replace(loaningPanel);
-                    target.addComponent(loaningPanel);
+                if (HomeContentPanel.this.getBookService().hasAvailableCopy(book)) {
+                    LoaningFormPanel loaningFormPanel = new LoaningFormPanel("content", book,
+                            HomeContentPanel.this.changeToMoreInfoPanel());
+                    loaningFormPanel.setOutputMarkupId(true);
+                    HomeContentPanel.this.replace(loaningFormPanel);
+                    target.addComponent(loaningFormPanel);
                 } else {
                     target.appendJavascript("alert('You cannot motherfucker')");
                 }
@@ -116,6 +122,14 @@ public class HomeContentPanel extends Panel {
 
     public void setBookSearchResultPanel(final BookSearchResultPanel bookSearchResultPanel) {
         this.bookSearchResultPanel = bookSearchResultPanel;
+    }
+
+    public void setBookService(final BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    public BookService getBookService() {
+        return this.bookService;
     }
 
 }

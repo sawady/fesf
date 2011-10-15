@@ -30,6 +30,8 @@
 	
 	<bean id="service.loan" class="ar.edu.fesf.services.LoaningService">
 		<property name="repository" ref="persistence.LoanRepository" />
+		<property name="personService" ref="service.person" />
+		<property name="bookService" ref="service.book" />
 	</bean>
 
 </beans>

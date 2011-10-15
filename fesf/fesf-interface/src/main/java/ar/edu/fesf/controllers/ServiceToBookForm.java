@@ -22,10 +22,10 @@ public class ServiceToBookForm implements ServiceToForm<Book> {
 
     /* Methods */
 
-    public ServiceToBookForm(final Book book, final IAjaxCallback<Form<Book>> iAjaxCallback,
+    public ServiceToBookForm(final Book book, final IAjaxCallback<Form<Book>> ajaxCallback,
             final BookService bookService) {
         this.book = book;
-        this.iAjaxCallback = iAjaxCallback;
+        this.iAjaxCallback = ajaxCallback;
         this.bookService = bookService;
     }
 
@@ -42,9 +42,15 @@ public class ServiceToBookForm implements ServiceToForm<Book> {
     }
 
     @Override
-    public void doSubmit(final AjaxRequestTarget target, final Form<Book> form) {
+    public IAjaxCallback<Book> doSubmitCallback(final AjaxRequestTarget target, final Form<Book> form) {
         this.getBookService().save(this.getBook());
         this.getiAjaxCallback().callback(target, form);
+        return new IAjaxCallback<Book>() {
+            @Override
+            public void callback(final AjaxRequestTarget target, final Book object) {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 
     /* Accessors */

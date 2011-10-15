@@ -17,7 +17,7 @@
         <key column="bookCopy"/>
         <index column="indice"/>
         <one-to-many class="Loan"/>
-    </list>    
+    </list>
      
 	</class>
 </hibernate-mapping>

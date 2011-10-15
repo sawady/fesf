@@ -8,7 +8,7 @@ public interface ServiceToForm<T> {
 
     T getObject();
 
-    void doSubmit(AjaxRequestTarget target, Form<T> form);
+    IAjaxCallback<T> doSubmitCallback(AjaxRequestTarget target, Form<T> form);
 
     Panel getFieldsPanel(String id);
 

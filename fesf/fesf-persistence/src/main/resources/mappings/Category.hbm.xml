@@ -14,7 +14,7 @@
     
     <set name="books">
         <key column="category"/>
-        <many-to-many class="Book"/>
+        <many-to-many class="Book" column="book"/>
     </set>
     
 	</class>

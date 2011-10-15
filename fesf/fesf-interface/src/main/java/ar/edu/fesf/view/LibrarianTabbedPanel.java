@@ -51,6 +51,15 @@ public class LibrarianTabbedPanel extends Panel {
             }
         });
 
+        tabs.add(new AbstractTab(new Model<String>("Loanees")) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Panel getPanel(final String panelId) {
+                return new LoaneesPanel(panelId);
+            }
+        });
+
         this.add(new AjaxTabbedPanel("tabbedPanel", tabs));
 
     }

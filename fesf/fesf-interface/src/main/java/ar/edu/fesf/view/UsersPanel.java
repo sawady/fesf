@@ -15,10 +15,12 @@ public class UsersPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
+    private UsersTablePanel usersTablePanel;
+
     @SpringBean(name = "service.person")
     private PersonService personService;
 
-    private UsersTablePanel usersTablePanel;
+    /* Methods */
 
     public UsersPanel(final String id) {
         super(id);
@@ -32,14 +34,6 @@ public class UsersPanel extends Panel {
         this.add(this.getUsersTablePanel());
     }
 
-    public void setPersonService(final PersonService personService) {
-        this.personService = personService;
-    }
-
-    public PersonService getPersonService() {
-        return this.personService;
-    }
-
     public IAjaxCallback<Person> changeToMoreInfoPanel() {
         return new AjaxReplacePanel<Person>(this) {
 
@@ -47,8 +41,7 @@ public class UsersPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
-                PersonInfoPanel personInfo = new PersonInfoPanel("content", person,
-                        UsersPanel.this.changeToTablePanel());
+                PersonInfoPanel personInfo = new PersonInfoPanel("content", person);
                 personInfo.setOutputMarkupId(true);
                 return personInfo;
             }
@@ -68,6 +61,16 @@ public class UsersPanel extends Panel {
             }
 
         };
+    }
+
+    /* Accessors */
+
+    public void setPersonService(final PersonService personService) {
+        this.personService = personService;
+    }
+
+    public PersonService getPersonService() {
+        return this.personService;
     }
 
     private void setUsersTablePanel(final UsersTablePanel usersTablePanel) {
