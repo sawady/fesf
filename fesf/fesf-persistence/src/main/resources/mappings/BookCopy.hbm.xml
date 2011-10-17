@@ -12,9 +12,9 @@
     
     <property name="observations"/>
     
-    <many-to-one name="book" class="Book"/>
+    <many-to-one name="book" class="Book" cascade="all"/>
     
-    <bag name="loans" inverse="true">
+    <bag name="loans" inverse="true" cascade="all">
         <key column="bookCopy"/>
         <one-to-many class="Loan"/>
     </bag>

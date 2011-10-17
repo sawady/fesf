@@ -39,8 +39,8 @@ public class BookBuilder {
                 this.countOfLouns, this.categories, this.reservationEvents, this.countOfCopies);
     }
 
-    public BookBuilder withCountOfCopies(final int i) {
-        this.setCountOfCopies(i);
+    public BookBuilder withCountOfCopies(final int count) {
+        this.setCountOfCopies(count);
         return this;
     }
 

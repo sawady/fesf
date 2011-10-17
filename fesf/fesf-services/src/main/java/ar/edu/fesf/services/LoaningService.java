@@ -35,8 +35,7 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
     public void registerLoan(final Loan loan, final Book book) {
         // try {
         // TODO este tiene que ser la persona de la session
-        loan.setPerson(this.getPersonService().findAll().get(0));
-        loan.assignCopy(this.getBookService().getAvailableCopy(book));
+        loan.assignCopy(this.getPersonService().findAll().get(0), this.getBookService().getAvailableCopy(book));
         // } catch (RuntimeException e) {
         // throw new NoAvailableBookCopyException(e.getMessage());
         // }

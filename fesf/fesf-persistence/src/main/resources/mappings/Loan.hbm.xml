@@ -14,8 +14,8 @@
     <property name="returnDate"/>
     <property name="date"/>
     
-    <many-to-one name="person" class="Person"/>
-    <many-to-one name="bookCopy" class="BookCopy"/>
+    <many-to-one name="person" class="Person" cascade="all"/>
+    <many-to-one name="bookCopy" class="BookCopy" cascade="all"/>
      
 	</class>
 </hibernate-mapping>

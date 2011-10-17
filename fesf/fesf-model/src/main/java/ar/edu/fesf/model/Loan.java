@@ -40,11 +40,6 @@ public class Loan extends Event {
         return this.getReturnDate() != null && this.getReturnDate().isBeforeNow();
     }
 
-    @Override
-    public void setPerson(final Person person) {
-        super.setPerson(person);
-    }
-
     /* Accessors */
 
     public DateTime getAgreedReturnDate() {
@@ -66,15 +61,17 @@ public class Loan extends Event {
 
     public void setReturnDate(final DateTime returnDate) {
         checkNotNull(returnDate);
-        checkArgument(returnDate.isBeforeNow(), "The date of return is a future date");
         checkArgument(returnDate.isAfter(this.getDate()), "Invalid return date");
         this.returnDate = returnDate;
     }
 
-    public void assignCopy(final BookCopy bookcopy) {
-        this.setBookCopy(bookcopy);
-        bookcopy.addLoan(this);
+    public void assignCopy(final Person person, final BookCopy bookcopy) {
+        this.setPerson(person);
         this.getPerson().addNewLoan(this);
+
+        this.setBookCopy(bookcopy);
+        this.getBookCopy().addLoan(this);
+
         this.updateUserCategories();
     }
 

@@ -35,12 +35,12 @@
 <!--         <one-to-many class="ReservationEvent"/> -->
 <!--     </list> -->
     
-    <bag name="registedCopies" inverse="true">
+    <bag name="registedCopies" inverse="true" cascade="all">
         <key column="book"/>
         <one-to-many class="BookCopy"/>
     </bag>
     
-    <bag name="availableCopies" inverse="true">
+    <bag name="availableCopies" inverse="true" cascade="all">
         <key column="book"/>
         <one-to-many class="BookCopy"/>
     </bag>
