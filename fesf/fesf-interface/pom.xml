@@ -10,16 +10,16 @@
 	<artifactId>fesf-interface</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
+
 	<dependencies>
-	
-	<dependency>
-		<groupId>ar.edu.fesf</groupId>
-		<artifactId>fesf-services</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>	
-	
-	<dependency>
+
+		<dependency>
+			<groupId>ar.edu.fesf</groupId>
+			<artifactId>fesf-services</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket</artifactId>
 			<version>${wicket.version}</version>
@@ -130,23 +130,29 @@
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
 		</dependency>
-	
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.4.2</version>
+			<version>1.6.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.11</version>
 			<scope>provided</scope>
 		</dependency>
-		
-	
+
+
 	</dependencies>
-	
+
 	<properties>
 		<jetty.version>6.1.16</jetty.version>
 		<wicket.version>1.4.9</wicket.version>
@@ -155,7 +161,7 @@
 
 	<build>
 		<finalName>wicket-spring</finalName>
-		
+
 		<resources>
 			<resource>
 				<filtering>false</filtering>
@@ -173,5 +179,5 @@
 			</resource>
 		</resources>
 	</build>
-	
+
 </project>

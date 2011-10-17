@@ -25,7 +25,7 @@ public class ServiceToBookForm implements ServiceToForm<Book> {
     public ServiceToBookForm(final Book book, final IAjaxCallback<Form<Book>> ajaxCallback,
             final BookService bookService) {
         this.book = book;
-        this.iAjaxCallback = ajaxCallback;
+        iAjaxCallback = ajaxCallback;
         this.bookService = bookService;
     }
 
@@ -46,6 +46,8 @@ public class ServiceToBookForm implements ServiceToForm<Book> {
         this.getBookService().save(this.getBook());
         this.getiAjaxCallback().callback(target, form);
         return new IAjaxCallback<Book>() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void callback(final AjaxRequestTarget target, final Book object) {
                 throw new UnsupportedOperationException();
@@ -60,7 +62,7 @@ public class ServiceToBookForm implements ServiceToForm<Book> {
     }
 
     public IAjaxCallback<Form<Book>> getiAjaxCallback() {
-        return this.iAjaxCallback;
+        return iAjaxCallback;
     }
 
     public void setBook(final Book book) {
@@ -68,11 +70,11 @@ public class ServiceToBookForm implements ServiceToForm<Book> {
     }
 
     public Book getBook() {
-        return this.book;
+        return book;
     }
 
     public BookService getBookService() {
-        return this.bookService;
+        return bookService;
     }
 
     public void setBookService(final BookService bookService) {

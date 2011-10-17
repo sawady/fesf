@@ -25,6 +25,10 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private Ranking ranking;
 
+    /**
+     * TODO si lo dejan acá, saquen está construcción en otro objeto así no que
+     * queda sucio el service
+     */
     public void initialize() {
         Ranking aRanking = new Ranking();
         this.setRanking(aRanking);
@@ -166,7 +170,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     public RankingRepository getRankingRepository() {
-        return this.rankingRepository;
+        return rankingRepository;
     }
 
     public void setRanking(final Ranking ranking) {
@@ -174,7 +178,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     public Ranking getRanking() {
-        return this.ranking;
+        return ranking;
     }
 
     public void setCategoryRepository(final CategoryRepository categoryRepository) {
@@ -182,7 +186,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     public CategoryRepository getCategoryRepository() {
-        return this.categoryRepository;
+        return categoryRepository;
     }
 
 }
