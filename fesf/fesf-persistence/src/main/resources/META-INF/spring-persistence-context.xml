@@ -8,7 +8,7 @@
        
        
        
-    <tx:annotation-driven transaction-manager="persistence.transactionManager"	proxy-target-class="true" />
+    <tx:annotation-driven transaction-manager="transactionManager"	proxy-target-class="true" />
 
 <!--
 		========================= GENERAL DEFINITIONS
@@ -83,7 +83,7 @@
 
 
 <!-- Transaction manager for a single JDBC DataSource -->
-	<bean id="persistence.transactionManager"
+	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 		<property name="jdbcExceptionTranslator" ref="persistence.jdbcExceptionTranslator" />

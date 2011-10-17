@@ -1,36 +1,38 @@
 package ar.edu.fesf.persistence;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.builders.PersonBuilder;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.repositories.PersonRepository;
 
-public class PersonRepositoryTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath*:META-INF/spring-persistence-context.xml" })
+@Transactional
+public class PersonRepositoryTest extends AbstractDependencyInjectionSpringContextTests {
 
     private List<Person> personsToPersist;
 
     private PersonRepository personRepository;
 
-    @BeforeClass
-    public void setUpClass() {
+    @Test
+    @Transactional
+    public void saveTest() {
+
         this.personsToPersist = new ArrayList<Person>();
 
         this.personsToPersist.add(new PersonBuilder().withName("Pepe").build());
         this.personsToPersist.add(new PersonBuilder().withName("Carlos").build());
         this.personsToPersist.add(new PersonBuilder().withName("Soprano").build());
         this.personsToPersist.add(new PersonBuilder().withName("Cesar").build());
-    }
-
-    @Test
-    public void saveTest() {
 
         for (Person person : this.personsToPersist) {
             this.personRepository.save(person);
