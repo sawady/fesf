@@ -82,8 +82,18 @@ public class Person extends Entity implements Nameable, Serializable {
     }
 
     public List<Book> reservedBooks() {
-        // TODO hay que listar los libros que reservo el usuario
-        return null;
+
+        List<Book> books = new ArrayList<Book>();
+
+        for (Loan loan : this.getCurrentLoans()) {
+            books.add(loan.getBook());
+        }
+
+        for (Loan loan : this.getOldLoans()) {
+            books.add(loan.getBook());
+        }
+
+        return books;
     }
 
     /* Accessors */

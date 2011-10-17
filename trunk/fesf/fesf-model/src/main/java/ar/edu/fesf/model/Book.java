@@ -71,6 +71,10 @@ public class Book extends Entity {
         }
     }
 
+    public int getCountOfCopies() {
+        return this.getAvailableCopies().size();
+    }
+
     public void addCopy() {
         BookCopy newCopy = new BookCopy();
         newCopy.setBook(this);

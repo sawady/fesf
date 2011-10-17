@@ -23,9 +23,9 @@ public class PersonRepositoryTest extends AbstractDependencyInjectionSpringConte
 
     private PersonRepository personRepository;
 
-    @Test
     @Transactional
-    public void saveTest() {
+    @Test
+    public void save() {
 
         this.personsToPersist = new ArrayList<Person>();
 
@@ -38,9 +38,11 @@ public class PersonRepositoryTest extends AbstractDependencyInjectionSpringConte
             this.personRepository.save(person);
         }
 
-        assertEquals(this.personRepository.count(), 4);
-        assertTrue(this.personsToPersist.containsAll(this.personRepository.findAll()));
-        assertEquals(this.personsToPersist.get(0), this.personRepository.findByPropertyUnique("name", "Pepe"));
+        assertEquals("Must be equals 4", this.personRepository.count(), 4);
+        assertTrue("Must contain all the persons in the list",
+                this.personsToPersist.containsAll(this.personRepository.findAll()));
+        assertEquals("Must find Pepe", this.personsToPersist.get(0),
+                this.personRepository.findByPropertyUnique("name", "Pepe"));
 
     }
 
