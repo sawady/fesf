@@ -11,6 +11,15 @@ public class Author extends Entity implements Nameable {
 
     private List<Book> books = new ArrayList<Book>();
 
+    public Author(final String name) {
+        super();
+        this.name = name;
+    }
+
+    public Author() {
+        super();
+    }
+
     /* Accessors */
     public List<Book> getBooks() {
         return this.books;

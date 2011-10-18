@@ -28,13 +28,14 @@ public class BookInfoMiniPanel extends Panel {
     }
 
     private String concatenateAuthorNames(final List<Author> authors) {
-        String string = "";
         String separator = "";
+        StringBuffer stringbuf = new StringBuffer();
         for (Author author : authors) {
-            string = string + separator + author.getName();
-            separator = ", ";
+            stringbuf.append(separator).append(author.getName());
+            if ("".equals(separator)) {
+                separator = ", ";
+            }
         }
-        return string;
+        return stringbuf.toString();
     }
-
 }

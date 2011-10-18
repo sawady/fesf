@@ -193,4 +193,8 @@ public class Person extends Entity implements Nameable, Serializable {
         this.surname = surname;
     }
 
+    public int getCountOfCurrentLoans() {
+        return this.getCurrentLoans().size();
+    }
+
 }
