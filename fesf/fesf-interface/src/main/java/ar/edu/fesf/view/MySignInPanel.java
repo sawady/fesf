@@ -1,6 +1,6 @@
 package ar.edu.fesf.view;
 
-import org.apache.wicket.authentication.panel.SignInPanel;
+import org.apache.wicket.authroles.authentication.panel.SignInPanel;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
 

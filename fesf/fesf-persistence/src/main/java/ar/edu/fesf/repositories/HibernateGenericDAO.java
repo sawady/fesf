@@ -40,10 +40,9 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
         this.getHibernateTemplate().delete(entity);
     }
 
-    @SuppressWarnings(UNCHECKED)
     @Override
     public T findById(final Serializable id) {
-        return (T) this.getHibernateTemplate().get(this.persistentClass, id);
+        return this.getHibernateTemplate().get(this.persistentClass, id);
     }
 
     @Override
@@ -91,7 +90,7 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
 
     @SuppressWarnings(UNCHECKED)
     private List<T> findBy(final Criterion rec) {
-        return (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
+        return this.getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
             @Override
             public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
                 Criteria criteria = session.createCriteria(HibernateGenericDAO.this.getDomainClass());

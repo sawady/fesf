@@ -44,8 +44,9 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
 
     @Transactional
     public void registerBookReturn(final Loan loan) {
-        this.findById(loan.getId()).setFinished();
-        this.save(loan);
+        Loan newLoan = this.findById(loan.getId());
+        newLoan.setFinished();
+        this.save(newLoan);
     }
 
     @Transactional

@@ -1,4 +1,62 @@
 body {
-	background-image: url(http://www.bitsntuts.com/demos/jquery-website/images/bg.jpg);
-	background-repeat: repeat;
+	background-color: white;
+}
+.bodyDiv{
+}
+
+.sidebar{
+	
+	width: 200px;
+}
+.searchbar{
+	
+}
+.content {
+
+}
+
+.top20Div, .recentlyAvailableDiv{
+	background-color: #6979E0;
+	display: block;
+	position:relative;
+	clear: both;
+}
+
+.bookMiniPanel{
+	background-color: #F0F0F0;
+	float: left;
+	padding: 5px;
+	margin: 5px;
+	width: 170px;
+	height: 210px;
+	overflow: hidden;
+	
+}
+.bookMiniImageDiv{
+	width: 107px;
+	height: 160px;
+	background-color: #A0A0A0;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.bookMiniImage{
+
+}
+
+.bimpTitle{
+	color: #6979E0;
+	text-style: strong;
+	display: block;
+	font-size: 14px;
+	margin: 2px;
+	padding: 0px;
+}
+
+.bimpAuthorNames{
+	color: #A5A5A5;
+	display: inline;
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
 }

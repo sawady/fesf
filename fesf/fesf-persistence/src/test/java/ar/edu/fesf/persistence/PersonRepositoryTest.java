@@ -1,11 +1,14 @@
 package ar.edu.fesf.persistence;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,15 +20,15 @@ import ar.edu.fesf.repositories.PersonRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:META-INF/spring-persistence-context.xml" })
 @Transactional
-public class PersonRepositoryTest extends AbstractDependencyInjectionSpringContextTests {
+public class PersonRepositoryTest {
 
     private List<Person> personsToPersist;
 
+    @Autowired
     private PersonRepository personRepository;
 
-    @Transactional
     @Test
-    public void save() {
+    public void testsave() {
 
         this.personsToPersist = new ArrayList<Person>();
 
@@ -43,7 +46,6 @@ public class PersonRepositoryTest extends AbstractDependencyInjectionSpringConte
                 this.personsToPersist.containsAll(this.personRepository.findAll()));
         assertEquals("Must find Pepe", this.personsToPersist.get(0),
                 this.personRepository.findByPropertyUnique("name", "Pepe"));
-
     }
 
     public void setPersonsToPersist(final List<Person> personsToPersist) {

@@ -3,13 +3,12 @@ package ar.edu.fesf.view;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
-import ar.edu.fesf.controllers.ServiceToBookForm;
+import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
 
@@ -61,12 +60,12 @@ public class LibrarianBooksContentPanel extends Panel {
         };
     }
 
-    private IAjaxCallback<Form<Book>> showAllResults() {
-        return new IAjaxCallback<Form<Book>>() {
+    private IAjaxCallback<Book> showAllResults() {
+        return new IAjaxCallback<Book>() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void callback(final AjaxRequestTarget target, final Form<Book> object) {
+            public void callback(final AjaxRequestTarget target, final Book book) {
                 LibrarianBooksContentPanel.this.changeBookTablePanel().callback(target,
                         LibrarianBooksContentPanel.this.getBookService().findAll());
             }
@@ -74,8 +73,16 @@ public class LibrarianBooksContentPanel extends Panel {
     }
 
     public GenericFormPanel<Book> getEditBookFormPanel(final Book book) {
-        GenericFormPanel<Book> bookFormPanel = new GenericFormPanel<Book>("content", new ServiceToBookForm(book,
-                this.showAllResults(), this.getBookService()));
+        GenericFormPanel<Book> bookFormPanel = new GenericFormPanel<Book>("content") {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public PanelServiceToForm<Book> getFieldsPanel(final String id) {
+                return new BookFormFieldsPanel(id, book, LibrarianBooksContentPanel.this.showAllResults());
+            }
+
+        };
         bookFormPanel.setOutputMarkupId(true);
         return bookFormPanel;
     }

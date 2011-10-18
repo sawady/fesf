@@ -1,9 +1,9 @@
 package ar.edu.fesf.view;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.authentication.AuthenticatedWebApplication;
-import org.apache.wicket.authentication.AuthenticatedWebSession;
-import org.apache.wicket.authentication.pages.SignInPage;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.pages.SignInPage;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
@@ -30,8 +30,7 @@ public class MyApplication extends AuthenticatedWebApplication {
     @Override
     public void init() {
         this.setAMounterURL(new MounterURL(this));
-        this.addComponentInstantiationListener(new SpringComponentInjector(this));
-        this.getSpringInitializedService().initialize();
+        this.getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 
         this.mountUrl("home", Home.class, "");
         this.mountUrl("librarian", LibrarianHome.class, "");
