@@ -14,12 +14,13 @@
     
     <many-to-one name="book" class="Book" cascade="all"/>
     
-    <one-to-one name="currentLoan" class="Loan"/>
+    <many-to-one name="currentLoan" class="Loan" cascade="all"/>
     
-    <bag name="loans" inverse="true" cascade="all">
+    <list name="loans" inverse="true" cascade="all">
         <key column="bookCopy"/>
+        <list-index column="index"></list-index>
         <one-to-many class="Loan"/>
-    </bag>
+    </list>
      
 	</class>
 </hibernate-mapping>

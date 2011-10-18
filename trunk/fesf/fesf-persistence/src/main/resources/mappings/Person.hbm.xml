@@ -11,45 +11,46 @@
     </id>
     
     <property name="name"></property>
-    <one-to-one name="userInfo" class="UserInfo" cascade="all"/>
+    <many-to-one name="userInfo" class="UserInfo" cascade="all"/>
     
-    <set name="categories">
+    <set name="categories" cascade="all">
         <key column="person"/>
         <one-to-many class="Category"/>
     </set>
     
-    <bag name="oldLoans">
-	    <key column="person"/>
-	    <one-to-many class="Loan"/>
-    </bag>
+<!--     <bag name="oldLoans"> -->
+<!-- 	    <key column="person"/> -->
+<!-- 	    <one-to-many class="Loan"/> -->
+<!--     </bag> -->
     
-    <bag name="currentLoans">
-	    <key column="person"/>
-	    <one-to-many class="Loan"/>
-    </bag>
+<!--     <bag name="currentLoans"> -->
+<!-- 	    <key column="person"/> -->
+<!-- 	    <one-to-many class="Loan"/> -->
+<!--     </bag> -->
     
-<!--     <list name="currentLoans" cascade="all"> -->
-<!--             <key column="person"/> -->
-<!--             <list-index column="index"/> -->
-<!--             <one-to-many class="Loan"/> -->
-<!--     </list> -->
+    <list name="currentLoans" cascade="all">
+            <key column="person"/>
+            <list-index column="index"/>
+            <one-to-many class="Loan"/>
+    </list>
 
-<!--     <list name="oldLoans" cascade="all"> -->
-<!--             <key column="person"/> -->
-<!--             <list-index column="index"/> -->
-<!--             <one-to-many class="Loan"/> -->
-<!--     </list> -->
+    <list name="oldLoans" cascade="all">
+            <key column="person"/>
+            <list-index column="index"/>
+            <one-to-many class="Loan"/>
+    </list>
     
-<!--    <property name="surname"></property> -->
-<!--    <property name="age"></property> -->
-<!-- 	<property name="address"></property> -->
-<!-- 	<property name="phone"></property> -->	
-<!-- 	<one-to-one name="email" class="EmailAddress" cascade="all"/> -->
+   <property name="surname"></property>
+   <property name="age"></property>
+   <property name="address"></property>
+   <property name="phone"></property>	
+   <one-to-one name="email" class="EmailAddress" cascade="all"/>
 	
-<!--     <set name="reservations" cascade="all" inverse="true"> -->
-<!--             <key column="person"/> -->
-<!--             <one-to-many class="ReservationEvent"/> -->
-<!--     </set> -->
+    <list name="reservations" cascade="all">
+            <key column="person"/>
+            <list-index column="index"></list-index>
+            <one-to-many class="ReservationEvent"/>
+    </list>
 
 	</class>
 </hibernate-mapping>

@@ -35,8 +35,8 @@ public class Book extends Entity {
     private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
 
     public Book(final String title, final ISBN isbn, final Publisher publisher, final String imagepath,
-            final String description, final List<Author> authors, final int countOfLouns,
-            final Set<Category> categories, final List<ReservationEvent> reservationEvents, final int countOfCopies) {
+            final String description, final List<Author> authors, final Set<Category> categories,
+            final int countOfCopies) {
         super();
         this.title = title;
         this.isbn = isbn;
@@ -44,9 +44,11 @@ public class Book extends Entity {
         this.imagepath = imagepath;
         this.description = description;
         this.authors = authors;
-        this.countOfLouns = countOfLouns;
         this.categories = categories;
-        this.reservationEvents = reservationEvents;
+
+        for (Author author : authors) {
+            author.addBook(this);
+        }
 
         for (Category category : categories) {
             category.addBook(this);
@@ -63,6 +65,11 @@ public class Book extends Entity {
     public void addCategory(final Category category) {
         this.getCategories().add(category);
         category.addBook(this);
+    }
+
+    public void addAuthor(final Author author) {
+        this.getAuthors().add(author);
+        author.addBook(this);
     }
 
     public void addCopies(final int cant) {
@@ -102,6 +109,7 @@ public class Book extends Entity {
 
     public void addReservationEvent(final ReservationEvent reservation) {
         this.getReservationEvents().add(reservation);
+        reservation.setBook(this);
     }
 
     public ReservationEvent getReservationEventToInformAvailability() {

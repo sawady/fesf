@@ -28,6 +28,10 @@ public class Category extends Entity implements Nameable {
         this.getBooks().remove(book);
     }
 
+    public boolean contains(final Book book) {
+        return this.getBooks().contains(book);
+    }
+
     @Override
     public int hashCode() {
         int prime = 31;

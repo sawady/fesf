@@ -12,10 +12,11 @@
     
     <property name="name"></property>
     
-    <set name="books" table="BookCategory">
+    <list name="books" inverse="true" cascade="all">
         <key column="publisher"/>
-        <many-to-many column="book" class="Book"/>
-    </set>
+        <list-index column="index"></list-index>
+        <one-to-many class="Book"/>
+    </list>
     
 	</class>
 </hibernate-mapping>
