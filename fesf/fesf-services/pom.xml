@@ -14,11 +14,6 @@
 		<spring.version>3.0.5.RELEASE</spring.version>
 	</properties>
 	
-	<scm>
-     <connection>scm:svn:https://unq-devapp.googlecode.com/svn/trunk/src/wicket-spring</connection>
-     <url>https://unq-devapp.googlecode.com/svn/trunk/src/wicket-spring</url>
-    </scm>	
-
 	<dependencies>
 		<dependency>
 			<groupId>ar.edu.fesf</groupId>
