@@ -31,10 +31,4 @@ public class LoanTest {
         assertFalse("Loan is not finished is has not end date", this.loanExample.hasFinished());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void setReturnDateErrorCuzFutureDateIsSetted() {
-        // Future date is setted
-        this.loanExample.setReturnDate(new DateTime().plus(10));
-    }
-
 }

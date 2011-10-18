@@ -32,6 +32,8 @@ public class MyApplication extends AuthenticatedWebApplication {
         this.setAMounterURL(new MounterURL(this));
         this.getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 
+        this.getSpringInitializedService().initialize();
+
         this.mountUrl("home", Home.class, "");
         this.mountUrl("librarian", LibrarianHome.class, "");
 
