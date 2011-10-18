@@ -10,7 +10,7 @@ public abstract class Event extends Entity {
 
     protected Person person;
 
-    private DateTime date = new DateTime();
+    protected DateTime date = new DateTime();
 
     /* Methods */
     public void updateUserCategories() {

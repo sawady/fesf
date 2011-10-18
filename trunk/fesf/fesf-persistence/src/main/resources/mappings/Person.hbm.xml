@@ -18,25 +18,15 @@
         <one-to-many class="Category"/>
     </set>
     
-<!--     <bag name="oldLoans"> -->
-<!-- 	    <key column="person"/> -->
-<!-- 	    <one-to-many class="Loan"/> -->
-<!--     </bag> -->
-    
-<!--     <bag name="currentLoans"> -->
-<!-- 	    <key column="person"/> -->
-<!-- 	    <one-to-many class="Loan"/> -->
-<!--     </bag> -->
-    
     <list name="currentLoans" cascade="all">
             <key column="person"/>
-            <list-index column="index"/>
+            <list-index column="index"></list-index>
             <one-to-many class="Loan"/>
     </list>
 
     <list name="oldLoans" cascade="all">
             <key column="person"/>
-            <list-index column="index"/>
+            <list-index column="index"></list-index>
             <one-to-many class="Loan"/>
     </list>
     

@@ -51,6 +51,8 @@ public class BookRepositoryTest {
 
     private ISBN aIsbn;
 
+    private Author author2;
+
     @Before
     public void setUp() {
 
@@ -67,8 +69,8 @@ public class BookRepositoryTest {
 
         Author author1 = new Author();
         author1.setName("Pablo Funes");
-        Author author2 = new Author();
-        author2.setName("Guille Mori");
+        this.author2 = new Author();
+        this.author2.setName("Guille Mori");
         Publisher publisher1 = new Publisher();
         publisher1.setName("Editorial Amboro");
         Publisher publisher2 = new Publisher();
@@ -76,11 +78,11 @@ public class BookRepositoryTest {
 
         this.aIsbn = new ISBN("12654665");
         this.book = new BookBuilder().withTitle("Un Mago de Terramar").withCategory(drama).withCategory(aventura)
-                .withAuthor(author1).withAuthor(author2).withPublisher(publisher1).withCountOfCopies(1)
+                .withAuthor(author1).withAuthor(this.author2).withPublisher(publisher1).withCountOfCopies(1)
                 .withIsbn(this.aIsbn).build();
 
         this.book2 = new BookBuilder().withTitle("Muajaja").withCategory(romance).withCategory(terror)
-                .withAuthor(author1).withAuthor(author2).withPublisher(publisher2).withCountOfCopies(2).build();
+                .withAuthor(author1).withAuthor(this.author2).withPublisher(publisher2).withCountOfCopies(2).build();
 
         this.bookRepository.save(this.book);
         this.bookRepository.save(this.book2);
@@ -126,6 +128,7 @@ public class BookRepositoryTest {
         assertEquals("Must have 1 available copy", 1, aBook2.getCountOfCopies());
         assertEquals("Must have 2 registered copies", 2, aBook2.getRegistedCopies().size());
         assertTrue("Must containt this copy", aBook2.getRegistedCopies().contains(copy));
+        assertEquals("Must have this registered copy", copy, aBook2.getRegistedCopies().get(0));
     }
 
     @Test
@@ -145,10 +148,16 @@ public class BookRepositoryTest {
     }
 
     @Test
+    public void secondAuthor() {
+        assertEquals("Must be this author", this.author2, this.book.getAuthors().get(1));
+    }
+
+    @Test
     public void reservationEvent() {
         Book aBook = this.bookRepository.findByEquality(this.book2);
 
-        aBook.addReservationEvent(new ReservationEvent());
+        ReservationEvent reservation = new ReservationEvent();
+        aBook.addReservationEvent(reservation);
 
         this.bookRepository.save(aBook);
         this.bookRepository.getHibernateTemplate().flush();
@@ -156,6 +165,7 @@ public class BookRepositoryTest {
         Book aBook2 = this.bookRepository.findByEquality(this.book2);
 
         assertEquals("Must contain a reservation", 1, aBook2.getReservationEvents().size());
+        assertEquals("Must be this reservation", reservation, aBook2.getReservationEvents().get(0));
 
     }
 
