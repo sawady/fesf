@@ -30,6 +30,7 @@ import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.PersonRepository;
+import ar.edu.fesf.repositories.UserInfoRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:META-INF/spring-persistence-context.xml" })
@@ -40,6 +41,9 @@ public class PersonRepositoryTest {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private UserInfoRepository userInfoRepository;
 
     private Person pepe;
 
@@ -166,6 +170,14 @@ public class PersonRepositoryTest {
 
     public void setPepeLoan(final Loan pepeLoan) {
         this.pepeLoan = pepeLoan;
+    }
+
+    public void setUserInfoRepository(final UserInfoRepository userInfoRepository) {
+        this.userInfoRepository = userInfoRepository;
+    }
+
+    public UserInfoRepository getUserInfoRepository() {
+        return this.userInfoRepository;
     }
 
 }

@@ -54,5 +54,4 @@ public class UserInfo extends Entity implements Serializable {
     public void setRole(final Role role) {
         this.role = role;
     }
-
 }
