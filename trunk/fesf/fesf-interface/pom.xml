@@ -5,8 +5,7 @@
 		<artifactId>fesf</artifactId>
 		<groupId>ar.edu.fesf</groupId>
 		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-	
+	</parent>	
 	<groupId>ar.edu.fesf</groupId>
 	<artifactId>fesf-interface</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -83,17 +82,17 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-		    <groupId>org.wicketstuff</groupId>
-		    <artifactId>wicketstuff-minis</artifactId>
-		    <version>${wicket.version}</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.wicketstuff</groupId>
-		    <artifactId>wicketstuff-objectautocomplete</artifactId>
-		    <version>${wicket.version}</version>
-		</dependency>
+<dependency>
+    <groupId>org.wicketstuff</groupId>
+    <artifactId>wicketstuff-minis</artifactId>
+    <version>1.5.0</version>
+</dependency>
+
+	<dependency>
+    <groupId>org.wicketstuff</groupId>
+    <artifactId>wicketstuff-objectautocomplete</artifactId>
+    <version>1.5.0</version>
+</dependency>
 
 
 		<dependency>
@@ -135,7 +134,7 @@
 			<artifactId>jetty-plus</artifactId>
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency>		
 
 	</dependencies>
 
