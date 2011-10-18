@@ -10,7 +10,6 @@ import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Publisher;
-import ar.edu.fesf.model.ReservationEvent;
 
 public class BookBuilder {
 
@@ -26,17 +25,13 @@ public class BookBuilder {
 
     private List<Author> authors = new ArrayList<Author>();
 
-    private int countOfLouns = 0;
-
     private Set<Category> categories = new HashSet<Category>();
-
-    private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
 
     private int countOfCopies;
 
     public Book build() {
         return new Book(this.title, this.isbn, this.publisher, this.imagepath, this.description, this.authors,
-                this.countOfLouns, this.categories, this.reservationEvents, this.countOfCopies);
+                this.categories, this.countOfCopies);
     }
 
     public BookBuilder withCountOfCopies(final int count) {
@@ -89,16 +84,6 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder withReservationEvents(final List<ReservationEvent> areservationEvents) {
-        this.reservationEvents = areservationEvents;
-        return this;
-    }
-
-    public BookBuilder withReservationEvent(final ReservationEvent reservationEvent) {
-        this.reservationEvents.add(reservationEvent);
-        return this;
-    }
-
     /*** ACCESSORS ***/
 
     public void setTitle(final String title) {
@@ -125,16 +110,8 @@ public class BookBuilder {
         this.authors = authors;
     }
 
-    public void setCountOfLouns(final int countOfLouns) {
-        this.countOfLouns = countOfLouns;
-    }
-
     public void setCategories(final Set<Category> categories) {
         this.categories = categories;
-    }
-
-    public void setReservationEvents(final List<ReservationEvent> reservationEvents) {
-        this.reservationEvents = reservationEvents;
     }
 
     public String getTitle() {
@@ -161,16 +138,8 @@ public class BookBuilder {
         return this.authors;
     }
 
-    public int getCountOfLouns() {
-        return this.countOfLouns;
-    }
-
     public Set<Category> getCategories() {
         return this.categories;
-    }
-
-    public List<ReservationEvent> getReservationEvents() {
-        return this.reservationEvents;
     }
 
     public void setCountOfCopies(final int countOfCopies) {

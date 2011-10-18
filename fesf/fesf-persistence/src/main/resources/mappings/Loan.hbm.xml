@@ -10,6 +10,7 @@
           <generator class="native"/>
     </id>
     
+    <property name="maxLoanPeriodInDays"></property>
     <property name="agreedReturnDate"/>
     <property name="returnDate"/>
     <property name="date"/>

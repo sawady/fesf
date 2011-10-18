@@ -14,36 +14,39 @@
     
     <property name="countOfLouns"/>
     
-    <set name="categories">
+    <set name="categories" table="BookCategories" cascade="all">
         <key column="book"/>
-        <many-to-many class="Category"/>
+        <many-to-many column="category" class="Category"/>
     </set>
     
-<!--     <property name="imagepath"/> -->
-<!--     <property name="description"/> -->    
-<!--     <one-to-one name="isbn" class="ISBN"/> -->
-<!--     <one-to-one name="publisher" class="Publisher"/> -->
+    <property name="imagepath"/>
+    <property name="description"/>    
+    <one-to-one name="isbn" class="ISBN" cascade="all"/>
+    <many-to-one name="publisher" class="Publisher" index="publisherIndex" cascade="all"/>
     
-    <bag name="authors" table="BookAuthors" inverse="true">
+    <list name="authors" table="BookAuthors" cascade="all">
         <key column="book"/>
+        <list-index column="index"></list-index>
         <many-to-many column="author" class="Author"/>
-    </bag>
+    </list>
     
-<!--     <list name="reservationEvents" table="ReservationEventsForBook"> -->
-<!--         <key column="book"/> -->
-<!--         <index column="indice"/> -->
-<!--         <one-to-many class="ReservationEvent"/> -->
-<!--     </list> -->
-    
-    <bag name="registedCopies" inverse="true" cascade="all">
+    <list name="reservationEvents" cascade="all">
         <key column="book"/>
-        <one-to-many class="BookCopy"/>
-    </bag>
+        <index column="index"/>
+        <one-to-many class="ReservationEvent"/>
+    </list>
     
-    <bag name="availableCopies" inverse="true" cascade="all">
+    <list name="registedCopies" cascade="all">
         <key column="book"/>
+        <list-index column="index"></list-index>
         <one-to-many class="BookCopy"/>
-    </bag>
+    </list>
+    
+    <list name="availableCopies" cascade="all">
+        <key column="book"/>
+        <list-index column="index"></list-index>
+        <one-to-many class="BookCopy"/>
+    </list>
     
 	</class>
 </hibernate-mapping>

@@ -12,7 +12,7 @@
     
     <property name="name"></property>
     
-    <set name="books">
+    <set name="books" table="BookCategories" inverse="true" cascade="all">
         <key column="category"/>
         <many-to-many class="Book" column="book"/>
     </set>

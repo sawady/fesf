@@ -11,7 +11,7 @@
     </id>
     
     <property name="body"></property>    
-    <one-to-one name="calification" class="Calification"/>
+    <many-to-one name="calification" class="Calification"/>
     <property name="date"></property>
     <many-to-one name="person" class="Person"/>
     <many-to-one name="book" class="Book"/>

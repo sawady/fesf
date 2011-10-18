@@ -80,7 +80,7 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
 
     @Override
     public T findByEquality(final T object) {
-        return this.findByExample(object).get(0);
+        return this.findById(object.getId());
     }
 
     @Override

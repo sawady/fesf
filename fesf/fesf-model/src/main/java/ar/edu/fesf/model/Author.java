@@ -30,4 +30,16 @@ public class Author extends Entity implements Nameable {
         this.name = name;
     }
 
+    public boolean contains(final Book book) {
+        return this.getBooks().contains(book);
+    }
+
+    public void addBook(final Book book) {
+        this.getBooks().add(book);
+    }
+
+    public void removeBook(final Book book) {
+        this.getBooks().remove(book);
+    }
+
 }
