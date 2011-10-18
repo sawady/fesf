@@ -30,7 +30,7 @@ public class ISBN extends Entity {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
+        int prime = 31;
         int result = 1;
         result = prime * result + (this.value == null ? 0 : this.value.hashCode());
         return result;

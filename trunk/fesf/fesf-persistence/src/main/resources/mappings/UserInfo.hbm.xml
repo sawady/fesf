@@ -13,7 +13,7 @@
     <property name="pass"></property>
     <property name="userid"></property>
     
-    <property name="role" type="ar.edu.fesf.model.Role"/>    
+    <property name="role" type="ar.edu.fesf.model.Role"/>
     
 	</class>
 </hibernate-mapping>

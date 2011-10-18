@@ -23,6 +23,7 @@ import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.ISBN;
+import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.ReservationEvent;
 import ar.edu.fesf.repositories.AuthorRepository;
@@ -67,14 +68,10 @@ public class BookRepositoryTest {
         Category terror = new Category("Terror");
         this.categories.add(terror);
 
-        Author author1 = new Author();
-        author1.setName("Pablo Funes");
-        this.author2 = new Author();
-        this.author2.setName("Guille Mori");
-        Publisher publisher1 = new Publisher();
-        publisher1.setName("Editorial Amboro");
-        Publisher publisher2 = new Publisher();
-        publisher1.setName("Editorial Sarosi");
+        Author author1 = new Author("Pablo Funes");
+        this.author2 = new Author("Guille Mori");
+        Publisher publisher1 = new Publisher("Editorial Amboro");
+        Publisher publisher2 = new Publisher("Editorial Sarosi");
 
         this.aIsbn = new ISBN("12654665");
         this.book = new BookBuilder().withTitle("Un Mago de Terramar").withCategory(drama).withCategory(aventura)
@@ -119,16 +116,15 @@ public class BookRepositoryTest {
     @Test
     public void getAvailableCopy() {
         Book aBook = this.bookRepository.findByEquality(this.book2);
-        BookCopy copy = aBook.getAvailableCopy();
-        copy.addLoan(new LoanBuilder().withAgreedReturnDate(new DateTime().plus(10)).build());
+        BookCopy copy = new LoanBuilder().withAgreedReturnDate(new DateTime().plus(10)).withPerson(new Person("pepe"))
+                .withBookCopy(aBook).build().getBookCopy();
         this.bookRepository.save(aBook);
         this.bookRepository.getHibernateTemplate().flush();
-        Book aBook2 = this.bookRepository.findByEquality(this.book2);
-        assertEquals("Must have 1 loan", 1, aBook2.getCountOfLouns());
-        assertEquals("Must have 1 available copy", 1, aBook2.getCountOfCopies());
-        assertEquals("Must have 2 registered copies", 2, aBook2.getRegistedCopies().size());
-        assertTrue("Must containt this copy", aBook2.getRegistedCopies().contains(copy));
-        assertEquals("Must have this registered copy", copy, aBook2.getRegistedCopies().get(0));
+        assertEquals("Must have 1 loan", 1, aBook.getCountOfLouns());
+        assertEquals("Must have 1 available copy", 1, aBook.getCountOfAvailableCopies());
+        assertEquals("Must have 2 registered copies", 2, aBook.getRegistedCopies().size());
+        assertTrue("Must containt this copy", aBook.getRegistedCopies().contains(copy));
+        assertEquals("Must have this registered copy", copy, aBook.getRegistedCopies().get(0));
     }
 
     @Test
@@ -223,6 +219,14 @@ public class BookRepositoryTest {
 
     public void setaIsbn(final ISBN isbn) {
         this.aIsbn = isbn;
+    }
+
+    public Author getAuthor2() {
+        return this.author2;
+    }
+
+    public void setAuthor2(final Author author2) {
+        this.author2 = author2;
     }
 
 }

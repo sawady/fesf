@@ -30,8 +30,8 @@ public class LoaneesPanel extends Panel {
     }
 
     private LoaneesNavigationPanel createNavigationPanel() {
-        LoaneesNavigationPanel loaneesNavigationPanel = new LoaneesNavigationPanel("content", this.getLoaningService()
-                .getLoanees(), this.changeToLoaneeInfoPanel());
+        LoaneesNavigationPanel loaneesNavigationPanel = new LoaneesNavigationPanel("content",
+                this.changeToLoaneeInfoPanel());
         loaneesNavigationPanel.setOutputMarkupId(true);
         return loaneesNavigationPanel;
     }

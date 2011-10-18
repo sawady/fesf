@@ -4,7 +4,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 
-abstract public class PanelServiceToForm<T> extends Panel {
+public abstract class PanelServiceToForm<T> extends Panel {
 
     private static final long serialVersionUID = 1L;
 
@@ -12,8 +12,8 @@ abstract public class PanelServiceToForm<T> extends Panel {
         super(id);
     }
 
-    abstract public T getObject();
+    public abstract T getObject();
 
-    abstract public void doSubmit(AjaxRequestTarget target, Form<T> form);
+    public abstract void doSubmit(AjaxRequestTarget target, Form<T> form);
 
 }

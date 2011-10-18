@@ -193,7 +193,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     @Transactional(readOnly = true)
     public Integer getCountOfCopies(final Book book) {
-        return this.findById(book.getId()).getCountOfCopies();
+        return this.findById(book.getId()).getCountOfAvailableCopies();
     }
 
 }

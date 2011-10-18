@@ -27,8 +27,8 @@ public abstract class BackingPanel extends Panel {
         });
     }
 
-    abstract public Panel getContentPanel(final String id);
+    public abstract Panel getContentPanel(final String id);
 
-    abstract public void callback(final AjaxRequestTarget target);
+    public abstract void callback(final AjaxRequestTarget target);
 
 }

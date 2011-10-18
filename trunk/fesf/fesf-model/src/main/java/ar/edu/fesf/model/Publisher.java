@@ -11,6 +11,15 @@ public class Publisher extends Entity implements Nameable {
 
     private List<Book> books = new ArrayList<Book>();
 
+    public Publisher(final String string) {
+        super();
+        this.name = string;
+    }
+
+    public Publisher() {
+        super();
+    }
+
     /* Accessors */
     public List<Book> getBooks() {
         return this.books;

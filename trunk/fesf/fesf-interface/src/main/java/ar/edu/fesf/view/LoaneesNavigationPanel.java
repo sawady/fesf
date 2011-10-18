@@ -1,7 +1,5 @@
 package ar.edu.fesf.view;
 
-import java.util.List;
-
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -20,7 +18,7 @@ public class LoaneesNavigationPanel extends Panel {
 
     /* Methods */
 
-    public LoaneesNavigationPanel(final String id, final List<Person> list, final IAjaxCallback<Person> ajaxCallback) {
+    public LoaneesNavigationPanel(final String id, final IAjaxCallback<Person> ajaxCallback) {
         super(id);
         this.initialize(ajaxCallback);
     }

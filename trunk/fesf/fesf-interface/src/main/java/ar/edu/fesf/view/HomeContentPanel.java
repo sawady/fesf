@@ -15,6 +15,8 @@ import ar.edu.fesf.services.BookService;
 
 public class HomeContentPanel extends Panel {
 
+    private static final String CONTENT = "content";
+
     private static final long serialVersionUID = 1L;
 
     private RankingPanel rankingPanel;
@@ -30,11 +32,11 @@ public class HomeContentPanel extends Panel {
     }
 
     private void initialize() {
-        this.setRankingPanel(new RankingPanel("content"));
+        this.setRankingPanel(new RankingPanel(CONTENT));
         this.getRankingPanel().setOutputMarkupId(true);
         this.add(this.getRankingPanel());
 
-        this.setBookSearchResultPanel(new BookSearchResultPanel("content", new ArrayList<Book>(), this
+        this.setBookSearchResultPanel(new BookSearchResultPanel(CONTENT, new ArrayList<Book>(), this
                 .changeToMoreInfoPanel()));
         this.getBookSearchResultPanel().setOutputMarkupId(true);
 
@@ -63,7 +65,7 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
-                BookInfoPanel bookInfo = new BookInfoPanel("content", book,
+                BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, book,
                         HomeContentPanel.this.changeToLoaningFormPanel());
                 bookInfo.setOutputMarkupId(true);
                 return bookInfo;
@@ -81,7 +83,7 @@ public class HomeContentPanel extends Panel {
             public void callback(final AjaxRequestTarget target, final Book book) {
 
                 if (HomeContentPanel.this.getBookService().hasAvailableCopy(book)) {
-                    LoaningFormPanel loaningFormPanel = new LoaningFormPanel("content", book,
+                    LoaningFormPanel loaningFormPanel = new LoaningFormPanel(CONTENT, book,
                             HomeContentPanel.this.backToMoreInfoPanel());
                     loaningFormPanel.setOutputMarkupId(true);
                     HomeContentPanel.this.replace(loaningFormPanel);
@@ -101,7 +103,7 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Loan loan) {
-                BookInfoPanel bookInfo = new BookInfoPanel("content", loan.getBook(),
+                BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, loan.getBook(),
                         HomeContentPanel.this.changeToLoaningFormPanel());
                 bookInfo.setOutputMarkupId(true);
                 return bookInfo;
