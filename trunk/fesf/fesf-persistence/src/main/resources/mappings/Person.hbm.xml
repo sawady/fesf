@@ -11,7 +11,8 @@
     </id>
     
     <property name="name"></property>
-    <many-to-one name="userInfo" class="UserInfo" cascade="all"/>
+    
+    <many-to-one name="userInfo" class="UserInfo" insert="true" update="true" cascade="all"/>
     
     <set name="categories" cascade="all">
         <key column="person"/>
