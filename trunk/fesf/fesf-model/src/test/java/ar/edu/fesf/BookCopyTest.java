@@ -50,6 +50,7 @@ public class BookCopyTest {
     @Test
     public void addLoanWhenLastHasFinished() {
         this.bookExample.addLoan(this.loanMock);
+        this.bookExample.freeCopy();
         this.bookExample.addLoan(this.lastLoanMock);
         assertEquals("Length of list must be 2", this.bookExample.getLoans().size(), 2);
         assertTrue("Loans must containt this Loan", this.bookExample.getLoans().contains(this.loanMock));
@@ -60,8 +61,9 @@ public class BookCopyTest {
     @Test
     public void lastLoan() {
         this.bookExample.addLoan(this.loanMock);
+        this.bookExample.freeCopy();
         this.bookExample.addLoan(this.lastLoanMock);
-        assertEquals("Last loan must be equal to last loan added", this.bookExample.lastLoan(), this.lastLoanMock);
+        assertEquals("Last loan must be equal to last loan added", this.bookExample.getCurrentLoan(), this.lastLoanMock);
     }
 
     @Test
@@ -72,6 +74,7 @@ public class BookCopyTest {
     @Test
     public void isAvailableWhenLastLoanFinished() {
         this.bookExample.addLoan(this.loanMock);
+        this.bookExample.freeCopy();
         assertTrue("When not empty and last loan finished, bookcopy must be available", this.bookExample.isAvailable());
     }
 

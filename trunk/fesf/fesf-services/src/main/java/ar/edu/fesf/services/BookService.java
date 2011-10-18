@@ -26,8 +26,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     private Ranking ranking;
 
     /**
-     * TODO si lo dejan acá, saquen está construcción en otro objeto así no que
-     * queda sucio el service
+     * TODO si lo dejan acá, saquen está construcción en otro objeto así no que queda sucio el service
      */
     public void initialize() {
         Ranking aRanking = new Ranking();
@@ -60,7 +59,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
                 .withAuthor(author1).withAuthor(author2).withPublisher(publisher1).withCountOfCopies(5).build());
 
         this.save(new BookBuilder().withTitle("Los Crimenes de la Calle Morgue").withCategory(drama)
-                .withCategory(policial).withPublisher(publisher1).withCountOfCopies(5).build());
+                .withCategory(policial).withPublisher(publisher1).withCountOfCopies(1).build());
 
         this.save(new BookBuilder().withTitle("Maleficio").withCategory(terror).withPublisher(publisher1)
                 .withCountOfCopies(10).build());
@@ -160,7 +159,10 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     @Transactional
     public BookCopy getAvailableCopy(final Book book) {
-        return this.findById(book.getId()).getAvailableCopy();
+        Book newBook = this.findById(book.getId());
+        BookCopy bookCopy = newBook.getAvailableCopy();
+        this.save(newBook);
+        return bookCopy;
     }
 
     /* Accessors */
@@ -170,7 +172,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     public RankingRepository getRankingRepository() {
-        return rankingRepository;
+        return this.rankingRepository;
     }
 
     public void setRanking(final Ranking ranking) {
@@ -178,7 +180,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     public Ranking getRanking() {
-        return ranking;
+        return this.ranking;
     }
 
     public void setCategoryRepository(final CategoryRepository categoryRepository) {
@@ -186,7 +188,12 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     public CategoryRepository getCategoryRepository() {
-        return categoryRepository;
+        return this.categoryRepository;
+    }
+
+    @Transactional(readOnly = true)
+    public Integer getCountOfCopies(final Book book) {
+        return this.findById(book.getId()).getCountOfCopies();
     }
 
 }

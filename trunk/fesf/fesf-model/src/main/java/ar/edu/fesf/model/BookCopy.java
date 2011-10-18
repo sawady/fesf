@@ -13,21 +13,25 @@ public class BookCopy extends Entity {
 
     private String observations = "";
 
+    private Loan currentLoan;
+
     private List<Loan> loans = new ArrayList<Loan>();
 
     /* Methods */
     public boolean isAvailable() {
-        return this.getLoans().isEmpty() || this.lastLoan().hasFinished();
+        // return this.getLoans().isEmpty() || this.lastLoan().hasFinished();
+        return this.getCurrentLoan() == null;
     }
 
     public void addLoan(final Loan loan) { // El posta!
         checkState(this.isAvailable(), "Last loan has not finished");
+        this.setCurrentLoan(loan);
         this.getLoans().add(0, loan);
         this.getBook().incrementCountOfLoans();
     }
 
-    public Loan lastLoan() {
-        return this.getLoans().get(0);
+    public void freeCopy() {
+        this.setCurrentLoan(null);
     }
 
     /* Accessors */
@@ -53,6 +57,14 @@ public class BookCopy extends Entity {
 
     public void setBook(final Book book) {
         this.book = book;
+    }
+
+    public void setCurrentLoan(final Loan currentLoan) {
+        this.currentLoan = currentLoan;
+    }
+
+    public Loan getCurrentLoan() {
+        return this.currentLoan;
     }
 
 }

@@ -14,6 +14,8 @@
     
     <many-to-one name="book" class="Book" cascade="all"/>
     
+    <one-to-one name="currentLoan" class="Loan"/>
+    
     <bag name="loans" inverse="true" cascade="all">
         <key column="bookCopy"/>
         <one-to-many class="Loan"/>

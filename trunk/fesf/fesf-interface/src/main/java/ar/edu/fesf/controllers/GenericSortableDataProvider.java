@@ -17,9 +17,10 @@ public class GenericSortableDataProvider<T extends Serializable> extends Sortabl
     public GenericSortableDataProvider(final List<T> list, final List<String> propertiesToSort) {
         super();
         this.setList(list);
-        for (String propertyName : propertiesToSort) {
-            this.setSort(propertyName, true);
-        }
+        // TODO ordenar por estas propiedades las filas de la tabla
+        // for (String propertyName : propertiesToSort) {
+        // this.setSort(propertyName, true);
+        // }
     }
 
     @Override

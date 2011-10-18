@@ -10,6 +10,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Book;
+import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.services.BookService;
 
 public class HomeContentPanel extends Panel {
@@ -81,16 +82,32 @@ public class HomeContentPanel extends Panel {
 
                 if (HomeContentPanel.this.getBookService().hasAvailableCopy(book)) {
                     LoaningFormPanel loaningFormPanel = new LoaningFormPanel("content", book,
-                            HomeContentPanel.this.changeToMoreInfoPanel());
+                            HomeContentPanel.this.backToMoreInfoPanel());
                     loaningFormPanel.setOutputMarkupId(true);
                     HomeContentPanel.this.replace(loaningFormPanel);
-                    target.addComponent(loaningFormPanel);
+                    target.add(loaningFormPanel);
                 } else {
-                    target.appendJavascript("alert('You cannot motherfucker')");
+                    target.appendJavaScript("alert('You cannot motherfucker')");
                 }
             }
         };
 
+    }
+
+    public IAjaxCallback<Loan> backToMoreInfoPanel() {
+        return new AjaxReplacePanel<Loan>(this) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Panel getNewPanel(final AjaxRequestTarget target, final Loan loan) {
+                BookInfoPanel bookInfo = new BookInfoPanel("content", loan.getBook(),
+                        HomeContentPanel.this.changeToLoaningFormPanel());
+                bookInfo.setOutputMarkupId(true);
+                return bookInfo;
+            }
+
+        };
     }
 
     public IAjaxCallback<List<Book>> changeToResultsPanel() {

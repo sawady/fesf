@@ -4,7 +4,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
-import ar.edu.fesf.controllers.ServiceToLoanForm;
+import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.services.LoaningService;
@@ -16,14 +16,22 @@ public class LoaningFormPanel extends Panel {
     @SpringBean(name = "service.loan")
     private LoaningService loaningService;
 
-    public LoaningFormPanel(final String id, final Book book, final IAjaxCallback<Book> ajaxCallback) {
+    public LoaningFormPanel(final String id, final Book book, final IAjaxCallback<Loan> ajaxCallback) {
         super(id);
         this.initialize(book, ajaxCallback);
     }
 
-    private void initialize(final Book book, final IAjaxCallback<Book> ajaxCallback) {
-        this.add(new GenericFormPanel<Loan>("form", new ServiceToLoanForm(book, new Loan(), ajaxCallback, this
-                .getLoaningService())));
+    private void initialize(final Book book, final IAjaxCallback<Loan> ajaxCallback) {
+        this.add(new GenericFormPanel<Loan>("form") {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public PanelServiceToForm<Loan> getFieldsPanel(final String id) {
+                return new LoanFormFieldsPanel(id, book, new Loan(), ajaxCallback);
+            }
+
+        });
     }
 
     /* Accessors */

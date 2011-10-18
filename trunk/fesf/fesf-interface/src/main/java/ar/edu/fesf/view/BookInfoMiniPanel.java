@@ -25,9 +25,6 @@ public class BookInfoMiniPanel extends Panel {
     private void initialize() {
         this.add(new Label("title"));
         this.add(new Label("authorNames", new Model<String>(this.concatenateAuthorNames(this.book.getAuthors()))));
-        this.add(new Label("publisherName", new Model<String>(this.book.getPublisher().getName())));
-        this.add(new Label("countOfLouns", new Model<Integer>(this.book.getAvailableCopies().size())));
-
     }
 
     private String concatenateAuthorNames(final List<Author> authors) {

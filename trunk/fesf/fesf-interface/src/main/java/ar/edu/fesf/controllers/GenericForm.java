@@ -10,21 +10,18 @@ public class GenericForm<T> extends Form<T> {
 
     private static final long serialVersionUID = 1L;
 
-    private ServiceToForm<T> serviceToForm;
-
-    public GenericForm(final String id, final ServiceToForm<T> serviceToForm) {
-        super(id, new CompoundPropertyModel<T>(serviceToForm.getObject()));
-        this.serviceToForm = serviceToForm;
-        this.initialize();
+    public GenericForm(final String id, final PanelServiceToForm<T> fieldsPanel) {
+        super(id, new CompoundPropertyModel<T>(fieldsPanel.getObject()));
+        this.initialize(fieldsPanel);
     }
 
-    private void initialize() {
+    private void initialize(final PanelServiceToForm<T> fieldsPanel) {
 
         final FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
         feedbackPanel.setOutputMarkupId(true);
         this.add(feedbackPanel);
 
-        this.add(this.getServiceToForm().getFieldsPanel("formFieldPanel"));
+        this.add(fieldsPanel);
 
         this.add(new AjaxFallbackButton("submit", this) {
 
@@ -32,26 +29,17 @@ public class GenericForm<T> extends Form<T> {
 
             @Override
             protected void onError(final AjaxRequestTarget target, final Form<?> form) {
-                target.addComponent(feedbackPanel);
+                target.add(feedbackPanel);
             }
 
             @SuppressWarnings("unchecked")
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
 
-                GenericForm.this.getServiceToForm().doSubmitCallback(target, (Form<T>) form)
-                        .callback(target, (T) this.getModelObject());
+                fieldsPanel.doSubmit(target, (Form<T>) form);
             }
 
         });
-    }
-
-    public void setServiceToForm(final ServiceToForm<T> serviceToForm) {
-        this.serviceToForm = serviceToForm;
-    }
-
-    public ServiceToForm<T> getServiceToForm() {
-        return this.serviceToForm;
     }
 
 }

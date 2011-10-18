@@ -97,6 +97,7 @@ public class Book extends Entity {
 
     public void returnCopy(final BookCopy copy) {
         this.getAvailableCopies().add(copy);
+        copy.freeCopy();
     }
 
     public void addReservationEvent(final ReservationEvent reservation) {
