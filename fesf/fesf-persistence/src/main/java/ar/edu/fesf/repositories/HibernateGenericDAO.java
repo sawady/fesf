@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -89,12 +90,25 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
     }
 
     @SuppressWarnings(UNCHECKED)
-    private List<T> findBy(final Criterion rec) {
+    protected List<T> findBy(final Criterion rec) {
         return this.getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
             @Override
             public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
                 Criteria criteria = session.createCriteria(HibernateGenericDAO.this.getDomainClass());
                 criteria.add(rec);
+                return criteria.list();
+            }
+        });
+    }
+
+    @SuppressWarnings(UNCHECKED)
+    protected List<T> findInOrderBy(final Criterion rec, final Order order) {
+        return this.getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
+            @Override
+            public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
+                Criteria criteria = session.createCriteria(HibernateGenericDAO.this.getDomainClass());
+                criteria.add(rec);
+                criteria.addOrder(order);
                 return criteria.list();
             }
         });
