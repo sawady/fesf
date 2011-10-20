@@ -25,7 +25,7 @@ public class BookSearchPanel extends Panel {
         this.add(new BookSearchForm("form", this));
     }
 
-    public void recieveResult(final AjaxRequestTarget target, final List<Book> books) {
+    public void receiveResult(final AjaxRequestTarget target, final List<Book> books) {
         this.getCallback().callback(target, books);
     }
 
