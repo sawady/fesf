@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.StringValue;
 
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
@@ -49,6 +48,8 @@ public class BookSearchForm extends Form<Book> {
 
     private void initialize() {
 
+        final Book book = this.getModelObject();
+
         this.add(new TextField<String>(TITLE));
         this.add(new Label("title.label", new Model<String>("Title")));
 
@@ -58,14 +59,13 @@ public class BookSearchForm extends Form<Book> {
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
-                StringValue parameterTitle = this.getRequest().getQueryParameters().getParameterValue(TITLE);
                 BookSearchForm.this.getSearchPanel().recieveResult(target,
-                        BookSearchForm.this.getBookService().findLikeProperty(TITLE, parameterTitle.toString()));
+                        BookSearchForm.this.getBookService().findLikeProperty(TITLE, book.getTitle()));
             }
 
             @Override
             protected void onError(final AjaxRequestTarget arg0, final Form<?> arg1) {
-                throw new UnsupportedOperationException();
+
             }
 
         });

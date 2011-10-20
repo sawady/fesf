@@ -39,15 +39,6 @@ public class EmailAddress extends Entity implements Serializable {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
         EmailAddress other = (EmailAddress) obj;
         if (this.value == null) {
             if (other.value != null) {

@@ -55,7 +55,7 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public int count() {
         return this.getRepository().count();
     }
@@ -75,11 +75,11 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
     @Override
     @Transactional(readOnly = true)
     public List<T> findByProperty(final String property, final Object object) {
-        return this.getRepository().findByProperty(property, object);
+        return this.getRepository().findLikeProperty(property, object);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Iterator<T> getIterator() {
         return this.getRepository().getIterator();
     }
@@ -87,7 +87,13 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
     @Override
     @Transactional(readOnly = true)
     public List<T> findLikeProperty(final String property, final String pattern) {
-        return this.getRepository().findLikeProperty(property, pattern);
+        return this.getRepository().findByPropertyLike(property, pattern);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public T findByEquality(final T object) {
+        return this.getRepository().findByEquality(object);
     }
 
 }

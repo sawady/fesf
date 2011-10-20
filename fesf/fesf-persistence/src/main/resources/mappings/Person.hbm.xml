@@ -35,7 +35,7 @@
    <property name="age"></property>
    <property name="address"></property>
    <property name="phone"></property>	
-   <one-to-one name="email" class="EmailAddress" cascade="all"/>
+   <many-to-one name="email" class="EmailAddress" cascade="all"/>
 	
     <list name="reservations" cascade="all">
             <key column="person"/>

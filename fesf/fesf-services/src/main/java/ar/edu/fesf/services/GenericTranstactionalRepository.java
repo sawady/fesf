@@ -34,4 +34,6 @@ public interface GenericTranstactionalRepository<T> extends Serializable {
 
     Iterator<T> getIterator();
 
+    T findByEquality(final T object);
+
 }

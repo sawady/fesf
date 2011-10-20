@@ -86,7 +86,7 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
 
     @Override
     public T findByPropertyUnique(final String property, final Object object) {
-        return this.findByProperty(property, object).get(0);
+        return this.findLikeProperty(property, object).get(0);
     }
 
     @SuppressWarnings(UNCHECKED)
@@ -115,12 +115,12 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
     }
 
     @Override
-    public List<T> findByProperty(final String property, final Object object) {
+    public List<T> findLikeProperty(final String property, final Object object) {
         return this.findBy(Restrictions.eq(property, object));
     }
 
     @Override
-    public List<T> findLikeProperty(final String property, final String pattern) {
+    public List<T> findByPropertyLike(final String property, final String pattern) {
         return this.findBy(Restrictions.like(property, "%" + pattern + "%"));
     }
 

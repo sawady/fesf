@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,11 +82,12 @@ public class BookRepositoryTest {
 
         this.bookRepository.save(this.book);
         this.bookRepository.save(this.book2);
+        this.bookRepository.getHibernateTemplate().flush();
+        this.bookRepository.getHibernateTemplate().clear();
 
     }
 
     @Test
-    @Rollback(false)
     public void count() {
         assertEquals("count must be 2", this.bookRepository.count(), 2);
     }
@@ -105,6 +105,11 @@ public class BookRepositoryTest {
                 .getTitle(), this.book.getTitle());
 
         assertEquals("Must be same book", aBook, this.book);
+    }
+
+    @Test
+    public void findLikeTitle() {
+        assertTrue(this.bookRepository.findLikeProperty("title", "Mago").contains(this.book));
     }
 
     @Test

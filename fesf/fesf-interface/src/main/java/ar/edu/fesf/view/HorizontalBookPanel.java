@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 
+import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Book;
 
 public class HorizontalBookPanel extends Panel {
@@ -16,20 +17,20 @@ public class HorizontalBookPanel extends Panel {
 
     /* Methods */
 
-    public HorizontalBookPanel(final String id, final List<Book> books) {
+    public HorizontalBookPanel(final String id, final List<Book> books, final IAjaxCallback<Book> ajaxCallback) {
         super(id);
         this.books = books;
-        this.initialize();
+        this.initialize(ajaxCallback);
     }
 
-    private void initialize() {
+    private void initialize(final IAjaxCallback<Book> ajaxCallback) {
         this.add(new ListView<Book>("bookList", this.getBooks()) {
 
             private static final long serialVersionUID = 5025190739259560931L;
 
             @Override
             protected void populateItem(final ListItem<Book> item) {
-                item.add(new BookInfoMiniPanel("bookMiniPanel", item.getModelObject()));
+                item.add(new BookInfoMiniPanel("bookMiniPanel", item.getModelObject(), ajaxCallback));
             }
         });
     }
