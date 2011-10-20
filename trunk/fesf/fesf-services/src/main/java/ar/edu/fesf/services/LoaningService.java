@@ -59,6 +59,11 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
         return this.findById(loan.getId()).getBook();
     }
 
+    @Transactional(readOnly = true)
+    public String getBookTitle(final Loan loan) {
+        return this.getRepository().findByEquality(loan).getBook().getTitle();
+    }
+
     /* Accessors */
 
     public void setPersonService(final PersonService personService) {
@@ -75,11 +80,6 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
 
     public void setBookService(final BookService bookService) {
         this.bookService = bookService;
-    }
-
-    @Transactional
-    public String getBookTitle(final Loan loan) {
-        return this.getBook(loan).getTitle();
     }
 
 }

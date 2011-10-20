@@ -44,12 +44,12 @@ public class Ranking extends Entity {
         }
 
         // si no lo inserto pero la lista tiene espacio
-        if (this.getLimitOfRecentlyBooks() > this.getTop20().size() && !wasAdded) {
+        if (20 > this.getTop20().size() && !wasAdded) {
             this.getTop20().add(newBook);
         }
 
         // si lo inserto y la lista sobrepaso su limite
-        if (this.getLimitOfRecentlyBooks() < this.getTop20().size() && wasAdded) {
+        if (20 < this.getTop20().size() && wasAdded) {
             this.getTop20().remove(this.getLimitOfRecentlyBooks() - 1);
         }
 

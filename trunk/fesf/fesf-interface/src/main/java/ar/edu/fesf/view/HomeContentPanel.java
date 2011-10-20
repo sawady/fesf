@@ -32,7 +32,7 @@ public class HomeContentPanel extends Panel {
     }
 
     private void initialize() {
-        this.setRankingPanel(new RankingPanel(CONTENT));
+        this.setRankingPanel(new RankingPanel(CONTENT, this.changeToMoreInfoPanel()));
         this.getRankingPanel().setOutputMarkupId(true);
         this.add(this.getRankingPanel());
 

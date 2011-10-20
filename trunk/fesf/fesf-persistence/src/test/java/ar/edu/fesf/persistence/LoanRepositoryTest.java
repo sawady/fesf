@@ -76,6 +76,9 @@ public class LoanRepositoryTest {
         this.loanRepository.save(this.loan2);
         this.loanRepository.save(this.loan3);
 
+        this.loanRepository.getHibernateTemplate().flush();
+        this.loanRepository.getHibernateTemplate().clear();
+
     }
 
     @Test

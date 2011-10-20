@@ -29,6 +29,7 @@ import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
+import ar.edu.fesf.repositories.LoanRepository;
 import ar.edu.fesf.repositories.PersonRepository;
 import ar.edu.fesf.repositories.UserInfoRepository;
 
@@ -37,13 +38,16 @@ import ar.edu.fesf.repositories.UserInfoRepository;
 @Transactional
 public class PersonRepositoryTest {
 
-    private List<Person> personsToPersist;
+    private List<Person> peopleToPersist;
 
     @Autowired
     private PersonRepository personRepository;
 
     @Autowired
     private UserInfoRepository userInfoRepository;
+
+    @Autowired
+    private LoanRepository loanRepository;
 
     private Person pepe;
 
@@ -52,7 +56,7 @@ public class PersonRepositoryTest {
     @Before
     public void setUp() {
 
-        this.personsToPersist = new ArrayList<Person>();
+        this.peopleToPersist = new ArrayList<Person>();
 
         Set<Category> categories = new HashSet<Category>();
 
@@ -67,10 +71,10 @@ public class PersonRepositoryTest {
         this.pepe = new PersonBuilder().withName("Pepe").withUserInfo(anUserInfo).withAddress("colon 355").withAge(18)
                 .withSurname("Sorias").withCategories(categories).withEmail(new EmailAddress("sarasa@gmail.com"))
                 .build();
-        this.personsToPersist.add(this.pepe);
-        this.personsToPersist.add(new PersonBuilder().withName("Carlos").build());
-        this.personsToPersist.add(new PersonBuilder().withName("Soprano").build());
-        this.personsToPersist.add(new PersonBuilder().withName("Cesar").build());
+        this.peopleToPersist.add(this.pepe);
+        this.peopleToPersist.add(new PersonBuilder().withName("Carlos").build());
+        this.peopleToPersist.add(new PersonBuilder().withName("Soprano").build());
+        this.peopleToPersist.add(new PersonBuilder().withName("Cesar").build());
 
         Author author1 = new Author();
         author1.setName("Pablo Funes");
@@ -86,9 +90,12 @@ public class PersonRepositoryTest {
                 .withPerson(this.pepe).build();
         this.pepe.addNewLoan(this.pepeLoan);
 
-        for (Person person : this.personsToPersist) {
+        for (Person person : this.peopleToPersist) {
             this.personRepository.save(person);
         }
+
+        this.personRepository.getHibernateTemplate().flush();
+        this.personRepository.getHibernateTemplate().clear();
 
     }
 
@@ -98,41 +105,45 @@ public class PersonRepositoryTest {
     }
 
     @Test
-    public void findById() {
-        Person pepeEncontrado = this.personRepository.findById(this.pepe.getId());
-        assertEquals("Must be equals Pepe", this.pepe, pepeEncontrado);
-    }
-
-    @Test
     public void findByName() {
-        Person pepeEncontrado = this.personRepository.findByPropertyUnique("name", this.pepe.getName());
-        assertEquals("Must be equals Pepe", this.pepe, pepeEncontrado);
+        Person pepePorNombre = this.personRepository.findByPropertyUnique("name", this.pepe.getName());
+        Person pepePorID = this.personRepository.findById(this.pepe.getId());
+        assertEquals("Must be the same Pepe", pepePorNombre, pepePorID);
     }
 
     @Test
     public void findByExample() {
-        Person pepeEncontrado = this.personRepository.findByExample(this.pepe).get(0);
-        assertEquals("Must be equals Pepe", this.pepe, pepeEncontrado);
+        Person pepeExample = this.personRepository.findByExample(this.pepe).get(0);
+        Person pepePorID = this.personRepository.findById(this.pepe.getId());
+        assertEquals("Must be the same Pepe", pepeExample, pepePorID);
     }
 
     @Test
     public void mappings() {
         Person pepeEncontrado = this.personRepository.findByExample(this.pepe).get(0);
-        assertTrue("Must contain all the persons in the list",
-                this.personsToPersist.containsAll(this.personRepository.findAll()));
-        assertEquals("Must have same userInfo", this.pepe.getUserInfo(), pepeEncontrado.getUserInfo());
-        assertEquals("Must have same email", new EmailAddress("sarasa@gmail.com"), pepeEncontrado.getEmail());
+        Loan pepeLoan = this.loanRepository.findByEquality(this.pepeLoan);
+
+        assertEquals("Must have same userInfo", this.pepe.getUserInfo().getUserid(), pepeEncontrado.getUserInfo()
+                .getUserid());
+        assertEquals("Must have same userInfo", this.pepe.getUserInfo().getPass(), pepeEncontrado.getUserInfo()
+                .getPass());
+        assertEquals("Must have same userInfo", this.pepe.getUserInfo().getRole(), pepeEncontrado.getUserInfo()
+                .getRole());
+        assertEquals("Must have same email", "sarasa@gmail.com", pepeEncontrado.getEmail().getValue());
         assertEquals("Must have same address", "colon 355", pepeEncontrado.getAddress());
-        assertTrue("Must have his loan", pepeEncontrado.getCurrentLoans().contains(this.pepeLoan));
+        assertTrue("Must have his loan", pepeEncontrado.getCurrentLoans().contains(pepeLoan));
     }
 
     @Test
     public void currentLoans() {
         Person pepeEncontrado = this.personRepository.findByEquality(this.pepe);
+        Loan pepeLoan = this.loanRepository.findByEquality(this.pepeLoan);
+
         for (Loan loan : pepeEncontrado.getCurrentLoans()) {
             assertEquals("Must be pepe", pepeEncontrado, loan.getPerson());
         }
-        assertTrue("Must have pepe loan", pepeEncontrado.getCurrentLoans().contains(this.pepeLoan));
+
+        assertTrue("Must have pepe loan", pepeEncontrado.getCurrentLoans().contains(pepeLoan));
     }
 
     @Test
@@ -141,11 +152,11 @@ public class PersonRepositoryTest {
     }
 
     public void setPersonsToPersist(final List<Person> personsToPersist) {
-        this.personsToPersist = personsToPersist;
+        this.peopleToPersist = personsToPersist;
     }
 
     public List<Person> getPersonsToPersist() {
-        return this.personsToPersist;
+        return this.peopleToPersist;
     }
 
     public void setPersonRepository(final PersonRepository personRepository) {
@@ -178,6 +189,14 @@ public class PersonRepositoryTest {
 
     public UserInfoRepository getUserInfoRepository() {
         return this.userInfoRepository;
+    }
+
+    public void setLoanRepository(final LoanRepository loanRepository) {
+        this.loanRepository = loanRepository;
+    }
+
+    public LoanRepository getLoanRepository() {
+        return this.loanRepository;
     }
 
 }
