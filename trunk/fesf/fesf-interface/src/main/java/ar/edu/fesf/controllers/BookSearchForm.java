@@ -2,11 +2,9 @@ package ar.edu.fesf.controllers;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.model.Book;
@@ -50,16 +48,15 @@ public class BookSearchForm extends Form<Book> {
 
         final Book book = this.getModelObject();
 
+        // this.add(new Label("title.label", new Model<String>("Title")));
         this.add(new TextField<String>(TITLE));
-        this.add(new Label("title.label", new Model<String>("Title")));
-
         this.add(new AjaxFallbackButton("submit", this) {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
-                BookSearchForm.this.getSearchPanel().recieveResult(target,
+                BookSearchForm.this.getSearchPanel().receiveResult(target,
                         BookSearchForm.this.getBookService().findLikeProperty(TITLE, book.getTitle()));
             }
 
