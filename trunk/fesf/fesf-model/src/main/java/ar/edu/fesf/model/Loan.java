@@ -105,5 +105,4 @@ public class Loan extends Event {
     public void setMaxLoanPeriodInDays(final int maxLoanPeriodInDays) {
         this.maxLoanPeriodInDays = maxLoanPeriodInDays;
     }
-
 }

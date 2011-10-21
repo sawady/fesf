@@ -1,16 +1,17 @@
 package ar.edu.fesf.services;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import ar.edu.fesf.repositories.GenericRepository;
+import ar.edu.fesf.repositories.IGenericRepository;
 
-public interface GenericTranstactionalRepository<T> extends Serializable {
+public interface IGenericTranstactionalRepository<T> extends Serializable {
 
-    GenericRepository<T> getRepository();
+    IGenericRepository<T> getRepository();
 
-    void setRepository(final GenericRepository<T> genericRepository);
+    void setRepository(final IGenericRepository<T> genericRepository);
 
     void save(final T entity);
 
@@ -30,10 +31,14 @@ public interface GenericTranstactionalRepository<T> extends Serializable {
 
     List<T> findByProperty(final String property, final Object object);
 
-    List<T> findLikeProperty(final String property, final String pattern);
+    List<T> findByPropertyLike(final String property, final String pattern);
 
     Iterator<T> getIterator();
 
     T findByEquality(final T object);
+
+    <P> P getField(final T obj, final String methodName);
+
+    <P> Collection<P> getCollectionField(final T obj, final String fieldName);
 
 }

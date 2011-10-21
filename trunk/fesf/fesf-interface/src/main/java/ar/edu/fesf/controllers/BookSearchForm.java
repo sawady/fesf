@@ -57,7 +57,7 @@ public class BookSearchForm extends Form<Book> {
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
                 BookSearchForm.this.getSearchPanel().receiveResult(target,
-                        BookSearchForm.this.getBookService().findLikeProperty(TITLE, book.getTitle()));
+                        BookSearchForm.this.getBookService().findByPropertyLike(TITLE, book.getTitle()));
             }
 
             @Override

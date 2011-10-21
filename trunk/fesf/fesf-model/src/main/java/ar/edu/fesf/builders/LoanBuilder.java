@@ -2,7 +2,6 @@ package ar.edu.fesf.builders;
 
 import org.joda.time.DateTime;
 
-import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
@@ -32,8 +31,8 @@ public class LoanBuilder {
         return this;
     }
 
-    public LoanBuilder withBookCopy(final Book book) {
-        this.bookCopy = book.getAvailableCopy();
+    public LoanBuilder withBookCopy(final BookCopy bookcopy) {
+        this.bookCopy = bookcopy;
         return this;
     }
 

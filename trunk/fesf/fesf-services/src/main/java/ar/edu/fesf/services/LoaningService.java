@@ -25,7 +25,7 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
         Book book = this.getBookService().findAll().get(0);
 
         this.save(new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20)).withPerson(aperson)
-                .withBookCopy(book).withMaxLoanPeriodInDays(60).build());
+                .withBookCopy(book.getAvailableCopy()).withMaxLoanPeriodInDays(60).build());
 
     }
 
