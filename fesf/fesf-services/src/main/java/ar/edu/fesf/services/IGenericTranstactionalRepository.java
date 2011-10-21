@@ -1,7 +1,6 @@
 package ar.edu.fesf.services;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,8 +36,6 @@ public interface IGenericTranstactionalRepository<T> extends Serializable {
 
     T findByEquality(final T object);
 
-    <P> P getField(final T obj, final String methodName);
-
-    <P> Collection<P> getCollectionField(final T obj, final String fieldName);
+    T initializeFields(final T obj, final String... fieldNames);
 
 }

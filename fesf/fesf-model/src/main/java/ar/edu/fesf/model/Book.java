@@ -78,7 +78,7 @@ public class Book extends Entity {
         }
     }
 
-    public int getCountOfAvailableCopies() {
+    public Integer getCountOfAvailableCopies() {
         return this.getAvailableCopies().size();
     }
 

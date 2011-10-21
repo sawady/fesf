@@ -121,7 +121,7 @@ public class PersonRepositoryTest {
     @Test
     public void mappings() {
         Person pepeEncontrado = this.personRepository.findByEquality(this.pepe);
-        Loan pepeLoan = this.loanRepository.findByEquality(this.pepeLoan);
+        Loan pepeLoanBD = this.loanRepository.findByEquality(this.pepeLoan);
 
         assertEquals("Must have same userInfo", this.pepe.getUserInfo().getUserid(), pepeEncontrado.getUserInfo()
                 .getUserid());
@@ -131,19 +131,15 @@ public class PersonRepositoryTest {
                 .getRole());
         assertEquals("Must have same email", "sarasa@gmail.com", pepeEncontrado.getEmail().getValue());
         assertEquals("Must have same address", "colon 355", pepeEncontrado.getAddress());
-        assertTrue("Must have his loan", pepeEncontrado.getCurrentLoans().contains(pepeLoan));
+        assertTrue("Must have his loan", pepeEncontrado.getCurrentLoans().contains(pepeLoanBD));
     }
 
     @Test
     public void currentLoans() {
         Person pepeEncontrado = this.personRepository.findByEquality(this.pepe);
-        Loan pepeLoan = this.loanRepository.findByEquality(this.pepeLoan);
-
-        for (Loan loan : pepeEncontrado.getCurrentLoans()) {
-            assertEquals("Must be pepe", pepeEncontrado, pepeLoan.getPerson());
-        }
-
-        assertTrue("Must have pepe loan", pepeEncontrado.getCurrentLoans().contains(pepeLoan));
+        Loan pepeLoanBD = this.loanRepository.findByEquality(this.pepeLoan);
+        assertEquals("Must be pepe", pepeEncontrado, pepeLoanBD.getPerson());
+        assertTrue("Must have pepe loan", pepeEncontrado.getCurrentLoans().contains(pepeLoanBD));
     }
 
     @Test

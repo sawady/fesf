@@ -100,24 +100,28 @@ public class GenericTransactionalRepositoryService<T extends Entity> implements 
         return this.getRepository().findByEquality(object);
     }
 
-    /**
-     * Don't use with fields that represent collections.
-     * 
-     * Don't be gil.
-     */
     @SuppressWarnings("unchecked")
-    @Override
     @Transactional(readOnly = true)
-    public <P> P getField(final T entity, final String methodName) {
-        T entityDB = this.getRepository().findByEquality(entity);
-        Field field = ReflectionUtils.findField(entityDB.getClass(), methodName);
+    private <P> void initializeField(final T entityDB, final String fieldName) {
+        Field field = ReflectionUtils.findField(entityDB.getClass(), fieldName);
         field.setAccessible(true);
-        return this.getRepository().initialize((P) ReflectionUtils.getField(field, entityDB));
+        Object fieldValue = ReflectionUtils.getField(field, entityDB);
+        if (Collection.class.isAssignableFrom(field.getType())) {
+            this.getRepository().initialize((Collection<P>) fieldValue);
+        } else {
+            this.getRepository().initialize((P) fieldValue);
+        }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public <P> Collection<P> getCollectionField(final T obj, final String methodName) {
-        return this.getRepository().initialize(this.<Collection<P>> getField(obj, methodName));
+    public T initializeFields(final T obj, final String... fieldNames) {
+        T entityDB = this.getRepository().findByEquality(obj);
+
+        for (String field : fieldNames) {
+            this.initializeField(entityDB, field);
+        }
+
+        return entityDB;
     }
 }

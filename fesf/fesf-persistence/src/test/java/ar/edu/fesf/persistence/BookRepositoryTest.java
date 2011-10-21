@@ -138,7 +138,7 @@ public class BookRepositoryTest {
         this.bookRepository.save(aBook);
         this.bookRepository.getHibernateTemplate().flush();
         assertEquals("Must have 1 loan", 1, aBook.getCountOfLouns());
-        assertEquals("Must have 1 available copy", 1, aBook.getCountOfAvailableCopies());
+        assertEquals("Must have 1 available copy", (Integer) 1, aBook.getCountOfAvailableCopies());
         assertEquals("Must have 2 registered copies", 2, aBook.getRegistedCopies().size());
         assertTrue("Must containt this copy", aBook.getRegistedCopies().contains(copy));
         assertEquals("Must have this registered copy", copy, aBook.getRegistedCopies().get(0));
