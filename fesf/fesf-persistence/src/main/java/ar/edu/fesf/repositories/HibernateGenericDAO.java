@@ -2,10 +2,12 @@ package ar.edu.fesf.repositories;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
@@ -21,7 +23,8 @@ import ar.edu.fesf.model.Entity;
  * 
  * @param <T>
  */
-public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDaoSupport implements GenericRepository<T> {
+public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDaoSupport implements
+        IGenericRepository<T> {
 
     private static final String UNCHECKED = "unchecked";
 
@@ -59,6 +62,21 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
     }
 
     @Override
+    public <P> P initialize(final P toIntialize) {
+        Hibernate.initialize(toIntialize);
+        return toIntialize;
+    }
+
+    @Override
+    public <P> Collection<P> initialize(final Collection<P> collectionToInitialize) {
+        for (P p : collectionToInitialize) {
+            Hibernate.initialize(p);
+        }
+        Hibernate.initialize(collectionToInitialize);
+        return collectionToInitialize;
+    }
+
+    @Override
     @SuppressWarnings(UNCHECKED)
     public int count() {
         List<Long> list = this.getHibernateTemplate().find(
@@ -86,7 +104,7 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
 
     @Override
     public T findByPropertyUnique(final String property, final Object object) {
-        return this.findLikeProperty(property, object).get(0);
+        return this.findByProperty(property, object).get(0);
     }
 
     @SuppressWarnings(UNCHECKED)
@@ -115,7 +133,7 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
     }
 
     @Override
-    public List<T> findLikeProperty(final String property, final Object object) {
+    public List<T> findByProperty(final String property, final Object object) {
         return this.findBy(Restrictions.eq(property, object));
     }
 

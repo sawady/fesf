@@ -65,16 +65,19 @@ public class LoanRepositoryTest {
                 .withAuthor(new Author("Pablo Funes")).withPublisher(new Publisher("Editorial Amboro"))
                 .withCountOfCopies(5).withIsbn(new ISBN("12345789")).build();
 
-        this.loan1 = new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(30)).withBookCopy(this.book)
-                .withMaxLoanPeriodInDays(60).withPerson(this.pepe).build();
-        this.loan2 = new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(25)).withBookCopy(this.book)
-                .withMaxLoanPeriodInDays(60).withPerson(this.esteban).build();
-        this.loan3 = new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(40)).withBookCopy(this.book)
-                .withMaxLoanPeriodInDays(60).withPerson(this.esteban).build();
+        this.loan1 = new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(30))
+                .withBookCopy(this.book.getAvailableCopy()).withMaxLoanPeriodInDays(60).withPerson(this.pepe).build();
+        this.loan2 = new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(25))
+                .withBookCopy(this.book.getAvailableCopy()).withMaxLoanPeriodInDays(60).withPerson(this.esteban)
+                .build();
+        this.loan3 = new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(40))
+                .withBookCopy(this.book.getAvailableCopy()).withMaxLoanPeriodInDays(60).withPerson(this.esteban)
+                .build();
 
         this.loanRepository.save(this.loan1);
         this.loanRepository.save(this.loan2);
         this.loanRepository.save(this.loan3);
+        this.bookRepository.save(this.book);
 
         this.loanRepository.getHibernateTemplate().flush();
         this.loanRepository.getHibernateTemplate().clear();
@@ -98,27 +101,36 @@ public class LoanRepositoryTest {
 
     @Test
     public void personLoans() {
-        Person esteban2 = this.personRepository.findByPropertyUnique("name", "Esteban");
-        assertEquals("Must be 2", 2, esteban2.getCountOfCurrentLoans());
-        assertTrue("Must be loan2", esteban2.getCurrentLoans().contains(this.loan2));
-        assertTrue("Must be loan3", esteban2.getCurrentLoans().contains(this.loan3));
-        Loan loan22 = this.loanRepository.findByEquality(this.loan2);
-        assertEquals("Must be esteban", esteban2, loan22.getPerson());
-        assertEquals("Must be loan22", esteban2.getCurrentLoans().get(0), loan22);
+        Person estebanDB = this.personRepository.findByPropertyUnique("name", "Esteban");
+        assertEquals("Must be 2", 2, estebanDB.getCountOfCurrentLoans());
+
+        for (Loan loanDB : estebanDB.getCurrentLoans()) {
+            assertTrue("Something's wrong with loanDB", loanDB.getId() == this.loan2.getId()
+                    || loanDB.getId() == this.loan3.getId());
+        }
+
+        Loan loan2DB = this.loanRepository.findByEquality(this.loan2);
+        Loan loan3DB = this.loanRepository.findByEquality(this.loan3);
+        assertEquals("Must be esteban", estebanDB, loan2DB.getPerson());
+        assertEquals("Must be esteban", estebanDB, loan3DB.getPerson());
     }
 
     @Test
     public void bookCopy() {
-        Book book2 = this.bookRepository.findByPropertyUnique("title", "Un Mago de Terramar");
-        assertEquals("Must be 2", 2, book2.getCountOfAvailableCopies());
-        assertEquals("Must be 3", 3, book2.getCountOfLouns());
-        assertEquals("Must be equals book2", book2, this.loan1.getBook());
-        assertFalse("Must not contain loan1 copy", book2.getAvailableCopies().contains(this.loan1.getBookCopy()));
-        assertTrue("Must contain loan1 copy", book2.getRegistedCopies().contains(this.loan1.getBookCopy()));
-        assertFalse("Must not contain loan2 copy", book2.getAvailableCopies().contains(this.loan2.getBookCopy()));
-        assertTrue("Must contain loan2 copy", book2.getRegistedCopies().contains(this.loan2.getBookCopy()));
-        assertFalse("Must not contain loan3 copy", book2.getAvailableCopies().contains(this.loan3.getBookCopy()));
-        assertTrue("Must contain loan3 copy", book2.getRegistedCopies().contains(this.loan3.getBookCopy()));
+        Book bookDB = this.bookRepository.findByPropertyUnique("title", "Un Mago de Terramar");
+        Loan loan1DB = this.loanRepository.findByEquality(this.loan1);
+        Loan loan2DB = this.loanRepository.findByEquality(this.loan2);
+        Loan loan3DB = this.loanRepository.findByEquality(this.loan3);
+
+        assertEquals("Must be 2", 2, bookDB.getAvailableCopies().size());
+        assertEquals("Must be 3", 3, bookDB.getCountOfLouns());
+        assertEquals("Must be equals book2", bookDB, loan1DB.getBook());
+        assertFalse("Must not contain loan1 copy", bookDB.getAvailableCopies().contains(loan1DB.getBookCopy()));
+        assertTrue("Must contain loan1 copy", bookDB.getRegistedCopies().contains(loan1DB.getBookCopy()));
+        assertFalse("Must not contain loan2 copy", bookDB.getAvailableCopies().contains(loan2DB.getBookCopy()));
+        assertTrue("Must contain loan2 copy", bookDB.getRegistedCopies().contains(loan2DB.getBookCopy()));
+        assertFalse("Must not contain loan3 copy", bookDB.getAvailableCopies().contains(loan3DB.getBookCopy()));
+        assertTrue("Must contain loan3 copy", bookDB.getRegistedCopies().contains(loan3DB.getBookCopy()));
     }
 
     public LoanRepository getLoanRepository() {

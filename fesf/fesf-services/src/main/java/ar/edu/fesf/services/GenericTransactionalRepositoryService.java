@@ -1,26 +1,30 @@
 package ar.edu.fesf.services;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ReflectionUtils;
 
-import ar.edu.fesf.repositories.GenericRepository;
+import ar.edu.fesf.model.Entity;
+import ar.edu.fesf.repositories.IGenericRepository;
 
-public class GenericTransactionalRepositoryService<T> implements GenericTranstactionalRepository<T> {
+public class GenericTransactionalRepositoryService<T extends Entity> implements IGenericTranstactionalRepository<T> {
 
     private static final long serialVersionUID = -6913034947685604978L;
 
-    private GenericRepository<T> repository;
+    private IGenericRepository<T> repository;
 
     @Override
-    public GenericRepository<T> getRepository() {
+    public IGenericRepository<T> getRepository() {
         return this.repository;
     }
 
     @Override
-    public void setRepository(final GenericRepository<T> genericRepository) {
+    public void setRepository(final IGenericRepository<T> genericRepository) {
         this.repository = genericRepository;
     }
 
@@ -75,7 +79,7 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
     @Override
     @Transactional(readOnly = true)
     public List<T> findByProperty(final String property, final Object object) {
-        return this.getRepository().findLikeProperty(property, object);
+        return this.getRepository().findByProperty(property, object);
     }
 
     @Override
@@ -86,7 +90,7 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
 
     @Override
     @Transactional(readOnly = true)
-    public List<T> findLikeProperty(final String property, final String pattern) {
+    public List<T> findByPropertyLike(final String property, final String pattern) {
         return this.getRepository().findByPropertyLike(property, pattern);
     }
 
@@ -96,4 +100,24 @@ public class GenericTransactionalRepositoryService<T> implements GenericTranstac
         return this.getRepository().findByEquality(object);
     }
 
+    /**
+     * Don't use with fields that represent collections.
+     * 
+     * Don't be gil.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional(readOnly = true)
+    public <P> P getField(final T entity, final String methodName) {
+        T entityDB = this.getRepository().findByEquality(entity);
+        Field field = ReflectionUtils.findField(entityDB.getClass(), methodName);
+        field.setAccessible(true);
+        return this.getRepository().initialize((P) ReflectionUtils.getField(field, entityDB));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public <P> Collection<P> getCollectionField(final T obj, final String methodName) {
+        return this.getRepository().initialize(this.<Collection<P>> getField(obj, methodName));
+    }
 }

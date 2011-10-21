@@ -12,7 +12,7 @@
     
     <property name="name"></property>
     
-    <list name="books" table="BookAuthors" cascade="all" inverse="true">
+    <list name="books" table="AuthorBooks" cascade="all">
         <key column="author"/>
         <list-index column="index"></list-index>
         <many-to-many column="book" class="Book"/>

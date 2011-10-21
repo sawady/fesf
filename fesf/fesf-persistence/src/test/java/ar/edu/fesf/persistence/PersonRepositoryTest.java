@@ -86,8 +86,8 @@ public class PersonRepositoryTest {
         Book book = new BookBuilder().withTitle("Un Mago de Terramar").withCategory(drama).withCategory(aventura)
                 .withAuthor(author1).withAuthor(author2).withPublisher(publisher1).withCountOfCopies(1).build();
 
-        this.pepeLoan = new LoanBuilder().withAgreedReturnDate(new DateTime().plus(10)).withBookCopy(book)
-                .withPerson(this.pepe).build();
+        this.pepeLoan = new LoanBuilder().withAgreedReturnDate(new DateTime().plus(10))
+                .withBookCopy(book.getAvailableCopy()).withPerson(this.pepe).build();
         this.pepe.addNewLoan(this.pepeLoan);
 
         for (Person person : this.peopleToPersist) {
@@ -120,7 +120,7 @@ public class PersonRepositoryTest {
 
     @Test
     public void mappings() {
-        Person pepeEncontrado = this.personRepository.findByExample(this.pepe).get(0);
+        Person pepeEncontrado = this.personRepository.findByEquality(this.pepe);
         Loan pepeLoan = this.loanRepository.findByEquality(this.pepeLoan);
 
         assertEquals("Must have same userInfo", this.pepe.getUserInfo().getUserid(), pepeEncontrado.getUserInfo()
@@ -140,7 +140,7 @@ public class PersonRepositoryTest {
         Loan pepeLoan = this.loanRepository.findByEquality(this.pepeLoan);
 
         for (Loan loan : pepeEncontrado.getCurrentLoans()) {
-            assertEquals("Must be pepe", pepeEncontrado, loan.getPerson());
+            assertEquals("Must be pepe", pepeEncontrado, pepeLoan.getPerson());
         }
 
         assertTrue("Must have pepe loan", pepeEncontrado.getCurrentLoans().contains(pepeLoan));

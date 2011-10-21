@@ -13,7 +13,6 @@
     <property name="title"/>
     
     <property name="countOfLouns"/>
-    
     <set name="categories" table="BookCategories" cascade="all">
         <key column="book"/>
         <many-to-many column="category" class="Category"/>
@@ -21,7 +20,7 @@
     
     <property name="imagepath"/>
     <property name="description"/>    
-    <one-to-one name="isbn" class="ISBN" cascade="all"/>
+    <many-to-one name="isbn" class="ISBN" cascade="all"/>
     <many-to-one name="publisher" class="Publisher" index="publisherIndex" cascade="all"/>
     
     <list name="authors" table="BookAuthors" cascade="all">
@@ -32,20 +31,20 @@
     
     <list name="reservationEvents" cascade="all">
         <key column="book"/>
-        <index column="index"/>
+        <list-index column="index"></list-index>
         <one-to-many class="ReservationEvent"/>
     </list>
     
-    <list name="registedCopies" cascade="all">
+    <list name="registedCopies" table="RegisteredCopies" cascade="all">
         <key column="book"/>
         <list-index column="index"></list-index>
-        <one-to-many class="BookCopy"/>
+        <many-to-many class="BookCopy"/>
     </list>
     
-    <list name="availableCopies" cascade="all">
+    <list name="availableCopies" table="AvailableCopies" cascade="all">
         <key column="book"/>
         <list-index column="index"></list-index>
-        <one-to-many class="BookCopy"/>
+        <many-to-many class="BookCopy"/>
     </list>
     
 	</class>

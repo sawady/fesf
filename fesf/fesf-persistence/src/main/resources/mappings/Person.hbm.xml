@@ -19,16 +19,16 @@
         <one-to-many class="Category"/>
     </set>
     
-    <list name="currentLoans" cascade="all">
+    <list name="currentLoans" table="CurrentLoans" cascade="all">
             <key column="person"/>
             <list-index column="index"></list-index>
-            <one-to-many class="Loan"/>
+            <many-to-many class="Loan"/>
     </list>
 
-    <list name="oldLoans" cascade="all">
+    <list name="oldLoans" table="OldLoans" cascade="all">
             <key column="person"/>
             <list-index column="index"></list-index>
-            <one-to-many class="Loan"/>
+            <many-to-many class="Loan"/>
     </list>
     
    <property name="surname"></property>

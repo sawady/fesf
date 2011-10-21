@@ -1,6 +1,7 @@
 package ar.edu.fesf.repositories;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * 
  * @param <T>
  */
-public interface GenericRepository<T> extends Serializable {
+public interface IGenericRepository<T> extends Serializable {
 
     void save(T entity);
 
@@ -29,10 +30,14 @@ public interface GenericRepository<T> extends Serializable {
 
     T findByPropertyUnique(final String property, final Object object);
 
-    List<T> findLikeProperty(final String property, final Object object);
+    List<T> findByProperty(final String property, final Object object);
 
     List<T> findByPropertyLike(final String property, final String pattern);
 
     Iterator<T> getIterator();
+
+    <P> P initialize(P toIntialize);
+
+    <P> Collection<P> initialize(Collection<P> collectionToInitialize);
 
 }
