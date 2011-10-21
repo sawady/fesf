@@ -65,8 +65,8 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
-                BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, book,
-                        HomeContentPanel.this.changeToLoaningFormPanel());
+                BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, HomeContentPanel.this.getBookService()
+                        .initializeBookInfo(book), HomeContentPanel.this.changeToLoaningFormPanel());
                 bookInfo.setOutputMarkupId(true);
                 return bookInfo;
             }
@@ -82,7 +82,9 @@ public class HomeContentPanel extends Panel {
             @Override
             public void callback(final AjaxRequestTarget target, final Book book) {
 
-                if (HomeContentPanel.this.getBookService().hasAvailableCopy(book)) {
+                HomeContentPanel.this.getBookService().initializeFields(book, "availableCopies");
+
+                if (book.hasAvailableCopy()) {
                     LoaningFormPanel loaningFormPanel = new LoaningFormPanel(CONTENT, book,
                             HomeContentPanel.this.backToMoreInfoPanel());
                     loaningFormPanel.setOutputMarkupId(true);
@@ -103,8 +105,8 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Loan loan) {
-                BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, loan.getBook(),
-                        HomeContentPanel.this.changeToLoaningFormPanel());
+                BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, HomeContentPanel.this.getBookService()
+                        .initializeBookInfo(loan.getBook()), HomeContentPanel.this.changeToLoaningFormPanel());
                 bookInfo.setOutputMarkupId(true);
                 return bookInfo;
             }

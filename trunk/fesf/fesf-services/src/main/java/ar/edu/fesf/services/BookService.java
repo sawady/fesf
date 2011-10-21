@@ -1,9 +1,7 @@
 package ar.edu.fesf.services;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -147,6 +145,11 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return books;
     }
 
+    @Transactional
+    public BookCopy getAvailableCopy(final Book book) {
+        return this.findByEquality(book).getAvailableCopy();
+    }
+
     @Transactional(readOnly = true)
     public List<Book> getTop20() {
         return this.getRanking().getTop20();
@@ -155,58 +158,6 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     @Transactional(readOnly = true)
     public List<Book> getRecentlyAvailable() {
         return this.getRanking().getRecentlyAvailable();
-    }
-
-    @Transactional(readOnly = true)
-    public boolean hasAvailableCopy(final Book book) {
-        return this.findById(book.getId()).hasAvailableCopy();
-    }
-
-    @Transactional
-    public BookCopy getAvailableCopy(final Book book) {
-        Book newBook = this.findById(book.getId());
-        BookCopy bookCopy = newBook.getAvailableCopy();
-        this.save(newBook);
-        return bookCopy;
-    }
-
-    @Transactional(readOnly = true)
-    public Integer getCountOfAvailableCopies(final Book book) {
-        return this.findById(book.getId()).getCountOfAvailableCopies();
-    }
-
-    @Transactional(readOnly = true)
-    public Integer getCountOfRegisteredCopies(final Book book) {
-        return this.findById(book.getId()).getCountOfRegisterdCopies();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Author> getAuthors(final Book book) {
-        List<Author> authors = new ArrayList<Author>();
-        authors.addAll(this.findByEquality(book).getAuthors());
-        return authors;
-    }
-
-    @Transactional(readOnly = true)
-    public String getPublisherName(final Book book) {
-        return this.findByEquality(book).getPublisher().getName();
-    }
-
-    @Transactional(readOnly = true)
-    public Publisher getPublisher(final Book book) {
-        return this.findByEquality(book).getPublisher();
-    }
-
-    @Transactional(readOnly = true)
-    public Set<Category> getCategories(final Book book) {
-        Set<Category> categories = new HashSet<Category>();
-        categories.addAll(this.findByEquality(book).getCategories());
-        return categories;
-    }
-
-    @Transactional(readOnly = true)
-    public ISBN getISBN(final Book book) {
-        return this.findByEquality(book).getIsbn();
     }
 
     /* Accessors */
@@ -233,6 +184,12 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     public CategoryRepository getCategoryRepository() {
         return this.categoryRepository;
+    }
+
+    @Transactional
+    public Book initializeBookInfo(final Book book) {
+        return this.initializeFields(book, "publisher", "isbn", "authors", "categories", "availableCopies",
+                "registeredCopies");
     }
 
 }

@@ -29,25 +29,4 @@ public class EmailAddress extends Entity implements Serializable {
         this.value = value;
     }
 
-    @Override
-    public int hashCode() {
-        int prime = 31;
-        int result = 1;
-        result = prime * result + (this.value == null ? 0 : this.value.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        EmailAddress other = (EmailAddress) obj;
-        if (this.value == null) {
-            if (other.value != null) {
-                return false;
-            }
-        } else if (!this.value.equals(other.value)) {
-            return false;
-        }
-        return true;
-    }
-
 }

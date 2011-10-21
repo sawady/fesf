@@ -76,18 +76,18 @@ public class RankingRepositoryTest {
     @Test
     public void mappings() {
         Ranking aRanking = this.rankingRepository.findByEquality(this.ranking);
-        Book book = this.bookRepository.findByEquality(this.book);
-        Book book2 = this.bookRepository.findByEquality(this.book2);
+        Book bookBD = this.bookRepository.findByEquality(this.book);
+        Book bookBD2 = this.bookRepository.findByEquality(this.book2);
         assertEquals("Top20 must be 2 items long", aRanking.getTop20().size(), 2);
         assertEquals("RecentlyAvailable must be 2 items long", aRanking.getRecentlyAvailable().size(), 2);
-        assertTrue("Top20 should contain book that is not there.", aRanking.getTop20().contains(book));
-        assertTrue("Book must be the first in the Top20", aRanking.getTop20().get(0).equals(book));
-        assertFalse("Book2 must not be the first in the Top20", aRanking.getTop20().get(0).equals(book2));
-        assertTrue("Top20 should contain book2 that is not there.", aRanking.getTop20().contains(book2));
+        assertTrue("Top20 should contain book that is not there.", aRanking.getTop20().contains(bookBD));
+        assertTrue("Book must be the first in the Top20", aRanking.getTop20().get(0).equals(bookBD));
+        assertFalse("Book2 must not be the first in the Top20", aRanking.getTop20().get(0).equals(bookBD2));
+        assertTrue("Top20 should contain book2 that is not there.", aRanking.getTop20().contains(bookBD2));
         assertTrue("RecentlyAvailable should contain a book that is not there.", aRanking.getRecentlyAvailable()
-                .contains(book));
+                .contains(bookBD));
         assertTrue("RecentlyAvailable should contain a book that is not there.", aRanking.getRecentlyAvailable()
-                .contains(book2));
+                .contains(bookBD2));
     }
 
     /* ACCESSORS */

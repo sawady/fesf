@@ -1,6 +1,7 @@
 package ar.edu.fesf.view;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
@@ -11,8 +12,9 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
+import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
-import ar.edu.fesf.model.ISBN;
+import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.Nameable;
 import ar.edu.fesf.services.BookService;
 
@@ -30,16 +32,14 @@ public class BookInfoPanel extends Panel {
 
     // TODO representar mejor el libro
     private void initialize(final IAjaxCallback<Book> callback, final Book book) {
+
         this.add(new Label("title"));
-        this.add(new Label("authorNames", new Model<String>(this.concatenate(this.getBookService()
-                .<Nameable> getCollectionField(book, "authors")))));
-        this.add(new Label("publisher", new Model<String>(this.getBookService().getPublisherName(book))));
-        this.add(new Label("categoryNames", new Model<String>(this.concatenate(this.getBookService()
-                .<Nameable> getCollectionField(book, "categories")))));
+        this.add(new Label("authorNames", this.concatenate(book.getAuthors())));
+        this.add(new Label("publisher.name"));
+        this.add(new Label("categoryNames", this.concatenate(book.getCategories())));
         this.add(new Label("description"));
-        this.add(new Label("isbn", new Model<String>(this.getBookService().<ISBN> getField(book, "isbn").getValue())));
-        // this.add(new Label("countOfRegistedCopies",
-        this.add(new Label("countOfAvailableCopies", this.getBookService().getCountOfAvailableCopies(book).toString()));
+        this.add(new Label("isbn.value"));
+        this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()));
 
         this.add(new AjaxFallbackLink<String>("borrowIt", new Model<String>(null)) {
 
@@ -53,23 +53,23 @@ public class BookInfoPanel extends Panel {
         });
     }
 
-    // /* Gracias Java por hacer nuestra vida cada dia más feliz! */
-    // private String concatenate(final Set<Category> categories) {
-    // String separator = "";
-    // StringBuffer stringbuf = new StringBuffer();
-    // for (Category category : categories) {
-    // stringbuf.append(separator).append(category.getName());
-    // if ("".equals(separator)) {
-    // separator = ", ";
-    // }
-    // }
-    // return stringbuf.toString();
-    // }
-
-    private String concatenate(final Collection<Nameable> nameables) {
+    // Gracias java por no permitirme abstraer esto
+    private String concatenate(final Set<Category> list) {
         String separator = "";
         StringBuffer stringbuf = new StringBuffer();
-        for (Nameable nameable : nameables) {
+        for (Nameable nameable : list) {
+            stringbuf.append(separator).append(nameable.getName());
+            if ("".equals(separator)) {
+                separator = ", ";
+            }
+        }
+        return stringbuf.toString();
+    }
+
+    private String concatenate(final List<Author> list) {
+        String separator = "";
+        StringBuffer stringbuf = new StringBuffer();
+        for (Nameable nameable : list) {
             stringbuf.append(separator).append(nameable.getName());
             if ("".equals(separator)) {
                 separator = ", ";
