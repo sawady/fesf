@@ -7,8 +7,12 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.AuthenticationService;
+import ar.edu.fesf.services.PersonService;
 
 public class WebSession extends AuthenticatedWebSession {
+
+    @SpringBean(name = "service.person")
+    private PersonService personService;
 
     @SpringBean(name = "service.authentication")
     private AuthenticationService authenticationService;
@@ -23,12 +27,12 @@ public class WebSession extends AuthenticatedWebSession {
 
     @Override
     public boolean authenticate(final String username, final String password) {
-        // Person aPerson = this.getAuthenticationService().authenticate(username, password);
-        //
-        // if (aPerson != null) {
-        // this.setPerson(aPerson);
-        // return true;
-        // }
+        Person aPerson = this.getAuthenticationService().authenticate(username, password);
+
+        if (aPerson != null) {
+            this.setPerson(aPerson);
+            return true;
+        }
 
         return false;
     }
@@ -63,4 +67,11 @@ public class WebSession extends AuthenticatedWebSession {
         return this.person;
     }
 
+    public void setPersonService(final PersonService personService) {
+        this.personService = personService;
+    }
+
+    public PersonService getPersonService() {
+        return this.personService;
+    }
 }

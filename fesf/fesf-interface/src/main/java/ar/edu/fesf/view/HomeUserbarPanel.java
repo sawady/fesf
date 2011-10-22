@@ -28,7 +28,7 @@ public class HomeUserbarPanel extends Panel {
             }
 
         });
-        this.add(new UserAuthenticationBarPanel("authentication"));
+        this.add(new AuthenticatedUserBarPanel("authentication"));
     }
 
     public void setHomeLinkCallback(final IAjaxCallback<?> homeLinkCallback) {

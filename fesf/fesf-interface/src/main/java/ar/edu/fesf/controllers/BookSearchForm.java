@@ -62,7 +62,7 @@ public class BookSearchForm extends Form<Book> {
 
             @Override
             protected void onError(final AjaxRequestTarget target, final Form<?> form) {
-
+                // TODO
             }
 
         });
