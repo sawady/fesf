@@ -12,6 +12,7 @@ import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.UserInfoRepository;
+import ar.edu.fesf.services.exceptions.AuthenticationException;
 
 public class AuthenticationService implements Serializable {
 
@@ -37,6 +38,7 @@ public class AuthenticationService implements Serializable {
         this.userInfoRepository = userInfoRepository;
     }
 
+    @Transactional(readOnly = true)
     public Person authenticate(final String userid, final String password) {
 
         Person person;
@@ -63,6 +65,7 @@ public class AuthenticationService implements Serializable {
 
     }
 
+    @Transactional(readOnly = true)
     public Person authenticate(final String userid, final String password, final Role role) {
 
         Person person;

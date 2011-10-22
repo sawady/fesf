@@ -61,7 +61,7 @@ public class BookSearchForm extends Form<Book> {
             }
 
             @Override
-            protected void onError(final AjaxRequestTarget arg0, final Form<?> arg1) {
+            protected void onError(final AjaxRequestTarget target, final Form<?> form) {
 
             }
 

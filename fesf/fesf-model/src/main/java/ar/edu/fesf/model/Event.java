@@ -1,7 +1,5 @@
 package ar.edu.fesf.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import org.joda.time.DateTime;
 
 public abstract class Event extends Entity {
@@ -25,7 +23,6 @@ public abstract class Event extends Entity {
     }
 
     public void setPerson(final Person person) {
-        checkNotNull(person);
         this.person = person;
     }
 
