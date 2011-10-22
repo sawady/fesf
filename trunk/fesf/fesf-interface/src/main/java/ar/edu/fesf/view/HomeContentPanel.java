@@ -3,7 +3,9 @@ package ar.edu.fesf.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -31,11 +33,25 @@ public class HomeContentPanel extends Panel {
         this.initialize();
     }
 
+    private AjaxLazyLoadPanel lazyPanel(final String id, final Panel panel) {
+        return new AjaxLazyLoadPanel(id) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Component getLazyLoadComponent(final String arg0) {
+                return panel;
+            }
+        };
+    }
+
+    private void addLazy(final Panel panel) {
+        this.add(this.lazyPanel(CONTENT, panel));
+    }
+
     private void initialize() {
         this.setRankingPanel(new RankingPanel(CONTENT, this.changeToMoreInfoPanel()));
         this.getRankingPanel().setOutputMarkupId(true);
-        this.add(this.getRankingPanel());
-
+        this.addLazy(this.getRankingPanel());
         this.setBookSearchResultPanel(new BookSearchResultPanel(CONTENT, new ArrayList<Book>(), this
                 .changeToMoreInfoPanel()));
         this.getBookSearchResultPanel().setOutputMarkupId(true);
@@ -52,7 +68,7 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Object book) {
-                return HomeContentPanel.this.getRankingPanel();
+                return HomeContentPanel.this.lazyPanel(CONTENT, HomeContentPanel.this.getRankingPanel());
             }
 
         };
@@ -122,7 +138,7 @@ public class HomeContentPanel extends Panel {
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final List<Book> list) {
                 HomeContentPanel.this.getBookSearchResultPanel().replaceTable(target, list);
-                return HomeContentPanel.this.getBookSearchResultPanel();
+                return HomeContentPanel.this.lazyPanel(CONTENT, HomeContentPanel.this.getBookSearchResultPanel());
             }
 
         };
