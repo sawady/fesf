@@ -38,4 +38,6 @@ public interface IGenericTranstactionalRepository<T> extends Serializable {
 
     T initializeFields(final T obj, final String... fieldNames);
 
+    <P> void initialize(P toIntialize, Class<P> fieldClass);
+
 }

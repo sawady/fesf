@@ -11,6 +11,7 @@ import org.springframework.util.ReflectionUtils;
 
 import ar.edu.fesf.model.Entity;
 import ar.edu.fesf.repositories.IGenericRepository;
+import ar.edu.fesf.services.exceptions.CannotFindFieldException;
 
 public class GenericTransactionalRepositoryService<T extends Entity> implements IGenericTranstactionalRepository<T> {
 
@@ -104,13 +105,12 @@ public class GenericTransactionalRepositoryService<T extends Entity> implements 
     @Transactional(readOnly = true)
     private <P> void initializeField(final T entityDB, final String fieldName) {
         Field field = ReflectionUtils.findField(entityDB.getClass(), fieldName);
+        if (field == null) {
+            throw new CannotFindFieldException();
+        }
         field.setAccessible(true);
         Object fieldValue = ReflectionUtils.getField(field, entityDB);
-        if (Collection.class.isAssignableFrom(field.getType())) {
-            this.getRepository().initialize((Collection<P>) fieldValue);
-        } else {
-            this.getRepository().initialize((P) fieldValue);
-        }
+        this.initialize((P) fieldValue, (Class<P>) field.getType());
     }
 
     @Override
@@ -124,4 +124,16 @@ public class GenericTransactionalRepositoryService<T extends Entity> implements 
 
         return entityDB;
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional(readOnly = true)
+    public <P> void initialize(final P toIntialize, final Class<P> fieldClass) {
+        if (Collection.class.isAssignableFrom(fieldClass)) {
+            this.getRepository().initialize((Collection<P>) toIntialize);
+        } else {
+            this.getRepository().initialize(toIntialize);
+        }
+    }
+
 }

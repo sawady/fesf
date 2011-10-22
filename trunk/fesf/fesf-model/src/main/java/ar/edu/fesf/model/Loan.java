@@ -34,7 +34,9 @@ public class Loan extends Event {
         this.maxLoanPeriodInDays = maxLoanPeriodInDays;
         this.agreedReturnDate = agreedReturnDate;
         this.bookCopy = bookCopy;
-        this.assignCopy(person, bookCopy);
+        if (person != null && bookCopy != null) {
+            this.assignCopy(person, bookCopy);
+        }
     }
 
     public boolean hasFinished() {

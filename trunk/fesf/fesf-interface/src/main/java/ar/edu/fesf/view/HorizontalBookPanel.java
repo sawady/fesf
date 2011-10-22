@@ -5,11 +5,16 @@ import java.util.List;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Book;
+import ar.edu.fesf.services.BookService;
 
 public class HorizontalBookPanel extends Panel {
+
+    @SpringBean
+    private BookService bookService;
 
     private List<Book> books;
 
@@ -30,7 +35,9 @@ public class HorizontalBookPanel extends Panel {
 
             @Override
             protected void populateItem(final ListItem<Book> item) {
-                item.add(new BookInfoMiniPanel("bookMiniPanel", item.getModelObject(), ajaxCallback));
+                Book book = item.getModelObject();
+                item.add(new BookInfoMiniPanel("bookMiniPanel", HorizontalBookPanel.this.getBookService()
+                        .initializeBookInfo(book), ajaxCallback));
             }
         });
     }
@@ -43,5 +50,13 @@ public class HorizontalBookPanel extends Panel {
 
     public void setBooks(final List<Book> books) {
         this.books = books;
+    }
+
+    public void setBookService(final BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    public BookService getBookService() {
+        return this.bookService;
     }
 }
