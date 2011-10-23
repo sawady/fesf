@@ -5,6 +5,7 @@ import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.model.Book;
@@ -13,14 +14,14 @@ import ar.edu.fesf.view.BookSearchPanel;
 
 public class BookSearchForm extends Form<Book> {
 
-    private static final String TITLE = "title";
-
     private static final long serialVersionUID = 9029842939503423488L;
 
     @SpringBean(name = "service.book")
     private BookService bookService;
 
     private BookSearchPanel searchPanel;
+
+    private String input;
 
     public BookSearchPanel getSearchPanel() {
         return this.searchPanel;
@@ -46,10 +47,8 @@ public class BookSearchForm extends Form<Book> {
 
     private void initialize() {
 
-        final Book book = this.getModelObject();
-
         // this.add(new Label("title.label", new Model<String>("Title")));
-        this.add(new TextField<String>(TITLE));
+        this.add(new TextField<String>("input", new PropertyModel<String>(this, "input")));
         this.add(new AjaxFallbackButton("submit", this) {
 
             private static final long serialVersionUID = 1L;
@@ -57,14 +56,23 @@ public class BookSearchForm extends Form<Book> {
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
                 BookSearchForm.this.getSearchPanel().receiveResult(target,
-                        BookSearchForm.this.getBookService().findByPropertyLike(TITLE, book.getTitle()));
+                        BookSearchForm.this.getBookService().bookSearch(BookSearchForm.this.input));
             }
 
             @Override
             protected void onError(final AjaxRequestTarget target, final Form<?> form) {
-                // TODO
+                // TODO completar onError
             }
 
         });
     }
+
+    public String getInput() {
+        return this.input;
+    }
+
+    public void setInput(final String input) {
+        this.input = input;
+    }
+
 }

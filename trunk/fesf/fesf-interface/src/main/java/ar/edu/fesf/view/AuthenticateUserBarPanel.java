@@ -10,6 +10,7 @@ public abstract class AuthenticateUserBarPanel extends Panel {
 
     public AuthenticateUserBarPanel(final String id) {
         super(id);
+        this.setOutputMarkupId(true);
         this.initialize();
     }
 

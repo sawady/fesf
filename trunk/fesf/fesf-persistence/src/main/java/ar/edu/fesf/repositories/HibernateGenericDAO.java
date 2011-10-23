@@ -120,7 +120,21 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
     }
 
     @SuppressWarnings(UNCHECKED)
-    protected List<T> findInOrderBy(final Criterion rec, final Order order) {
+    protected List<T> findBy(final Criterion rec, final Order order, final int maxResults) {
+        return this.getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
+            @Override
+            public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
+                Criteria criteria = session.createCriteria(HibernateGenericDAO.this.getDomainClass());
+                criteria.add(rec);
+                criteria.addOrder(order);
+                criteria.setMaxResults(maxResults);
+                return criteria.list();
+            }
+        });
+    }
+
+    @SuppressWarnings(UNCHECKED)
+    protected List<T> findBy(final Criterion rec, final Order order) {
         return this.getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
             @Override
             public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
@@ -139,7 +153,7 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
 
     @Override
     public List<T> findByPropertyLike(final String property, final String pattern) {
-        return this.findBy(Restrictions.like(property, "%" + pattern + "%"));
+        return this.findBy(Restrictions.ilike(property, "%" + pattern + "%"));
     }
 
     public Class<T> getPersistentClass() {

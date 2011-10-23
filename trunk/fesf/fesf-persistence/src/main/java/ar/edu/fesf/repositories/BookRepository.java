@@ -1,5 +1,10 @@
 package ar.edu.fesf.repositories;
 
+import java.util.List;
+
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
 import ar.edu.fesf.model.Book;
 
 public class BookRepository extends HibernateGenericDAO<Book> {
@@ -9,6 +14,14 @@ public class BookRepository extends HibernateGenericDAO<Book> {
     @Override
     protected Class<Book> getDomainClass() {
         return Book.class;
+    }
+
+    public List<Book> bookSearch(final String input) {
+        return this.findBy(Restrictions.ilike("title", "%" + input + "%"), Order.desc("countOfLouns"));
+    }
+
+    public List<Book> getTop20() {
+        return this.findBy(Restrictions.isNotNull("title"), Order.desc("countOfLouns"), 20);
     }
 
 }

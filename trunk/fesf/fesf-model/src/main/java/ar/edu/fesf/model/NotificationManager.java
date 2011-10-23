@@ -18,7 +18,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(final OverdueNotification overdueNotification) {
-        // TODO
+        // TODO sendNotification
         // Verifica si aun corresponde enviar el mail
         // Intenta enviarla
         // - si puede, registra el exito en la notificacion, y la elimina de las pendientes
