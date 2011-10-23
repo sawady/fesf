@@ -8,7 +8,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.services.PersonService;
 
-public class AuthenticatedUserBarPanel extends Panel {
+public abstract class AuthenticatedUserBarPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,17 @@ public class AuthenticatedUserBarPanel extends Panel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                // TODO
+                AuthenticatedUserBarPanel.this.signOutCallback(target);
+            }
+
+        });
+        this.add(new AjaxFallbackLink<String>("myLoans") {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onClick(final AjaxRequestTarget target) {
+                AuthenticatedUserBarPanel.this.profileCallback(target);
             }
 
         });
@@ -37,7 +47,7 @@ public class AuthenticatedUserBarPanel extends Panel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                // TODO
+                AuthenticatedUserBarPanel.this.loansCallback(target);
             }
 
         };
@@ -45,6 +55,14 @@ public class AuthenticatedUserBarPanel extends Panel {
         profileLink.add(new Label("welcome", "Welcome " + personName));
         this.add(profileLink);
     }
+
+    public abstract void signOutCallback(AjaxRequestTarget target);
+
+    public abstract void profileCallback(AjaxRequestTarget target);
+
+    public abstract void loansCallback(AjaxRequestTarget target);
+
+    /* Accessors */
 
     public void setPersonService(final PersonService personService) {
         this.personService = personService;
