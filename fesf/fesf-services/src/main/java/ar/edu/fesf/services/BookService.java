@@ -11,6 +11,7 @@ import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Publisher;
+import ar.edu.fesf.repositories.BookRepository;
 import ar.edu.fesf.repositories.CategoryRepository;
 import ar.edu.fesf.services.dtos.EditBookDTO;
 import ar.edu.fesf.services.dtos.NewBookDTO;
@@ -35,6 +36,13 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         List<String> names = new ArrayList<String>();
         names.add("title");
         return names;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Book> bookSearch(final String input) {
+        List<Book> results = ((BookRepository) this.getRepository()).bookSearch(input);
+        this.initialize(results, List.class);
+        return results;
     }
 
     @Transactional
@@ -81,6 +89,8 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     @Transactional(readOnly = true)
     public List<Book> findByCategory(final Category category) {
+        // TODO hacer que la consulta sea por DB y que venga ordenada por los mejores libros
+        // de esa categoria
         List<Book> books = new ArrayList<Book>();
         for (Category booksEx : this.getCategoryRepository().findByExample(category)) {
             books.addAll(booksEx.getBooks());
@@ -100,6 +110,13 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     public Book initializeBookInfo(final Book book) {
         return this.initializeFields(book, "publisher", "isbn", "authors", "categories", "availableCopies",
                 "registedCopies");
+    }
+
+    @Transactional(readOnly = true)
+    public List<Book> getTop20() {
+        List<Book> top20 = ((BookRepository) this.getRepository()).getTop20();
+        this.initialize(top20, List.class);
+        return top20;
     }
 
     /* Accessors */

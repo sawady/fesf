@@ -99,6 +99,21 @@ public class BookRepositoryTest {
     }
 
     @Test
+    public void bookSearch() {
+        assertEquals("Must be Mago de Terramar", this.book.getId(), this.getBookRepository().bookSearch("Mago").get(0)
+                .getId());
+        assertEquals("Must be Mago de Terramar", this.book.getId(), this.getBookRepository().bookSearch("ago").get(0)
+                .getId());
+        assertEquals("Must be Mago de Terramar", this.book.getId(), this.getBookRepository().bookSearch("o").get(0)
+                .getId());
+    }
+
+    @Test
+    public void top20() {
+        assertEquals("Top20 Must contains 2 boos", 2, this.getBookRepository().getTop20().size());
+    }
+
+    @Test
     public void count() {
         assertEquals("count must be 2", this.bookRepository.count(), 2);
     }

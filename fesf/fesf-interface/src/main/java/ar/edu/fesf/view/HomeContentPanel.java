@@ -72,6 +72,7 @@ public class HomeContentPanel extends Panel {
                 if (HomeContentPanel.this.contains(HomeContentPanel.this.getRankingPanel(), true)) {
                     return (Panel) HomeContentPanel.this.get(CONTENT);
                 }
+                HomeContentPanel.this.getRankingPanel().updateTop20(target); // Porque sino no se actualiza el top20
                 return HomeContentPanel.this.lazyPanel(CONTENT, HomeContentPanel.this.getRankingPanel());
             }
 

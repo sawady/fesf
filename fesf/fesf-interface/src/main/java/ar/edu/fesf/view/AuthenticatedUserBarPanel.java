@@ -17,6 +17,7 @@ public abstract class AuthenticatedUserBarPanel extends Panel {
 
     public AuthenticatedUserBarPanel(final String id) {
         super(id);
+        this.setOutputMarkupId(true);
         this.initialize();
     }
 
@@ -51,7 +52,7 @@ public abstract class AuthenticatedUserBarPanel extends Panel {
             }
 
         };
-        String personName = this.getPersonService().findAll().get(0).getName();
+        String personName = ((WebSession) this.getSession()).getPerson().getName();
         profileLink.add(new Label("welcome", "Welcome " + personName));
         this.add(profileLink);
     }

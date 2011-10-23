@@ -28,46 +28,52 @@ public class HomeUserbarPanel extends Panel {
             }
 
         });
-        this.add(this.myAuthenticatedUserBarPanel());
+        this.add(this.myAuthenticateUserBarPanel());
     }
 
-    public AuthenticatedUserBarPanel myAuthenticatedUserBarPanel() {
+    public Panel myAuthenticatedUserBarPanel() {
         return new AuthenticatedUserBarPanel("authentication") {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             public void signOutCallback(final AjaxRequestTarget target) {
-                // TODO
+                // TODO debería cancelar la session del usuario
+                Panel aNewPanel = HomeUserbarPanel.this.myAuthenticateUserBarPanel();
+                HomeUserbarPanel.this.replace(aNewPanel);
+                target.add(aNewPanel);
             }
 
             @Override
             public void profileCallback(final AjaxRequestTarget target) {
-                // TODO
+                // TODO profile callback
             }
 
             @Override
             public void loansCallback(final AjaxRequestTarget target) {
-                // TODO
+                // TODO loans callback
             }
 
         };
 
     }
 
-    public AuthenticateUserBarPanel myAuthenticateUserBarPanel() {
+    public Panel myAuthenticateUserBarPanel() {
         return new AuthenticateUserBarPanel("authentication") {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             public void signUpCallback(final AjaxRequestTarget target) {
-                // TODO
+                // TODO signUp callback
             }
 
             @Override
             public void signInCallback(final AjaxRequestTarget target) {
-                // TODO
+                // TODO en realidad debería loguear
+                Panel aNewPanel = HomeUserbarPanel.this.myAuthenticatedUserBarPanel();
+                HomeUserbarPanel.this.replace(aNewPanel);
+                target.add(aNewPanel);
             }
         };
 

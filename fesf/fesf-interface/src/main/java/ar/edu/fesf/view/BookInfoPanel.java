@@ -30,7 +30,7 @@ public class BookInfoPanel extends Panel {
         this.initialize(callback, book);
     }
 
-    // TODO representar mejor el libro
+    // TODO faltan un par de campos
     private void initialize(final IAjaxCallback<Book> callback, final Book book) {
 
         this.add(new Label("title"));

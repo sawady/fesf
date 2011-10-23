@@ -73,7 +73,8 @@ public class LoanFormFieldsPanel extends PanelServiceToForm<Loan> {
 
     @Override
     public void doSubmit(final AjaxRequestTarget target, final Form<Loan> form) {
-        this.getLoaningService().registerLoan(null, this.getLoan(), this.getBook());
+        WebSession webSession = (WebSession) this.getSession();
+        this.getLoaningService().registerLoan(webSession.getPerson(), this.getLoan(), this.getBook());
         this.getAjaxCallback().callback(target, this.getLoan());
     }
 

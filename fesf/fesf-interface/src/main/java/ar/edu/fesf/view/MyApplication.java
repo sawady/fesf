@@ -36,8 +36,6 @@ public class MyApplication extends AuthenticatedWebApplication {
 
         this.mountUrl("home", Home.class, "");
         this.mountUrl("librarian", LibrarianHome.class, "");
-
-        // TODO agregar estas homes con sus respectivos logueos
         // this.mountUrl("admin", HomeAdmin.class, "");
     }
 

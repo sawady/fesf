@@ -2,10 +2,8 @@ package ar.edu.fesf.services;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.edu.fesf.builders.LoanBuilder;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
@@ -20,25 +18,14 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
 
     private BookService bookService;
 
-    @Transactional
-    public void initialize() {
-
-        Person aperson = this.getPersonService().findAll().get(0);
-        Book book = this.getBookService().findAll().get(0);
-
-        this.save(new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20)).withPerson(aperson)
-                .withBookCopy(book.getAvailableCopy()).withMaxLoanPeriodInDays(60).build());
-
-    }
-
     /* Methods */
-    // TODO este tiene que ser la persona de la session
     @Transactional
     public void registerLoan(final Person person, final Loan loan, final Book book) {
         // try {
-
-        loan.assignCopy(person, this.getBookService().getAvailableCopy(book));
-        this.getRankingService().updateRanking(book);
+        Person personDB = this.getPersonService().findByEquality(person);
+        Book bookDB = this.getBookService().findByEquality(book);
+        loan.assignCopy(personDB, this.getBookService().getAvailableCopy(bookDB));
+        this.getRankingService().updateRanking(bookDB);
 
         // } catch (RuntimeException e) {
         // throw new NoAvailableBookCopyException(e.getMessage());

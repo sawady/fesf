@@ -43,6 +43,17 @@ public class Ranking extends Entity {
             }
         }
 
+        // Si el libro ya estaba en un lugar posterior del ranking y hay lugar todavía
+        if (addToIndex + 1 < this.getTop20().size()) {
+            for (Book book : this.getTop20().subList(addToIndex + 1, this.getTop20().size())) {
+                if (book.equals(newBook)) {
+                    this.getTop20().remove(addToIndex);
+                    break;
+                }
+                addToIndex++;
+            }
+        }
+
         // si no lo inserto pero la lista tiene espacio
         if (20 > this.getTop20().size() && !wasAdded) {
             this.getTop20().add(newBook);

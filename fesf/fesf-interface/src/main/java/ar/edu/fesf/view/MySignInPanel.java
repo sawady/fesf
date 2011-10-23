@@ -4,6 +4,7 @@ import org.apache.wicket.authroles.authentication.panel.SignInPanel;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
 
+// TODO hacer este panel bien
 public class MySignInPanel extends SignInPanel {
 
     private static final long serialVersionUID = 1L;
@@ -12,7 +13,7 @@ public class MySignInPanel extends SignInPanel {
 
     public MySignInPanel(final String id, final IAjaxCallback<?> succeedCallback) {
         super(id);
-        this.setSucceedCallback(succeedCallback);
+        this.succeedCallback = succeedCallback;
     }
 
     @Override
