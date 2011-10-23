@@ -4,7 +4,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
-public class AuthenticateUserBarPanel extends Panel {
+public abstract class AuthenticateUserBarPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class AuthenticateUserBarPanel extends Panel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                throw new UnsupportedOperationException();
+                AuthenticateUserBarPanel.this.signInCallback(target);
             }
 
         });
@@ -30,9 +30,13 @@ public class AuthenticateUserBarPanel extends Panel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                throw new UnsupportedOperationException();
+                AuthenticateUserBarPanel.this.signUpCallback(target);
             }
 
         });
     }
+
+    public abstract void signInCallback(AjaxRequestTarget target);
+
+    public abstract void signUpCallback(AjaxRequestTarget target);
 }

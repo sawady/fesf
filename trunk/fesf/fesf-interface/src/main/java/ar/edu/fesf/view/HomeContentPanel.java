@@ -68,6 +68,10 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Object book) {
+                // Para que no cargue de nuevo el panel cuando ya está cargado
+                if (HomeContentPanel.this.contains(HomeContentPanel.this.getRankingPanel(), true)) {
+                    return (Panel) HomeContentPanel.this.get(CONTENT);
+                }
                 return HomeContentPanel.this.lazyPanel(CONTENT, HomeContentPanel.this.getRankingPanel());
             }
 

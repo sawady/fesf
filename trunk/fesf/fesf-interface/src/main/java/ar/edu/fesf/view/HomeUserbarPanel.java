@@ -28,7 +28,49 @@ public class HomeUserbarPanel extends Panel {
             }
 
         });
-        this.add(new AuthenticatedUserBarPanel("authentication"));
+        this.add(this.myAuthenticatedUserBarPanel());
+    }
+
+    public AuthenticatedUserBarPanel myAuthenticatedUserBarPanel() {
+        return new AuthenticatedUserBarPanel("authentication") {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void signOutCallback(final AjaxRequestTarget target) {
+                // TODO
+            }
+
+            @Override
+            public void profileCallback(final AjaxRequestTarget target) {
+                // TODO
+            }
+
+            @Override
+            public void loansCallback(final AjaxRequestTarget target) {
+                // TODO
+            }
+
+        };
+
+    }
+
+    public AuthenticateUserBarPanel myAuthenticateUserBarPanel() {
+        return new AuthenticateUserBarPanel("authentication") {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void signUpCallback(final AjaxRequestTarget target) {
+                // TODO
+            }
+
+            @Override
+            public void signInCallback(final AjaxRequestTarget target) {
+                // TODO
+            }
+        };
+
     }
 
     public void setHomeLinkCallback(final IAjaxCallback<?> homeLinkCallback) {

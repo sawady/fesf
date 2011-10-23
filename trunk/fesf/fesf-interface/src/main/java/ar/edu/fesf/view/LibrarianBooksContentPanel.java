@@ -1,5 +1,6 @@
 package ar.edu.fesf.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -11,6 +12,8 @@ import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
+import ar.edu.fesf.services.dtos.EditBookDTO;
+import ar.edu.fesf.services.dtos.NewBookDTO;
 
 public class LibrarianBooksContentPanel extends Panel {
 
@@ -27,10 +30,23 @@ public class LibrarianBooksContentPanel extends Panel {
     }
 
     private void initialize() {
-        this.setLibrarianDataTablePanel(new LibrarianDataTablePanel("content", this.getBookService().findAll(), this
-                .changeToEditBookPanel()));
+        this.setLibrarianDataTablePanel(new LibrarianDataTablePanel("content", new ArrayList<Book>(), this
+                .changeToEditBookPanel(), this.changeToNewBookPanel()));
         this.getLibrarianDataTablePanel().setOutputMarkupId(true);
         this.add(this.getLibrarianDataTablePanel());
+    }
+
+    public IAjaxCallback<Book> changeToNewBookPanel() {
+        return new AjaxReplacePanel<Book>(this) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
+                return LibrarianBooksContentPanel.this.getNewBookFormPanel(new NewBookDTO());
+            }
+
+        };
     }
 
     public IAjaxCallback<Book> changeToEditBookPanel() {
@@ -40,7 +56,8 @@ public class LibrarianBooksContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
-                return LibrarianBooksContentPanel.this.getEditBookFormPanel(book);
+                return LibrarianBooksContentPanel.this.getEditBookFormPanel(new EditBookDTO(
+                        LibrarianBooksContentPanel.this.getBookService().initializeBookInfo(book)));
             }
 
         };
@@ -60,26 +77,40 @@ public class LibrarianBooksContentPanel extends Panel {
         };
     }
 
-    private IAjaxCallback<Book> showAllResults() {
+    private IAjaxCallback<Book> showPredefinedBooks() {
         return new IAjaxCallback<Book>() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void callback(final AjaxRequestTarget target, final Book book) {
-                LibrarianBooksContentPanel.this.changeBookTablePanel().callback(target,
-                        LibrarianBooksContentPanel.this.getBookService().findAll());
+            public void callback(final AjaxRequestTarget target, final Book object) {
+                LibrarianBooksContentPanel.this.changeBookTablePanel().callback(target, new ArrayList<Book>());
             }
         };
     }
 
-    public GenericFormPanel<Book> getEditBookFormPanel(final Book book) {
-        GenericFormPanel<Book> bookFormPanel = new GenericFormPanel<Book>("content") {
+    public GenericFormPanel<NewBookDTO> getNewBookFormPanel(final NewBookDTO bookDTO) {
+        GenericFormPanel<NewBookDTO> bookFormPanel = new GenericFormPanel<NewBookDTO>("content") {
 
             private static final long serialVersionUID = 1L;
 
             @Override
-            public PanelServiceToForm<Book> getFieldsPanel(final String id) {
-                return new BookFormFieldsPanel(id, book, LibrarianBooksContentPanel.this.showAllResults());
+            public PanelServiceToForm<NewBookDTO> getFieldsPanel(final String id) {
+                return new BookNewFormFieldsPanel(id, bookDTO, LibrarianBooksContentPanel.this.showPredefinedBooks());
+            }
+
+        };
+        bookFormPanel.setOutputMarkupId(true);
+        return bookFormPanel;
+    }
+
+    public GenericFormPanel<EditBookDTO> getEditBookFormPanel(final EditBookDTO bookDTO) {
+        GenericFormPanel<EditBookDTO> bookFormPanel = new GenericFormPanel<EditBookDTO>("content") {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public PanelServiceToForm<EditBookDTO> getFieldsPanel(final String id) {
+                return new BookEditFormFieldsPanel(id, bookDTO, LibrarianBooksContentPanel.this.showPredefinedBooks());
             }
 
         };

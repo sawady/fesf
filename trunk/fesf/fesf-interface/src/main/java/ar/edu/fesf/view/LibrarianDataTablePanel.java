@@ -16,7 +16,8 @@ public class LibrarianDataTablePanel extends BookSearchResultPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public LibrarianDataTablePanel(final String id, final List<Book> list, final IAjaxCallback<Book> callback) {
+    public LibrarianDataTablePanel(final String id, final List<Book> list, final IAjaxCallback<Book> callback,
+            final IAjaxCallback<Book> newBookCallback) {
         super(id, list, callback);
         this.add(new AjaxFallbackLink<Object>("newBook") {
 
@@ -24,7 +25,7 @@ public class LibrarianDataTablePanel extends BookSearchResultPanel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                callback.callback(target, new Book());
+                newBookCallback.callback(target, new Book());
             }
 
         });
