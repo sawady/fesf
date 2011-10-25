@@ -36,6 +36,8 @@ public class Book extends Entity {
 
     private Set<Category> categories = new HashSet<Category>();
 
+    private Set<Person> loanees = new HashSet<Person>();
+
     private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
 
     public Book(final String title, final ISBN isbn, final Publisher publisher, final String imagepath,
@@ -125,6 +127,10 @@ public class Book extends Entity {
         ReservationEvent res = this.getReservationEvents().get(0);
         this.getReservationEvents().remove(0);
         return res;
+    }
+
+    public void addLoanee(final Person person) {
+        this.getLoanees().add(person);
     }
 
     /* Accessors */
@@ -224,6 +230,14 @@ public class Book extends Entity {
 
     public DateTime getAcquisitionDate() {
         return this.acquisitionDate;
+    }
+
+    public void setLoanees(final Set<Person> loanees) {
+        this.loanees = loanees;
+    }
+
+    public Set<Person> getLoanees() {
+        return this.loanees;
     }
 
 }

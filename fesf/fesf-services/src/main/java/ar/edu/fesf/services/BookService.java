@@ -38,7 +38,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     @Transactional(readOnly = true)
     public List<Book> bookSearch(final String input) {
-        List<Book> results = ((BookRepository) this.getRepository()).bookSearch(input);
+        List<Book> results = this.getBookRepository().bookSearch(input);
         this.initialize(results, List.class);
         return results;
     }
@@ -111,16 +111,27 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     @Transactional(readOnly = true)
     public List<Book> getTop20() {
-        List<Book> top20 = ((BookRepository) this.getRepository()).getTop20();
+        List<Book> top20 = this.getBookRepository().getTop20();
         this.initialize(top20, List.class);
         return top20;
     }
 
     @Transactional(readOnly = true)
     public List<Book> getRecentlyAvailable() {
-        List<Book> recentlyAvailables = ((BookRepository) this.getRepository()).getRecentlyAvailable(20);
+        List<Book> recentlyAvailables = this.getBookRepository().getRecentlyAvailable(20);
         this.initialize(recentlyAvailables, List.class);
         return recentlyAvailables;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Book> relatedBooks(final int bookID, final int maxResults) {
+        List<Book> booksDB = this.getBookRepository().booksBorrowedByThoseWhoBorrowed(bookID, maxResults);
+        this.initialize(booksDB, List.class);
+        return booksDB;
+    }
+
+    private BookRepository getBookRepository() {
+        return (BookRepository) this.getRepository();
     }
 
     /* Accessors */

@@ -42,6 +42,11 @@
             <list-index column="index"></list-index>
             <one-to-many class="ReservationEvent"/>
     </list>
+    
+    <set name="loanedBooks" table="LoanedBooks" cascade="all">
+    		<key column="person"/>
+            <many-to-many column="book" class="Book"/>
+    </set>
 
 	</class>
 </hibernate-mapping>

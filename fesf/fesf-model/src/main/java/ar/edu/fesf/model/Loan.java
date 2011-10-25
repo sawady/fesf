@@ -69,11 +69,13 @@ public class Loan extends Event {
     }
 
     public void assignCopy(final Person person, final BookCopy bookcopy) {
+        this.setBookCopy(bookcopy);
+        this.getBookCopy().addLoan(this);
+
         this.setPerson(person);
         this.getPerson().addNewLoan(this);
 
-        this.setBookCopy(bookcopy);
-        this.getBookCopy().addLoan(this);
+        this.getBook().addLoanee(this.getPerson());
 
         this.updateUserCategories();
     }

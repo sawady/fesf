@@ -35,6 +35,8 @@ public class Person extends Entity implements Nameable, Serializable {
 
     private UserInfo userInfo;
 
+    private Set<Book> loanedBooks = new HashSet<Book>();
+
     private List<Loan> oldLoans = new LinkedList<Loan>();
 
     private List<Loan> currentLoans = new LinkedList<Loan>();
@@ -68,6 +70,7 @@ public class Person extends Entity implements Nameable, Serializable {
     public void addNewLoan(final Loan loan) {
         new LoansPerUserRule().apply(this);
         this.getCurrentLoans().add(loan);
+        this.getLoanedBooks().add(loan.getBook());
     }
 
     public void removeCurrentLoan(final Loan loan) {
@@ -195,6 +198,14 @@ public class Person extends Entity implements Nameable, Serializable {
 
     public int getCountOfCurrentLoans() {
         return this.getCurrentLoans().size();
+    }
+
+    public void setLoanedBooks(final Set<Book> loanedBooks) {
+        this.loanedBooks = loanedBooks;
+    }
+
+    public Set<Book> getLoanedBooks() {
+        return this.loanedBooks;
     }
 
 }
