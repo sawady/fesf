@@ -2,6 +2,7 @@ package ar.edu.fesf.repositories;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -16,8 +17,28 @@ public class BookRepository extends HibernateGenericDAO<Book> {
         return Book.class;
     }
 
+    @SuppressWarnings("unchecked")
     public List<Book> bookSearch(final String input) {
-        return this.findBy(Restrictions.ilike("title", "%" + input + "%"), Order.desc("countOfLouns"));
+        String goodInput = input.toLowerCase();
+        return this
+                .getHibernateTemplate()
+                .find("select distinct book from "
+                        + this.persistentClass.getName()
+                        + " book join book.authors author join book.categories category where lower(book.title) like '%"
+                        + goodInput + "%' or lower(author.name) like '%" + goodInput
+                        + "%' or lower(category.name) like '%" + goodInput + "%' order by book.countOfLouns desc");
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Book> booksBorrowedByThoseWhoBorrowed(final int bookID, final int maxResults) {
+        Query q = this.getSession().createQuery(
+                "select distinct(loanedBook) from " + this.persistentClass.getName()
+                        + " book join book.loanees loanee join loanee.loanedBooks loanedBook where book.id = " + bookID
+                        + " and loanedBook.id != " + bookID + " order by loanedBook.countOfLouns desc");
+
+        q.setMaxResults(maxResults);
+
+        return q.list();
     }
 
     public List<Book> getTop20() {

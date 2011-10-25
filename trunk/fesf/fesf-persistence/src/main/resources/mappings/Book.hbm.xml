@@ -48,5 +48,10 @@
         <many-to-many class="BookCopy"/>
     </list>
     
+    <set name="loanees" table="BookLoanees" cascade="all">
+    		<key column="book"/>
+            <many-to-many column="person" class="Person"/>
+    </set>
+    
 	</class>
 </hibernate-mapping>

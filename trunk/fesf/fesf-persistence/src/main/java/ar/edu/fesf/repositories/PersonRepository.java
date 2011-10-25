@@ -24,4 +24,5 @@ public class PersonRepository extends HibernateGenericDAO<Person> implements Ser
         }
         return loanees;
     }
+
 }

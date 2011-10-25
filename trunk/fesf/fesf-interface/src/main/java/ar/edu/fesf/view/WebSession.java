@@ -29,12 +29,12 @@ public class WebSession extends AuthenticatedWebSession {
 
     @Override
     public boolean authenticate(final String username, final String password) {
-        Person aPerson = this.getAuthenticationService().authenticate(username, password);
-
-        if (aPerson != null) {
-            this.setPerson(aPerson);
-            return true;
-        }
+        // Person aPerson = this.getAuthenticationService().authenticate(username, password);
+        //
+        // if (aPerson != null) {
+        // this.setPerson(aPerson);
+        // return true;
+        // }
 
         return false;
     }

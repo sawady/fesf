@@ -25,13 +25,15 @@ public class BookInfoPanel extends Panel {
 
     private static final long serialVersionUID = -640542220956725256L;
 
-    public BookInfoPanel(final String id, final Book book, final IAjaxCallback<Book> callback) {
+    public BookInfoPanel(final String id, final Book book, final IAjaxCallback<Book> callback,
+            final IAjaxCallback<Book> relatedBookCallback) {
         super(id, new CompoundPropertyModel<Book>(book));
-        this.initialize(callback, book);
+        this.initialize(callback, relatedBookCallback, book);
     }
 
     // TODO faltan un par de campos
-    private void initialize(final IAjaxCallback<Book> callback, final Book book) {
+    private void initialize(final IAjaxCallback<Book> callback, final IAjaxCallback<Book> relatedBookCallback,
+            final Book book) {
 
         this.add(new Label("title"));
         this.add(new Label("authorNames", this.concatenate(book.getAuthors())));
@@ -51,6 +53,8 @@ public class BookInfoPanel extends Panel {
             }
 
         });
+        List<Book> relatedBooks = this.getBookService().relatedBooks(book.getId(), 10);
+        this.add(new HorizontalBookPanel("relatedBooks", relatedBooks, relatedBookCallback));
     }
 
     // Gracias java por no permitirme abstraer esto

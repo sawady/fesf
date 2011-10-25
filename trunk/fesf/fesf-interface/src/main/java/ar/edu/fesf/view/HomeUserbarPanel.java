@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
 
-public class HomeUserbarPanel extends Panel {
+public abstract class HomeUserbarPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,12 +51,14 @@ public class HomeUserbarPanel extends Panel {
 
             @Override
             public void loansCallback(final AjaxRequestTarget target) {
-                // TODO loans callback
+                HomeUserbarPanel.this.loansCallback(target);
             }
 
         };
 
     }
+
+    abstract void loansCallback(AjaxRequestTarget target);
 
     public Panel myAuthenticateUserBarPanel() {
         return new AuthenticateUserBarPanel("authentication") {
@@ -71,7 +73,7 @@ public class HomeUserbarPanel extends Panel {
             @Override
             public void signInCallback(final AjaxRequestTarget target) {
                 // TODO en realidad debería loguear
-                ((WebSession) this.getSession()).authenticate("sarasa", "sarasa");
+                // ((WebSession) this.getSession()).authenticate("sarasa", "sarasa");
                 Panel aNewPanel = HomeUserbarPanel.this.myAuthenticatedUserBarPanel();
                 HomeUserbarPanel.this.replace(aNewPanel);
                 target.add(aNewPanel);
