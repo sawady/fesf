@@ -29,6 +29,12 @@
     		<artifactId>wicket-core</artifactId>
     		<version>${wicket.version}</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.wicket</groupId>
+		    <artifactId>wicket-ioc</artifactId>
+		    <version>${wicket.version}</version>
+		</dependency>		
 
 		<dependency>
 			<groupId>org.apache.wicket</groupId>

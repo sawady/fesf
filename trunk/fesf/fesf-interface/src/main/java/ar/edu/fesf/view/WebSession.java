@@ -2,6 +2,7 @@ package ar.edu.fesf.view;
 
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -21,6 +22,7 @@ public class WebSession extends AuthenticatedWebSession {
 
     public WebSession(final Request request) {
         super(request);
+        Injector.get().inject(this);
     }
 
     private static final long serialVersionUID = 1L;

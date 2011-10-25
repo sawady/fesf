@@ -71,6 +71,7 @@ public class HomeUserbarPanel extends Panel {
             @Override
             public void signInCallback(final AjaxRequestTarget target) {
                 // TODO en realidad debería loguear
+                ((WebSession) this.getSession()).authenticate("sarasa", "sarasa");
                 Panel aNewPanel = HomeUserbarPanel.this.myAuthenticatedUserBarPanel();
                 HomeUserbarPanel.this.replace(aNewPanel);
                 target.add(aNewPanel);
