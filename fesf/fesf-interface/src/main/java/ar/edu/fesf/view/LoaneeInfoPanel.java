@@ -22,6 +22,16 @@ public class LoaneeInfoPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
+    private Person loanee;
+
+    public Person getLoanee() {
+        return this.loanee;
+    }
+
+    public void setLoanee(final Person loanee) {
+        this.loanee = loanee;
+    }
+
     @SpringBean(name = "service.person")
     private PersonService personService;
 
@@ -32,12 +42,18 @@ public class LoaneeInfoPanel extends Panel {
 
     public LoaneeInfoPanel(final String id, final Person loanee) {
         super(id, new CompoundPropertyModel<Person>(loanee));
+        this.loanee = loanee;
         this.initialize(loanee);
     }
 
     private void initialize(final Person loanee) {
+        this.setOutputMarkupId(true);
         this.add(new PersonInfoPanel("loanee", loanee));
-        this.add(new ListView<Loan>("loans", this.getPersonService().getCurrentLoans(loanee)) {
+        this.add(this.getLoanList("loans"));
+    }
+
+    private ListView<Loan> getLoanList(final String id) {
+        ListView<Loan> newListView = new ListView<Loan>(id, this.getPersonService().getCurrentLoans(this.getLoanee())) {
 
             private static final long serialVersionUID = 1L;
 
@@ -49,7 +65,9 @@ public class LoaneeInfoPanel extends Panel {
                 item.add(new Label("agreedDate", loan.getAgreedReturnDate().toString("dd-MMMM-yyyy")));
                 item.add(new ActionsPanel<Loan>("actions", loan, LoaneeInfoPanel.this.actions()));
             }
-        });
+        };
+        newListView.setOutputMarkupId(true);
+        return newListView;
     }
 
     public List<AjaxNamedAction<Loan>> actions() {
@@ -60,12 +78,17 @@ public class LoaneeInfoPanel extends Panel {
 
     private IAjaxCallback<Loan> getReturnAction() {
         return new IAjaxCallback<Loan>() {
+
             private static final long serialVersionUID = 1L;
 
             @Override
             public void callback(final AjaxRequestTarget target, final Loan loan) {
                 LoaneeInfoPanel.this.getLoaningService().registerBookReturn(loan);
+                ListView<Loan> newLoanList = LoaneeInfoPanel.this.getLoanList("loans");
+                LoaneeInfoPanel.this.replace(newLoanList);
+                target.add(LoaneeInfoPanel.this);
             }
+
         };
     }
 
@@ -86,4 +109,5 @@ public class LoaneeInfoPanel extends Panel {
     public PersonService getPersonService() {
         return this.personService;
     }
+
 }

@@ -4,15 +4,13 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
 import ar.edu.fesf.view.BookSearchPanel;
 
-public class BookSearchForm extends Form<Book> {
+public class BookSearchForm extends Form<BookSearchForm> {
 
     private static final long serialVersionUID = 9029842939503423488L;
 
@@ -40,7 +38,7 @@ public class BookSearchForm extends Form<Book> {
     }
 
     public BookSearchForm(final String id, final BookSearchPanel searchPanel) {
-        super(id, new CompoundPropertyModel<Book>(new Book()));
+        super(id);
         this.searchPanel = searchPanel;
         this.initialize();
     }

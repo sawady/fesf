@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.joda.time.DateTime;
+
 public class Book extends Entity {
 
     private static final long serialVersionUID = 6298319531111903588L;
@@ -19,6 +21,8 @@ public class Book extends Entity {
     private Publisher publisher;
 
     private String imagepath;
+
+    private DateTime acquisitionDate = new DateTime();
 
     private String description = "";
 
@@ -212,6 +216,14 @@ public class Book extends Entity {
 
     public void setAvailableCopies(final List<BookCopy> availableCopies) {
         this.availableCopies = availableCopies;
+    }
+
+    public void setAcquisitionDate(final DateTime acquisitionDate) {
+        this.acquisitionDate = acquisitionDate;
+    }
+
+    public DateTime getAcquisitionDate() {
+        return this.acquisitionDate;
     }
 
 }

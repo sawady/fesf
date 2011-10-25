@@ -18,6 +18,7 @@
         <many-to-many column="category" class="Category"/>
     </set>
     
+    <property name="acquisitionDate"/>
     <property name="imagepath"/>
     <property name="description"/>    
     <many-to-one name="isbn" class="ISBN" cascade="all"/>

@@ -75,22 +75,6 @@ body {
 .csbLinks:active{
 	position: relative;
 	top: 2px;
-	
-	color: #444;
-	border-top: solid 1px #F8F8F8;
-	-webkit-box-shadow: 0 1px 1px rgba(0,0,0, .2);
-	-moz-box-shadow: 0 1px 1px rgba(0,0,0, .2);
-	box-shadow: 0 1px 1px rgba(0,0,0, .2);
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
-
-	background: #eeeeee; /* Old browsers */
-	background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* IE10+ */
-	background: linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
 }
 
 /* ARTICLE SECTION */
@@ -229,3 +213,8 @@ body {
 .bipAtributeLabel{
 	font-weight: bold;
 }
+
+.bsrpTable{
+	width: 100%;
+}
+

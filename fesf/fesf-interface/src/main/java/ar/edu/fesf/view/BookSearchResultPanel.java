@@ -21,14 +21,6 @@ public class BookSearchResultPanel extends AjaxDataTablePanel<Book> {
 
     private IAjaxCallback<Book> callback;
 
-    public BookService getBookService() {
-        return this.bookService;
-    }
-
-    public void setBookService(final BookService bookService) {
-        this.bookService = bookService;
-    }
-
     public BookSearchResultPanel(final String id, final List<Book> list, final IAjaxCallback<Book> callback) {
         super(id, list);
         this.setCallback(callback);
@@ -57,5 +49,13 @@ public class BookSearchResultPanel extends AjaxDataTablePanel<Book> {
 
     public IAjaxCallback<Book> getCallback() {
         return this.callback;
+    }
+
+    public BookService getBookService() {
+        return this.bookService;
+    }
+
+    public void setBookService(final BookService bookService) {
+        this.bookService = bookService;
     }
 }

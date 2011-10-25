@@ -123,10 +123,6 @@
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 	
-	<bean id="persistence.RankingRepository" class="ar.edu.fesf.repositories.RankingRepository">
-		<property name="sessionFactory" ref="persistence.sessionFactory" />
-	</bean>
-	
 	<bean id="persistence.LoanRepository" class="ar.edu.fesf.repositories.LoanRepository">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>

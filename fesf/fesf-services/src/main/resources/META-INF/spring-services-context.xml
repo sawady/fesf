@@ -21,28 +21,20 @@
 		<property name="repository" ref="persistence.BookRepository" />
 		<property name="categoryRepository" ref="persistence.CategoryRepository" />
 		<property name="publisherService" ref="service.publisher" />
-		<property name="rankingService" ref="service.ranking" />		
 	</bean>
 	
 	<bean id="service.loan" class="ar.edu.fesf.services.LoaningService">
 		<property name="repository" ref="persistence.LoanRepository" />
 		<property name="personService" ref="service.person" />
 		<property name="bookService" ref="service.book" />
-		<property name="rankingService" ref="service.ranking" />
 	</bean>
 	
 	<bean id="service.publisher" class="ar.edu.fesf.services.PublisherService">
 		<property name="repository" ref="persistence.PublisherRepository" />
 	</bean>	
 	
-	<bean id="service.ranking" class="ar.edu.fesf.services.RankingService">
-		<property name="repository" ref="persistence.RankingRepository" />
-		<property name="bookService" ref="service.book" />
-	</bean>	
-	
 	<bean id="service.SpringInitializedService" class="ar.edu.fesf.services.SpringInitializedService">
 		<property name="categoryRepository" ref="persistence.CategoryRepository" />
-		<property name="rankingService" ref="service.ranking" />
 		<property name="bookService" ref="service.book" />
 		<property name="personService" ref="service.person" />
 		<property name="loaningService" ref="service.loan" />		

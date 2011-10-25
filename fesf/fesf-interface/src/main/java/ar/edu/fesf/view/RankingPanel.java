@@ -7,7 +7,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.services.BookService;
-import ar.edu.fesf.services.RankingService;
 
 public class RankingPanel extends Panel {
 
@@ -15,9 +14,6 @@ public class RankingPanel extends Panel {
 
     @SpringBean(name = "service.book")
     private BookService bookService;
-
-    @SpringBean(name = "service.ranking")
-    private RankingService rankingService;
 
     private IAjaxCallback<Book> ajaxCallback;
 
@@ -29,7 +25,7 @@ public class RankingPanel extends Panel {
 
     private void initialize() {
         this.add(new HorizontalBookPanel("top20", this.getBookService().getTop20(), this.ajaxCallback));
-        this.add(new HorizontalBookPanel("recentlyAvailable", this.getRankingService().getRecentlyAvailable(),
+        this.add(new HorizontalBookPanel("recentlyAvailable", this.getBookService().getRecentlyAvailable(),
                 this.ajaxCallback));
     }
 
@@ -37,15 +33,12 @@ public class RankingPanel extends Panel {
         this.replace(new HorizontalBookPanel("top20", this.getBookService().getTop20(), this.ajaxCallback));
     }
 
+    public void updateRecentlyAvailable(final AjaxRequestTarget target) {
+        this.replace(new HorizontalBookPanel("recentlyAvailable", this.getBookService().getRecentlyAvailable(),
+                this.ajaxCallback));
+    }
+
     /* Accessors */
-    public void setRankingService(final RankingService rankingService) {
-        this.rankingService = rankingService;
-    }
-
-    public RankingService getRankingService() {
-        return this.rankingService;
-    }
-
     public void setBookService(final BookService bookService) {
         this.bookService = bookService;
     }
