@@ -24,4 +24,8 @@ public class BookRepository extends HibernateGenericDAO<Book> {
         return this.findBy(Restrictions.isNotNull("title"), Order.desc("countOfLouns"), 20);
     }
 
+    public List<Book> getRecentlyAvailable(final int countOfResults) {
+        return this.findBy(Restrictions.isNotNull("acquisitionDate"), Order.desc("acquisitionDate"), countOfResults);
+    }
+
 }

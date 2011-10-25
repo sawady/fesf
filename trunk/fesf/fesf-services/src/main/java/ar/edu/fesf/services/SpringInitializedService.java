@@ -12,7 +12,6 @@ import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
-import ar.edu.fesf.model.Ranking;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.CategoryRepository;
@@ -27,12 +26,8 @@ public class SpringInitializedService {
 
     private LoaningService loaningService;
 
-    private RankingService rankingService;
-
     @Transactional
     public void initialize() {
-        Ranking aRanking = new Ranking();
-        this.getRankingService().setRanking(aRanking);
 
         Category drama = new Category("Drama");
         this.getCategoryRepository().save(drama);
@@ -159,14 +154,6 @@ public class SpringInitializedService {
 
     public void setCategoryRepository(final CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-    }
-
-    public void setRankingService(final RankingService rankingService) {
-        this.rankingService = rankingService;
-    }
-
-    public RankingService getRankingService() {
-        return this.rankingService;
     }
 
 }

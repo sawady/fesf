@@ -12,8 +12,6 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
 
     private static final long serialVersionUID = 1L;
 
-    private RankingService rankingService;
-
     private PersonService personService;
 
     private BookService bookService;
@@ -25,7 +23,6 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
         Person personDB = this.getPersonService().findByEquality(person);
         Book bookDB = this.getBookService().findByEquality(book);
         loan.assignCopy(personDB, this.getBookService().getAvailableCopy(bookDB));
-        this.getRankingService().updateRanking(bookDB);
 
         // } catch (RuntimeException e) {
         // throw new NoAvailableBookCopyException(e.getMessage());
@@ -71,14 +68,6 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
 
     public void setBookService(final BookService bookService) {
         this.bookService = bookService;
-    }
-
-    public void setRankingService(final RankingService rankingService) {
-        this.rankingService = rankingService;
-    }
-
-    public RankingService getRankingService() {
-        return this.rankingService;
     }
 
 }

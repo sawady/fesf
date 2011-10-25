@@ -20,8 +20,6 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private static final long serialVersionUID = 7521127091837519541L;
 
-    private RankingService rankingService;
-
     private PublisherService publisherService;
 
     private CategoryRepository categoryRepository;
@@ -48,7 +46,6 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     @Transactional
     public void registerNewBook(final Book book) {
         this.save(book);
-        this.getRankingService().addToRecents(book);
     }
 
     @Transactional
@@ -119,6 +116,13 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return top20;
     }
 
+    @Transactional(readOnly = true)
+    public List<Book> getRecentlyAvailable() {
+        List<Book> recentlyAvailables = ((BookRepository) this.getRepository()).getRecentlyAvailable(20);
+        this.initialize(recentlyAvailables, List.class);
+        return recentlyAvailables;
+    }
+
     /* Accessors */
 
     public void setCategoryRepository(final CategoryRepository categoryRepository) {
@@ -127,14 +131,6 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     public CategoryRepository getCategoryRepository() {
         return this.categoryRepository;
-    }
-
-    public void setRankingService(final RankingService rankingService) {
-        this.rankingService = rankingService;
-    }
-
-    public RankingService getRankingService() {
-        return this.rankingService;
     }
 
     public void setPublisherService(final PublisherService publisherService) {
