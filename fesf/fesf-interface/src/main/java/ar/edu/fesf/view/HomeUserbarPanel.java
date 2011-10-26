@@ -28,6 +28,7 @@ public abstract class HomeUserbarPanel extends Panel {
             }
 
         });
+        this.add(this.getBookSearchPanel("searchbar"));
         this.add(this.myAuthenticateUserBarPanel());
     }
 
@@ -58,6 +59,8 @@ public abstract class HomeUserbarPanel extends Panel {
 
     }
 
+    public abstract Panel getBookSearchPanel(String id);
+
     public abstract void profileCallback(AjaxRequestTarget target);
 
     public abstract void loansCallback(AjaxRequestTarget target);
@@ -86,6 +89,8 @@ public abstract class HomeUserbarPanel extends Panel {
         };
 
     }
+
+    /* ACCESSORS */
 
     public void setHomeLinkCallback(final IAjaxCallback<?> homeLinkCallback) {
         this.homeLinkCallback = homeLinkCallback;

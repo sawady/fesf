@@ -41,7 +41,8 @@ public class UsersPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
-                PersonInfoPanel personInfo = new PersonInfoPanel("content", person);
+                PersonInfoPanel personInfo = new PersonInfoPanel("content", UsersPanel.this.getPersonService()
+                        .initializePersonInfo(person));
                 personInfo.setOutputMarkupId(true);
                 return personInfo;
             }

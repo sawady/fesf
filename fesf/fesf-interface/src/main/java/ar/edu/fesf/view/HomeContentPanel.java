@@ -129,10 +129,14 @@ public class HomeContentPanel extends Panel {
                 }.callback(target, ((WebSession) this.getSession()).getPerson());
             }
 
+            @Override
+            public Panel getBookSearchPanel(final String id) {
+                return new BookSearchPanel(id, HomeContentPanel.this.changeToResultsPanel());
+            }
+
         });
 
         this.add(new CategoriesSidebar("sidebar", this.changeToResultsPanel()));
-        this.add(new BookSearchPanel("searchbar", this.changeToResultsPanel()));
     }
 
     public IAjaxCallback<?> changeToRakingPanel() {
@@ -234,12 +238,14 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
-                return new PersonInfoPanel(CONTENT, person);
+                return new PersonInfoPanel(CONTENT, HomeContentPanel.this.getPersonService().initializePersonInfo(
+                        person));
             }
         };
     }
 
     /* Accessors */
+
     public void setRankingPanel(final RankingPanel rankingPanel) {
         this.rankingPanel = rankingPanel;
     }
