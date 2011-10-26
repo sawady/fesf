@@ -24,6 +24,13 @@ public class PersonInfoPanel extends Panel {
 
     private void initialize() {
         this.add(new Label("name"));
+        this.add(new Label("surname"));
+        this.add(new Label("userInfo.userid"));
+        this.add(new Label("age"));
+        this.add(new Label("address"));
+        this.add(new Label("phone"));
+        this.add(new Label("email.value"));
+
     }
 
     /* Accessors */

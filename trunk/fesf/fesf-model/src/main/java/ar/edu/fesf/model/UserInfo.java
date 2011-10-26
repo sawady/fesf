@@ -19,7 +19,7 @@ public class UserInfo extends Entity implements Serializable {
         super();
     }
 
-    public UserInfo(final String pass, final String userid, final Role role) {
+    public UserInfo(final String userid, final String pass, final Role role) {
         super();
         this.pass = pass;
         this.userid = userid;
