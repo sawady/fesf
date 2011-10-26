@@ -9,6 +9,7 @@ import ar.edu.fesf.builders.PersonBuilder;
 import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
+import ar.edu.fesf.model.EmailAddress;
 import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
@@ -107,8 +108,8 @@ public class SpringInitializedService {
         this.bookService.registerNewBook(new BookBuilder().withTitle("Las locuras del emperador").withCategory(comedia)
                 .withCountOfCopies(5).withIsbn(new ISBN("978-0307957143")).withPublisher(publisher2).build());
 
-        Person jose = new PersonBuilder().withName("Jose").withUserInfo(new UserInfo("jose", "jose", Role.LIBRARIAN))
-                .build();
+        Person jose = new PersonBuilder().withName("Jose").withEmail(new EmailAddress("jose@gmail.com"))
+                .withUserInfo(new UserInfo("jose", "jose", Role.LIBRARIAN)).build();
         this.personService.save(jose);
         this.personService.save(new PersonBuilder().withName("Pepe")
                 .withUserInfo(new UserInfo("pepe", "pepe", Role.LIBRARIAN)).build());

@@ -36,15 +36,35 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         return names;
     }
 
-    public void registerNewPerson(final PersonDTO personDTO) {
-        this.save(new PersonBuilder().withName(personDTO.getName()).withSurname(personDTO.getSurname())
-                .withAge(personDTO.getAge()).withPhone(personDTO.getPhone()).withAddress(personDTO.getAddress())
-                .withUserInfo(new UserInfo(personDTO.getUserid(), personDTO.getPassword(), Role.USER))
-                .withEmail(new EmailAddress(personDTO.getEmail())).build());
+    @Transactional
+    public Person registerPerson(final PersonDTO personDTO) {
+        Person personDB = this.findById(personDTO.getId());
+        if (personDB == null) { // No esta en la base
+            personDB = this.registerNewPerson(personDTO);
 
+        } else {
+            personDB = this.registerEditPerson(personDTO);
+        }
+        return personDB;
     }
 
-    public void registerEditPerson(final PersonDTO personDTO) {
+    @Transactional(readOnly = true)
+    public Person initializePersonInfo(final Person person) {
+        return this.initializeFields(person, "email", "userInfo");
+    }
+
+    @Transactional
+    public Person registerNewPerson(final PersonDTO personDTO) {
+        Person newPerson = new PersonBuilder().withName(personDTO.getName()).withSurname(personDTO.getSurname())
+                .withAge(personDTO.getAge()).withPhone(personDTO.getPhone()).withAddress(personDTO.getAddress())
+                .withUserInfo(new UserInfo(personDTO.getUserid(), personDTO.getPassword(), Role.USER))
+                .withEmail(new EmailAddress(personDTO.getEmail())).build();
+        this.save(newPerson);
+        return newPerson;
+    }
+
+    @Transactional
+    public Person registerEditPerson(final PersonDTO personDTO) {
 
         Person personDB = this.findById(personDTO.getId());
 
@@ -58,6 +78,8 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         personDB.setEmail(new EmailAddress(personDTO.getEmail()));
 
         this.save(personDB);
+
+        return personDB;
 
     }
 

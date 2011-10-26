@@ -48,7 +48,7 @@ public abstract class AuthenticatedUserBarPanel extends Panel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                AuthenticatedUserBarPanel.this.loansCallback(target);
+                AuthenticatedUserBarPanel.this.profileCallback(target);
             }
 
         };
