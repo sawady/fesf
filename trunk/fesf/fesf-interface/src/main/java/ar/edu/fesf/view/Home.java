@@ -20,7 +20,6 @@ public class Home extends WebPage {
     private void initialize() {
         WebSession webSession = (WebSession) this.getSession();
         webSession.setPerson(this.getPersonService().findAll().get(0));
-        webSession.getPerson();
         final HomeContentPanel homeContentPanel = new HomeContentPanel("contentPanel");
         this.add(homeContentPanel);
     }

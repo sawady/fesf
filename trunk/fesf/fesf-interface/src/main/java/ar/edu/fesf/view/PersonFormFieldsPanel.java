@@ -31,22 +31,26 @@ public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
     }
 
     private void initialize() {
+        // TODO validar datos algun dia
         this.add(new RequiredTextField<String>("name"));
         this.add(new RequiredTextField<String>("surname"));
         this.add(new RequiredTextField<Integer>("age", Integer.class).add(new MinimumValidator<Integer>(0)));
         this.add(new RequiredTextField<String>("address"));
-        this.add(new RequiredTextField<String>("phone")); // TODO validar que ingresa numeros
+        this.add(new RequiredTextField<String>("phone"));
+        this.add(new RequiredTextField<String>("email"));
+        this.add(new RequiredTextField<String>("userid"));
+        this.add(new RequiredTextField<String>("password"));
     }
 
     @Override
     public PersonDTO getObject() {
-        throw new UnsupportedOperationException();
+        return this.getPersonDTO();
     }
 
     @Override
     public void doSubmit(final AjaxRequestTarget target, final Form<PersonDTO> form) {
-        this.getPersonService().registerEditPerson(this.getPersonDTO());
-        this.getAjaxCallback().callback(target, null);
+        Person personDB = this.getPersonService().registerPerson(this.personDTO);
+        this.getAjaxCallback().callback(target, personDB);
     }
 
     public void setPersonService(final PersonService personService) {

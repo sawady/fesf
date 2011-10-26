@@ -46,7 +46,7 @@ public abstract class HomeUserbarPanel extends Panel {
 
             @Override
             public void profileCallback(final AjaxRequestTarget target) {
-                // TODO profile callback
+                HomeUserbarPanel.this.profileCallback(target);
             }
 
             @Override
@@ -58,7 +58,11 @@ public abstract class HomeUserbarPanel extends Panel {
 
     }
 
-    abstract void loansCallback(AjaxRequestTarget target);
+    public abstract void profileCallback(AjaxRequestTarget target);
+
+    public abstract void loansCallback(AjaxRequestTarget target);
+
+    public abstract void signUpCallback(AjaxRequestTarget target);
 
     public Panel myAuthenticateUserBarPanel() {
         return new AuthenticateUserBarPanel("authentication") {
@@ -68,6 +72,7 @@ public abstract class HomeUserbarPanel extends Panel {
             @Override
             public void signUpCallback(final AjaxRequestTarget target) {
                 // TODO signUp callback
+                HomeUserbarPanel.this.signUpCallback(target);
             }
 
             @Override
