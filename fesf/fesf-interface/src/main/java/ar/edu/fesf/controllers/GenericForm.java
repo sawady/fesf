@@ -35,7 +35,6 @@ public class GenericForm<T> extends Form<T> {
             @SuppressWarnings("unchecked")
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
-
                 fieldsPanel.doSubmit(target, (Form<T>) form);
             }
 

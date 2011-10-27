@@ -61,6 +61,7 @@ public class LoaneeInfoPanel extends Panel {
             protected void populateItem(final ListItem<Loan> item) {
                 Loan loan = (Loan) item.getDefaultModelObject();
                 Loan loanDB = LoaneeInfoPanel.this.getLoaningService().initializeLoanInfo(loan);
+                item.setModel(new CompoundPropertyModel<Loan>(loanDB));
                 item.add(new Label("bookCopy.book.title"));
                 item.add(new Label("loanDate", loan.getDate().toString("dd-MMMM-yyyy")));
                 item.add(new Label("agreedDate", loan.getAgreedReturnDate().toString("dd-MMMM-yyyy")));

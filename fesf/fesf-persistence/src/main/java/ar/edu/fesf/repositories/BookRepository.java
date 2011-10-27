@@ -24,7 +24,7 @@ public class BookRepository extends HibernateGenericDAO<Book> {
                 .getHibernateTemplate()
                 .find("select distinct book from "
                         + this.persistentClass.getName()
-                        + " book join book.authors author join book.categories category where lower(book.title) like '%"
+                        + " book left join book.authors author left join book.categories category where lower(book.title) like '%"
                         + goodInput + "%' or lower(author.name) like '%" + goodInput
                         + "%' or lower(category.name) like '%" + goodInput + "%' order by book.countOfLouns desc");
     }

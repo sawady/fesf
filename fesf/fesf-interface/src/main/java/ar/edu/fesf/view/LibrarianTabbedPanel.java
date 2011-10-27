@@ -3,14 +3,13 @@ package ar.edu.fesf.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-@AuthorizeAction(action = "ENABLE", roles = { "LIBRARIAN" })
+// @AuthorizeAction(action = "ENABLE", roles = { "LIBRARIAN" })
 public class LibrarianTabbedPanel extends Panel {
 
     private static final long serialVersionUID = 1L;

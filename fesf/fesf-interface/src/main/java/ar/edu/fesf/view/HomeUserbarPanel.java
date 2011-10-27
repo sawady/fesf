@@ -4,7 +4,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Person;
 
@@ -41,7 +40,7 @@ public abstract class HomeUserbarPanel extends Panel {
 
             @Override
             public void signOutCallback(final AjaxRequestTarget target) {
-                // TODO debería cancelar la session del usuario
+                ((MyWebSession) this.getSession()).signOutPerson();
                 Panel aNewPanel = HomeUserbarPanel.this.myAuthenticateUserBarPanel();
                 HomeUserbarPanel.this.replace(aNewPanel);
                 target.add(aNewPanel);
@@ -71,6 +70,8 @@ public abstract class HomeUserbarPanel extends Panel {
 
     public abstract void signInCallback(AjaxRequestTarget target, IAjaxCallback<Person> succedCallback);
 
+    public abstract void successfullSignInCallback(AjaxRequestTarget target);
+
     public Panel myAuthenticateUserBarPanel() {
         return new AuthenticateUserBarPanel("authentication") {
 
@@ -83,13 +84,16 @@ public abstract class HomeUserbarPanel extends Panel {
 
             @Override
             public void signInCallback(final AjaxRequestTarget target) {
-                HomeUserbarPanel.this.signInCallback(target, new AjaxReplacePanel<Person>(HomeUserbarPanel.this) {
+                HomeUserbarPanel.this.signInCallback(target, new IAjaxCallback<Person>() {
 
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
-                        return HomeUserbarPanel.this.myAuthenticatedUserBarPanel();
+                    public void callback(final AjaxRequestTarget target, final Person object) {
+                        Panel panel = HomeUserbarPanel.this.myAuthenticatedUserBarPanel();
+                        HomeUserbarPanel.this.replace(panel);
+                        target.add(panel);
+                        HomeUserbarPanel.this.successfullSignInCallback(target);
                     }
 
                 });
