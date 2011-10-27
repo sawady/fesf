@@ -18,8 +18,8 @@ public class Home extends WebPage {
     }
 
     private void initialize() {
-        WebSession webSession = (WebSession) this.getSession();
-        webSession.setPerson(this.getPersonService().findAll().get(0));
+        MyWebSession myWebSession = (MyWebSession) this.getSession();
+        myWebSession.setPerson(this.getPersonService().findAll().get(0));
         final HomeContentPanel homeContentPanel = new HomeContentPanel("contentPanel");
         this.add(homeContentPanel);
     }

@@ -27,7 +27,6 @@
 	<security:global-method-security
 		secured-annotations="enabled" />
 		
-		
 	<bean id="wicketApplication" class="ar.edu.fesf.view.MyApplication">
 		<property name="springInitializedService" ref="service.SpringInitializedService"></property>
 	</bean>

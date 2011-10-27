@@ -17,6 +17,14 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
     private BookService bookService;
 
     /* Methods */
+
+    @Transactional(readOnly = true)
+    public Loan initializeLoanInfo(final Loan loan) {
+        Loan loanDB = this.initializeFields(loan, "bookCopy");
+        this.initialize(loanDB.getBookCopy().getBook(), Book.class);
+        return loanDB;
+    }
+
     @Transactional
     public void registerLoan(final Person person, final Loan loan, final Book book) {
         // try {
@@ -42,16 +50,6 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
         return this.getPersonService().getLoanees();
     }
 
-    @Transactional(readOnly = true)
-    public Book getBook(final Loan loan) {
-        return this.findById(loan.getId()).getBook();
-    }
-
-    @Transactional(readOnly = true)
-    public String getBookTitle(final Loan loan) {
-        return this.getRepository().findByEquality(loan).getBook().getTitle();
-    }
-
     /* Accessors */
 
     public void setPersonService(final PersonService personService) {
@@ -69,5 +67,4 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
     public void setBookService(final BookService bookService) {
         this.bookService = bookService;
     }
-
 }

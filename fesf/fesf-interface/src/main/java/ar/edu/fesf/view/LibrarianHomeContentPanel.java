@@ -5,7 +5,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
+import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.model.UserInfo;
 
 public class LibrarianHomeContentPanel extends Panel {
 
@@ -27,7 +29,17 @@ public class LibrarianHomeContentPanel extends Panel {
         if (this.getLibrarianTabbedPanel().isEnableAllowed()) {
             this.add(this.getLibrarianTabbedPanel());
         } else {
-            this.add(new MySignInPanel("content", this.accessLibrarianTabbedPanel()));
+            this.add(new GenericFormPanel<UserInfo>("content") {
+
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public PanelServiceToForm<UserInfo> getFieldsPanel(final String id) {
+                    return new SignInFieldsPanel(id, new UserInfo(), LibrarianHomeContentPanel.this
+                            .accessLibrarianTabbedPanel());
+                }
+
+            }.setOutputMarkupId(true));
         }
 
     }

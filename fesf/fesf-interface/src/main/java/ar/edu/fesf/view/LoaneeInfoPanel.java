@@ -60,10 +60,11 @@ public class LoaneeInfoPanel extends Panel {
             @Override
             protected void populateItem(final ListItem<Loan> item) {
                 Loan loan = (Loan) item.getDefaultModelObject();
-                item.add(new Label("bookTitle", LoaneeInfoPanel.this.getLoaningService().getBookTitle(loan)));
+                Loan loanDB = LoaneeInfoPanel.this.getLoaningService().initializeLoanInfo(loan);
+                item.add(new Label("bookCopy.book.title"));
                 item.add(new Label("loanDate", loan.getDate().toString("dd-MMMM-yyyy")));
                 item.add(new Label("agreedDate", loan.getAgreedReturnDate().toString("dd-MMMM-yyyy")));
-                item.add(new ActionsPanel<Loan>("actions", loan, LoaneeInfoPanel.this.actions()));
+                item.add(new ActionsPanel<Loan>("actions", loanDB, LoaneeInfoPanel.this.actions()));
             }
         };
         newListView.setOutputMarkupId(true);

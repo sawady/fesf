@@ -19,9 +19,14 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
 
     private static final long serialVersionUID = 281627290258132217L;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Person findPersonWithUserInfo(final UserInfo userinfo) {
-        return this.getRepository().findByPropertyUnique("userinfo", userinfo);
+        return this.getRepository().findByPropertyUnique("userInfo", userinfo);
+    }
+
+    @Transactional(readOnly = true)
+    public Person initializeLoaneeInfo(final Person loanee) {
+        return this.initializeFields(loanee, "currentLoans", "email", "userInfo");
     }
 
     public List<String> getFieldNames() {
