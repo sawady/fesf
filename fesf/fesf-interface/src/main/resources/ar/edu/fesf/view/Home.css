@@ -85,6 +85,9 @@ body {
 /* Search bar */
 
 .searchbar{
+	float:left;
+	margin-top: 5px;
+	margin-left: 20px;
 }
 .bspButton{
 	color: #FFFFFF;
