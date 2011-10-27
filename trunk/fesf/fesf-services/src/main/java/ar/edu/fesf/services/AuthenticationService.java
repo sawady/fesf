@@ -12,9 +12,8 @@ import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.UserInfoRepository;
-import ar.edu.fesf.services.exceptions.AuthenticationException;
 
-public class AuthenticationService implements Serializable {
+public class AuthenticationService implements Serializable, IAuthenticationService {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,62 +37,23 @@ public class AuthenticationService implements Serializable {
         this.userInfoRepository = userInfoRepository;
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public Person authenticate(final String userid, final String password) {
+    public boolean authenticate(final String userid, final String password) {
 
-        Person person;
         UserInfo userinfo = this.findUserInfo(userid);
 
         // usuario no encontrado
-        if (userinfo == null) {
-            throw new AuthenticationException("Invalid userid");
-        }
+        // if (userinfo == null) {
+        // throw new AuthenticationException("Invalid userid");
+        // }
 
         // el password no es valido
-        if (!userinfo.getPass().equals(password)) {
-            throw new AuthenticationException("Invalid password");
-        }
+        // if (!userinfo.getPass().equals(password)) {
+        // throw new AuthenticationException("Invalid password");
+        // }
 
-        person = this.getPersonService().findPersonWithUserInfo(userinfo);
-
-        // ninguna persona posee esta informacion de usuario
-        if (person == null) {
-            throw new AuthenticationException("Cant find person associated with this user");
-        }
-
-        return person;
-
-    }
-
-    @Transactional(readOnly = true)
-    public Person authenticate(final String userid, final String password, final Role role) {
-
-        Person person;
-        UserInfo userinfo = this.findUserInfo(userid);
-
-        // usuario no encontrado
-        if (userinfo == null) {
-            throw new AuthenticationException("Invalid userid");
-        }
-
-        // se quiere loguear con mas privilegios de los que tiene
-        if (userinfo.getRole().isInferior(role)) {
-            throw new AuthenticationException("You have not such privileges");
-        }
-
-        // el password no es valido
-        if (!userinfo.getPass().equals(password)) {
-            throw new AuthenticationException("Invalid password");
-        }
-
-        person = this.getPersonService().findPersonWithUserInfo(userinfo);
-
-        // ninguna persona posee esta informacion de usuario
-        if (person == null) {
-            throw new AuthenticationException("Cant find person associated with this user");
-        }
-
-        return person;
+        return userinfo != null && userinfo.getPass().equals(password);
 
     }
 
@@ -101,9 +61,14 @@ public class AuthenticationService implements Serializable {
         return Role.values();
     }
 
-    @Transactional
-    public UserInfo findUserInfo(final String pattern) {
-        return this.getUserInfoRepository().findUserInfo(pattern);
+    @Transactional(readOnly = true)
+    public Person findPersonWithUserInfo(final String userid) {
+        return this.getPersonService().findPersonWithUserInfo(this.findUserInfo(userid));
+    }
+
+    @Transactional(readOnly = true)
+    public UserInfo findUserInfo(final String userid) {
+        return this.getUserInfoRepository().findUserInfo(userid);
     }
 
     @Transactional

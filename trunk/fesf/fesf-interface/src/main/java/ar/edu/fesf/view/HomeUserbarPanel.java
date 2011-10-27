@@ -4,7 +4,9 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
+import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
+import ar.edu.fesf.model.Person;
 
 public abstract class HomeUserbarPanel extends Panel {
 
@@ -67,6 +69,8 @@ public abstract class HomeUserbarPanel extends Panel {
 
     public abstract void signUpCallback(AjaxRequestTarget target);
 
+    public abstract void signInCallback(AjaxRequestTarget target, IAjaxCallback<Person> succedCallback);
+
     public Panel myAuthenticateUserBarPanel() {
         return new AuthenticateUserBarPanel("authentication") {
 
@@ -74,17 +78,21 @@ public abstract class HomeUserbarPanel extends Panel {
 
             @Override
             public void signUpCallback(final AjaxRequestTarget target) {
-                // TODO signUp callback
                 HomeUserbarPanel.this.signUpCallback(target);
             }
 
             @Override
             public void signInCallback(final AjaxRequestTarget target) {
-                // TODO en realidad debería loguear
-                // ((WebSession) this.getSession()).authenticate("sarasa", "sarasa");
-                Panel aNewPanel = HomeUserbarPanel.this.myAuthenticatedUserBarPanel();
-                HomeUserbarPanel.this.replace(aNewPanel);
-                target.add(aNewPanel);
+                HomeUserbarPanel.this.signInCallback(target, new AjaxReplacePanel<Person>(HomeUserbarPanel.this) {
+
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
+                        return HomeUserbarPanel.this.myAuthenticatedUserBarPanel();
+                    }
+
+                });
             }
         };
 

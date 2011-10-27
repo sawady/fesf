@@ -52,7 +52,7 @@ public abstract class AuthenticatedUserBarPanel extends Panel {
             }
 
         };
-        String personName = ((WebSession) this.getSession()).getPerson().getName();
+        String personName = ((MyWebSession) this.getSession()).getPerson().getName();
         profileLink.add(new Label("welcome", "Welcome " + personName));
         this.add(profileLink);
     }
