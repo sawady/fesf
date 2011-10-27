@@ -7,16 +7,7 @@
     height: 50px;
 	color: #606c88;
 	background: #a7cfdf; /* Old browsers */
-	background: -moz-linear-gradient(top, #a7cfdf 0%, #23538a 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a7cfdf), color-stop(100%,#23538a)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #a7cfdf 0%,#23538a 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #a7cfdf 0%,#23538a 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #a7cfdf 0%,#23538a 100%); /* IE10+ */
 	background: linear-gradient(top, #a7cfdf 0%,#23538a 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=0 ); /* IE6-9 */
-
-    -webkit-box-shadow: 0px 2px 5px #000000;
-    -moz-box-shadow: 0px 2px 5px #000000;
     box-shadow: 0px 2px 5px #000000;
     position: fixed;   
 }
@@ -59,7 +50,6 @@
 .menu_links {
     height: 50px;
     float:right;
-    margin-left: 100px;
 }
 .menu_title {
     float:left;
