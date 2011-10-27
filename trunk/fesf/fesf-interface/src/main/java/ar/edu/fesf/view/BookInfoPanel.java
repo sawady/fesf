@@ -16,24 +16,29 @@ import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.Nameable;
+import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.BookService;
+import ar.edu.fesf.services.PersonService;
 
 public class BookInfoPanel extends Panel {
 
     @SpringBean(name = "service.book")
     private BookService bookService;
 
+    @SpringBean
+    private PersonService personService;
+
     private static final long serialVersionUID = -640542220956725256L;
 
     public BookInfoPanel(final String id, final Book book, final IAjaxCallback<Book> callback,
-            final IAjaxCallback<Book> relatedBookCallback) {
+            final IAjaxCallback<Book> relatedBookCallback, final IAjaxCallback<Person> loaneeCallback) {
         super(id, new CompoundPropertyModel<Book>(book));
-        this.initialize(callback, relatedBookCallback, book);
+        this.initialize(callback, relatedBookCallback, book, loaneeCallback);
     }
 
     // TODO faltan un par de campos
     private void initialize(final IAjaxCallback<Book> callback, final IAjaxCallback<Book> relatedBookCallback,
-            final Book book) {
+            final Book book, final IAjaxCallback<Person> loaneeCallback) {
 
         this.add(new Label("title"));
         this.add(new Label("authorNames", this.concatenate(book.getAuthors())));
@@ -43,16 +48,54 @@ public class BookInfoPanel extends Panel {
         this.add(new Label("isbn.value"));
         this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()));
 
-        this.add(new AjaxFallbackLink<String>("borrowIt", new Model<String>(null)) {
+        Person person = ((MyWebSession) this.getSession()).getPerson();
+        if (person == null) {
+            AjaxFallbackLink<String> ajaxFallbackLink = new AjaxFallbackLink<String>("borrowIt",
+                    new Model<String>(null)) {
 
-            private static final long serialVersionUID = 1L;
+                private static final long serialVersionUID = 1L;
 
-            @Override
-            public void onClick(final AjaxRequestTarget target) {
-                callback.callback(target, book);
+                @Override
+                public void onClick(final AjaxRequestTarget target) {
+                    // No hago ada
+                }
+
+            };
+            this.add(ajaxFallbackLink);
+            ajaxFallbackLink.add(new Label("borrowText", ""));
+        } else {
+            final Person personDB = this.personService.initializeLoaneeInfo(person);
+            if (personDB.cannotHaveMoreLoans()) {
+                AjaxFallbackLink<String> ajaxFallbackLink = new AjaxFallbackLink<String>("borrowIt", new Model<String>(
+                        null)) {
+
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void onClick(final AjaxRequestTarget target) {
+                        loaneeCallback.callback(target, personDB);
+                    }
+
+                };
+                this.add(ajaxFallbackLink);
+                ajaxFallbackLink.add(new Label("borrowText", "Return a book"));
+            } else {
+                AjaxFallbackLink<String> ajaxFallbackLink = new AjaxFallbackLink<String>("borrowIt", new Model<String>(
+                        null)) {
+
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void onClick(final AjaxRequestTarget target) {
+                        callback.callback(target, book);
+                    }
+
+                };
+                this.add(ajaxFallbackLink);
+                ajaxFallbackLink.add(new Label("borrowText", "Borrow It!"));
             }
+        }
 
-        });
         List<Book> relatedBooks = this.getBookService().relatedBooks(book.getId(), 10);
         this.add(new HorizontalBookPanel("relatedBooks", relatedBooks, relatedBookCallback));
     }
@@ -89,4 +132,5 @@ public class BookInfoPanel extends Panel {
     public BookService getBookService() {
         return this.bookService;
     }
+
 }
