@@ -111,13 +111,13 @@ public class SpringInitializedService {
         Person jose = new PersonBuilder().withName("Jose").withEmail(new EmailAddress("jose@gmail.com"))
                 .withUserInfo(new UserInfo("jose", "jose", Role.LIBRARIAN)).build();
         this.personService.save(jose);
-        this.personService.save(new PersonBuilder().withName("Pepe")
+        this.personService.save(new PersonBuilder().withName("Pepe").withEmail(new EmailAddress("pepe@gmail.com"))
                 .withUserInfo(new UserInfo("pepe", "pepe", Role.LIBRARIAN)).build());
-        this.personService.save(new PersonBuilder().withName("Carlos")
+        this.personService.save(new PersonBuilder().withName("Carlos").withEmail(new EmailAddress("carlos@gmail.com"))
                 .withUserInfo(new UserInfo("carlos", "carlos", Role.USER)).build());
-        this.personService.save(new PersonBuilder().withName("Tomas")
+        this.personService.save(new PersonBuilder().withName("Tomas").withEmail(new EmailAddress("tomas@gmail.com"))
                 .withUserInfo(new UserInfo("tomas", "tomas", Role.USER)).build());
-        this.personService.save(new PersonBuilder().withName("matias")
+        this.personService.save(new PersonBuilder().withName("matias").withEmail(new EmailAddress("matias@gmail.com"))
                 .withUserInfo(new UserInfo("matias", "matias", Role.USER)).build());
 
         this.loaningService.registerLoan(jose, new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20))

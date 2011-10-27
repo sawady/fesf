@@ -104,7 +104,12 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
 
     @Override
     public T findByPropertyUnique(final String property, final Object object) {
-        return this.findByProperty(property, object).get(0);
+        List<T> results = this.findByProperty(property, object);
+        if (!results.isEmpty()) {
+            return results.get(0);
+        } else {
+            return null;
+        }
     }
 
     @SuppressWarnings(UNCHECKED)

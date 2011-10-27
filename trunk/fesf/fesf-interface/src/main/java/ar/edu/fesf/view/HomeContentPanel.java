@@ -152,6 +152,11 @@ public class HomeContentPanel extends Panel {
                 target.add(signInPanel);
             }
 
+            @Override
+            public void successfullSignInCallback(final AjaxRequestTarget target) {
+                HomeContentPanel.this.changeToRakingPanel().callback(target, null);
+            }
+
         });
 
         this.add(new CategoriesSidebar("sidebar", this.changeToResultsPanel()));

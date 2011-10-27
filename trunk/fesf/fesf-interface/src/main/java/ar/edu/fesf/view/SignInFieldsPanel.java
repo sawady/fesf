@@ -22,6 +22,8 @@ public class SignInFieldsPanel extends PanelServiceToForm<UserInfo> {
 
     private UserInfo userInfo;
 
+    private RequiredTextField<String> userId;
+
     public SignInFieldsPanel(final String id, final UserInfo userInfo, final IAjaxCallback<Person> ajaxCallback) {
         super(id);
         this.ajaxCallback = ajaxCallback;
@@ -30,7 +32,8 @@ public class SignInFieldsPanel extends PanelServiceToForm<UserInfo> {
     }
 
     private void initialize() {
-        this.add(new RequiredTextField<String>("userid"));
+        this.userId = new RequiredTextField<String>("userid");
+        this.add(this.userId);
         this.add(new RequiredTextField<String>("pass"));
     }
 
@@ -47,7 +50,8 @@ public class SignInFieldsPanel extends PanelServiceToForm<UserInfo> {
             ((MyWebSession) this.getSession()).setPerson(maybePersonDB);
             this.getAjaxCallback().callback(target, maybePersonDB);
         } else {
-            this.error("Wrong userid or password"); // TODO no se si esto va aca
+            form.error("Wrong userid or password"); // TODO no se si esto va aca
+            target.add(form);
         }
     }
 

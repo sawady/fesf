@@ -53,8 +53,10 @@ public class BookSearchForm extends Form<BookSearchForm> {
 
             @Override
             protected void onSubmit(final AjaxRequestTarget target, final Form<?> form) {
-                BookSearchForm.this.getSearchPanel().receiveResult(target,
-                        BookSearchForm.this.getBookService().bookSearch(BookSearchForm.this.input));
+                if (BookSearchForm.this.input != null) {
+                    BookSearchForm.this.getSearchPanel().receiveResult(target,
+                            BookSearchForm.this.getBookService().bookSearch(BookSearchForm.this.input));
+                }
             }
 
             @Override

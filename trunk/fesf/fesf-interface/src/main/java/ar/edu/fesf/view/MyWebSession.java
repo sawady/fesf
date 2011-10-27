@@ -35,6 +35,20 @@ public class MyWebSession extends AuthenticatedWebSession {
         super(request);
         Injector.get().inject(this);
         this.ensureDependenciesNotNull();
+        // this.getApplication().getSecuritySettings()
+        // .setAuthorizationStrategy(new AnnotationsRoleAuthorizationStrategy(new IRoleCheckingStrategy() {
+        //
+        // @Override
+        // public boolean hasAnyRole(final Roles roles) {
+        // // if (MyWebSession.this.getPerson() == null) {
+        // // return false;
+        // // } else {
+        // // return roles.contains(MyWebSession.this.getPerson().getUserInfo().getRole());
+        // // }
+        // return true;
+        // }
+        //
+        // }));
     }
 
     private void ensureDependenciesNotNull() {
@@ -74,10 +88,8 @@ public class MyWebSession extends AuthenticatedWebSession {
     //
     // // not signed in
     // if (this.isSignedIn()) {
-    // roles.add("USER");
+    // roles.addAll(this.getAuthenticationService().getRolesOf(this.getPerson()));
     // }
-    //
-    // // roles.addAll(this.getAuthenticationService().getRolesOf(this.getPerson()));
     //
     // return roles;
     // }
@@ -102,6 +114,11 @@ public class MyWebSession extends AuthenticatedWebSession {
         }
     }
 
+    public void signOutPerson() {
+        this.setPerson(null);
+    }
+
+    /* Accessors */
     public void setAuthenticationService(final AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }

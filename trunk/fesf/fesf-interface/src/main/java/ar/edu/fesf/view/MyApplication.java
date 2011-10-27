@@ -4,7 +4,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.pages.SignInPage;
-import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
@@ -37,8 +36,6 @@ public class MyApplication extends AuthenticatedWebApplication {
 
         this.mountUrl("home", Home.class, "");
         this.mountUrl("librarian", LibrarianHome.class, "");
-
-        MetaDataRoleAuthorizationStrategy.authorize(LibrarianHome.class, "ROLE_ADMIN");
     }
 
     private void mountUrl(final String mountPath, final Class<? extends WebPage> pageClass, final String... parameters) {
