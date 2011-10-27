@@ -70,18 +70,8 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public void loansCallback(final AjaxRequestTarget target) {
-                new AjaxReplacePanel<Person>(HomeContentPanel.this) {
-
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public Panel getNewPanel(final AjaxRequestTarget target, final Person loanee) {
-                        return (Panel) new LoaneeInfoPanel(CONTENT, HomeContentPanel.this.getPersonService()
-                                .initializeLoaneeInfo(loanee)).setOutputMarkupId(true);
-
-                    }
-
-                }.callback(target, ((MyWebSession) this.getSession()).getPerson());
+                HomeContentPanel.this.changeToLoaneeInfoPanel().callback(target,
+                        ((MyWebSession) this.getSession()).getPerson());
             }
 
             @Override
@@ -191,7 +181,7 @@ public class HomeContentPanel extends Panel {
             public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
                 BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, HomeContentPanel.this.getBookService()
                         .initializeBookInfo(book), HomeContentPanel.this.changeToLoaningFormPanel(),
-                        HomeContentPanel.this.changeToMoreInfoPanel());
+                        HomeContentPanel.this.changeToMoreInfoPanel(), HomeContentPanel.this.changeToLoaneeInfoPanel());
                 bookInfo.setOutputMarkupId(true);
                 return bookInfo;
             }
@@ -232,7 +222,7 @@ public class HomeContentPanel extends Panel {
             public Panel getNewPanel(final AjaxRequestTarget target, final Loan loan) {
                 BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, HomeContentPanel.this.getBookService()
                         .initializeBookInfo(loan.getBook()), HomeContentPanel.this.changeToLoaningFormPanel(),
-                        HomeContentPanel.this.changeToMoreInfoPanel());
+                        HomeContentPanel.this.changeToMoreInfoPanel(), HomeContentPanel.this.changeToLoaneeInfoPanel());
                 bookInfo.setOutputMarkupId(true);
                 return bookInfo;
             }
@@ -264,6 +254,21 @@ public class HomeContentPanel extends Panel {
                 return new PersonInfoPanel(CONTENT, HomeContentPanel.this.getPersonService().initializePersonInfo(
                         person));
             }
+        };
+    }
+
+    private AjaxReplacePanel<Person> changeToLoaneeInfoPanel() {
+        return new AjaxReplacePanel<Person>(HomeContentPanel.this) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Panel getNewPanel(final AjaxRequestTarget target, final Person loanee) {
+                return (Panel) new LoaneeInfoPanel(CONTENT, HomeContentPanel.this.getPersonService()
+                        .initializeLoaneeInfo(loanee)).setOutputMarkupId(true);
+
+            }
+
         };
     }
 

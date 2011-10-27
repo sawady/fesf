@@ -99,6 +99,10 @@ public class Person extends Entity implements Nameable, Serializable {
         return books;
     }
 
+    public boolean cannotHaveMoreLoans() {
+        return this.getCountOfCurrentLoans() >= 3;
+    }
+
     /* Accessors */
     public int getAge() {
         return this.age;
