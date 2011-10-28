@@ -46,9 +46,9 @@ public class LoaneeInfoPanel extends Panel {
         this.initialize(loanee);
     }
 
-    private void initialize(final Person loanee) {
+    private void initialize(final Person aLoanee) {
         this.setOutputMarkupId(true);
-        this.add(new PersonInfoPanel("loanee", loanee));
+        this.add(new PersonInfoPanel("loanee", aLoanee));
         this.add(this.getLoanList("loans"));
     }
 

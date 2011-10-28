@@ -5,10 +5,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -20,8 +17,8 @@ public class MyWebSession extends AuthenticatedWebSession {
 
     private static final long serialVersionUID = 1L;
 
-    @SpringBean(name = "authenticationManager")
-    private AuthenticationManager authenticationManager;
+    // @SpringBean(name = "authenticationManager")
+    // private AuthenticationManager authenticationManager;
 
     @SpringBean(name = "service.person")
     private PersonService personService;
@@ -57,30 +54,30 @@ public class MyWebSession extends AuthenticatedWebSession {
         }
     }
 
-    // @Override
-    // public boolean authenticate(final String username, final String password) {
-    // boolean isLogged = this.getAuthenticationService().authenticate(username, password);
-    //
-    // if (isLogged) {
-    // this.setPerson(this.getAuthenticationService().findPersonWithUserInfo(username));
-    // }
-    //
-    // return isLogged;
-    // }
-
     @Override
     public boolean authenticate(final String username, final String password) {
-        boolean authenticated = false;
-        try {
-            Authentication authentication = this.authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            authenticated = authentication.isAuthenticated();
-        } catch (AuthenticationException e) {
-            authenticated = false;
+        boolean canSignIn = this.getAuthenticationService().authenticate(username, password);
+
+        if (canSignIn) {
+            this.setPerson(this.getAuthenticationService().findPersonWithUserInfo(username));
         }
-        return authenticated;
+
+        return canSignIn;
     }
+
+    // @Override
+    // public boolean authenticate(final String username, final String password) {
+    // boolean authenticated = false;
+    // try {
+    // Authentication authentication = this.authenticationManager
+    // .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+    // SecurityContextHolder.getContext().setAuthentication(authentication);
+    // authenticated = authentication.isAuthenticated();
+    // } catch (AuthenticationException e) {
+    // authenticated = false;
+    // }
+    // return authenticated;
+    // }
 
     // @Override
     // public Roles getRoles() {
@@ -143,11 +140,11 @@ public class MyWebSession extends AuthenticatedWebSession {
         return this.personService;
     }
 
-    public void setAuthenticationManager(final AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
-
-    public AuthenticationManager getAuthenticationManager() {
-        return this.authenticationManager;
-    }
+    // public void setAuthenticationManager(final AuthenticationManager authenticationManager) {
+    // this.authenticationManager = authenticationManager;
+    // }
+    //
+    // public AuthenticationManager getAuthenticationManager() {
+    // return this.authenticationManager;
+    // }
 }
