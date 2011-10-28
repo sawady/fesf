@@ -46,11 +46,15 @@ public class SignInFieldsPanel extends PanelServiceToForm<UserInfo> {
     public void doSubmit(final AjaxRequestTarget target, final Form<UserInfo> form) {
         // TODO falta autenticar verdaderamente
         Person maybePersonDB = this.getAuthenticationService().findPersonWithUserInfo(this.getUserInfo().getUserid());
-        if (maybePersonDB != null) {
+        if (maybePersonDB == null) {
+            form.error("Wrong userid");
+            target.add(form);
+        } else if (this.getAuthenticationService().authenticate(this.getUserInfo().getUserid(),
+                this.getUserInfo().getPass())) {
             ((MyWebSession) this.getSession()).setPerson(maybePersonDB);
             this.getAjaxCallback().callback(target, maybePersonDB);
         } else {
-            form.error("Wrong userid or password"); // TODO no se si esto va aca
+            form.error("Wrong password");
             target.add(form);
         }
     }
@@ -78,6 +82,14 @@ public class SignInFieldsPanel extends PanelServiceToForm<UserInfo> {
 
     public AuthenticationService getAuthenticationService() {
         return this.authenticationService;
+    }
+
+    public RequiredTextField<String> getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(final RequiredTextField<String> userId) {
+        this.userId = userId;
     }
 
 }

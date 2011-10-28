@@ -1,6 +1,7 @@
 package ar.edu.fesf.repositories;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.hibernate.Query;
 import org.hibernate.criterion.Order;
@@ -19,7 +20,7 @@ public class BookRepository extends HibernateGenericDAO<Book> {
 
     @SuppressWarnings("unchecked")
     public List<Book> bookSearch(final String input) {
-        String goodInput = input.toLowerCase();
+        String goodInput = input.toLowerCase(Locale.getDefault());
         return this
                 .getHibernateTemplate()
                 .find("select distinct book from "
@@ -31,14 +32,14 @@ public class BookRepository extends HibernateGenericDAO<Book> {
 
     @SuppressWarnings("unchecked")
     public List<Book> booksBorrowedByThoseWhoBorrowed(final int bookID, final int maxResults) {
-        Query q = this.getSession().createQuery(
+        Query query = this.getSession().createQuery(
                 "select distinct(loanedBook) from " + this.persistentClass.getName()
                         + " book join book.loanees loanee join loanee.loanedBooks loanedBook where book.id = " + bookID
                         + " and loanedBook.id != " + bookID + " order by loanedBook.countOfLouns desc");
 
-        q.setMaxResults(maxResults);
+        query.setMaxResults(maxResults);
 
-        return q.list();
+        return query.list();
     }
 
     public List<Book> getTop20() {
