@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.security.SecuritySession;
 
 public abstract class HomeUserbarPanel extends Panel {
 
@@ -40,7 +41,7 @@ public abstract class HomeUserbarPanel extends Panel {
 
             @Override
             public void signOutCallback(final AjaxRequestTarget target) {
-                ((MyWebSession) this.getSession()).signOutPerson();
+                ((SecuritySession) this.getSession()).signOutPerson();
                 Panel aNewPanel = HomeUserbarPanel.this.myAuthenticateUserBarPanel();
                 HomeUserbarPanel.this.replace(aNewPanel);
                 target.add(aNewPanel);

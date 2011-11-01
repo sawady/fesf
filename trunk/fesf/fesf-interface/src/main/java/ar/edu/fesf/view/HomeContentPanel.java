@@ -16,6 +16,7 @@ import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.UserInfo;
+import ar.edu.fesf.security.SecuritySession;
 import ar.edu.fesf.services.BookService;
 import ar.edu.fesf.services.PersonService;
 import ar.edu.fesf.services.dtos.PersonDTO;
@@ -71,7 +72,7 @@ public class HomeContentPanel extends Panel {
             @Override
             public void loansCallback(final AjaxRequestTarget target) {
                 HomeContentPanel.this.changeToLoaneeInfoPanel().callback(target,
-                        ((MyWebSession) this.getSession()).getPerson());
+                        ((SecuritySession) this.getSession()).getPerson());
             }
 
             @Override
@@ -95,7 +96,7 @@ public class HomeContentPanel extends Panel {
                         }.setOutputMarkupId(true);
                     }
 
-                }.callback(target, ((MyWebSession) this.getSession()).getPerson());
+                }.callback(target, ((SecuritySession) this.getSession()).getPerson());
             }
 
             @Override
@@ -118,7 +119,7 @@ public class HomeContentPanel extends Panel {
                         }.setOutputMarkupId(true);
                     }
 
-                }.callback(target, ((MyWebSession) this.getSession()).getPerson());
+                }.callback(target, ((SecuritySession) this.getSession()).getPerson());
             }
 
             @Override

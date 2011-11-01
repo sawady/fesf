@@ -9,6 +9,7 @@ import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.UserInfo;
+import ar.edu.fesf.security.SecuritySession;
 import ar.edu.fesf.services.AuthenticationService;
 
 public class SignInFieldsPanel extends PanelServiceToForm<UserInfo> {
@@ -51,7 +52,7 @@ public class SignInFieldsPanel extends PanelServiceToForm<UserInfo> {
             target.add(form);
         } else if (this.getAuthenticationService().authenticate(this.getUserInfo().getUserid(),
                 this.getUserInfo().getPass())) {
-            ((MyWebSession) this.getSession()).setPerson(maybePersonDB);
+            ((SecuritySession) this.getSession()).setPerson(maybePersonDB);
             this.getAjaxCallback().callback(target, maybePersonDB);
         } else {
             form.error("Wrong password");

@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.fesf.security.SecuritySession;
 import ar.edu.fesf.services.PersonService;
 
 public abstract class AuthenticatedUserBarPanel extends Panel {
@@ -52,7 +53,7 @@ public abstract class AuthenticatedUserBarPanel extends Panel {
             }
 
         };
-        String personName = ((MyWebSession) this.getSession()).getPerson().getName();
+        String personName = ((SecuritySession) this.getSession()).getPerson().getName();
         profileLink.add(new Label("welcome", "Welcome " + personName));
         this.add(profileLink);
     }
