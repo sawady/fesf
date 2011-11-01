@@ -88,17 +88,17 @@
 			</exclusions>
 		</dependency>
 
-<dependency>
-    <groupId>org.wicketstuff</groupId>
-    <artifactId>wicketstuff-minis</artifactId>
-    <version>${wicket.version}</version>
-</dependency>
-
-	<dependency>
-    <groupId>org.wicketstuff</groupId>
-    <artifactId>wicketstuff-objectautocomplete</artifactId>
-    <version>${wicket.version}</version>
-</dependency>
+		<dependency>
+		    <groupId>org.wicketstuff</groupId>
+		    <artifactId>wicketstuff-minis</artifactId>
+		    <version>${wicket.version}</version>
+		</dependency>
+		
+			<dependency>
+		    <groupId>org.wicketstuff</groupId>
+		    <artifactId>wicketstuff-objectautocomplete</artifactId>
+		    <version>${wicket.version}</version>
+		</dependency>
 
 
 		<dependency>

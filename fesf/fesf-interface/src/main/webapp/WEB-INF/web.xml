@@ -4,14 +4,16 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-	<display-name>Archetype Created Web Application</display-name>
+    <display-name>fesf</display-name>
+    <description>Library to manage your books in the best way</description>
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:/META-INF/spring-web.xml,
 			classpath*:/META-INF/spring-persistence-context.xml,
-			classpath*:/META-INF/spring-services-context.xml
+			classpath*:/META-INF/spring-services-context.xml,
+			classpath*:/META-INF/application-context.xml			
 		</param-value>
 	</context-param>
 
@@ -24,46 +26,29 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	<!-- 	Cosas para wicket security -->	
-<!-- 	<filter> -->
-<!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
-<!-- 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> -->
-<!-- 	</filter> -->
+    <filter>
+        <filter-name>Wicket</filter-name>
+        <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+        <init-param>
+            <param-name>applicationFactoryClassName</param-name>
+            <param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
+        </init-param>
+    </filter>
 
-	<filter>
-		<filter-name>wicket.filter</filter-name>
-		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
-		<init-param>
-			<param-name>applicationFactoryClassName</param-name>
-			<param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
-		</init-param>
-	</filter>
-	
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>springSecurityFilterChain</filter-name> -->
-<!-- 		<url-pattern>/*</url-pattern> -->
-<!-- 	</filter-mapping> -->
+    <filter>
+        <filter-name>filterChainProxy</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>filterChainProxy</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-	<filter-mapping>
-		<filter-name>wicket.filter</filter-name>
-		<url-pattern>/*</url-pattern>
-<!-- 		<dispatcher>REQUEST</dispatcher> -->
-<!-- 		<dispatcher>ERROR</dispatcher> -->
-	</filter-mapping>		
-	
-<!-- 	<filter> -->
-<!--         <filter-name>Acegi HTTP Request Security Filter</filter-name> -->
-<!--         <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class> -->
-<!--         <init-param> -->
-<!--             <param-name>targetClass</param-name> -->
-<!--             <param-value>org.acegisecurity.util.FilterChainProxy</param-value> -->
-<!--         </init-param> -->
-<!--     </filter> -->
-
-<!--     <filter-mapping> -->
-<!--         <filter-name>Acegi HTTP Request Security Filter</filter-name> -->
-<!--         <url-pattern>/*</url-pattern> -->
-<!--     </filter-mapping> -->
+    <filter-mapping>
+        <filter-name>Wicket</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 	
 	<session-config>
 		<session-timeout>7200</session-timeout>

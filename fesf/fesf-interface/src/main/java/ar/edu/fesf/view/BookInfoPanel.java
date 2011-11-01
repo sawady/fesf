@@ -17,6 +17,7 @@ import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.Nameable;
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.security.SecuritySession;
 import ar.edu.fesf.services.BookService;
 import ar.edu.fesf.services.PersonService;
 
@@ -48,7 +49,7 @@ public class BookInfoPanel extends Panel {
         this.add(new Label("isbn.value"));
         this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()));
 
-        Person person = ((MyWebSession) this.getSession()).getPerson();
+        Person person = ((SecuritySession) this.getSession()).getPerson();
         if (person == null) {
             AjaxFallbackLink<String> ajaxFallbackLink = new AjaxFallbackLink<String>("borrowIt",
                     new Model<String>(null)) {
