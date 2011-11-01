@@ -16,10 +16,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import ar.edu.fesf.model.Role;
 
 /**
  * Provides user information
@@ -55,7 +56,7 @@ public final class UserDetailsImpl implements UserDetails {
         this.userName = username;
         this.language = language;
         // By default every signeIn user is Granted as USER
-        this.gaL.add(new GrantedAuthorityImpl(Roles.USER));
+        this.gaL.add(new GrantedAuthorityImpl(Role.USER.toString()));
     }
 
     /**

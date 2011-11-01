@@ -25,6 +25,8 @@ import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.security.web.authentication.AbstractAuthenticationTargetUrlRequestHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import ar.edu.fesf.services.PersonService;
+
 /**
  * 
  * Custom {@link AuthenticationSuccessHandler} that create a new {@link OpenIDAuthenticationToken} that contains as a
@@ -37,6 +39,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  */
 public class YouEatAuthenticationSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler implements
         AuthenticationSuccessHandler {
+
+    private PersonService personService;
 
     private OpenIDAttributes2UserDetails attributes2UserDetails;
 
@@ -57,6 +61,14 @@ public class YouEatAuthenticationSuccessHandler extends AbstractAuthenticationTa
 
     public OpenIDAttributes2UserDetails getAttributes2UserDetails() {
         return this.attributes2UserDetails;
+    }
+
+    public void setPersonService(final PersonService personService) {
+        this.personService = personService;
+    }
+
+    public PersonService getPersonService() {
+        return this.personService;
     }
 
 }

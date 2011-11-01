@@ -2,6 +2,7 @@ package ar.edu.fesf.view;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 public abstract class AuthenticateUserBarPanel extends Panel {
@@ -15,16 +16,9 @@ public abstract class AuthenticateUserBarPanel extends Panel {
     }
 
     private void initialize() {
-        this.add(new AjaxFallbackLink<String>("signIn") {
 
-            private static final long serialVersionUID = 1L;
+        this.add(new BookmarkablePageLink<String>("signIn", SignIn.class));
 
-            @Override
-            public void onClick(final AjaxRequestTarget target) {
-                AuthenticateUserBarPanel.this.signInCallback(target);
-            }
-
-        });
         this.add(new AjaxFallbackLink<String>("signUp") {
 
             private static final long serialVersionUID = 1L;
@@ -36,8 +30,6 @@ public abstract class AuthenticateUserBarPanel extends Panel {
 
         });
     }
-
-    public abstract void signInCallback(AjaxRequestTarget target);
 
     public abstract void signUpCallback(AjaxRequestTarget target);
 }

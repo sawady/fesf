@@ -5,7 +5,6 @@ import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import ar.edu.fesf.controllers.IAjaxCallback;
-import ar.edu.fesf.model.Person;
 import ar.edu.fesf.security.SecuritySession;
 
 public abstract class HomeUserbarPanel extends Panel {
@@ -31,7 +30,13 @@ public abstract class HomeUserbarPanel extends Panel {
 
         });
         this.add(this.getBookSearchPanel("searchbar"));
-        this.add(this.myAuthenticateUserBarPanel());
+
+        if (((SecuritySession) this.getSession()).signedIn()) {
+            this.add(this.myAuthenticatedUserBarPanel());
+        } else {
+            this.add(this.myAuthenticateUserBarPanel());
+        }
+
     }
 
     public Panel myAuthenticatedUserBarPanel() {
@@ -69,8 +74,6 @@ public abstract class HomeUserbarPanel extends Panel {
 
     public abstract void signUpCallback(AjaxRequestTarget target);
 
-    public abstract void signInCallback(AjaxRequestTarget target, IAjaxCallback<Person> succedCallback);
-
     public abstract void successfullSignInCallback(AjaxRequestTarget target);
 
     public Panel myAuthenticateUserBarPanel() {
@@ -83,22 +86,6 @@ public abstract class HomeUserbarPanel extends Panel {
                 HomeUserbarPanel.this.signUpCallback(target);
             }
 
-            @Override
-            public void signInCallback(final AjaxRequestTarget target) {
-                HomeUserbarPanel.this.signInCallback(target, new IAjaxCallback<Person>() {
-
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void callback(final AjaxRequestTarget target, final Person object) {
-                        Panel panel = HomeUserbarPanel.this.myAuthenticatedUserBarPanel();
-                        HomeUserbarPanel.this.replace(panel);
-                        target.add(panel);
-                        HomeUserbarPanel.this.successfullSignInCallback(target);
-                    }
-
-                });
-            }
         };
 
     }

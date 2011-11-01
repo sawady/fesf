@@ -41,6 +41,11 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         return names;
     }
 
+    @Transactional(readOnly = true)
+    public Person findPersonByEmail(final String email) {
+        return ((PersonRepository) this.getRepository()).findByEmail(email);
+    }
+
     @Transactional
     public Person registerPerson(final PersonDTO personDTO) {
         Person personDB = this.findById(personDTO.getId());

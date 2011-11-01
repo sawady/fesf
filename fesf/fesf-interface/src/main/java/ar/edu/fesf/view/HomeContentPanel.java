@@ -15,7 +15,6 @@ import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
-import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.security.SecuritySession;
 import ar.edu.fesf.services.BookService;
 import ar.edu.fesf.services.PersonService;
@@ -125,22 +124,6 @@ public class HomeContentPanel extends Panel {
             @Override
             public Panel getBookSearchPanel(final String id) {
                 return new BookSearchPanel(id, HomeContentPanel.this.changeToResultsPanel());
-            }
-
-            @Override
-            public void signInCallback(final AjaxRequestTarget target, final IAjaxCallback<Person> succedCallback) {
-                Component signInPanel = new GenericFormPanel<UserInfo>(CONTENT) {
-
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public PanelServiceToForm<UserInfo> getFieldsPanel(final String id) {
-                        return new SignInFieldsPanel(id, new UserInfo(), succedCallback);
-                    }
-
-                }.setOutputMarkupId(true);
-                HomeContentPanel.this.replace(signInPanel);
-                target.add(signInPanel);
             }
 
             @Override

@@ -14,9 +14,12 @@ package ar.edu.fesf.security;
 
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.services.PersonService;
 
 /**
  * Implements the authentication strategies
@@ -28,13 +31,15 @@ public class SecuritySession extends AuthenticatedWebSession {
 
     private static final long serialVersionUID = 1L;
 
+    @SpringBean(name = "service.person")
+    private PersonService personService;
+
     private Person person;
 
     public SecuritySession(final Request request) {
         super(request);
+        Injector.get().inject(this);
     }
-
-    private String[] roles;
 
     /**
      * @see org.apache.wicket.authentication.AuthenticatedWebSession#authenticate(java.lang.String, java.lang.String)
@@ -50,13 +55,25 @@ public class SecuritySession extends AuthenticatedWebSession {
      */
     @Override
     public Roles getRoles() {
-        if (this.roles == null && SecurityContextHelper.isAuthenticatedUser()) {
-            return new Roles(SecurityContextHelper.getAuthenticatedUser().getAuthorities().iterator().next()
-                    .getAuthority());
+        if (SecurityContextHelper.isAuthenticatedUser()) {
+            return new Roles(this.getAuthenticatedUser().getAuthorities().iterator().next().getAuthority());
         }
         return null;
     }
 
+    public void attachPerson() {
+        this.setPerson(this.getPersonService().findPersonByEmail(this.getAuthenticatedUser().getEmail()));
+    }
+
+    private UserDetailsImpl getAuthenticatedUser() {
+        return SecurityContextHelper.getAuthenticatedUser();
+    }
+
+    public boolean signedIn() {
+        return SecurityContextHelper.isAuthenticatedUser();
+    }
+
+    /* Accessors */
     public Person getPerson() {
         return this.person;
     }
@@ -65,12 +82,16 @@ public class SecuritySession extends AuthenticatedWebSession {
         this.person = person;
     }
 
-    public void setRoles(final String[] roles) {
-        this.roles = roles.clone();
-    }
-
     public void signOutPerson() {
         this.setPerson(null);
+    }
+
+    public void setPersonService(final PersonService personService) {
+        this.personService = personService;
+    }
+
+    public PersonService getPersonService() {
+        return this.personService;
     }
 
 }
