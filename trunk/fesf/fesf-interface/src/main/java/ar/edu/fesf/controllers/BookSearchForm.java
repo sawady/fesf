@@ -8,7 +8,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.fesf.services.BookService;
-import ar.edu.fesf.view.BookSearchPanel;
+import ar.edu.fesf.view.pages.books.BookSearchPanel;
 
 public class BookSearchForm extends Form<BookSearchForm> {
 
