@@ -39,5 +39,7 @@
 		<property name="personService" ref="service.person" />
 		<property name="loaningService" ref="service.loan" />		
 	</bean>
+	
+	<bean id="service.SecurityContextHelper" class="ar.edu.fesf.security.SecurityContextHelper"/>
 
 </beans>
