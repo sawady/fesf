@@ -1,4 +1,4 @@
-package ar.edu.fesf;
+package ar.edu.fesf.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,10 +10,6 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import ar.edu.fesf.model.Book;
-import ar.edu.fesf.model.BookCopy;
-import ar.edu.fesf.model.Loan;
 
 /**
  * BookCopy Test

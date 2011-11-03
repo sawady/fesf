@@ -61,7 +61,12 @@
 		    <groupId>org.scala-tools.testing</groupId>
 		    <artifactId>scalatest</artifactId>
 		    <version>0.9.5</version>
-		</dependency>		
+		</dependency>
+		<dependency>
+		    <groupId>org.scala-tools.testing</groupId>
+		    <artifactId>specs_2.9.1</artifactId>
+		    <version>1.6.9</version>
+		</dependency>
 	  </dependencies>
 
 </project>

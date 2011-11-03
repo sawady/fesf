@@ -1,12 +1,9 @@
-package ar.edu.fesf;
+package ar.edu.fesf.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
-import ar.edu.fesf.model.Calification;
-import ar.edu.fesf.model.UserFeedbackManager;
 
 public class UserFeedbackManagerTest {
 

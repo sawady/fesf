@@ -1,13 +1,10 @@
-package ar.edu.fesf;
+package ar.edu.fesf.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
-
-import ar.edu.fesf.model.Loan;
-import ar.edu.fesf.model.Person;
 
 public class PersonTest {
 
