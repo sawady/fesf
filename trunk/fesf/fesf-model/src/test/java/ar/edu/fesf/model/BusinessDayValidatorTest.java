@@ -1,4 +1,4 @@
-package ar.edu.fesf;
+package ar.edu.fesf.model;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -10,7 +10,6 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import ar.edu.fesf.model.NonBusinessDay;
 import ar.edu.fesf.model.validations.BusinessDayValidator;
 
 public class BusinessDayValidatorTest {
