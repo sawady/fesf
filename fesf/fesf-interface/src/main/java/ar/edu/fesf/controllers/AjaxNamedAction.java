@@ -17,8 +17,8 @@ public class AjaxNamedAction<T> implements IAjaxCallback<T> {
     }
 
     @Override
-    public void callback(final AjaxRequestTarget target, final T object) {
-        this.ajaxCallback.callback(target, object);
+    public void apply(final AjaxRequestTarget target, final T object) {
+        this.ajaxCallback.apply(target, object);
     }
 
     public void setName(final String name) {

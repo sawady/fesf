@@ -43,7 +43,7 @@ public class LoaneesPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
+            public Panel getNewPanel(final Person person) {
                 BackingPanel backingPanel = new BackingPanel("content") {
 
                     private static final long serialVersionUID = 1L;
@@ -55,7 +55,7 @@ public class LoaneesPanel extends Panel {
 
                     @Override
                     public void callback(final AjaxRequestTarget target) {
-                        LoaneesPanel.this.changeToNavigationPanel().callback(target, null);
+                        LoaneesPanel.this.changeToNavigationPanel().apply(target, null);
                     }
 
                 };
@@ -72,7 +72,7 @@ public class LoaneesPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final List<Person> list) {
+            public Panel getNewPanel(final List<Person> list) {
                 return LoaneesPanel.this.createNavigationPanel();
             }
 

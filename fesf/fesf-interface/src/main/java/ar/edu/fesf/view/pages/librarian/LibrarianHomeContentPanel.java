@@ -1,6 +1,5 @@
 package ar.edu.fesf.view.pages.librarian;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import ar.edu.fesf.controllers.AjaxReplacePanel;
@@ -52,7 +51,7 @@ public class LibrarianHomeContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
+            public Panel getNewPanel(final Person person) {
                 // TODO hacer algo con person
                 return LibrarianHomeContentPanel.this.getLibrarianTabbedPanel();
             }

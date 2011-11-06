@@ -76,7 +76,7 @@ public class LoanFormFieldsPanel extends PanelServiceToForm<Loan> {
     public void doSubmit(final AjaxRequestTarget target, final Form<Loan> form) {
         SecuritySession myWebSession = (SecuritySession) this.getSession();
         this.getLoaningService().registerLoan(myWebSession.getPerson(), this.getLoan(), this.getBook());
-        this.getAjaxCallback().callback(target, this.getLoan());
+        this.getAjaxCallback().apply(target, this.getLoan());
     }
 
     /* Accessors */

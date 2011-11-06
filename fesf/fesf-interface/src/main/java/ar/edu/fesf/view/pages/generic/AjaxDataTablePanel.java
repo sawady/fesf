@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
@@ -63,10 +62,14 @@ public abstract class AjaxDataTablePanel<T extends Serializable> extends Panel {
 
     public abstract List<String> getSortFields();
 
-    public void replaceTable(final AjaxRequestTarget target, final List<T> list) {
+    public void replaceTable(final List<T> list) {
         this.replace(new AjaxFallbackDefaultDataTable<T>("table", this.getColumns(),
                 new GenericSortableDataProvider<T>(list, this.getSortFields()), this.getRowsPerPage()));
-        target.add(this);
+    }
+
+    public Panel withUpdatedTable(final List<T> list) {
+        this.replaceTable(list);
+        return this;
     }
 
     public void setColumns(final List<IColumn<T>> columns) {

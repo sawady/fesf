@@ -1,6 +1,5 @@
 package ar.edu.fesf.view.pages.home;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -21,6 +20,7 @@ public class RankingPanel extends Panel {
     public RankingPanel(final String id, final IAjaxCallback<Book> ajaxCallback) {
         super(id);
         this.ajaxCallback = ajaxCallback;
+        this.setOutputMarkupId(true);
         this.initialize();
     }
 
@@ -30,11 +30,11 @@ public class RankingPanel extends Panel {
                 this.ajaxCallback));
     }
 
-    public void updateTop20(final AjaxRequestTarget target) {
+    public void updateTop20() {
         this.replace(new HorizontalBookPanel("top20", this.getBookService().getTop20(), this.ajaxCallback));
     }
 
-    public void updateRecentlyAvailable(final AjaxRequestTarget target) {
+    public void updateRecentlyAvailable() {
         this.replace(new HorizontalBookPanel("recentlyAvailable", this.getBookService().getRecentlyAvailable(),
                 this.ajaxCallback));
     }

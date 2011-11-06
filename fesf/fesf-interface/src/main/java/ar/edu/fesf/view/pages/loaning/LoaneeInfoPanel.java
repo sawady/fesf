@@ -86,7 +86,7 @@ public class LoaneeInfoPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void callback(final AjaxRequestTarget target, final Loan loan) {
+            public void apply(final AjaxRequestTarget target, final Loan loan) {
                 LoaneeInfoPanel.this.getLoaningService().registerBookReturn(loan);
                 ListView<Loan> newLoanList = LoaneeInfoPanel.this.getLoanList("loans");
                 LoaneeInfoPanel.this.replace(newLoanList);

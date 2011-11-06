@@ -45,7 +45,7 @@ public class BookEditFormFieldsPanel extends PanelServiceToForm<EditBookDTO> {
     @Override
     public void doSubmit(final AjaxRequestTarget target, final Form<EditBookDTO> form) {
         this.getBookService().registerEditBookDTO(this.book);
-        this.getAjaxCallback().callback(target, null);
+        this.getAjaxCallback().apply(target, null);
     }
 
     public void setBook(final EditBookDTO book) {

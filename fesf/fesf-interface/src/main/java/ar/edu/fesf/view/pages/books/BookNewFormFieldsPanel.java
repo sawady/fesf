@@ -63,7 +63,7 @@ public class BookNewFormFieldsPanel extends PanelServiceToForm<NewBookDTO> {
     @Override
     public void doSubmit(final AjaxRequestTarget target, final Form<NewBookDTO> form) {
         this.getBookService().registerNewBookDTO(this.getBook());
-        this.getAjaxCallback().callback(target, null);
+        this.getAjaxCallback().apply(target, null);
     }
 
     /* Accessors */

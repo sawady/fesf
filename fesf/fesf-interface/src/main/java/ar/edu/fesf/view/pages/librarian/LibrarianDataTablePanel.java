@@ -27,7 +27,7 @@ public class LibrarianDataTablePanel extends BookSearchResultPanel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                newBookCallback.callback(target, new Book());
+                newBookCallback.apply(target, new Book());
             }
 
         });

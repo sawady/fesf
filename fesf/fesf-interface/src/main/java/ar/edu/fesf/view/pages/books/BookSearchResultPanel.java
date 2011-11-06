@@ -45,6 +45,7 @@ public class BookSearchResultPanel extends AjaxDataTablePanel<Book> {
         return this.getBookService().getFieldForSort();
     }
 
+    /* Accessors */
     public void setCallback(final IAjaxCallback<Book> callback) {
         this.callback = callback;
     }

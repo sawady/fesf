@@ -44,7 +44,7 @@ public class CategoriesSidebar extends Panel {
 
                     @Override
                     public void onClick(final AjaxRequestTarget target) {
-                        CategoriesSidebar.this.getCallback().callback(target,
+                        CategoriesSidebar.this.getCallback().apply(target,
                                 CategoriesSidebar.this.getBookService().findByCategory(this.getModelObject()));
                     }
 
