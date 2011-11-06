@@ -29,7 +29,7 @@ public class OneLineLoaneePanel extends Panel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                callback.callback(target, OneLineLoaneePanel.this.getLoanee());
+                callback.apply(target, OneLineLoaneePanel.this.getLoanee());
             }
         };
         ajaxFallbackLink.add(new Label("loaneeName", this.getLoanee().getName()));

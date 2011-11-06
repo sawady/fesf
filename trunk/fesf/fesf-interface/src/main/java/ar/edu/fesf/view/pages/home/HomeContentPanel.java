@@ -78,7 +78,7 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public void loansCallback(final AjaxRequestTarget target) {
-                HomeContentPanel.this.changeToLoaneeInfoPanel().callback(target,
+                HomeContentPanel.this.changeToLoaneeInfoPanel().apply(target,
                         ((SecuritySession) this.getSession()).getPerson());
             }
 
@@ -89,7 +89,7 @@ public class HomeContentPanel extends Panel {
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
+                    public Panel getNewPanel(final Person person) {
                         return (Panel) new GenericFormPanel<PersonDTO>(CONTENT) {
 
                             private static final long serialVersionUID = 1L;
@@ -103,7 +103,7 @@ public class HomeContentPanel extends Panel {
                         }.setOutputMarkupId(true);
                     }
 
-                }.callback(target, ((SecuritySession) this.getSession()).getPerson());
+                }.apply(target, ((SecuritySession) this.getSession()).getPerson());
             }
 
             @Override
@@ -113,7 +113,7 @@ public class HomeContentPanel extends Panel {
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
+                    public Panel getNewPanel(final Person person) {
                         return (Panel) new GenericFormPanel<PersonDTO>(CONTENT) {
 
                             private static final long serialVersionUID = 1L;
@@ -126,7 +126,7 @@ public class HomeContentPanel extends Panel {
                         }.setOutputMarkupId(true);
                     }
 
-                }.callback(target, ((SecuritySession) this.getSession()).getPerson());
+                }.apply(target, ((SecuritySession) this.getSession()).getPerson());
             }
 
             @Override
@@ -136,7 +136,7 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public void successfullSignInCallback(final AjaxRequestTarget target) {
-                HomeContentPanel.this.changeToRakingPanel().callback(target, null);
+                HomeContentPanel.this.changeToRakingPanel().apply(target, null);
             }
 
         });
@@ -150,13 +150,13 @@ public class HomeContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Object book) {
+            public Panel getNewPanel(final Object book) {
                 // Para que no cargue de nuevo el panel cuando ya está cargado
                 if (HomeContentPanel.this.contains(HomeContentPanel.this.getRankingPanel(), true)) {
                     return (Panel) HomeContentPanel.this.get(CONTENT);
                 }
-                HomeContentPanel.this.getRankingPanel().updateTop20(target); // Porque sino no se actualiza el top20
-                HomeContentPanel.this.getRankingPanel().updateRecentlyAvailable(target);
+                HomeContentPanel.this.getRankingPanel().updateTop20(); // Porque sino no se actualiza el top20
+                HomeContentPanel.this.getRankingPanel().updateRecentlyAvailable();
 
                 return HomeContentPanel.this.lazyPanel(CONTENT, HomeContentPanel.this.getRankingPanel());
             }
@@ -170,7 +170,7 @@ public class HomeContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
+            public Panel getNewPanel(final Book book) {
                 BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, HomeContentPanel.this.getBookService()
                         .initializeBookInfo(book), HomeContentPanel.this.changeToLoaningFormPanel(),
                         HomeContentPanel.this.changeToMoreInfoPanel(), HomeContentPanel.this.changeToLoaneeInfoPanel());
@@ -187,7 +187,7 @@ public class HomeContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void callback(final AjaxRequestTarget target, final Book book) {
+            public void apply(final AjaxRequestTarget target, final Book book) {
 
                 HomeContentPanel.this.getBookService().initializeFields(book, "availableCopies");
 
@@ -211,7 +211,7 @@ public class HomeContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Loan loan) {
+            public Panel getNewPanel(final Loan loan) {
                 BookInfoPanel bookInfo = new BookInfoPanel(CONTENT, HomeContentPanel.this.getBookService()
                         .initializeBookInfo(loan.getBook()), HomeContentPanel.this.changeToLoaningFormPanel(),
                         HomeContentPanel.this.changeToMoreInfoPanel(), HomeContentPanel.this.changeToLoaneeInfoPanel());
@@ -228,8 +228,8 @@ public class HomeContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final List<Book> list) {
-                HomeContentPanel.this.getBookSearchResultPanel().replaceTable(target, list);
+            public Panel getNewPanel(final List<Book> list) {
+                HomeContentPanel.this.getBookSearchResultPanel().replaceTable(list);
                 return HomeContentPanel.this.lazyPanel(CONTENT, HomeContentPanel.this.getBookSearchResultPanel());
             }
 
@@ -242,7 +242,7 @@ public class HomeContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
+            public Panel getNewPanel(final Person person) {
                 return new PersonInfoPanel(CONTENT, HomeContentPanel.this.getPersonService().initializePersonInfo(
                         person));
             }
@@ -255,7 +255,7 @@ public class HomeContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Person loanee) {
+            public Panel getNewPanel(final Person loanee) {
                 return (Panel) new LoaneeInfoPanel(CONTENT, HomeContentPanel.this.getPersonService()
                         .initializeLoaneeInfo(loanee)).setOutputMarkupId(true);
 

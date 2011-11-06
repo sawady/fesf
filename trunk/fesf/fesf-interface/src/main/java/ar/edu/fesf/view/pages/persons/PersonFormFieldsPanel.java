@@ -52,7 +52,7 @@ public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
     @Override
     public void doSubmit(final AjaxRequestTarget target, final Form<PersonDTO> form) {
         Person personDB = this.getPersonService().registerPerson(this.personDTO);
-        this.getAjaxCallback().callback(target, personDB);
+        this.getAjaxCallback().apply(target, personDB);
     }
 
     public void setPersonService(final PersonService personService) {

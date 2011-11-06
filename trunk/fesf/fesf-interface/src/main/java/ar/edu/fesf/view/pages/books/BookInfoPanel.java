@@ -35,6 +35,7 @@ public class BookInfoPanel extends Panel {
             final IAjaxCallback<Book> relatedBookCallback, final IAjaxCallback<Person> loaneeCallback) {
         super(id, new CompoundPropertyModel<Book>(book));
         this.initialize(callback, relatedBookCallback, book, loaneeCallback);
+        this.setOutputMarkupId(true);
     }
 
     // TODO faltan un par de campos
@@ -74,7 +75,7 @@ public class BookInfoPanel extends Panel {
 
                     @Override
                     public void onClick(final AjaxRequestTarget target) {
-                        loaneeCallback.callback(target, personDB);
+                        loaneeCallback.apply(target, personDB);
                     }
 
                 };
@@ -88,7 +89,7 @@ public class BookInfoPanel extends Panel {
 
                     @Override
                     public void onClick(final AjaxRequestTarget target) {
-                        callback.callback(target, book);
+                        callback.apply(target, book);
                     }
 
                 };

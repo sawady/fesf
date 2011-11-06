@@ -9,8 +9,8 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import ar.edu.fesf.scala.view.pages.ScalaHome;
 import ar.edu.fesf.services.SpringInitializedService;
-import ar.edu.fesf.view.pages.home.ScalaHome;
 import ar.edu.fesf.view.pages.librarian.LibrarianHome;
 import ar.edu.fesf.view.pages.signin.SignIn;
 

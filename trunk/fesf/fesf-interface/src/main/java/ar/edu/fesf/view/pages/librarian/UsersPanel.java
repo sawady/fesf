@@ -2,7 +2,6 @@ package ar.edu.fesf.view.pages.librarian;
 
 import java.util.List;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -41,7 +40,7 @@ public class UsersPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Person person) {
+            public Panel getNewPanel(final Person person) {
                 PersonInfoPanel personInfo = new PersonInfoPanel("content", UsersPanel.this.getPersonService()
                         .initializePersonInfo(person));
                 personInfo.setOutputMarkupId(true);
@@ -57,8 +56,8 @@ public class UsersPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final List<Person> persons) {
-                UsersPanel.this.getUsersTablePanel().replaceTable(target, persons);
+            public Panel getNewPanel(final List<Person> persons) {
+                UsersPanel.this.getUsersTablePanel().replaceTable(persons);
                 return UsersPanel.this.getUsersTablePanel();
             }
 

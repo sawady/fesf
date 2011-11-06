@@ -26,7 +26,7 @@ public class BookSearchPanel extends Panel {
     }
 
     public void receiveResult(final AjaxRequestTarget target, final List<Book> books) {
-        this.getCallback().callback(target, books);
+        this.getCallback().apply(target, books);
     }
 
     private void setCallback(final IAjaxCallback<List<Book>> callback) {

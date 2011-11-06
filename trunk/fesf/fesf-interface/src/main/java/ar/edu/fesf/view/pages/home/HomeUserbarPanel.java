@@ -25,7 +25,7 @@ public abstract class HomeUserbarPanel extends Panel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                HomeUserbarPanel.this.getHomeLinkCallback().callback(target, null);
+                HomeUserbarPanel.this.getHomeLinkCallback().apply(target, null);
             }
 
         });

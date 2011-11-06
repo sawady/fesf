@@ -37,7 +37,7 @@ public class ActionsPanel<T> extends Panel {
 
                     @Override
                     public void onClick(final AjaxRequestTarget target) {
-                        action.callback(target, object);
+                        action.apply(target, object);
                     }
                 };
                 ajaxFallbackLink.add(new Label("linkText", new Model<String>(action.getName())));

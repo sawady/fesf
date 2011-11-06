@@ -53,7 +53,7 @@ public class SignInFieldsPanel extends PanelServiceToForm<UserInfo> {
         } else if (this.getAuthenticationService().authenticate(this.getUserInfo().getUserid(),
                 this.getUserInfo().getPass())) {
             ((SecuritySession) this.getSession()).setPerson(maybePersonDB);
-            this.getAjaxCallback().callback(target, maybePersonDB);
+            this.getAjaxCallback().apply(target, maybePersonDB);
         } else {
             form.error("Wrong password");
             target.add(form);

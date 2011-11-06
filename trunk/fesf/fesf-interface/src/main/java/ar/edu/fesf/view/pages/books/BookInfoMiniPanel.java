@@ -35,7 +35,7 @@ public class BookInfoMiniPanel extends Panel {
 
             @Override
             public void onClick(final AjaxRequestTarget target) {
-                ajaxCallback.callback(target, BookInfoMiniPanel.this.book);
+                ajaxCallback.apply(target, BookInfoMiniPanel.this.book);
             }
 
         });

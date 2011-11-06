@@ -45,7 +45,7 @@ public class LibrarianBooksContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
+            public Panel getNewPanel(final Book book) {
                 return LibrarianBooksContentPanel.this.getNewBookFormPanel(new NewBookDTO());
             }
 
@@ -58,7 +58,7 @@ public class LibrarianBooksContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final Book book) {
+            public Panel getNewPanel(final Book book) {
                 return LibrarianBooksContentPanel.this.getEditBookFormPanel(new EditBookDTO(
                         LibrarianBooksContentPanel.this.getBookService().initializeBookInfo(book)));
             }
@@ -72,8 +72,8 @@ public class LibrarianBooksContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Panel getNewPanel(final AjaxRequestTarget target, final List<Book> list) {
-                LibrarianBooksContentPanel.this.getLibrarianDataTablePanel().replaceTable(target, list);
+            public Panel getNewPanel(final List<Book> list) {
+                LibrarianBooksContentPanel.this.getLibrarianDataTablePanel().replaceTable(list);
                 return LibrarianBooksContentPanel.this.getLibrarianDataTablePanel();
             }
 
@@ -85,8 +85,8 @@ public class LibrarianBooksContentPanel extends Panel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void callback(final AjaxRequestTarget target, final Book object) {
-                LibrarianBooksContentPanel.this.changeBookTablePanel().callback(target, new ArrayList<Book>());
+            public void apply(final AjaxRequestTarget target, final Book object) {
+                LibrarianBooksContentPanel.this.changeBookTablePanel().apply(target, new ArrayList<Book>());
             }
         };
     }
