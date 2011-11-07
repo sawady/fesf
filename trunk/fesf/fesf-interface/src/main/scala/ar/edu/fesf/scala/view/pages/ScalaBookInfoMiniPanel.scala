@@ -9,9 +9,10 @@ import org.apache.wicket.model.Model
 import org.apache.commons.lang.StringUtils
 import org.apache.wicket.model.PropertyModel
 
-class ScalaBookInfoMiniPanel(id: String,
-  book: Book,
-  f_callback: (AjaxRequestTarget, Book) => Unit) extends Panel(id) {
+class ScalaBookInfoMiniPanel(id: String, 
+    book: Book, 
+    f_callback: (AjaxRequestTarget, Book) => Unit)
+  extends Panel(id) {
 
   this.initialize()
 

@@ -33,6 +33,7 @@ import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.wicket.application.SecuritySession
 
+//TODO reificar callbacks
 class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
 
   override val CONTENT_ID: String = "content"
@@ -53,17 +54,18 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   val f_homeLink = ToAjaxLink(changeToRankingPanel, _: String)
 
   //AuthenticatedUser
+  lazy val loggedPerson = this.getSession().asInstanceOf[SecuritySession].getPerson()
   val f_signOutLink = ToAjaxLink(changeToRankingPanel, _: String)
   val f_profileLink = ToAjaxLink(changeToProfilePanel, _: String)
-  val f_myLoansLink = ToAjaxLink(changeToRankingPanel, _: String)
+  val f_myLoansLink = ToAjaxLink(changeToLoaneeInfoPanel, _: String)
   val f_loggedInPanel =
     new ScalaLoggedInUserbarPanel(_: String, f_signOutLink, f_myLoansLink, f_profileLink)
   val f_personInfoPanel = (person: Person) =>
     new PersonInfoPanel(CONTENT_ID, this.personService.initializePersonInfo(person))
 
   //Loaning
-  val f_loaneePanel = (person: Person) =>
-    new LoaneeInfoPanel(CONTENT_ID, this.personService.initializeLoaneeInfo(person))
+  val f_loaneePanel = (id: String) =>
+    new LoaneeInfoPanel(CONTENT_ID, this.personService.initializeLoaneeInfo(loggedPerson))
   val f_loaningFormPanel =
     new LoaningFormPanel(CONTENT_ID, _: Book, oldChangeToMoreInfoPanel)
 
@@ -73,7 +75,7 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
     (list: List[Book]) => f_lazyPanel(id, new BookSearchResultPanel(_: String, list, oldChangeToMoreInfoPanel))
   val f_bookInfoPanel = (id: String) =>
     (book: Book) => new BookInfoPanel(id, bookService.initializeBookInfo(book),
-      changeToLoaningFormPanel, oldChangeToMoreInfoPanel, changeToLoaneeInfoPanel)
+      changeToLoaningFormPanel, oldChangeToMoreInfoPanel, oldChangeToLoaneeInfoPanel)
 
   /* initialization */
   this.initialize()
@@ -100,8 +102,11 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   private def oldChangeToResultsPanel: ScalaAjaxReplacePanel[List[Book]] =
     new ScalaAjaxReplacePanel(this, f_bookSearchResults(CONTENT_ID))
 
-  private def changeToLoaneeInfoPanel: ScalaAjaxReplacePanel[Person] =
-    new ScalaAjaxReplacePanel(this, f_loaneePanel)
+  private def changeToLoaneeInfoPanel: AjaxRequestTarget => Unit =
+    this.changeContent(f_loaneePanel)
+
+  private def oldChangeToLoaneeInfoPanel: ScalaAjaxReplacePanel[Person] =
+    new ScalaAjaxReplacePanel(this, (person: Person) => f_loaneePanel(CONTENT_ID))
 
   private def changeToPersonInfo: ScalaAjaxReplacePanel[Person] =
     new ScalaAjaxReplacePanel(this, f_personInfoPanel)
@@ -112,7 +117,7 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   private def changeToProfilePanel: AjaxRequestTarget => Unit = {
     this.changeContent((id: String) => new GenericFormPanel[PersonDTO](id) {
       override def getFieldsPanel(id: String): PanelServiceToForm[PersonDTO] = {
-        return new PersonFormFieldsPanel(id,
+        new PersonFormFieldsPanel(id,
           new PersonDTO(personService.initializePersonInfo(getSession().asInstanceOf[SecuritySession].getPerson())),
           changeToPersonInfo);
       }
