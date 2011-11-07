@@ -17,12 +17,14 @@ public class LoaningFormPanel extends Panel {
     @SpringBean(name = "service.loan")
     private LoaningService loaningService;
 
-    public LoaningFormPanel(final String id, final Book book, final IAjaxCallback<Loan> ajaxCallback) {
+    public LoaningFormPanel(final String id, final Book book, final IAjaxCallback<Book> ajaxCallback) {
         super(id);
         this.initialize(book, ajaxCallback);
     }
 
-    private void initialize(final Book book, final IAjaxCallback<Loan> ajaxCallback) {
+    private void initialize(final Book book, final IAjaxCallback<Book> ajaxCallback) {
+
+        this.setOutputMarkupId(true);
         this.add(new GenericFormPanel<Loan>("form") {
 
             private static final long serialVersionUID = 1L;

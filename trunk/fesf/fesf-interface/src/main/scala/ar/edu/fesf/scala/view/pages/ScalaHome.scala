@@ -4,6 +4,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean
 import ar.edu.fesf.services.PersonService
 import ar.edu.fesf.security.SecurityContextHelper
 import scala.reflect.BeanProperty
+import ar.edu.fesf.wicket.application.SecuritySession
 
 @SerialVersionUID(1L)
 class ScalaHome extends WebPage {
@@ -17,6 +18,13 @@ class ScalaHome extends WebPage {
   var securityContextHelper: SecurityContextHelper = _
 
   /* initialization */
-  this.add(new ScalaHomeContentPanel("contentPanel"))
+  this.initialize()
+
+  private def initialize() = {
+    if (this.securityContextHelper.isAuthenticatedUser()) {
+      this.getSession().asInstanceOf[SecuritySession].attachPerson();
+    }
+    this.add(new ScalaHomeContentPanel("contentPanel"))
+  }
 
 }

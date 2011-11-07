@@ -4,9 +4,9 @@ import org.apache.wicket.markup.html.panel.Panel
 import org.apache.wicket.ajax.AjaxRequestTarget
 import scala.reflect.Apply
 
-object AjaxSimpleReplacePanel extends IAjaxPowerfullReplacePanelCallback {
+object AjaxSimpleReplacePanel {
 
-  override def apply(newPanel: Panel, parent: Panel, target: AjaxRequestTarget) = {
+  def apply(newPanel: Panel, parent: Panel, target: AjaxRequestTarget) = {
     if (!parent.contains(newPanel, false)) {
       parent.replace(newPanel)
       target.add(newPanel)

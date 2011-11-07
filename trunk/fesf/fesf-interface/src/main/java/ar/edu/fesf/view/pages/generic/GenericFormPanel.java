@@ -11,6 +11,7 @@ public abstract class GenericFormPanel<T> extends Panel {
 
     public GenericFormPanel(final String id) {
         super(id);
+        this.setOutputMarkupId(true);
         this.add(new GenericForm<T>("form", this.getFieldsPanel("formFieldPanel")));
     }
 

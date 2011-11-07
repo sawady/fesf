@@ -7,9 +7,11 @@ import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Book
 import java.util.List
 import ar.edu.fesf.scala.view.ReplaceablePanel
+import org.apache.wicket.ajax.AjaxRequestTarget
 
 @SerialVersionUID(1L)
-class ScalaRankingPanel(id: String, callback: IAjaxCallback[Book]) extends ReplaceablePanel(id) {
+class ScalaRankingPanel(id: String,
+  f_callback: (AjaxRequestTarget, Book) => Unit) extends ReplaceablePanel(id) {
 
   @SpringBean
   @BeanProperty
@@ -20,7 +22,7 @@ class ScalaRankingPanel(id: String, callback: IAjaxCallback[Book]) extends Repla
 
   def updateContent() = {
     // para romper las bolas hago esta funcion
-    val f_horizontalPanel = (id: String, books: List[Book]) => new ScalaHorizontalBookPanel(id, books, callback)
+    val f_horizontalPanel = (id: String, books: List[Book]) => new ScalaHorizontalBookPanel(id, books, f_callback)
     this.addOrReplace(f_horizontalPanel("top20", this.getBookService().getTop20()))
     this.addOrReplace(f_horizontalPanel("recentlyAvailable", this.getBookService().getRecentlyAvailable()))
   }

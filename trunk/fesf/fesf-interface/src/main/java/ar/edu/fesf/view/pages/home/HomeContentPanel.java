@@ -193,8 +193,7 @@ public class HomeContentPanel extends Panel {
 
                 if (book.hasAvailableCopy()) {
                     LoaningFormPanel loaningFormPanel = new LoaningFormPanel(CONTENT, book,
-                            HomeContentPanel.this.backToMoreInfoPanel());
-                    loaningFormPanel.setOutputMarkupId(true);
+                            HomeContentPanel.this.changeToMoreInfoPanel());
                     HomeContentPanel.this.replace(loaningFormPanel);
                     target.add(loaningFormPanel);
                 } else {
@@ -256,8 +255,8 @@ public class HomeContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final Person loanee) {
-                return (Panel) new LoaneeInfoPanel(CONTENT, HomeContentPanel.this.getPersonService()
-                        .initializeLoaneeInfo(loanee)).setOutputMarkupId(true);
+                return new LoaneeInfoPanel(CONTENT, HomeContentPanel.this.getPersonService().initializeLoaneeInfo(
+                        loanee));
 
             }
 

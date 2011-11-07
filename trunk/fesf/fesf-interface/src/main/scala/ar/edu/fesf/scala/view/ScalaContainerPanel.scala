@@ -2,23 +2,17 @@ package ar.edu.fesf.scala.view
 import org.apache.wicket.markup.html.panel.Panel
 import org.apache.wicket.ajax.AjaxRequestTarget
 import ar.edu.fesf.controllers.IAjaxCallback
+import scala.reflect.BeanProperty
+import scala.annotation.target.beanGetter
 
-class ScalaContainerPanel(id: String) extends Panel(id) {
+abstract class ScalaContainerPanel(id: String) extends Panel(id) {
 
-  def changeContent(newPanel: Panel): AjaxRequestTarget => Unit = {
-    return AjaxSimpleReplacePanel(newPanel, this, _)
-  }
+  val CONTENT_ID: String
 
-  def changeContent[T](to_newPanel: T => Panel): IAjaxCallback[T] = {
-    return new ScalaAjaxReplacePanel[T](this, to_newPanel)
-  }
+  def changeContent(f_newPanel: String => Panel): AjaxRequestTarget => Unit =
+    AjaxSimpleReplacePanel(f_newPanel(CONTENT_ID), this, _)
 
-  def changePanelIfNotContained(id: String, child: Panel): AjaxRequestTarget => Unit = {
-    if (this.contains(child, true)) {
-      return this.changeContent(this.get(id).asInstanceOf[Panel])
-    } else {
-      return this.changeContent(child)
-    }
-  }
+  def changeContent[T](f_newPanel: String => T => Panel): (AjaxRequestTarget, T) => Unit =
+    (target: AjaxRequestTarget, t: T) => AjaxComplexReplacePanel(t, f_newPanel(CONTENT_ID), this, target)
 
 }
