@@ -23,13 +23,13 @@ public class LoanFormFieldsPanel extends PanelServiceToForm<Loan> {
     @SpringBean
     private LoaningService loaningService;
 
-    private IAjaxCallback<Loan> ajaxCallback;
+    private IAjaxCallback<Book> ajaxCallback;
 
     private Loan loan;
 
     private Book book;
 
-    public LoanFormFieldsPanel(final String id, final Book book, final Loan loan, final IAjaxCallback<Loan> ajaxCallback) {
+    public LoanFormFieldsPanel(final String id, final Book book, final Loan loan, final IAjaxCallback<Book> ajaxCallback) {
         super(id);
         this.book = book;
         this.loan = loan;
@@ -76,16 +76,16 @@ public class LoanFormFieldsPanel extends PanelServiceToForm<Loan> {
     public void doSubmit(final AjaxRequestTarget target, final Form<Loan> form) {
         SecuritySession myWebSession = (SecuritySession) this.getSession();
         this.getLoaningService().registerLoan(myWebSession.getPerson(), this.getLoan(), this.getBook());
-        this.getAjaxCallback().apply(target, this.getLoan());
+        this.getAjaxCallback().apply(target, this.getLoan().getBook());
     }
 
     /* Accessors */
 
-    public void setAjaxCallback(final IAjaxCallback<Loan> ajaxCallback) {
+    public void setAjaxCallback(final IAjaxCallback<Book> ajaxCallback) {
         this.ajaxCallback = ajaxCallback;
     }
 
-    public IAjaxCallback<Loan> getAjaxCallback() {
+    public IAjaxCallback<Book> getAjaxCallback() {
         return this.ajaxCallback;
     }
 
