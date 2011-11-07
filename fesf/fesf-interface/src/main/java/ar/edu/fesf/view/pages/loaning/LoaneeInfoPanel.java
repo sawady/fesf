@@ -26,14 +26,6 @@ public class LoaneeInfoPanel extends Panel {
 
     private Person loanee;
 
-    public Person getLoanee() {
-        return this.loanee;
-    }
-
-    public void setLoanee(final Person loanee) {
-        this.loanee = loanee;
-    }
-
     @SpringBean(name = "service.person")
     private PersonService personService;
 
@@ -45,13 +37,19 @@ public class LoaneeInfoPanel extends Panel {
     public LoaneeInfoPanel(final String id, final Person loanee) {
         super(id, new CompoundPropertyModel<Person>(loanee));
         this.loanee = loanee;
-        this.initialize(loanee);
+        this.initialize();
     }
 
-    private void initialize(final Person aLoanee) {
+    private void initialize() {
         this.setOutputMarkupId(true);
-        this.add(new PersonInfoPanel("loanee", aLoanee));
+        this.add(new PersonInfoPanel("loanee", this.loanee));
+        // TODO show message for no loans
+        // if (this.loanee.getCountOfCurrentLoans() == 0) {
         this.add(this.getLoanList("loans"));
+        // } else {
+        // this.add(new Label("loans", "You have no loans!"));
+        // }
+
     }
 
     private ListView<Loan> getLoanList(final String id) {
@@ -112,6 +110,14 @@ public class LoaneeInfoPanel extends Panel {
 
     public PersonService getPersonService() {
         return this.personService;
+    }
+
+    public Person getLoanee() {
+        return this.loanee;
+    }
+
+    public void setLoanee(final Person loanee) {
+        this.loanee = loanee;
     }
 
 }

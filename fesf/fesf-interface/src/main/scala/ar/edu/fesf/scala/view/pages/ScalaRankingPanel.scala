@@ -11,7 +11,8 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 
 @SerialVersionUID(1L)
 class ScalaRankingPanel(id: String,
-  f_callback: (AjaxRequestTarget, Book) => Unit) extends ReplaceablePanel(id) {
+                        f_callback: (AjaxRequestTarget, Book) => Unit)
+  extends ReplaceablePanel(id) {
 
   @SpringBean
   @BeanProperty
