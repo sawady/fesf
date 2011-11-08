@@ -10,10 +10,12 @@ import ar.edu.fesf.model.Category
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink
 import java.util.List
 import org.apache.wicket.markup.html.basic.Label
+import ar.edu.fesf.controllers.IAjaxCallback
 
 class CategoryLinkPanel(id: String,
-  categoryModel: IModel[Category],
-  f_resultsCallback: (AjaxRequestTarget, List[Book]) => Unit) extends Panel(id) {
+                        categoryModel: IModel[Category],
+                        resultsCallback: IAjaxCallback[List[Book]])
+  extends Panel(id) {
 
   @SpringBean
   @BeanProperty
@@ -25,7 +27,7 @@ class CategoryLinkPanel(id: String,
     val category = categoryModel.getObject()
     val link = new AjaxFallbackLink[Category]("link", categoryModel) {
       override def onClick(target: AjaxRequestTarget) = {
-        f_resultsCallback(target, bookService.findByCategory(category))
+        resultsCallback(target, bookService.findByCategory(category))
       }
     }
     link.add(new Label("linkText", category.getName()))

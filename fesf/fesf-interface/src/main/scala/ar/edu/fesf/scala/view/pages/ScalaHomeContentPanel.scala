@@ -70,19 +70,19 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
     new LoaningFormPanel(CONTENT_ID, _: Book, oldChangeToMoreInfoPanel)
 
   //MainContent
-  val f_rankingPanel = f_lazyPanel(_: String, new ScalaRankingPanel(_: String, changeToMoreInfoPanel))
+  val f_rankingPanel = f_lazyPanel(_: String, new ScalaRankingPanel(_: String, oldChangeToMoreInfoPanel))
   val f_bookSearchResults = (id: String) =>
     (list: List[Book]) => f_lazyPanel(id, new BookSearchResultPanel(_: String, list, oldChangeToMoreInfoPanel))
   val f_bookInfoPanel = (id: String) =>
     (book: Book) => new ScalaBookInfoPanel(id, bookService.initializeBookInfo(book),
-      changeToLoaningFormPanel, changeToMoreInfoPanel, oldChangeToLoaneeInfoPanel)
+      changeToLoaningFormPanel, oldChangeToMoreInfoPanel, oldChangeToLoaneeInfoPanel)
 
   /* initialization */
   this.initialize()
 
   private def initialize() = {
     this.add(f_rankingPanel(CONTENT_ID))
-    this.add(new ScalaCategoriesSidebar("sidebar", changeToResultsPanel))
+    this.add(new ScalaCategoriesSidebar("sidebar", oldChangeToResultsPanel))
     this.add(new ScalaHomeUserbarPanel("userbar", f_homeLink, f_bookSearchPanel, f_loggedInPanel))
   }
 

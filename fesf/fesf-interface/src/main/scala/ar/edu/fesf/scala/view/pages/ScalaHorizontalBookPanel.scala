@@ -13,8 +13,8 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 
 @SerialVersionUID(1L)
 class ScalaHorizontalBookPanel(id: String,
-  books: List[Book],
-  f_callback: (AjaxRequestTarget, Book) => Unit) extends Panel(id) {
+                               books: List[Book],
+                               callback: IAjaxCallback[Book]) extends Panel(id) {
 
   @SpringBean
   @BeanProperty
@@ -24,7 +24,7 @@ class ScalaHorizontalBookPanel(id: String,
     override def populateItem(item: ListItem[Book]) = {
       val book = item.getModelObject()
       item.add(new ScalaBookInfoMiniPanel("bookMiniPanel",
-        bookService.initializeBookInfo(book), f_callback))
+        bookService.initializeBookInfo(book), callback))
     }
   })
 

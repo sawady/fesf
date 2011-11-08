@@ -11,7 +11,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 
 @SerialVersionUID(1L)
 class ScalaRankingPanel(id: String,
-                        f_callback: (AjaxRequestTarget, Book) => Unit)
+                        callback: IAjaxCallback[Book])
   extends ReplaceablePanel(id) {
 
   @SpringBean
@@ -23,7 +23,7 @@ class ScalaRankingPanel(id: String,
 
   def updateContent() = {
     // para romper las bolas hago esta funcion
-    val f_horizontalPanel = (id: String, books: List[Book]) => new ScalaHorizontalBookPanel(id, books, f_callback)
+    val f_horizontalPanel = (id: String, books: List[Book]) => new ScalaHorizontalBookPanel(id, books, callback)
     this.addOrReplace(f_horizontalPanel("top20", this.getBookService().getTop20()))
     this.addOrReplace(f_horizontalPanel("recentlyAvailable", this.getBookService().getRecentlyAvailable()))
   }

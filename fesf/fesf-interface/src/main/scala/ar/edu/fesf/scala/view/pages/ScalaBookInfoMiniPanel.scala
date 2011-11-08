@@ -9,10 +9,11 @@ import org.apache.wicket.model.Model
 import org.apache.commons.lang.StringUtils
 import org.apache.wicket.model.PropertyModel
 import scala.reflect.BeanProperty
+import ar.edu.fesf.controllers.IAjaxCallback
 
 class ScalaBookInfoMiniPanel(id: String,
-  book: Book,
-  f_callback: (AjaxRequestTarget, Book) => Unit)
+                             book: Book,
+                             callback: IAjaxCallback[Book])
   extends Panel(id) {
 
   this.initialize()
@@ -20,7 +21,7 @@ class ScalaBookInfoMiniPanel(id: String,
   private def initialize() = {
     this.add(new AjaxFallbackLink[String]("link") {
       override def onClick(target: AjaxRequestTarget) {
-        f_callback(target, book)
+        callback(target, book)
       }
     })
     this.add(new Label("title", book.getTitle()));
