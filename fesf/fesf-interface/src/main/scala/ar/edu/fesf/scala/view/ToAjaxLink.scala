@@ -5,18 +5,18 @@ import ar.edu.fesf.controllers.IAjaxCallback
 
 object ToAjaxLink {
 
-  def apply(f: AjaxRequestTarget => Unit, id: String): AjaxFallbackLink[String] = {
+  def apply(id: String, callback: IAjaxSimpleCallback): AjaxFallbackLink[String] = {
     return new AjaxFallbackLink[String](id) {
       override def onClick(target: AjaxRequestTarget) = {
-        f(target)
+        callback(target)
       }
     }
   }
 
-  def apply[T](id: String, f: IAjaxCallback[T], t: T): AjaxFallbackLink[String] = {
+  def apply[T](id: String, callback: IAjaxCallback[T], t: T): AjaxFallbackLink[String] = {
     new AjaxFallbackLink[String](id) {
       override def onClick(target: AjaxRequestTarget) = {
-        f(target, t)
+        callback(target, t)
       }
     }
   }

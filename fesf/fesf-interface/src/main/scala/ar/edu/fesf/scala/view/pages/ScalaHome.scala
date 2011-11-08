@@ -13,16 +13,18 @@ class ScalaHome extends WebPage {
   @BeanProperty
   var personService: PersonService = _
 
-  @SpringBean(name = "service.SecurityContextHelper")
-  @BeanProperty
-  var securityContextHelper: SecurityContextHelper = _
-
   /* initialization */
   this.initialize()
 
   private def initialize() = {
-    if (this.securityContextHelper.isAuthenticatedUser()) {
-      this.getSession().asInstanceOf[SecuritySession].attachPerson();
+    val mySession = this.getSession().asInstanceOf[SecuritySession]
+    if (mySession.isSignedIn()) {
+      val personDB = this.getPersonService().findPersonByEmail(mySession.getAuthenticatedUser().getEmail())
+      if (personDB == null) {
+        this.setResponsePage(classOf[SignUp])
+      } else {
+        mySession.attachPerson(personDB);
+      }
     }
     this.add(new ScalaHomeContentPanel("contentPanel"))
   }

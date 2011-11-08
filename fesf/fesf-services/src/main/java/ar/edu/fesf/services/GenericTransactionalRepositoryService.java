@@ -116,13 +116,15 @@ public class GenericTransactionalRepositoryService<T extends Entity> implements 
     @Override
     @Transactional(readOnly = true)
     public T initializeFields(final T obj, final String... fieldNames) {
-        T entityDB = this.getRepository().findByEquality(obj);
+        if (obj != null) {
+            T entityDB = this.getRepository().findByEquality(obj);
 
-        for (String field : fieldNames) {
-            this.initializeField(entityDB, field);
+            for (String field : fieldNames) {
+                this.initializeField(entityDB, field);
+            }
+            return entityDB;
         }
-
-        return entityDB;
+        return obj;
     }
 
     @SuppressWarnings("unchecked")

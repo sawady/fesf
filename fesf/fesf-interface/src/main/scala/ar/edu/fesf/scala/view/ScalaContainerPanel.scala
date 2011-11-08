@@ -9,10 +9,10 @@ abstract class ScalaContainerPanel(id: String) extends Panel(id) {
 
   val CONTENT_ID: String
 
-  def changeContent(f_newPanel: String => Panel): AjaxRequestTarget => Unit =
-    AjaxSimpleReplacePanel(f_newPanel(CONTENT_ID), this, _)
+  def changeContent(f_newPanel: String => Panel): IAjaxSimpleCallback =
+    new AjaxSimpleReplacePanel(this, f_newPanel(CONTENT_ID))
 
-  def changeContent[T](f_newPanel: String => T => Panel): (AjaxRequestTarget, T) => Unit =
-    (target: AjaxRequestTarget, t: T) => AjaxComplexReplacePanel(t, f_newPanel(CONTENT_ID), this, target)
+  def changeContent[T](f_newPanel: String => T => Panel): IAjaxCallback[T] =
+    new ScalaAjaxReplacePanel(this, f_newPanel(CONTENT_ID))
 
 }

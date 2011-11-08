@@ -30,6 +30,12 @@ public class PersonDTO implements Serializable {
         super();
     }
 
+    public PersonDTO(final String name, final String surname, final String email) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+    }
+
     public PersonDTO(final Person person) {
         this.id = person.getId();
         this.name = person.getName();
