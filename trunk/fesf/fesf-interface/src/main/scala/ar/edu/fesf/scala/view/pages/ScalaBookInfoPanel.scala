@@ -10,6 +10,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean
 import scala.reflect.BeanProperty
 import ar.edu.fesf.services.BookService
 import org.apache.wicket.ajax.AjaxRequestTarget
+import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 
 class ScalaBookInfoPanel(id: String,
   book: Book,

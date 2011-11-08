@@ -66,11 +66,11 @@ public class SecuritySession extends AuthenticatedWebSession {
         return null;
     }
 
-    public void attachPerson() {
-        this.setPerson(this.getPersonService().findPersonByEmail(this.getAuthenticatedUser().getEmail()));
+    public void attachPerson(final Person person) {
+        this.setPerson(person);
     }
 
-    private UserDetailsImpl getAuthenticatedUser() {
+    public UserDetailsImpl getAuthenticatedUser() {
         return this.securityContextHelper.getAuthenticatedUser();
     }
 

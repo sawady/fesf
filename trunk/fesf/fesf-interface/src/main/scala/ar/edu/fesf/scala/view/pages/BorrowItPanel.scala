@@ -9,6 +9,7 @@ import ar.edu.fesf.services.PersonService
 import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Person
 import ar.edu.fesf.scala.view.ToAjaxLink
+import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 
 class BorrowItPanel(id: String,
   book: Book,
@@ -29,8 +30,9 @@ class BorrowItPanel(id: String,
       //TODO: esto va con authorization-wicket
       this.add(ToAjaxLink("link", null, null).add(f_borrowText("")))
     } else {
-      personDB = this.personService.initializeLoaneeInfo(personDB)
+      personDB = this.personService.initializeFields(personDB, "currentLoans")
       if (personDB.cannotHaveMoreLoans()) {
+        personDB = this.personService.initializeLoaneeInfo(personDB)
         this.add(ToAjaxLink("link", cannotBorrowCallback, personDB).add(f_borrowText("Cannot borrow a book, return one first")))
       } else {
         this.add(ToAjaxLink("link", canBorrowCallback, book).add(f_borrowText("Borrow It")))

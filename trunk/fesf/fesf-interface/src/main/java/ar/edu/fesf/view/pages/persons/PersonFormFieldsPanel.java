@@ -7,11 +7,11 @@ import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.MinimumValidator;
 
-import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.PersonService;
 import ar.edu.fesf.services.dtos.PersonDTO;
+import ar.edu.fesf.wicket.application.SecuritySession;
 
 public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
 
@@ -22,12 +22,9 @@ public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
 
     private PersonDTO personDTO;
 
-    private IAjaxCallback<Person> ajaxCallback;
-
-    public PersonFormFieldsPanel(final String id, final PersonDTO personDTO, final IAjaxCallback<Person> ajaxCallback) {
+    public PersonFormFieldsPanel(final String id, final PersonDTO personDTO) {
         super(id);
         this.personDTO = personDTO;
-        this.ajaxCallback = ajaxCallback;
         this.initialize();
     }
 
@@ -52,7 +49,8 @@ public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
     @Override
     public void doSubmit(final AjaxRequestTarget target, final Form<PersonDTO> form) {
         Person personDB = this.getPersonService().registerPerson(this.personDTO);
-        this.getAjaxCallback().apply(target, personDB);
+        ((SecuritySession) this.getSession()).setPerson(personDB);
+        this.setResponsePage(this.getApplication().getHomePage());
     }
 
     public void setPersonService(final PersonService personService) {
@@ -69,14 +67,6 @@ public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
 
     public void setPersonDTO(final PersonDTO personDTO) {
         this.personDTO = personDTO;
-    }
-
-    public IAjaxCallback<Person> getAjaxCallback() {
-        return this.ajaxCallback;
-    }
-
-    public void setAjaxCallback(final IAjaxCallback<Person> ajaxCallback) {
-        this.ajaxCallback = ajaxCallback;
     }
 
 }

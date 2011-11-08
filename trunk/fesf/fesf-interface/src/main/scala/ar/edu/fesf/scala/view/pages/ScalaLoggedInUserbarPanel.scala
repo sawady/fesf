@@ -7,11 +7,15 @@ import ar.edu.fesf.scala.view.ReplaceablePanel
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink
 import ar.edu.fesf.wicket.application.SecuritySession
 import org.apache.wicket.markup.html.basic.Label
+import ar.edu.fesf.scala.view.IAjaxSimpleCallback
+import ar.edu.fesf.scala.view.ToAjaxLink
+import ar.edu.fesf.controllers.IAjaxCallback
+import ar.edu.fesf.model.Person
 
 class ScalaLoggedInUserbarPanel(id: String,
-  f_signOutLink: String => AjaxFallbackLink[_],
-  f_myLoansLink: String => AjaxFallbackLink[_],
-  f_profileLink: String => AjaxFallbackLink[_]) extends ReplaceablePanel(id) {
+  signOutCallback: IAjaxSimpleCallback,
+  myLoansCallback: IAjaxCallback[Person],
+  profileCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id) {
 
   @SpringBean
   @BeanProperty
@@ -20,10 +24,14 @@ class ScalaLoggedInUserbarPanel(id: String,
   this.initialize()
 
   def initialize() = {
-    val personName = this.getSession().asInstanceOf[SecuritySession].getPerson().getName()
-    val profileLink = f_profileLink("profile")
+    val personName = getPerson().getName()
+    val profileLink = ToAjaxLink("profile", profileCallback, this.personService.initializePersonInfo(getPerson()))
     profileLink.add(new Label("welcome", "Welcome " + personName))
-    this.add(f_signOutLink("signOut"), f_myLoansLink("myLoans"), profileLink)
+    this.add(ToAjaxLink("signOut", signOutCallback))
+    this.add(ToAjaxLink("myLoans", myLoansCallback, this.personService.initializeLoaneeInfo(getPerson())))
+    this.add(profileLink)
   }
+
+  private def getPerson(): Person = this.getSession().asInstanceOf[SecuritySession].getPerson()
 
 }

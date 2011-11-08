@@ -32,6 +32,7 @@ import ar.edu.fesf.services.dtos.PersonDTO
 import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.wicket.application.SecuritySession
+import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 
 //TODO reificar callbacks
 class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
@@ -46,82 +47,71 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   @BeanProperty
   var bookService: BookService = _
 
-  //Generic
-  val f_lazyPanel = ToLazyPanel(_: String, _: String => Panel)
-
   //Userbar
-  val f_bookSearchPanel = new BookSearchPanel(_: String, oldChangeToResultsPanel)
-  val f_homeLink = ToAjaxLink(changeToRankingPanel, _: String)
+  val f_bookSearchPanel = new BookSearchPanel(_: String, changeToResultsPanel)
 
   //AuthenticatedUser
-  lazy val loggedPerson = this.getSession().asInstanceOf[SecuritySession].getPerson()
-  val f_signOutLink = ToAjaxLink(changeToRankingPanel, _: String)
-  val f_profileLink = ToAjaxLink(changeToProfilePanel, _: String)
-  val f_myLoansLink = ToAjaxLink(changeToLoaneeInfoPanel, _: String)
+
   val f_loggedInPanel =
-    new ScalaLoggedInUserbarPanel(_: String, f_signOutLink, f_myLoansLink, f_profileLink)
-  val f_personInfoPanel = (person: Person) =>
-    new PersonInfoPanel(CONTENT_ID, this.personService.initializePersonInfo(person))
+    new ScalaLoggedInUserbarPanel(_: String, changeToRankingPanel, changeToLoaneeInfoPanel, changeToProfilePanel)
+
+  val f_personInfoPanel = (id: String) => (person: Person) =>
+    new PersonInfoPanel(id, person)
 
   //Loaning
-  val f_loaneePanel = (id: String) =>
-    new LoaneeInfoPanel(CONTENT_ID, this.personService.initializeLoaneeInfo(loggedPerson))
-  val f_loaningFormPanel =
-    new LoaningFormPanel(CONTENT_ID, _: Book, oldChangeToMoreInfoPanel)
+  val f_loaneePanel = (id: String) => (person: Person) =>
+    new LoaneeInfoPanel(id, person)
+
+  val f_loaningFormPanel = (id: String) => (book: Book) =>
+    new LoaningFormPanel(id, book, changeToMoreInfoPanel)
 
   //MainContent
-  val f_rankingPanel = f_lazyPanel(_: String, new ScalaRankingPanel(_: String, oldChangeToMoreInfoPanel))
+  val f_rankingPanel = ToLazyPanel(_: String, new ScalaRankingPanel(_: String, changeToMoreInfoPanel))
+
   val f_bookSearchResults = (id: String) =>
-    (list: List[Book]) => f_lazyPanel(id, new BookSearchResultPanel(_: String, list, oldChangeToMoreInfoPanel))
+    (list: List[Book]) => ToLazyPanel(id, new BookSearchResultPanel(_: String, list, changeToMoreInfoPanel))
+
   val f_bookInfoPanel = (id: String) =>
     (book: Book) => new ScalaBookInfoPanel(id, bookService.initializeBookInfo(book),
-      changeToLoaningFormPanel, oldChangeToMoreInfoPanel, oldChangeToLoaneeInfoPanel)
+      changeToLoaningFormPanel, changeToMoreInfoPanel, changeToLoaneeInfoPanel)
 
   /* initialization */
   this.initialize()
 
   private def initialize() = {
     this.add(f_rankingPanel(CONTENT_ID))
-    this.add(new ScalaCategoriesSidebar("sidebar", oldChangeToResultsPanel))
-    this.add(new ScalaHomeUserbarPanel("userbar", f_homeLink, f_bookSearchPanel, f_loggedInPanel))
+    this.add(new ScalaCategoriesSidebar("sidebar", changeToResultsPanel))
+    this.add(new ScalaHomeUserbarPanel("userbar", changeToRankingPanel, f_bookSearchPanel, f_loggedInPanel))
   }
 
   /* Callbacks for changing content */
-  private def changeToRankingPanel: AjaxRequestTarget => Unit =
+  private def changeToRankingPanel(): IAjaxSimpleCallback =
     this.changeContent(f_rankingPanel)
 
-  private def oldChangeToMoreInfoPanel: ScalaAjaxReplacePanel[Book] =
-    new ScalaAjaxReplacePanel(this, f_bookInfoPanel(CONTENT_ID))
-
-  private def changeToMoreInfoPanel: (AjaxRequestTarget, Book) => Unit =
+  private def changeToMoreInfoPanel(): IAjaxCallback[Book] =
     this.changeContent(f_bookInfoPanel)
 
-  private def changeToResultsPanel: (AjaxRequestTarget, List[Book]) => Unit =
+  private def changeToResultsPanel(): IAjaxCallback[List[Book]] =
     this.changeContent(f_bookSearchResults)
 
-  private def oldChangeToResultsPanel: ScalaAjaxReplacePanel[List[Book]] =
-    new ScalaAjaxReplacePanel(this, f_bookSearchResults(CONTENT_ID))
-
-  private def changeToLoaneeInfoPanel: AjaxRequestTarget => Unit =
+  private def changeToLoaneeInfoPanel(): IAjaxCallback[Person] =
     this.changeContent(f_loaneePanel)
 
-  private def oldChangeToLoaneeInfoPanel: ScalaAjaxReplacePanel[Person] =
-    new ScalaAjaxReplacePanel(this, (person: Person) => f_loaneePanel(CONTENT_ID))
+  private def changeToPersonInfo(): IAjaxCallback[Person] =
+    this.changeContent(f_personInfoPanel)
 
-  private def changeToPersonInfo: ScalaAjaxReplacePanel[Person] =
-    new ScalaAjaxReplacePanel(this, f_personInfoPanel)
+  private def changeToLoaningFormPanel(): IAjaxCallback[Book] =
+    this.changeContent(f_loaningFormPanel)
 
-  private def changeToLoaningFormPanel: ScalaAjaxReplacePanel[Book] =
-    new ScalaAjaxReplacePanel(this, f_loaningFormPanel)
-
-  private def changeToProfilePanel: AjaxRequestTarget => Unit = {
-    this.changeContent((id: String) => new GenericFormPanel[PersonDTO](id) {
+  private def changeToProfilePanel(): IAjaxCallback[Person] = {
+    this.changeContent((id: String) => (person: Person) => new GenericFormPanel[PersonDTO](id) {
       override def getFieldsPanel(id: String): PanelServiceToForm[PersonDTO] = {
         new PersonFormFieldsPanel(id,
-          new PersonDTO(personService.initializePersonInfo(getSession().asInstanceOf[SecuritySession].getPerson())),
-          changeToPersonInfo);
+          new PersonDTO(person));
       }
     })
   }
+
+  private def loggedPerson(): Person = this.getSession().asInstanceOf[SecuritySession].getPerson()
 
 }
