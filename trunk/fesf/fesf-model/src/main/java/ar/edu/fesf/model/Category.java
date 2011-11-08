@@ -20,6 +20,11 @@ public class Category extends Entity implements Nameable {
         super();
     }
 
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
     public void addBook(final Book book) {
         this.getBooks().add(book);
     }

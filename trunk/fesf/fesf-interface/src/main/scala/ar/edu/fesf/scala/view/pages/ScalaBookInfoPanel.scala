@@ -12,10 +12,10 @@ import ar.edu.fesf.services.BookService
 import org.apache.wicket.ajax.AjaxRequestTarget
 
 class ScalaBookInfoPanel(id: String,
-                         book: Book,
-                         callback: IAjaxCallback[Book],
-                         relatedBookCallback: (AjaxRequestTarget, Book) => Unit,
-                         loaneeCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id, new CompoundPropertyModel(book)) {
+  book: Book,
+  callback: IAjaxCallback[Book],
+  relatedBookCallback: (AjaxRequestTarget, Book) => Unit,
+  loaneeCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id, new CompoundPropertyModel(book)) {
 
   @SpringBean
   @BeanProperty
@@ -24,16 +24,16 @@ class ScalaBookInfoPanel(id: String,
   this.initialize()
 
   private def initialize() = {
-    this.add(new Label("title"));
-    this.add(new Label("authorNames", StringUtils.join(book.getAuthors(), ',')));
-    this.add(new Label("publisher.name"));
-    this.add(new Label("categoryNames", StringUtils.join(book.getCategories(), ',')));
-    this.add(new Label("description"));
-    this.add(new Label("isbn.value"));
-    this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()));
-    this.add(new BorrowItPanel("borrowIt", book))
-    val relatedBooks = this.getBookService().relatedBooks(book.getId(), 10);
-    this.add(new ScalaHorizontalBookPanel("relatedBooks", relatedBooks, relatedBookCallback));
+    this.add(new Label("title"))
+    this.add(new Label("authorNames", StringUtils.join(book.getAuthors(), ',')))
+    this.add(new Label("publisher.name"))
+    this.add(new Label("categoryNames", StringUtils.join(book.getCategories(), ',')))
+    this.add(new Label("description"))
+    this.add(new Label("isbn.value"))
+    this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()))
+    this.add(new BorrowItPanel("borrowIt", book, callback, loaneeCallback))
+    val relatedBooks = this.getBookService().relatedBooks(book.getId(), 10)
+    this.add(new ScalaHorizontalBookPanel("relatedBooks", relatedBooks, relatedBookCallback))
   }
 
 }

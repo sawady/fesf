@@ -20,6 +20,11 @@ public class Author extends Entity implements Nameable {
         super();
     }
 
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
     /* Accessors */
     public List<Book> getBooks() {
         return this.books;
