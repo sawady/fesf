@@ -10,9 +10,11 @@ import org.apache.wicket.markup.html.list.ListItem
 import org.apache.wicket.ajax.AjaxRequestTarget
 import ar.edu.fesf.model.Book
 import java.util.List
+import ar.edu.fesf.controllers.IAjaxCallback
 
 class ScalaCategoriesSidebar(id: String,
-  f_resultsCallback: (AjaxRequestTarget, List[Book]) => Unit) extends Panel(id) {
+                             f_resultsCallback: IAjaxCallback[List[Book]])
+  extends Panel(id) {
 
   @SpringBean
   @BeanProperty

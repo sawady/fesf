@@ -13,9 +13,9 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 
 class ScalaBookInfoPanel(id: String,
   book: Book,
-  callback: IAjaxCallback[Book],
-  relatedBookCallback: (AjaxRequestTarget, Book) => Unit,
-  loaneeCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id, new CompoundPropertyModel(book)) {
+  borrowCallback: IAjaxCallback[Book],
+  relatedBookCallback: IAjaxCallback[Book],
+  cannotBorrowCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id, new CompoundPropertyModel(book)) {
 
   @SpringBean
   @BeanProperty
@@ -31,7 +31,7 @@ class ScalaBookInfoPanel(id: String,
     this.add(new Label("description"))
     this.add(new Label("isbn.value"))
     this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()))
-    this.add(new BorrowItPanel("borrowIt", book, callback, loaneeCallback))
+    this.add(new BorrowItPanel("borrowIt", book, borrowCallback, cannotBorrowCallback))
     val relatedBooks = this.getBookService().relatedBooks(book.getId(), 10)
     this.add(new ScalaHorizontalBookPanel("relatedBooks", relatedBooks, relatedBookCallback))
   }
