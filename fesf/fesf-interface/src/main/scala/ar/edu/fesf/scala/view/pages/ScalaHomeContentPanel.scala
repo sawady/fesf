@@ -74,8 +74,8 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   val f_bookSearchResults = (id: String) =>
     (list: List[Book]) => f_lazyPanel(id, new BookSearchResultPanel(_: String, list, oldChangeToMoreInfoPanel))
   val f_bookInfoPanel = (id: String) =>
-    (book: Book) => new BookInfoPanel(id, bookService.initializeBookInfo(book),
-      changeToLoaningFormPanel, oldChangeToMoreInfoPanel, oldChangeToLoaneeInfoPanel)
+    (book: Book) => new ScalaBookInfoPanel(id, bookService.initializeBookInfo(book),
+      changeToLoaningFormPanel, changeToMoreInfoPanel, oldChangeToLoaneeInfoPanel)
 
   /* initialization */
   this.initialize()

@@ -9,9 +9,9 @@ import ar.edu.fesf.wicket.application.SecuritySession
 import org.apache.wicket.markup.html.basic.Label
 
 class ScalaLoggedInUserbarPanel(id: String,
-  f_signOut: String => AjaxFallbackLink[_],
-  f_myLoans: String => AjaxFallbackLink[_],
-  f_profile: String => AjaxFallbackLink[_]) extends ReplaceablePanel(id) {
+  f_signOutLink: String => AjaxFallbackLink[_],
+  f_myLoansLink: String => AjaxFallbackLink[_],
+  f_profileLink: String => AjaxFallbackLink[_]) extends ReplaceablePanel(id) {
 
   @SpringBean
   @BeanProperty
@@ -21,9 +21,9 @@ class ScalaLoggedInUserbarPanel(id: String,
 
   def initialize() = {
     val personName = this.getSession().asInstanceOf[SecuritySession].getPerson().getName()
-    val profileLink = f_profile("profile")
+    val profileLink = f_profileLink("profile")
     profileLink.add(new Label("welcome", "Welcome " + personName))
-    this.add(f_signOut("signOut"), f_myLoans("myLoans"), profileLink)
+    this.add(f_signOutLink("signOut"), f_myLoansLink("myLoans"), profileLink)
   }
 
 }
