@@ -6,15 +6,24 @@ public class Calification extends Entity {
 
     private static final long serialVersionUID = 1L;
 
-    private int userCalification;
+    private int value;
 
-    public int getUserCalification() {
-        return this.userCalification;
+    public Calification() {
+        super();
     }
 
-    public void setUserCalification(final int calification) {
+    public Calification(final Integer califNum) {
+        super();
+        this.value = califNum;
+    }
+
+    public int getValue() {
+        return this.value;
+    }
+
+    public void setValue(final int calification) {
         checkArgument(calification > 0 && calification <= 10, "The calification must be a number between 0 and 10");
-        this.userCalification = calification;
+        this.value = calification;
     }
 
 }

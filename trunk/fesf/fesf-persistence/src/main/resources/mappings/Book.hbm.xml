@@ -22,6 +22,7 @@
     <property name="imagepath"/>
     <property name="description"/>    
     <many-to-one name="isbn" class="ISBN" cascade="all"/>
+    <many-to-one name="userFeedbackManager" class="UserFeedbackManager" cascade="all"/>
     <many-to-one name="publisher" class="Publisher" index="publisherIndex" cascade="all"/>
     
     <list name="authors" table="BookAuthors" cascade="all">
@@ -52,6 +53,8 @@
     		<key column="book"/>
             <many-to-many column="person" class="Person"/>
     </set>
+    
+    
     
 	</class>
 </hibernate-mapping>

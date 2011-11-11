@@ -9,10 +9,14 @@ import ar.edu.fesf.builders.BookBuilder;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Category;
+import ar.edu.fesf.model.Comment;
 import ar.edu.fesf.model.ISBN;
+import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
+import ar.edu.fesf.model.UserFeedbackManager;
 import ar.edu.fesf.repositories.BookRepository;
 import ar.edu.fesf.repositories.CategoryRepository;
+import ar.edu.fesf.services.dtos.CommentDTO;
 import ar.edu.fesf.services.dtos.EditBookDTO;
 import ar.edu.fesf.services.dtos.NewBookDTO;
 
@@ -104,6 +108,18 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional(readOnly = true)
+    public UserFeedbackManager getUserFeedback(final Book book) {
+        return this.initializeFields(book, "userFeedbackManager").getUserFeedbackManager();
+    }
+
+    @Transactional(readOnly = true)
+    public CommentDTO initializeComment(final Comment comment) {
+        this.getRepository().initialize(comment.getCalification());
+        this.getRepository().initialize(comment.getPerson());
+        return new CommentDTO(comment.getBody(), comment.getCalification().getValue(), comment.getPerson().getName());
+    }
+
+    @Transactional(readOnly = true)
     public Book initializeBookInfo(final Book book) {
         return this.initializeFields(book, "publisher", "isbn", "authors", "categories", "availableCopies",
                 "registedCopies");
@@ -132,6 +148,13 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private BookRepository getBookRepository() {
         return (BookRepository) this.getRepository();
+    }
+
+    public void registerComment(final CommentDTO commentDTO, final Book book, final Person person) {
+        Book bookDB = this.findByEquality(book);
+        Comment newComment = new Comment(commentDTO.getBody(), commentDTO.getCalification(), bookDB, person);
+        bookDB.addComment(newComment);
+        this.save(bookDB);
     }
 
     /* Accessors */
