@@ -40,6 +40,8 @@ public class Book extends Entity {
 
     private List<ReservationEvent> reservationEvents = new ArrayList<ReservationEvent>();
 
+    private UserFeedbackManager userFeedbackManager = new UserFeedbackManager();
+
     public Book(final String title, final ISBN isbn, final Publisher publisher, final String imagepath,
             final String description, final List<Author> authors, final Set<Category> categories,
             final int countOfCopies) {
@@ -131,6 +133,10 @@ public class Book extends Entity {
 
     public void addLoanee(final Person person) {
         this.getLoanees().add(person);
+    }
+
+    public void addComment(final Comment comment) {
+        this.getUserFeedbackManager().addComment(comment);
     }
 
     /* Accessors */
@@ -238,6 +244,14 @@ public class Book extends Entity {
 
     public Set<Person> getLoanees() {
         return this.loanees;
+    }
+
+    public void setUserFeedbackManager(final UserFeedbackManager userFeedbackManager) {
+        this.userFeedbackManager = userFeedbackManager;
+    }
+
+    public UserFeedbackManager getUserFeedbackManager() {
+        return this.userFeedbackManager;
     }
 
 }

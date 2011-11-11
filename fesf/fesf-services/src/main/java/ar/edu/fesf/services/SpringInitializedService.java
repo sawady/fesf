@@ -9,6 +9,7 @@ import ar.edu.fesf.builders.PersonBuilder;
 import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
+import ar.edu.fesf.model.Comment;
 import ar.edu.fesf.model.EmailAddress;
 import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Person;
@@ -111,9 +112,10 @@ public class SpringInitializedService {
         Person jose = new PersonBuilder().withName("Jose").withEmail(new EmailAddress("jose@gmail.com"))
                 .withUserInfo(new UserInfo("jose", "jose", Role.LIBRARIAN)).build();
         this.personService.save(jose);
-        this.personService.save(new PersonBuilder().withName("Federico").withSurname("Sawady")
+        Person fede = new PersonBuilder().withName("Federico").withSurname("Sawady")
                 .withEmail(new EmailAddress("sawady.faso@gmail.com"))
-                .withUserInfo(new UserInfo("fede", "fede", Role.LIBRARIAN)).build());
+                .withUserInfo(new UserInfo("fede", "fede", Role.LIBRARIAN)).build();
+        this.personService.save(fede);
         this.personService.save(new PersonBuilder().withName("Pepe").withEmail(new EmailAddress("pepe@gmail.com"))
                 .withUserInfo(new UserInfo("pepe", "pepe", Role.LIBRARIAN)).build());
         this.personService.save(new PersonBuilder().withName("Carlos").withEmail(new EmailAddress("carlos@gmail.com"))
@@ -125,6 +127,10 @@ public class SpringInitializedService {
 
         this.loaningService.registerLoan(jose, new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20))
                 .withMaxLoanPeriodInDays(60).build(), magoDeTerramar);
+
+        Book magoDeTerramarDB = this.bookService.findByEquality(magoDeTerramar);
+        magoDeTerramarDB.addComment(new Comment("Muy bueno wacho", 7, magoDeTerramar, fede));
+        this.bookService.save(magoDeTerramarDB);
 
     }
 

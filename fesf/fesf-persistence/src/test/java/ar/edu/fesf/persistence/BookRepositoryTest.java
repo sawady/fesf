@@ -22,6 +22,7 @@ import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Category;
+import ar.edu.fesf.model.Comment;
 import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
@@ -215,6 +216,23 @@ public class BookRepositoryTest {
 
         assertEquals("Must contain a reservation", 1, aBook2.getReservationEvents().size());
         assertEquals("Must be this reservation", reservation, aBook2.getReservationEvents().get(0));
+
+    }
+
+    @Test
+    public void userFeedbackManager() {
+        Book aBook = this.bookRepository.findByEquality(this.book2);
+        Comment comment = new Comment("This book sucks", 1, aBook, null);// TODO cambiar el null por una persona
+        aBook.addComment(comment);
+        this.bookRepository.save(aBook);
+        this.bookRepository.getHibernateTemplate().flush();
+        this.bookRepository.getHibernateTemplate().clear();
+
+        Book aBookDB = this.bookRepository.findByEquality(this.book2);
+
+        assertEquals("Must contain a comment", 1, aBookDB.getUserFeedbackManager().getComments().size());
+        assertEquals("Must be this reservation", comment.getBody(),
+                aBookDB.getUserFeedbackManager().getComments().get(0).getBody());
 
     }
 

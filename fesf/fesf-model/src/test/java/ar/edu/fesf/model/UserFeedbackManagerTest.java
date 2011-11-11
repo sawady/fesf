@@ -24,19 +24,19 @@ public class UserFeedbackManagerTest {
         int calif = sum / count;
 
         Calification c9 = new Calification();
-        c9.setUserCalification(9);
+        c9.setValue(9);
 
         Calification c10 = new Calification();
-        c10.setUserCalification(10);
+        c10.setValue(10);
 
         Calification c4 = new Calification();
-        c4.setUserCalification(4);
+        c4.setValue(4);
 
         Calification c3 = new Calification();
-        c3.setUserCalification(3);
+        c3.setValue(3);
 
         Calification c5 = new Calification();
-        c5.setUserCalification(5);
+        c5.setValue(5);
 
         this.review.addCalification(c9);
         this.review.addCalification(c10);

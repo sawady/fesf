@@ -11,6 +11,8 @@ import scala.reflect.BeanProperty
 import ar.edu.fesf.services.BookService
 import org.apache.wicket.ajax.AjaxRequestTarget
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
+import ar.edu.fesf.model.UserFeedbackManager
+import ar.edu.fesf.services.UserFeedbackService
 
 class ScalaBookInfoPanel(id: String,
   book: Book,
@@ -21,6 +23,10 @@ class ScalaBookInfoPanel(id: String,
   @SpringBean
   @BeanProperty
   var bookService: BookService = _
+
+  @SpringBean
+  @BeanProperty
+  var userFeedbackService: UserFeedbackService = _
 
   this.initialize()
 
@@ -35,6 +41,10 @@ class ScalaBookInfoPanel(id: String,
     this.add(new BorrowItPanel("borrowIt", book, borrowCallback, cannotBorrowCallback))
     val relatedBooks = this.getBookService().relatedBooks(book.getId(), 10)
     this.add(new ScalaHorizontalBookPanel("relatedBooks", relatedBooks, relatedBookCallback))
+
+    val userFeedback = bookService.getUserFeedback(book)
+    this.add(new Label("calification", userFeedback.getAvgCalification().toString()))
+    this.add(new CommentListPanel("comments", userFeedbackService.getComments(userFeedback, 10)))
   }
 
 }

@@ -23,7 +23,7 @@ public class UserFeedbackManager extends Entity {
     /* Methods */
     public void addCalification(final Calification calif) {
         this.getCalifications().add(calif);
-        this.setSumOfCalifications(this.getSumOfCalifications() + calif.getUserCalification());
+        this.setSumOfCalifications(this.getSumOfCalifications() + calif.getValue());
         this.setCountOfCalifications(this.getCountOfCalifications() + 1);
 
         this.setAvgCalification(this.getSumOfCalifications() / this.getCountOfCalifications());
@@ -32,7 +32,7 @@ public class UserFeedbackManager extends Entity {
 
     public void removeCalification(final Calification calif) {
         this.getCalifications().remove(calif);
-        this.setSumOfCalifications(this.getSumOfCalifications() - calif.getUserCalification());
+        this.setSumOfCalifications(this.getSumOfCalifications() - calif.getValue());
         this.setCountOfCalifications(this.getCountOfCalifications() - 1);
 
         this.setAvgCalification(this.getSumOfCalifications() / this.getCountOfCalifications());

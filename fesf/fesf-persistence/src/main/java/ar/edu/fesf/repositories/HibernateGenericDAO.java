@@ -77,6 +77,16 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
     }
 
     @Override
+    public <P> Collection<P> initialize(final Collection<P> collectionToInitialize, int count) {
+        Iterator<P> iterator = collectionToInitialize.iterator();
+        for (; count < 0 && iterator.hasNext(); count--) {
+            this.initialize(iterator.next());
+        }
+        Hibernate.initialize(collectionToInitialize);
+        return collectionToInitialize;
+    }
+
+    @Override
     @SuppressWarnings(UNCHECKED)
     public int count() {
         List<Long> list = this.getHibernateTemplate().find(

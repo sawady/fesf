@@ -40,4 +40,6 @@ public interface IGenericRepository<T> extends Serializable {
 
     <P> Collection<P> initialize(Collection<P> collectionToInitialize);
 
+    <P> Collection<P> initialize(Collection<P> collectionToInitialize, int countOfComments);
+
 }

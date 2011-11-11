@@ -10,7 +10,7 @@
           <generator class="native"/>
     </id>
     
-    <property name="userCalification"></property>
+    <property name="value"></property>
     
 	</class>
 </hibernate-mapping>

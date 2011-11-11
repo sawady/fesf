@@ -14,17 +14,17 @@
     <property name="sumOfCalifications"></property>
     <property name="countOfCalifications"></property>
     
-    <list name="califications" table="CalificationOnUserFeedbackManager">
+    <list name="califications" table="CalificationOnUserFeedbackManager" cascade="all">
        <key column="UserFeedbackManager"></key>
-       <index column="indice"/>
-       <one-to-many class="Calification"/>
+        <list-index column="index"></list-index>
+       <many-to-many class="Calification"/>
     </list>
     
-    <list name="comments" table="CommentsOnUserFeedbackManager">
+    <list name="comments" table="CommentsOnUserFeedbackManager" cascade="all">
        <key column="UserFeedbackManager"></key>
-       <index column="indice"/>
-       <one-to-many class="Comment"/>
-    </list>    
+        <list-index column="index"></list-index>
+       <many-to-many class="Comment"/>
+    </list>
     
 	</class>
 </hibernate-mapping>

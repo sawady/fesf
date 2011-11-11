@@ -12,6 +12,18 @@ public class Comment extends Event {
 
     protected Book book;
 
+    public Comment() {
+        super();
+    }
+
+    public Comment(final String text, final Integer califNum, final Book book, final Person person) {
+        super();
+        this.body = text;
+        this.calification = new Calification(califNum);
+        this.book = book;
+        this.person = person;
+    }
+
     /* Accessors */
 
     public String getBody() {
