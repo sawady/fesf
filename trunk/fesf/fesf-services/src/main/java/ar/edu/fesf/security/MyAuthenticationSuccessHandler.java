@@ -37,7 +37,7 @@ import ar.edu.fesf.services.PersonService;
  * @author Alessandro Vincelli
  * 
  */
-public class YouEatAuthenticationSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler implements
+public class MyAuthenticationSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler implements
         AuthenticationSuccessHandler {
 
     private PersonService personService;

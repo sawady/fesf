@@ -67,6 +67,10 @@ public class Person extends Entity implements Nameable, Serializable {
 
     /* Methods */
 
+    public String getFullName() {
+        return this.getName() + " " + this.getSurname();
+    }
+
     public void addNewLoan(final Loan loan) {
         new LoansPerUserRule().apply(this);
         this.getCurrentLoans().add(loan);

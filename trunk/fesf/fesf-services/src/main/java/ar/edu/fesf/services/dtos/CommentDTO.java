@@ -1,5 +1,7 @@
 package ar.edu.fesf.services.dtos;
 
+import ar.edu.fesf.model.Comment;
+
 public class CommentDTO {
 
     private String body;
@@ -10,6 +12,13 @@ public class CommentDTO {
 
     public CommentDTO() {
         super();
+    }
+
+    public CommentDTO(final Comment comment) {
+        super();
+        this.body = comment.getBody();
+        this.calification = comment.getCalification().getValue();
+        this.person = comment.getPerson().getFullName();
     }
 
     public CommentDTO(final String body, final int calification, final String person) {

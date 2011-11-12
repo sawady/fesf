@@ -14,29 +14,33 @@ import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.validation.validator.MinimumValidator
 import org.apache.wicket.validation.validator.MaximumValidator
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
+import org.apache.wicket.authorization.strategies.action.ActionAuthorizationStrategy
+import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction
 
 class CommentFieldsPanel(id: String,
-  book: Book,
-  person: Person,
-  submitCommentCallback: IAjaxSimpleCallback) extends PanelServiceToForm[CommentDTO](id) {
+                         book: Book,
+                         person: Person,
+                         submitCommentCallback: IAjaxSimpleCallback) extends PanelServiceToForm[CommentDTO](id) {
 
   @SpringBean
   @BeanProperty
   var bookService: BookService = _
-  initialize() // va?
 
   val commentDTO: CommentDTO = new CommentDTO()
 
-  def getObject(): CommentDTO = commentDTO
+  this.initialize()
+  def initialize() = {
 
-  def doSubmit(target: AjaxRequestTarget, form: Form[CommentDTO]): Unit = {
-    bookService.registerComment(commentDTO, book, person)
-    submitCommentCallback(target)
+    add(new TextArea("body").setRequired(true))
+    add(new RequiredTextField[Int]("calification", classOf[Int]).add(new MinimumValidator[Integer](0)).add(new MaximumValidator[Integer](10)))
   }
 
-  def initialize() = {
-    add(new TextArea("commentBody").setRequired(true))
-    add(new RequiredTextField[Int]("calification", classOf[Int]).add(new MinimumValidator[Integer](0)).add(new MaximumValidator[Integer](10)))
+  def getObject(): CommentDTO = commentDTO
+
+  def doSubmit(target: AjaxRequestTarget, form: Form[CommentDTO]) = {
+    bookService.registerComment(commentDTO, book, person)
+    submitCommentCallback(target)
   }
 
 }

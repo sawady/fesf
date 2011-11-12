@@ -33,6 +33,7 @@ import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.wicket.application.SecuritySession
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
+import ar.edu.fesf.scala.view.ToGenericFormPanel
 
 //TODO reificar callbacks
 class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
@@ -51,9 +52,6 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   val f_bookSearchPanel = new BookSearchPanel(_: String, changeToResultsPanel)
 
   //AuthenticatedUser
-
-  val f_loggedInPanel =
-    new ScalaLoggedInUserbarPanel(_: String, changeToRankingPanel, changeToLoaneeInfoPanel, changeToProfilePanel)
 
   val f_personInfoPanel = (id: String) => (person: Person) =>
     new PersonInfoPanel(id, person)
@@ -81,7 +79,8 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   private def initialize() = {
     this.add(f_rankingPanel(CONTENT_ID))
     this.add(new ScalaCategoriesSidebar("sidebar", changeToResultsPanel))
-    this.add(new ScalaHomeUserbarPanel("userbar", changeToRankingPanel, f_bookSearchPanel, f_loggedInPanel))
+    this.add(new ScalaHomeUserbarPanel("userbar", changeToRankingPanel, f_bookSearchPanel,
+      changeToRankingPanel, changeToLoaneeInfoPanel, changeToProfilePanel))
   }
 
   /* Callbacks for changing content */
@@ -104,12 +103,8 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
     this.changeContent(f_loaningFormPanel)
 
   private def changeToProfilePanel(): IAjaxCallback[Person] = {
-    this.changeContent((id: String) => (person: Person) => new GenericFormPanel[PersonDTO](id) {
-      override def getFieldsPanel(id: String): PanelServiceToForm[PersonDTO] = {
-        new PersonFormFieldsPanel(id,
-          new PersonDTO(person));
-      }
-    })
+    this.changeContent((id: String) => (person: Person) =>
+      ToGenericFormPanel(id, new PersonFormFieldsPanel(_: String, new PersonDTO(person))))
   }
 
   private def loggedPerson(): Person = this.getSession().asInstanceOf[SecuritySession].getPerson()

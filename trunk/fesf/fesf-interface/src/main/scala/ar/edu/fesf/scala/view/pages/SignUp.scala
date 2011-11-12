@@ -10,6 +10,7 @@ import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.security.SecurityContextHelper
 import org.apache.wicket.spring.injection.annot.SpringBean
 import scala.reflect.BeanProperty
+import ar.edu.fesf.scala.view.ToGenericFormPanel
 
 class SignUp extends WebPage {
 
@@ -20,15 +21,10 @@ class SignUp extends WebPage {
   this.initialize()
 
   private def initialize() = {
-    this.add(new GenericFormPanel[PersonDTO]("form") {
-      override def getFieldsPanel(id: String): PanelServiceToForm[PersonDTO] = {
-        new PersonFormFieldsPanel(id,
-          new PersonDTO());
-      }
-    })
+    this.add(ToGenericFormPanel("form", new PersonFormFieldsPanel(_: String, this.getPersonDTO())))
   }
 
-  private def personDTO(): PersonDTO = {
+  private def getPersonDTO(): PersonDTO = {
     if (this.securityContextHelper.isAuthenticatedUser()) {
       val authenticatedUser = this.securityContextHelper.getAuthenticatedUser()
       return new PersonDTO(authenticatedUser.getFirstName(), authenticatedUser.getLastName(), authenticatedUser.getEmail())

@@ -113,13 +113,6 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional(readOnly = true)
-    public CommentDTO initializeComment(final Comment comment) {
-        this.getRepository().initialize(comment.getCalification());
-        this.getRepository().initialize(comment.getPerson());
-        return new CommentDTO(comment.getBody(), comment.getCalification().getValue(), comment.getPerson().getName());
-    }
-
-    @Transactional(readOnly = true)
     public Book initializeBookInfo(final Book book) {
         return this.initializeFields(book, "publisher", "isbn", "authors", "categories", "availableCopies",
                 "registedCopies");
@@ -150,6 +143,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return (BookRepository) this.getRepository();
     }
 
+    @Transactional
     public void registerComment(final CommentDTO commentDTO, final Book book, final Person person) {
         Book bookDB = this.findByEquality(book);
         Comment newComment = new Comment(commentDTO.getBody(), commentDTO.getCalification(), bookDB, person);
