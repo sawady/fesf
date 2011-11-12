@@ -13,12 +13,15 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 import ar.edu.fesf.model.UserFeedbackManager
 import ar.edu.fesf.services.UserFeedbackService
+import ar.edu.fesf.scala.view.ToAjaxSimpleCallback
+import ar.edu.fesf.services.dtos.CommentDTO
+import java.util.List
 
 class ScalaBookInfoPanel(id: String,
-  book: Book,
-  borrowCallback: IAjaxCallback[Book],
-  relatedBookCallback: IAjaxCallback[Book],
-  cannotBorrowCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id, new CompoundPropertyModel(book)) {
+                         book: Book,
+                         borrowCallback: IAjaxCallback[Book],
+                         relatedBookCallback: IAjaxCallback[Book],
+                         cannotBorrowCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id, new CompoundPropertyModel(book)) {
 
   @SpringBean
   @BeanProperty
@@ -42,9 +45,24 @@ class ScalaBookInfoPanel(id: String,
     val relatedBooks = this.getBookService().relatedBooks(book.getId(), 10)
     this.add(new ScalaHorizontalBookPanel("relatedBooks", relatedBooks, relatedBookCallback))
 
-    val userFeedback = bookService.getUserFeedback(book)
-    this.add(new Label("calification", userFeedback.getAvgCalification().toString()))
-    this.add(new CommentListPanel("comments", userFeedbackService.getComments(userFeedback, 10)))
+    this.addUserFeedbackInfo()
   }
+
+  private def addUserFeedbackInfo() {
+    val userFeedback = bookService.getUserFeedback(book)
+    this.addOrReplace(getCalificationLabel(userFeedback.getAvgCalification()))
+    this.addOrReplace(getCommentList(userFeedbackService.getComments(userFeedback, 10)))
+  }
+
+  private def submitCommentCallback(target: AjaxRequestTarget) = {
+    this.addUserFeedbackInfo()
+    target.add(this);
+  }
+
+  private def getCalificationLabel(calif: Int): Label =
+    new Label("calification", calif.toString())
+
+  private def getCommentList(comments: List[CommentDTO]): CommentListPanel =
+    new CommentListPanel("comments", book, comments, ToAjaxSimpleCallback(submitCommentCallback))
 
 }

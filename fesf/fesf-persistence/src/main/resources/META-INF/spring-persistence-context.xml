@@ -134,7 +134,5 @@
 	<bean id="persistence.UserFeedbackManagerRepository" class="ar.edu.fesf.repositories.UserFeedbackManagerRepository">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>	
-	
-	
 
 </beans>

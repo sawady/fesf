@@ -18,7 +18,7 @@ class ScalaHome extends WebPage {
 
   private def initialize() = {
     val mySession = this.getSession().asInstanceOf[SecuritySession]
-    if (mySession.isSignedIn()) {
+    if (mySession.isAuthenticatedUser()) {
       val personDB = this.getPersonService().findPersonByEmail(mySession.getAuthenticatedUser().getEmail())
       if (personDB == null) {
         this.setResponsePage(classOf[SignUp])

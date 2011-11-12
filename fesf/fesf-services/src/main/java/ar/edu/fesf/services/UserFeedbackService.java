@@ -7,19 +7,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.model.Comment;
 import ar.edu.fesf.model.UserFeedbackManager;
+import ar.edu.fesf.services.dtos.CommentDTO;
 
 public class UserFeedbackService extends GenericTransactionalRepositoryService<UserFeedbackManager> {
 
     private static final long serialVersionUID = 1L;
 
     @Transactional(readOnly = true)
-    public List<Comment> getComments(final UserFeedbackManager userFeedbackManager, final int countOfComments) {
+    public List<CommentDTO> getComments(final UserFeedbackManager userFeedbackManager, final int countOfComments) {
         UserFeedbackManager userfeedbackManagerDB = this.initializeFields(userFeedbackManager, "comments");
-        List<Comment> comments = new ArrayList<Comment>();
+        List<CommentDTO> resultComments = new ArrayList<CommentDTO>();
         int listSize = userfeedbackManagerDB.getComments().size();
-        comments.addAll(((List<Comment>) this.getRepository().initialize(userfeedbackManagerDB.getComments(),
-                countOfComments)).subList(0, listSize < countOfComments ? listSize : countOfComments));
-        return comments;
+        List<Comment> comments = ((List<Comment>) this.getRepository().initialize(userfeedbackManagerDB.getComments(),
+                countOfComments)).subList(0, listSize < countOfComments ? listSize : countOfComments);
+        for (Comment comment : comments) {
+            resultComments.add(new CommentDTO(comment));
+        }
+        return resultComments;
     }
-
 }

@@ -75,6 +75,10 @@ public class SecuritySession extends AuthenticatedWebSession {
     }
 
     public boolean signedIn() {
+        return this.getPerson() != null;
+    }
+
+    public boolean isAuthenticatedUser() {
         return this.securityContextHelper.isAuthenticatedUser();
     }
 

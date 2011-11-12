@@ -32,7 +32,7 @@ public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
         // TODO validar datos algun dia
         this.add(new RequiredTextField<String>("name"));
         this.add(new RequiredTextField<String>("surname"));
-        this.add(new RequiredTextField<Integer>("age", Integer.class).add(new MinimumValidator<Integer>(0)));
+        this.add(new RequiredTextField<Integer>("age", Integer.class).add(new MinimumValidator<Integer>(1)));
         this.add(new RequiredTextField<String>("address"));
         this.add(new RequiredTextField<String>("phone"));
         this.add(new RequiredTextField<String>("email"));

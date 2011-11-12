@@ -13,9 +13,9 @@ import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Person
 
 class ScalaLoggedInUserbarPanel(id: String,
-  signOutCallback: IAjaxSimpleCallback,
-  myLoansCallback: IAjaxCallback[Person],
-  profileCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id) {
+                                signOutCallback: IAjaxSimpleCallback,
+                                myLoansCallback: IAjaxCallback[Person],
+                                profileCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id) {
 
   @SpringBean
   @BeanProperty
@@ -24,11 +24,11 @@ class ScalaLoggedInUserbarPanel(id: String,
   this.initialize()
 
   def initialize() = {
-    val personName = getPerson().getName()
-    val profileLink = ToAjaxLink("profile", profileCallback, this.personService.initializePersonInfo(getPerson()))
-    profileLink.add(new Label("welcome", "Welcome " + personName))
+    val personName = this.getPerson().getName()
+    val profileLink = ToAjaxLink("profile", profileCallback, this.personService.initializePersonInfo(this.getPerson()))
+    profileLink.add(new Label("welcome", "Welcome "+personName))
     this.add(ToAjaxLink("signOut", signOutCallback))
-    this.add(ToAjaxLink("myLoans", myLoansCallback, this.personService.initializeLoaneeInfo(getPerson())))
+    this.add(ToAjaxLink("myLoans", myLoansCallback, this.personService.initializeLoaneeInfo(this.getPerson())))
     this.add(profileLink)
   }
 
