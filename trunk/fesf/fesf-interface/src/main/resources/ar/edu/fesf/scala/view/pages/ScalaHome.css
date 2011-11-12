@@ -223,7 +223,9 @@ body {
 	line-height:50%
 }
 
-
+.bipCalification{
+	display: inline;
+}
 .bipAtributeLabel{
 	font-weight: bold;
 }
@@ -231,4 +233,33 @@ body {
 .bsrpTable{
 	width: 100%;
 }
+/**********COMMENT*************/
+.commentPanel{
+	background-color: #CCCCFF;
+	margin: 5px 0;
+	padding: 10px;
+	border-radius: 0.5em;
+	width: 400px;
+	
+}
 
+.commentAuthor{
+	font-style: italic;
+}
+.commentCalification{
+	float: right;
+}
+
+.calificationNumber{
+	width: 25px;
+	margin: 0 5px;
+	float: right;
+	background-color: #EEEEFF;
+	border-radius: 0.5em;
+	text-align: center;
+}
+.commentBody{
+	font-weight: bold;
+	width: 100%;
+	margin: 5px 0 0 0;
+}

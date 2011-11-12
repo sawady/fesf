@@ -1,7 +1,8 @@
 <wicket:panel>
-<h1> No seas gil y dejate un comentario</h1>
-<span>Comment:</span>
-<textarea rows="4" cols="50" wicket:id="body"/>
-<span>Calification:</span>
-<input type="text" wicket:id="calification"/>
+	<div class="commentCalification">
+		<span>Calification:</span>
+		<input class="calificationNumber" type="text" wicket:id="calification"/>
+	</div>
+	<div class="commentAuthor">You</div>  
+	<textarea class="commentBody" wicket:id="body"/> 
 </wicket:panel>
