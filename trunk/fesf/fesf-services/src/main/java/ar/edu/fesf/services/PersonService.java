@@ -18,6 +18,10 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
 
     private static final long serialVersionUID = 281627290258132217L;
 
+    private PersonRepository getPersonRepository() {
+        return (PersonRepository) this.getRepository();
+    }
+
     @Transactional(readOnly = true)
     public Person initializeLoaneeInfo(final Person loanee) {
         return this.initializeFields(loanee, "currentLoans", "email");
@@ -56,7 +60,7 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
 
     @Transactional(readOnly = true)
     public Person findPersonByEmail(final String email) {
-        return ((PersonRepository) this.getRepository()).findByEmail(email);
+        return this.getPersonRepository().findByEmail(email);
     }
 
     @Transactional
@@ -107,7 +111,7 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
 
     @Transactional(readOnly = true)
     public List<Person> getLoanees() {
-        return ((PersonRepository) this.getRepository()).getLoanees();
+        return this.getPersonRepository().getLoanees();
     }
 
     @Transactional

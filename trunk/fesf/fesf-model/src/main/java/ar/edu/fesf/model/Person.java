@@ -53,7 +53,7 @@ public class Person extends Entity implements Nameable, Serializable {
     }
 
     public Person(final String name, final String surname, final int age, final String address, final String phone,
-            final EmailAddress email, final Set<Category> categories) {
+            final EmailAddress email, final Set<Category> categories, final Role role) {
         super();
         this.name = name;
         this.surname = surname;
@@ -62,6 +62,7 @@ public class Person extends Entity implements Nameable, Serializable {
         this.phone = phone;
         this.email = email;
         this.categories = categories;
+        this.role = role;
     }
 
     /* Methods */

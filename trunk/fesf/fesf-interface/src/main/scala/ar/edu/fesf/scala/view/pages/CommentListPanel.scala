@@ -19,11 +19,10 @@ import org.apache.wicket.Component
 import ar.edu.fesf.model.Role
 import ar.edu.fesf.scala.view.ReplaceablePanel
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
-import ar.edu.fesf.scala.view.ScalaGenericFormPanel
 
 class CommentListPanel(id: String, book: Book,
                        comments: List[CommentDTO],
-                       callback: IAjaxSimpleCallback) extends ReplaceablePanel(id) {
+                       callback: IAjaxSimpleCallback) extends Panel(id) with ReplaceablePanel {
 
   initialize()
 

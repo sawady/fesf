@@ -15,7 +15,7 @@ import ar.edu.fesf.model.Person
 class ScalaLoggedInUserbarPanel(id: String,
                                 signOutCallback: IAjaxSimpleCallback,
                                 myLoansCallback: IAjaxCallback[Person],
-                                profileCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id) {
+                                profileCallback: IAjaxCallback[Person]) extends Panel(id) with ReplaceablePanel {
 
   @SpringBean
   @BeanProperty

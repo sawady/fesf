@@ -13,7 +13,6 @@ import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
-import ar.edu.fesf.scala.view.application.SecuritySession;
 import ar.edu.fesf.services.LoaningService;
 
 public class LoanFormFieldsPanel extends PanelServiceToForm<Loan> {
@@ -74,8 +73,8 @@ public class LoanFormFieldsPanel extends PanelServiceToForm<Loan> {
 
     @Override
     public void doSubmit(final AjaxRequestTarget target, final Form<Loan> form) {
-        SecuritySession myWebSession = (SecuritySession) this.getSession();
-        this.getLoaningService().registerLoan(myWebSession.getPerson(), this.getLoan(), this.getBook());
+        // SecuritySession myWebSession = (SecuritySession) this.getSession();
+        // this.getLoaningService().registerLoan(myWebSession.getPerson(), this.getLoan(), this.getBook());
         this.getAjaxCallback().apply(target, this.getLoan().getBook());
     }
 

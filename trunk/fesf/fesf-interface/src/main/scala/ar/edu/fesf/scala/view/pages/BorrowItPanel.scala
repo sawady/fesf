@@ -10,11 +10,15 @@ import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Person
 import ar.edu.fesf.scala.view.ToAjaxLink
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction
+import org.apache.wicket.markup.html.WebMarkupContainer
+import ar.edu.fesf.scala.view.ReplaceablePanel
 
+@AuthorizeAction(action = "RENDER", roles = Array("USER"))
 class BorrowItPanel(id: String,
-  book: Book,
-  canBorrowCallback: IAjaxCallback[Book],
-  cannotBorrowCallback: IAjaxCallback[Person]) extends Panel(id) {
+                    book: Book,
+                    canBorrowCallback: IAjaxSimpleCallback,
+                    cannotBorrowCallback: IAjaxCallback[Person]) extends Panel(id) with ReplaceablePanel {
 
   @SpringBean
   @BeanProperty
@@ -25,17 +29,13 @@ class BorrowItPanel(id: String,
   private def initialize() = {
     var personDB = this.getSession().asInstanceOf[SecuritySession].getPerson()
     val f_borrowText = new Label("linkText", _: String)
-    if (personDB == null) {
-      this.setVisible(false)
-      //TODO: esto va con authorization-wicket
-      this.add(ToAjaxLink("link", null, null).add(f_borrowText("")))
-    } else {
+    if (personDB != null) {
       personDB = this.personService.initializeFields(personDB, "currentLoans")
       if (personDB.cannotHaveMoreLoans()) {
         personDB = this.personService.initializeLoaneeInfo(personDB)
-        this.add(ToAjaxLink("link", cannotBorrowCallback, personDB).add(f_borrowText("Cannot borrow a book, return one first")))
+        this.add(ToAjaxLink("link", cannotBorrowCallback, personDB).add(f_borrowText("Cannot borrow another book, return one first")))
       } else {
-        this.add(ToAjaxLink("link", canBorrowCallback, book).add(f_borrowText("Borrow It")))
+        this.add(ToAjaxLink("link", canBorrowCallback).add(f_borrowText("Borrow It")))
       }
     }
   }

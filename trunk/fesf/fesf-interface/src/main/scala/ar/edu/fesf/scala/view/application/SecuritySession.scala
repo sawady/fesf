@@ -31,13 +31,14 @@ class SecuritySession(request: Request) extends AuthenticatedWebSession(request)
 
   override def getRoles(): Roles = {
     if (this.securityContextHelper.isAuthenticatedUser()) {
-      return new Roles(this.getAuthenticatedUser().getAuthorities().iterator().next().getAuthority());
+      return new Roles(this.getSecurityContextHelper().getRoles());
     }
     return null;
   }
 
   def attachPerson(aPerson: Person) = {
     this.setPerson(aPerson);
+    this.getSecurityContextHelper().updatedUserRole(aPerson.getRole());
   }
 
   def getAuthenticatedUser(): UserDetailsImpl = {

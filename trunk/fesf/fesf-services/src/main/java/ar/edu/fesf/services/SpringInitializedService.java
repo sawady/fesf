@@ -4,7 +4,6 @@ import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.builders.BookBuilder;
-import ar.edu.fesf.builders.LoanBuilder;
 import ar.edu.fesf.builders.PersonBuilder;
 import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
@@ -16,6 +15,7 @@ import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.repositories.CategoryRepository;
+import ar.edu.fesf.services.dtos.BorrowItDTO;
 
 public class SpringInitializedService {
 
@@ -112,16 +112,21 @@ public class SpringInitializedService {
         Person fede = new PersonBuilder().withName("Federico").withSurname("Sawady").withAge(21)
                 .withAddress("Colon 355").withPhone("42245630").withEmail(new EmailAddress("sawady.faso@gmail.com"))
                 .withRole(Role.LIBRARIAN).build();
+        Person elias = new PersonBuilder().withName("Elias").withSurname("Filipponi").withAge(30)
+                .withAddress("Ni idea").withPhone("43224568").withEmail(new EmailAddress("eliasfilipponi@gmail.com"))
+                .withRole(Role.LIBRARIAN).build();
 
         this.personService.save(fede);
+        this.personService.save(elias);
 
-        this.loaningService.registerLoan(fede, new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20))
-                .withMaxLoanPeriodInDays(60).build(), magoDeTerramar);
-        this.loaningService.registerLoan(fede, new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20))
-                .withMaxLoanPeriodInDays(60).build(), maleficio);
+        this.loaningService.registerLoan(fede, new BorrowItDTO(new DateTime().plusDays(20).toString()), magoDeTerramar);
+        this.loaningService.registerLoan(fede, new BorrowItDTO(new DateTime().plusDays(20).toString()), maleficio);
+        this.loaningService
+                .registerLoan(elias, new BorrowItDTO(new DateTime().plusDays(20).toString()), magoDeTerramar);
 
         Book magoDeTerramarDB = this.bookService.findByEquality(magoDeTerramar);
         magoDeTerramarDB.addComment(new Comment("Muy bueno wacho", 7, magoDeTerramar, fede));
+        magoDeTerramarDB.addComment(new Comment("Fidel rompia las bolas con esto", 4, magoDeTerramar, elias));
         this.bookService.save(magoDeTerramarDB);
 
     }

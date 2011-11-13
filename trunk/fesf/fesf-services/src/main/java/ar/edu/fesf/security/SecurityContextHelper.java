@@ -13,10 +13,15 @@
 package ar.edu.fesf.security;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
+
+import ar.edu.fesf.model.Role;
 
 /**
  * Simply the acces to SpringSecurityContext
@@ -29,7 +34,6 @@ public class SecurityContextHelper implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
      * @return the authenticated user
      */
     @Transactional(readOnly = true)
@@ -41,6 +45,13 @@ public class SecurityContextHelper implements Serializable {
         return null;
     }
 
+    @Transactional
+    public void updatedUserRole(final Role role) {
+        if (this.isAuthenticatedUser()) {
+            this.getAuthenticatedUser().updateRole(role);
+        }
+    }
+
     /**
      * 
      * @return true if the current user is authenticated
@@ -50,4 +61,14 @@ public class SecurityContextHelper implements Serializable {
         return SecurityContextHolder.getContext().getAuthentication() != null;
     }
 
+    @Transactional(readOnly = true)
+    public String[] getRoles() {
+        Collection<GrantedAuthority> list = this.getAuthenticatedUser().getAuthorities();
+        Iterator<GrantedAuthority> listIt = list.iterator();
+        String[] roles = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            roles[i] = listIt.next().getAuthority();
+        }
+        return roles;
+    }
 }

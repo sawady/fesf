@@ -135,16 +135,16 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return booksDB;
     }
 
-    private BookRepository getBookRepository() {
-        return (BookRepository) this.getRepository();
-    }
-
     @Transactional
     public void registerComment(final CommentDTO commentDTO, final Book book, final Person person) {
         Book bookDB = this.findByEquality(book);
         Comment newComment = new Comment(commentDTO.getBody(), commentDTO.getCalification(), bookDB, person);
         bookDB.addComment(newComment);
         this.save(bookDB);
+    }
+
+    private BookRepository getBookRepository() {
+        return (BookRepository) this.getRepository();
     }
 
     /* Accessors */

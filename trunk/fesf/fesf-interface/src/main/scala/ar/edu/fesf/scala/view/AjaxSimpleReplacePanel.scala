@@ -7,10 +7,10 @@ import scala.reflect.Apply
 class AjaxSimpleReplacePanel(parent: Panel, newPanel: Panel) extends IAjaxSimpleCallback {
 
   override def apply(target: AjaxRequestTarget) = {
-    if (!parent.contains(newPanel, false)) {
-      parent.replace(newPanel)
-      target.add(newPanel)
-    }
+    //    if (!parent.contains(newPanel, false)) {
+    parent.replace(newPanel)
+    target.add(newPanel)
+    //    }
   }
 
 }
