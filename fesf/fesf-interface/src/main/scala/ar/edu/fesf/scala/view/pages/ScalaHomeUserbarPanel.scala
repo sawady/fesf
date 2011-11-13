@@ -7,18 +7,18 @@ import ar.edu.fesf.scala.view.ToAjaxLink
 import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Person
 
-class ScalaHomeUserbarPanel(id: String,
-                            homeCallback: IAjaxSimpleCallback,
-                            f_bookSearchPanel: String => Panel,
-                            changeToRankingPanel: IAjaxSimpleCallback,
-                            changeToLoaneeInfoPanel: IAjaxCallback[Person],
-                            changeToProfilePanel: IAjaxCallback[Person])
+class ScalaHomeUserbarPanel(
+  id: String,
+  homeCallback: IAjaxSimpleCallback,
+  f_bookSearchPanel: String => Panel,
+  changeToRankingPanel: IAjaxSimpleCallback,
+  changeToLoaneeInfoPanel: IAjaxCallback[Person],
+  changeToProfilePanel: IAjaxCallback[Person])
   extends Panel(id) {
 
   val AUTHENTICATION_PANEL = "authentication"
 
   this.initialize()
-
   def initialize() = {
     this.add(ToAjaxLink("homeLink", homeCallback))
     this.add(ToAjaxLink("titleLink", homeCallback))
