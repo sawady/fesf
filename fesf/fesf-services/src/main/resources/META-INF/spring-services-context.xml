@@ -12,11 +12,6 @@
 		<property name="repository" ref="persistence.personRepository" />
 	</bean>
 	
-	<bean id="service.authentication" class="ar.edu.fesf.services.AuthenticationService">
-		<property name="userInfoRepository" ref="persistence.userInfoRepository" />
-		<property name="personService" ref="service.person" />
-	</bean>
-	
 	<bean id="service.book" class="ar.edu.fesf.services.BookService">
 		<property name="repository" ref="persistence.BookRepository" />
 		<property name="categoryRepository" ref="persistence.CategoryRepository" />

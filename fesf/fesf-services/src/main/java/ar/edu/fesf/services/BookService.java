@@ -90,13 +90,9 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     @Transactional(readOnly = true)
     public List<Book> findByCategory(final Category category) {
-        // TODO hacer que la consulta sea por DB y que venga ordenada por los mejores libros
-        // de esa categoria
-        List<Book> books = new ArrayList<Book>();
-        for (Category booksEx : this.getCategoryRepository().findByExample(category)) {
-            books.addAll(booksEx.getBooks());
-        }
-        return books;
+        List<Book> results = this.getBookRepository().findByCategory(category);
+        this.initialize(results, List.class);
+        return results;
     }
 
     @Transactional

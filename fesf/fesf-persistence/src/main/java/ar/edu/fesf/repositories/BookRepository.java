@@ -8,6 +8,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import ar.edu.fesf.model.Book;
+import ar.edu.fesf.model.Category;
 
 public class BookRepository extends HibernateGenericDAO<Book> {
 
@@ -39,6 +40,17 @@ public class BookRepository extends HibernateGenericDAO<Book> {
 
         query.setMaxResults(maxResults);
 
+        return query.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Book> findByCategory(final Category category) {
+        Query query = this.getSession().createQuery(
+                "select distinct(book) from " + this.persistentClass.getName()
+                        + " book join book.categories category where category.name = '" + category.getName()
+                        + "' order by book.countOfLouns desc");
+
+        query.setMaxResults(50);
         return query.list();
     }
 

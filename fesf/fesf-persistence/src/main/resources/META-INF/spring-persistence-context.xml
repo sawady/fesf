@@ -107,10 +107,6 @@
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 	
-	<bean id="persistence.userInfoRepository" class="ar.edu.fesf.repositories.UserInfoRepository">
-		<property name="sessionFactory" ref="persistence.sessionFactory" />
-	</bean>	
-	
 	<bean id="persistence.CategoryRepository" class="ar.edu.fesf.repositories.CategoryRepository">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>

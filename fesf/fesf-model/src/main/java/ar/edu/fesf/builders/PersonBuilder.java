@@ -6,7 +6,7 @@ import java.util.Set;
 import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.EmailAddress;
 import ar.edu.fesf.model.Person;
-import ar.edu.fesf.model.UserInfo;
+import ar.edu.fesf.model.Role;
 
 public class PersonBuilder {
 
@@ -24,7 +24,7 @@ public class PersonBuilder {
 
     private Set<Category> categories = new HashSet<Category>();
 
-    private UserInfo userInfo;
+    private Role role;
 
     public PersonBuilder withName(final String aName) {
         this.name = aName;
@@ -61,14 +61,13 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withUserInfo(final UserInfo anUserInfo) {
-        this.userInfo = anUserInfo;
+    public PersonBuilder withRole(final Role aRole) {
+        this.setRole(aRole);
         return this;
     }
 
     public Person build() {
-        return new Person(this.name, this.surname, this.age, this.address, this.phone, this.email, this.categories,
-                this.userInfo);
+        return new Person(this.name, this.surname, this.age, this.address, this.phone, this.email, this.categories);
     }
 
     /**************************************** ACCESSORS ****************************************/
@@ -129,12 +128,12 @@ public class PersonBuilder {
         this.categories = categories;
     }
 
-    public UserInfo getUserInfo() {
-        return this.userInfo;
+    public void setRole(final Role role) {
+        this.role = role;
     }
 
-    public void setUserInfo(final UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public Role getRole() {
+        return this.role;
     }
 
 }

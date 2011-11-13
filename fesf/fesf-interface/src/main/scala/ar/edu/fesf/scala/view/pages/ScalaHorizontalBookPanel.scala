@@ -8,8 +8,9 @@ import ar.edu.fesf.model.Book
 import ar.edu.fesf.controllers.IAjaxCallback
 import org.apache.wicket.markup.html.list.ListView
 import org.apache.wicket.markup.html.list.ListItem
-import ar.edu.fesf.view.pages.books.BookInfoMiniPanel
 import org.apache.wicket.ajax.AjaxRequestTarget
+import org.apache.wicket.markup.html.WebMarkupContainer
+import org.apache.wicket.markup.html.basic.Label
 
 @SerialVersionUID(1L)
 class ScalaHorizontalBookPanel(id: String,
@@ -20,12 +21,16 @@ class ScalaHorizontalBookPanel(id: String,
   @BeanProperty
   var bookService: BookService = _
 
-  this.add(new ListView[Book]("bookList", this.books) {
-    override def populateItem(item: ListItem[Book]) = {
-      val book = item.getModelObject()
-      item.add(new ScalaBookInfoMiniPanel("bookMiniPanel",
-        bookService.initializeBookInfo(book), callback))
-    }
-  })
+  this.initialize()
+
+  private def initialize() = {
+    this.add(new ListView[Book]("bookList", this.books) {
+      override def populateItem(item: ListItem[Book]) = {
+        val book = item.getModelObject()
+        item.add(new ScalaBookInfoMiniPanel("bookMiniPanel",
+          bookService.initializeBookInfo(book), callback))
+      }
+    })
+  }
 
 }

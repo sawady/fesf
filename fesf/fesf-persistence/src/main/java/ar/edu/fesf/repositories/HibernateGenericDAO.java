@@ -77,9 +77,10 @@ public abstract class HibernateGenericDAO<T extends Entity> extends HibernateDao
     }
 
     @Override
-    public <P> Collection<P> initialize(final Collection<P> collectionToInitialize, int count) {
+    public <P> Collection<P> initialize(final Collection<P> collectionToInitialize, final int count) {
+        int current = count;
         Iterator<P> iterator = collectionToInitialize.iterator();
-        for (; count < 0 && iterator.hasNext(); count--) {
+        for (; current < 0 && iterator.hasNext(); current--) {
             this.initialize(iterator.next());
         }
         Hibernate.initialize(collectionToInitialize);

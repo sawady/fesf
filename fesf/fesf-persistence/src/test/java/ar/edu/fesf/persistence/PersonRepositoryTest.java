@@ -27,11 +27,8 @@ import ar.edu.fesf.model.EmailAddress;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
-import ar.edu.fesf.model.Role;
-import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.LoanRepository;
 import ar.edu.fesf.repositories.PersonRepository;
-import ar.edu.fesf.repositories.UserInfoRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:META-INF/spring-persistence-context.xml" })
@@ -42,9 +39,6 @@ public class PersonRepositoryTest {
 
     @Autowired
     private PersonRepository personRepository;
-
-    @Autowired
-    private UserInfoRepository userInfoRepository;
 
     @Autowired
     private LoanRepository loanRepository;
@@ -67,10 +61,8 @@ public class PersonRepositoryTest {
         categories.add(new Category("Romance"));
         categories.add(new Category("Terror"));
 
-        UserInfo anUserInfo = new UserInfo("pepe", "pass", Role.LIBRARIAN);
-        this.pepe = new PersonBuilder().withName("Pepe").withUserInfo(anUserInfo).withAddress("colon 355").withAge(18)
-                .withSurname("Sorias").withCategories(categories).withEmail(new EmailAddress("sarasa@gmail.com"))
-                .build();
+        this.pepe = new PersonBuilder().withName("Pepe").withAddress("colon 355").withAge(18).withSurname("Sorias")
+                .withCategories(categories).withEmail(new EmailAddress("sarasa@gmail.com")).build();
         this.peopleToPersist.add(this.pepe);
         this.peopleToPersist.add(new PersonBuilder().withName("Carlos").build());
         this.peopleToPersist.add(new PersonBuilder().withName("Soprano").build());
@@ -123,12 +115,8 @@ public class PersonRepositoryTest {
         Person pepeEncontrado = this.personRepository.findByEquality(this.pepe);
         Loan pepeLoanBD = this.loanRepository.findByEquality(this.pepeLoan);
 
-        assertEquals("Must have same userInfo", this.pepe.getUserInfo().getUserid(), pepeEncontrado.getUserInfo()
-                .getUserid());
-        assertEquals("Must have same userInfo", this.pepe.getUserInfo().getPass(), pepeEncontrado.getUserInfo()
-                .getPass());
-        assertEquals("Must have same userInfo", this.pepe.getUserInfo().getRole(), pepeEncontrado.getUserInfo()
-                .getRole());
+        // assertEquals("Must have same userInfo", this.pepe.getUserInfo().getRole(), pepeEncontrado.getUserInfo()
+        // .getRole());
         assertEquals("Must have same email", "sarasa@gmail.com", pepeEncontrado.getEmail().getValue());
         assertEquals("Must have same address", "colon 355", pepeEncontrado.getAddress());
         assertTrue("Must have his loan", pepeEncontrado.getCurrentLoans().contains(pepeLoanBD));
@@ -177,14 +165,6 @@ public class PersonRepositoryTest {
 
     public void setPepeLoan(final Loan pepeLoan) {
         this.pepeLoan = pepeLoan;
-    }
-
-    public void setUserInfoRepository(final UserInfoRepository userInfoRepository) {
-        this.userInfoRepository = userInfoRepository;
-    }
-
-    public UserInfoRepository getUserInfoRepository() {
-        return this.userInfoRepository;
     }
 
     public void setLoanRepository(final LoanRepository loanRepository) {

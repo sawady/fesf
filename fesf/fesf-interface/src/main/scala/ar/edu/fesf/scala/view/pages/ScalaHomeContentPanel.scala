@@ -8,20 +8,16 @@ import scala.reflect.BeanProperty
 import ar.edu.fesf.services.PersonService
 import ar.edu.fesf.services.BookService
 import ar.edu.fesf.model.Book
-import ar.edu.fesf.view.pages.books.BookInfoPanel
 import org.apache.wicket.Component
 import org.apache.wicket.extensions.ajax.markup.html.AjaxLazyLoadPanel
-import ar.edu.fesf.view.pages.books.BookSearchResultPanel
 import java.util.ArrayList
 import java.util.List
 import ar.edu.fesf.scala.view.ScalaAjaxReplacePanel
 import ar.edu.fesf.scala.view.AjaxSimpleReplacePanel
 import ar.edu.fesf.scala.view.ToLazyPanel
 import ar.edu.fesf.scala.view.ScalaContainerPanel
-import ar.edu.fesf.view.pages.home.CategoriesSidebar
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink
 import ar.edu.fesf.scala.view.ToAjaxLink
-import ar.edu.fesf.view.pages.books.BookSearchPanel
 import ar.edu.fesf.view.pages.loaning.LoaneeInfoPanel
 import ar.edu.fesf.model.Person
 import ar.edu.fesf.view.pages.persons.PersonInfoPanel
@@ -31,7 +27,7 @@ import ar.edu.fesf.view.pages.generic.GenericFormPanel
 import ar.edu.fesf.services.dtos.PersonDTO
 import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
-import ar.edu.fesf.wicket.application.SecuritySession
+import ar.edu.fesf.scala.view.application.SecuritySession
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 import ar.edu.fesf.scala.view.ToGenericFormPanel
 
@@ -49,7 +45,7 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   var bookService: BookService = _
 
   //Userbar
-  val f_bookSearchPanel = new BookSearchPanel(_: String, changeToResultsPanel)
+  val f_bookSearchPanel = new ScalaBookSearchPanel(_: String, changeToResultsPanel)
 
   //AuthenticatedUser
 
@@ -67,7 +63,7 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   val f_rankingPanel = ToLazyPanel(_: String, new ScalaRankingPanel(_: String, changeToMoreInfoPanel))
 
   val f_bookSearchResults = (id: String) =>
-    (list: List[Book]) => ToLazyPanel(id, new BookSearchResultPanel(_: String, list, changeToMoreInfoPanel))
+    (list: List[Book]) => ToLazyPanel(id, new ScalaHorizontalBookPanel(_: String, list, changeToMoreInfoPanel))
 
   val f_bookInfoPanel = (id: String) =>
     (book: Book) => new ScalaBookInfoPanel(id, bookService.initializeBookInfo(book),

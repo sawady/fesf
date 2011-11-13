@@ -19,7 +19,6 @@ class SignUp extends WebPage {
   var securityContextHelper: SecurityContextHelper = _
 
   this.initialize()
-
   private def initialize() = {
     this.add(ToGenericFormPanel("form", new PersonFormFieldsPanel(_: String, this.getPersonDTO())))
   }

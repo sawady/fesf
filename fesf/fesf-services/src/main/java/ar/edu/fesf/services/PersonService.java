@@ -11,7 +11,6 @@ import ar.edu.fesf.model.EmailAddress;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Role;
-import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.PersonRepository;
 import ar.edu.fesf.services.dtos.PersonDTO;
 
@@ -20,13 +19,8 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
     private static final long serialVersionUID = 281627290258132217L;
 
     @Transactional(readOnly = true)
-    public Person findPersonWithUserInfo(final UserInfo userinfo) {
-        return this.getRepository().findByPropertyUnique("userInfo", userinfo);
-    }
-
-    @Transactional(readOnly = true)
     public Person initializeLoaneeInfo(final Person loanee) {
-        return this.initializeFields(loanee, "currentLoans", "email", "userInfo");
+        return this.initializeFields(loanee, "currentLoans", "email");
     }
 
     public List<String> getFieldNames() {
@@ -39,6 +33,25 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         List<String> names = new ArrayList<String>();
         names.add("name");
         return names;
+    }
+
+    public Role[] getRoles() {
+        return Role.values();
+    }
+
+    public List<String> getRolesOf(final Person person) {
+
+        List<String> roles = new ArrayList<String>();
+
+        Role userRole = person.getRole();
+
+        for (Role role : Role.values()) {
+            if (role.isInferior(userRole)) {
+                roles.add(role.toString());
+            }
+        }
+
+        return roles;
     }
 
     @Transactional(readOnly = true)
@@ -60,15 +73,14 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
 
     @Transactional(readOnly = true)
     public Person initializePersonInfo(final Person person) {
-        return this.initializeFields(person, "email", "userInfo");
+        return this.initializeFields(person, "email");
     }
 
     @Transactional
     public Person registerNewPerson(final PersonDTO personDTO) {
         Person newPerson = new PersonBuilder().withName(personDTO.getName()).withSurname(personDTO.getSurname())
                 .withAge(personDTO.getAge()).withPhone(personDTO.getPhone()).withAddress(personDTO.getAddress())
-                .withUserInfo(new UserInfo(personDTO.getUserid(), personDTO.getPassword(), Role.USER))
-                .withEmail(new EmailAddress(personDTO.getEmail())).build();
+                .withRole(Role.USER).withEmail(new EmailAddress(personDTO.getEmail())).build();
         this.save(newPerson);
         return newPerson;
     }
@@ -83,8 +95,8 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         personDB.setAge(personDTO.getAge());
         personDB.setPhone(personDTO.getPhone());
         personDB.setAddress(personDTO.getAddress());
-        personDB.setUserInfo(new UserInfo(personDTO.getUserid(), personDTO.getPassword(), Role.USER)); // TODO ver tema
-                                                                                                       // de roles
+        personDB.setRole(Role.USER); // TODO ver tema
+                                     // de roles
         personDB.setEmail(new EmailAddress(personDTO.getEmail()));
 
         this.save(personDB);

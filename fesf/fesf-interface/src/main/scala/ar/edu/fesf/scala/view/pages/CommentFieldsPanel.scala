@@ -27,11 +27,11 @@ class CommentFieldsPanel(id: String,
   @BeanProperty
   var bookService: BookService = _
 
+  @BeanProperty
   val commentDTO: CommentDTO = new CommentDTO()
 
   this.initialize()
   def initialize() = {
-
     add(new TextArea("body").setRequired(true))
     add(new RequiredTextField[Int]("calification", classOf[Int]).add(new MinimumValidator[Integer](0)).add(new MaximumValidator[Integer](10)))
   }

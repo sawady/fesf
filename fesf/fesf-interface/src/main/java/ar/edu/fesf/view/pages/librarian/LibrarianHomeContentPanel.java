@@ -4,11 +4,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
-import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Person;
-import ar.edu.fesf.model.UserInfo;
-import ar.edu.fesf.view.pages.generic.GenericFormPanel;
-import ar.edu.fesf.view.pages.signin.SignInFieldsPanel;
 
 public class LibrarianHomeContentPanel extends Panel {
 
@@ -27,21 +23,22 @@ public class LibrarianHomeContentPanel extends Panel {
 
         this.setLibrarianTabbedPanel(new LibrarianTabbedPanel("content"));
 
-        if (this.getLibrarianTabbedPanel().isEnableAllowed()) {
-            this.add(this.getLibrarianTabbedPanel());
-        } else {
-            this.add(new GenericFormPanel<UserInfo>("content") {
-
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public PanelServiceToForm<UserInfo> getFieldsPanel(final String id) {
-                    return new SignInFieldsPanel(id, new UserInfo(), LibrarianHomeContentPanel.this
-                            .accessLibrarianTabbedPanel());
-                }
-
-            }.setOutputMarkupId(true));
-        }
+        // TODO armar autorizacion para librarian
+        // if (this.getLibrarianTabbedPanel().isEnableAllowed()) {
+        this.add(this.getLibrarianTabbedPanel());
+        // } else {
+        // this.add(new GenericFormPanel<UserInfo>("content") {
+        //
+        // private static final long serialVersionUID = 1L;
+        //
+        // @Override
+        // public PanelServiceToForm<UserInfo> getFieldsPanel(final String id) {
+        // return new SignInFieldsPanel(id, new UserInfo(), LibrarianHomeContentPanel.this
+        // .accessLibrarianTabbedPanel());
+        // }
+        //
+        // }.setOutputMarkupId(true));
+        // }
 
     }
 

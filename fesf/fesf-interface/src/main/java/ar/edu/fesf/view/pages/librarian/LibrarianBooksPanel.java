@@ -2,7 +2,7 @@ package ar.edu.fesf.view.pages.librarian;
 
 import org.apache.wicket.markup.html.panel.Panel;
 
-import ar.edu.fesf.view.pages.books.BookSearchPanel;
+import ar.edu.fesf.scala.view.pages.ScalaBookSearchPanel;
 
 public class LibrarianBooksPanel extends Panel {
 
@@ -15,7 +15,7 @@ public class LibrarianBooksPanel extends Panel {
 
     private void initialize() {
         LibrarianBooksContentPanel librarianBooksContentPanel = new LibrarianBooksContentPanel("contentPanel");
-        this.add(new BookSearchPanel("search", librarianBooksContentPanel.changeBookTablePanel()));
+        this.add(new ScalaBookSearchPanel("search", librarianBooksContentPanel.changeBookTablePanel()));
         this.add(librarianBooksContentPanel);
     }
 }

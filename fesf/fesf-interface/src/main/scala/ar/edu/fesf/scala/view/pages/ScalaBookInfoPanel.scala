@@ -43,8 +43,7 @@ class ScalaBookInfoPanel(id: String,
     this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()))
     this.add(new BorrowItPanel("borrowIt", book, borrowCallback, cannotBorrowCallback))
     val relatedBooks = this.getBookService().relatedBooks(book.getId(), 10)
-    this.add(new ScalaHorizontalBookPanel("relatedBooks", relatedBooks, relatedBookCallback))
-
+    this.add(new ScalaRelatedBooksPanel("relatedBooks", relatedBooks, relatedBookCallback))
     this.addUserFeedbackInfo()
   }
 

@@ -12,7 +12,7 @@
     
     <property name="name"></property>
     
-    <many-to-one name="userInfo" class="UserInfo" insert="true" update="true" cascade="all"/>
+    <property name="role" type="ar.edu.fesf.model.Role"/>
     
     <set name="categories" cascade="all">
         <key column="person"/>

@@ -2,7 +2,6 @@ package ar.edu.fesf.scala.view.pages
 import org.apache.wicket.spring.injection.annot.SpringBean
 import scala.reflect.BeanProperty
 import ar.edu.fesf.services.BookService
-import ar.edu.fesf.view.pages.books.HorizontalBookPanel
 import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Book
 import java.util.List

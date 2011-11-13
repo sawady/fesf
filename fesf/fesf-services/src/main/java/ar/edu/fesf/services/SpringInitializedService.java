@@ -15,7 +15,6 @@ import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.Role;
-import ar.edu.fesf.model.UserInfo;
 import ar.edu.fesf.repositories.CategoryRepository;
 
 public class SpringInitializedService {
@@ -62,8 +61,9 @@ public class SpringInitializedService {
                 .withCategory(drama).withIsbn(new ISBN("978-0307957123")).withCategory(policial)
                 .withPublisher(publisher1).withCountOfCopies(1).build());
 
-        this.bookService.registerNewBook(new BookBuilder().withTitle("Maleficio").withCategory(terror)
-                .withPublisher(publisher1).withIsbn(new ISBN("978-0307957124")).withCountOfCopies(10).build());
+        Book maleficio = new BookBuilder().withTitle("Maleficio").withCategory(terror).withPublisher(publisher1)
+                .withIsbn(new ISBN("978-0307957124")).withCountOfCopies(10).build();
+        this.bookService.registerNewBook(maleficio);
         this.bookService.registerNewBook(new BookBuilder().withTitle("Cementerio de Animales").withCategory(terror)
                 .withPublisher(publisher1).withIsbn(new ISBN("978-0307957125")).withCountOfCopies(5).build());
         this.bookService.registerNewBook(new BookBuilder().withTitle("Carrie").withCategory(terror)
@@ -109,24 +109,16 @@ public class SpringInitializedService {
         this.bookService.registerNewBook(new BookBuilder().withTitle("Las locuras del emperador").withCategory(comedia)
                 .withCountOfCopies(5).withIsbn(new ISBN("978-0307957143")).withPublisher(publisher2).build());
 
-        Person jose = new PersonBuilder().withName("Jose").withEmail(new EmailAddress("jose@gmail.com"))
-                .withUserInfo(new UserInfo("jose", "jose", Role.LIBRARIAN)).build();
-        this.personService.save(jose);
-        Person fede = new PersonBuilder().withName("Federico").withSurname("Sawady")
-                .withEmail(new EmailAddress("sawady.faso@gmail.com"))
-                .withUserInfo(new UserInfo("fede", "fede", Role.LIBRARIAN)).build();
-        this.personService.save(fede);
-        this.personService.save(new PersonBuilder().withName("Pepe").withEmail(new EmailAddress("pepe@gmail.com"))
-                .withUserInfo(new UserInfo("pepe", "pepe", Role.LIBRARIAN)).build());
-        this.personService.save(new PersonBuilder().withName("Carlos").withEmail(new EmailAddress("carlos@gmail.com"))
-                .withUserInfo(new UserInfo("carlos", "carlos", Role.USER)).build());
-        this.personService.save(new PersonBuilder().withName("Tomas").withEmail(new EmailAddress("tomas@gmail.com"))
-                .withUserInfo(new UserInfo("tomas", "tomas", Role.USER)).build());
-        this.personService.save(new PersonBuilder().withName("matias").withEmail(new EmailAddress("matias@gmail.com"))
-                .withUserInfo(new UserInfo("matias", "matias", Role.USER)).build());
+        Person fede = new PersonBuilder().withName("Federico").withSurname("Sawady").withAge(21)
+                .withAddress("Colon 355").withPhone("42245630").withEmail(new EmailAddress("sawady.faso@gmail.com"))
+                .withRole(Role.LIBRARIAN).build();
 
-        this.loaningService.registerLoan(jose, new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20))
+        this.personService.save(fede);
+
+        this.loaningService.registerLoan(fede, new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20))
                 .withMaxLoanPeriodInDays(60).build(), magoDeTerramar);
+        this.loaningService.registerLoan(fede, new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(20))
+                .withMaxLoanPeriodInDays(60).build(), maleficio);
 
         Book magoDeTerramarDB = this.bookService.findByEquality(magoDeTerramar);
         magoDeTerramarDB.addComment(new Comment("Muy bueno wacho", 7, magoDeTerramar, fede));
