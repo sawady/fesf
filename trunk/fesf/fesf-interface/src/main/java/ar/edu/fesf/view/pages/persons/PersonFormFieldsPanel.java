@@ -2,16 +2,15 @@ package ar.edu.fesf.view.pages.persons;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.MinimumValidator;
 
 import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.scala.view.application.SecuritySession;
 import ar.edu.fesf.services.PersonService;
 import ar.edu.fesf.services.dtos.PersonDTO;
-import ar.edu.fesf.wicket.application.SecuritySession;
 
 public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
 
@@ -36,9 +35,6 @@ public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
         this.add(new RequiredTextField<String>("address"));
         this.add(new RequiredTextField<String>("phone"));
         this.add(new RequiredTextField<String>("email"));
-        this.add(new RequiredTextField<String>("userid"));
-        this.add(new PasswordTextField("password").setRequired(true));
-
     }
 
     @Override

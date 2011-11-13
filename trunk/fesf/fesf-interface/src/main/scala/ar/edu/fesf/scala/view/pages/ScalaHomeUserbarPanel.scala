@@ -1,7 +1,7 @@
 package ar.edu.fesf.scala.view.pages
 import org.apache.wicket.markup.html.panel.Panel
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink
-import ar.edu.fesf.wicket.application.SecuritySession
+import ar.edu.fesf.scala.view.application.SecuritySession
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 import ar.edu.fesf.scala.view.ToAjaxLink
 import ar.edu.fesf.controllers.IAjaxCallback

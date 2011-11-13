@@ -4,10 +4,10 @@ import org.apache.wicket.spring.injection.annot.SpringBean
 import ar.edu.fesf.services.PersonService
 import ar.edu.fesf.security.SecurityContextHelper
 import scala.reflect.BeanProperty
-import ar.edu.fesf.wicket.application.SecuritySession
+import ar.edu.fesf.scala.view.application.SecuritySession
 
 @SerialVersionUID(1L)
-class ScalaHome extends WebPage {
+class ScalaHome extends WebPage with Serializable {
 
   @SpringBean
   @BeanProperty

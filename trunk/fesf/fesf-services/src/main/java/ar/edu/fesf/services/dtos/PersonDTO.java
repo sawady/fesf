@@ -22,10 +22,6 @@ public class PersonDTO implements Serializable {
 
     private String email;
 
-    private String userid;
-
-    private String password;
-
     public PersonDTO() {
         super();
     }
@@ -44,8 +40,6 @@ public class PersonDTO implements Serializable {
         this.address = person.getAddress();
         this.phone = person.getPhone();
         this.email = person.getEmail().getValue();
-        this.userid = person.getUserInfo().getUserid();
-        this.password = person.getUserInfo().getPass();
     }
 
     public String getName() {
@@ -94,22 +88,6 @@ public class PersonDTO implements Serializable {
 
     public void setEmail(final String email) {
         this.email = email;
-    }
-
-    public String getUserid() {
-        return this.userid;
-    }
-
-    public void setUserid(final String userid) {
-        this.userid = userid;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(final String password) {
-        this.password = password;
     }
 
     public int getId() {

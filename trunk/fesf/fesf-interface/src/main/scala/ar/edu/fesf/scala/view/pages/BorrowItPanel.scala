@@ -1,7 +1,7 @@
 package ar.edu.fesf.scala.view.pages
 import org.apache.wicket.markup.html.panel.Panel
 import ar.edu.fesf.model.Book
-import ar.edu.fesf.wicket.application.SecuritySession
+import ar.edu.fesf.scala.view.application.SecuritySession
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.spring.injection.annot.SpringBean
 import scala.reflect.BeanProperty

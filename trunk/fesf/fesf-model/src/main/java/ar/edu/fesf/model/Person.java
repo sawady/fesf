@@ -33,7 +33,7 @@ public class Person extends Entity implements Nameable, Serializable {
 
     private Set<Category> categories = new HashSet<Category>();
 
-    private UserInfo userInfo;
+    private Role role;
 
     private Set<Book> loanedBooks = new HashSet<Book>();
 
@@ -53,7 +53,7 @@ public class Person extends Entity implements Nameable, Serializable {
     }
 
     public Person(final String name, final String surname, final int age, final String address, final String phone,
-            final EmailAddress email, final Set<Category> categories, final UserInfo userInfo) {
+            final EmailAddress email, final Set<Category> categories) {
         super();
         this.name = name;
         this.surname = surname;
@@ -62,7 +62,6 @@ public class Person extends Entity implements Nameable, Serializable {
         this.phone = phone;
         this.email = email;
         this.categories = categories;
-        this.userInfo = userInfo;
     }
 
     /* Methods */
@@ -152,14 +151,6 @@ public class Person extends Entity implements Nameable, Serializable {
         this.categories = categories;
     }
 
-    public UserInfo getUserInfo() {
-        return this.userInfo;
-    }
-
-    public void setUserInfo(final UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
-
     public List<ReservationEvent> getReservations() {
         return this.reservations;
     }
@@ -214,6 +205,14 @@ public class Person extends Entity implements Nameable, Serializable {
 
     public Set<Book> getLoanedBooks() {
         return this.loanedBooks;
+    }
+
+    public void setRole(final Role role) {
+        this.role = role;
+    }
+
+    public Role getRole() {
+        return this.role;
     }
 
 }

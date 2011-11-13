@@ -13,8 +13,8 @@ import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.controllers.PanelServiceToForm;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
+import ar.edu.fesf.scala.view.application.SecuritySession;
 import ar.edu.fesf.services.LoaningService;
-import ar.edu.fesf.wicket.application.SecuritySession;
 
 public class LoanFormFieldsPanel extends PanelServiceToForm<Loan> {
 

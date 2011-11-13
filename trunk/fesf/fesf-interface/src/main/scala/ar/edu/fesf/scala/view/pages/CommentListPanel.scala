@@ -11,7 +11,7 @@ import ar.edu.fesf.model.Book
 import java.util.List
 import ar.edu.fesf.services.dtos.CommentDTO
 import ar.edu.fesf.scala.view.ToGenericFormPanel
-import ar.edu.fesf.wicket.application.SecuritySession
+import ar.edu.fesf.scala.view.application.SecuritySession
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.WebMarkupContainer
 import ar.edu.fesf.scala.view.ToAjaxSimpleCallback
@@ -28,6 +28,8 @@ class CommentListPanel(id: String, book: Book,
   initialize()
 
   def initialize() = {
+    val mySession = getSession().asInstanceOf[SecuritySession]
+    this.setVisible(!comments.isEmpty() || mySession.signedIn())
     this.add(new ListView[CommentDTO]("commentList", comments) {
       @Override
       def populateItem(item: ListItem[CommentDTO]) {
@@ -36,9 +38,8 @@ class CommentListPanel(id: String, book: Book,
       }
     })
     val commentForm = ToGenericFormPanel("commentForm", new CommentFieldsPanel(_: String, book,
-      this.getSession().asInstanceOf[SecuritySession].getPerson(),
-      callback)).setOutputMarkupId(true)
-    MetaDataRoleAuthorizationStrategy.authorize(commentForm, Component.RENDER, Role.USER.toString());
+      mySession.getPerson(), callback)).setOutputMarkupId(true)
+    MetaDataRoleAuthorizationStrategy.authorize(commentForm, Component.RENDER, Role.USER.toString())
     this.add(commentForm)
   }
 

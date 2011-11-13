@@ -73,7 +73,7 @@ public class LibrarianBooksContentPanel extends Panel {
 
             @Override
             public Panel getNewPanel(final List<Book> list) {
-                LibrarianBooksContentPanel.this.getLibrarianDataTablePanel().replaceTable(list);
+                // LibrarianBooksContentPanel.this.getLibrarianDataTablePanel().replaceTable(list);
                 return LibrarianBooksContentPanel.this.getLibrarianDataTablePanel();
             }
 

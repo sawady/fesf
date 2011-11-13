@@ -222,7 +222,7 @@ public class BookRepositoryTest {
     @Test
     public void userFeedbackManager() {
         Book aBook = this.bookRepository.findByEquality(this.book2);
-        Comment comment = new Comment("This book sucks", 1, aBook, null);// TODO cambiar el null por una persona
+        Comment comment = new Comment("This book sucks", 1, aBook, null);
         aBook.addComment(comment);
         this.bookRepository.save(aBook);
         this.bookRepository.getHibernateTemplate().flush();

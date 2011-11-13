@@ -1,8 +1,12 @@
 package ar.edu.fesf.services.dtos;
 
+import java.io.Serializable;
+
 import ar.edu.fesf.model.Comment;
 
-public class CommentDTO {
+public class CommentDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String body;
 
