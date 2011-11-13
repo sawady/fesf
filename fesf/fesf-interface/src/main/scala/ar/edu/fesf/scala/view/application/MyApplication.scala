@@ -12,7 +12,6 @@ import ar.edu.fesf.view.pages.signin.SignIn
 import org.apache.wicket.Page
 import org.springframework.web.context.WebApplicationContext
 import org.springframework.web.context.support.WebApplicationContextUtils
-import ar.edu.fesf.view.pages.librarian.LibrarianHome
 
 @SerialVersionUID(1L)
 class MyApplication extends AuthenticatedWebApplication {

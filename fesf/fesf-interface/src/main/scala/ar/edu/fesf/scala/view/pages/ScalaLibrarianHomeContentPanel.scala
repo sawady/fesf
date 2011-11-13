@@ -7,7 +7,6 @@ import ar.edu.fesf.scala.view.ToLazyPanel
 import ar.edu.fesf.view.pages.persons.PersonInfoPanel
 import ar.edu.fesf.model.Person
 import java.util.List
-import ar.edu.fesf.view.pages.librarian.LibrarianTabbedPanel
 import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 import org.apache.wicket.spring.injection.annot.SpringBean
@@ -16,7 +15,6 @@ import scala.reflect.BeanProperty
 import ar.edu.fesf.services.BookService
 import java.util.ArrayList
 import ar.edu.fesf.scala.view.AjaxNamedSimpleCallback
-import ar.edu.fesf.view.pages.librarian.LibrarianHomeMainPanel
 import ar.edu.fesf.view.pages.librarian.UsersPanel
 import ar.edu.fesf.view.pages.loaning.LoaneesPanel
 
