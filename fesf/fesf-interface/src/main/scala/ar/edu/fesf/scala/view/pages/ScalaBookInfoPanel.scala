@@ -16,12 +16,16 @@ import ar.edu.fesf.services.UserFeedbackService
 import ar.edu.fesf.scala.view.ToAjaxSimpleCallback
 import ar.edu.fesf.services.dtos.CommentDTO
 import java.util.List
+import org.apache.wicket.extensions.yui.calendar.DatePicker
+import ar.edu.fesf.scala.view.AjaxSimpleReplacePanel
+import org.apache.wicket.markup.html.panel.Panel
 
-class ScalaBookInfoPanel(id: String,
-                         book: Book,
-                         borrowCallback: IAjaxCallback[Book],
-                         relatedBookCallback: IAjaxCallback[Book],
-                         cannotBorrowCallback: IAjaxCallback[Person]) extends ReplaceablePanel(id, new CompoundPropertyModel(book)) {
+class ScalaBookInfoPanel(
+  id: String,
+  book: Book,
+  showMoreInfoCallback: IAjaxCallback[Book],
+  cannotBorrowCallback: IAjaxCallback[Person])
+  extends Panel(id, new CompoundPropertyModel(book)) with ReplaceablePanel {
 
   @SpringBean
   @BeanProperty
@@ -41,10 +45,15 @@ class ScalaBookInfoPanel(id: String,
     this.add(new Label("description"))
     this.add(new Label("isbn.value"))
     this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()))
-    this.add(new BorrowItPanel("borrowIt", book, borrowCallback, cannotBorrowCallback))
+    this.add(new BorrowItPanel("borrowIt", book, this.borrowCallback(), cannotBorrowCallback))
     val relatedBooks = this.getBookService().relatedBooks(book.getId(), 10)
-    this.add(new ScalaRelatedBooksPanel("relatedBooks", relatedBooks, relatedBookCallback))
+    this.add(new ScalaRelatedBooksPanel("relatedBooks", relatedBooks, showMoreInfoCallback))
     this.addUserFeedbackInfo()
+  }
+
+  private def borrowCallback(): IAjaxSimpleCallback = {
+    return new AjaxSimpleReplacePanel(this,
+      new ScalaGenericFormPanel("borrowIt", new BorrowItFormFieldsPanel(_: String, book, showMoreInfoCallback)))
   }
 
   private def addUserFeedbackInfo() {

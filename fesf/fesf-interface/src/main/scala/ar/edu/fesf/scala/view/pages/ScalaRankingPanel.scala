@@ -7,11 +7,12 @@ import ar.edu.fesf.model.Book
 import java.util.List
 import ar.edu.fesf.scala.view.ReplaceablePanel
 import org.apache.wicket.ajax.AjaxRequestTarget
+import org.apache.wicket.markup.html.panel.Panel
 
 @SerialVersionUID(1L)
 class ScalaRankingPanel(id: String,
                         callback: IAjaxCallback[Book])
-  extends ReplaceablePanel(id) {
+  extends Panel(id) with ReplaceablePanel {
 
   @SpringBean
   @BeanProperty

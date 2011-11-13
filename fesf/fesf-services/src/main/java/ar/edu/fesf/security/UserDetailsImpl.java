@@ -12,9 +12,9 @@
  */
 package ar.edu.fesf.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -45,7 +45,7 @@ public final class UserDetailsImpl implements UserDetails {
 
     private String language;
 
-    private List<GrantedAuthority> gaL = new ArrayList<GrantedAuthority>(1);
+    private Set<GrantedAuthority> gaL = new HashSet<GrantedAuthority>(1);
 
     public UserDetailsImpl(final String username, final String firstName, final String lastName, final String email,
             final String language) {
@@ -57,6 +57,10 @@ public final class UserDetailsImpl implements UserDetails {
         this.language = language;
         // By default every signeIn user is Granted as USER
         this.gaL.add(new GrantedAuthorityImpl(Role.USER.toString()));
+    }
+
+    public void updateRole(final Role role) {
+        this.getGaL().add(new GrantedAuthorityImpl(role.toString()));
     }
 
     /**
@@ -139,14 +143,6 @@ public final class UserDetailsImpl implements UserDetails {
         this.userName = userName;
     }
 
-    public List<GrantedAuthority> getGaL() {
-        return this.gaL;
-    }
-
-    public void setGaL(final List<GrantedAuthority> gaL) {
-        this.gaL = gaL;
-    }
-
     public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
@@ -161,6 +157,14 @@ public final class UserDetailsImpl implements UserDetails {
 
     public void setLanguage(final String language) {
         this.language = language;
+    }
+
+    public Set<GrantedAuthority> getGaL() {
+        return this.gaL;
+    }
+
+    public void setGaL(final Set<GrantedAuthority> gaL) {
+        this.gaL = gaL;
     }
 
 }

@@ -2,11 +2,14 @@ package ar.edu.fesf.services;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
+import ar.edu.fesf.services.dtos.BorrowItDTO;
 
 public class LoaningService extends GenericTransactionalRepositoryService<Loan> {
 
@@ -25,17 +28,33 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
         return loanDB;
     }
 
+    private DateTime parseDate(final String date) {
+        DateTime result = null;
+
+        try {
+            result = DateTime.parse(date);
+        } catch (IllegalArgumentException e) {
+            result = DateTime.parse(date, DateTimeFormat.forPattern("MM/dd/yy"));
+        }
+
+        return result;
+
+    }
+
     @Transactional
-    public void registerLoan(final Person person, final Loan loan, final Book book) {
+    public void registerLoan(final Person person, final BorrowItDTO borrowItInfo, final Book book) {
         // try {
         Person personDB = this.getPersonService().findByEquality(person);
         Book bookDB = this.getBookService().findByEquality(book);
-        loan.assignCopy(personDB, this.getBookService().getAvailableCopy(bookDB));
 
+        DateTime agreedReturnDate = this.parseDate(borrowItInfo.getAgreedReturnDate());
+
+        // TODO deshardcodear el 60
+        Loan newLoan = new Loan(personDB, 60, agreedReturnDate, this.getBookService().getAvailableCopy(bookDB));
         // } catch (RuntimeException e) {
         // throw new NoAvailableBookCopyException(e.getMessage());
         // }
-        this.save(loan);
+        this.save(newLoan);
     }
 
     @Transactional

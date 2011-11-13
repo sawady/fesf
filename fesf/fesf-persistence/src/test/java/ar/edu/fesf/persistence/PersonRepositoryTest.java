@@ -27,6 +27,7 @@ import ar.edu.fesf.model.EmailAddress;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
+import ar.edu.fesf.model.Role;
 import ar.edu.fesf.repositories.LoanRepository;
 import ar.edu.fesf.repositories.PersonRepository;
 
@@ -62,7 +63,7 @@ public class PersonRepositoryTest {
         categories.add(new Category("Terror"));
 
         this.pepe = new PersonBuilder().withName("Pepe").withAddress("colon 355").withAge(18).withSurname("Sorias")
-                .withCategories(categories).withEmail(new EmailAddress("sarasa@gmail.com")).build();
+                .withCategories(categories).withEmail(new EmailAddress("sarasa@gmail.com")).withRole(Role.USER).build();
         this.peopleToPersist.add(this.pepe);
         this.peopleToPersist.add(new PersonBuilder().withName("Carlos").build());
         this.peopleToPersist.add(new PersonBuilder().withName("Soprano").build());
@@ -119,6 +120,7 @@ public class PersonRepositoryTest {
         // .getRole());
         assertEquals("Must have same email", "sarasa@gmail.com", pepeEncontrado.getEmail().getValue());
         assertEquals("Must have same address", "colon 355", pepeEncontrado.getAddress());
+        assertEquals("Must have same role", Role.USER.toString(), pepeEncontrado.getRole().toString());
         assertTrue("Must have his loan", pepeEncontrado.getCurrentLoans().contains(pepeLoanBD));
     }
 

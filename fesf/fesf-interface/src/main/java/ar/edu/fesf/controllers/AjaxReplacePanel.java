@@ -18,10 +18,10 @@ public abstract class AjaxReplacePanel<T> implements IAjaxCallback<T> {
     @Override
     public void apply(final AjaxRequestTarget target, final T object) {
         final Panel newPanel = this.getNewPanel(object);
-        if (!this.getParent().contains(newPanel, false)) {
-            this.getParent().replace(newPanel);
-            target.add(newPanel);
-        }
+        // if (!this.getParent().contains(newPanel, false)) {
+        this.getParent().replace(newPanel);
+        target.add(newPanel);
+        // }
     }
 
     public void setParent(final Panel parent) {

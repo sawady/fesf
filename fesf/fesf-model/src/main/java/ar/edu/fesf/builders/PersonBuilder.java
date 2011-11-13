@@ -67,7 +67,8 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(this.name, this.surname, this.age, this.address, this.phone, this.email, this.categories);
+        return new Person(this.name, this.surname, this.age, this.address, this.phone, this.email, this.categories,
+                this.role);
     }
 
     /**************************************** ACCESSORS ****************************************/

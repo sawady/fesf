@@ -29,7 +29,6 @@ import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.scala.view.application.SecuritySession
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
-import ar.edu.fesf.scala.view.ScalaGenericFormPanel
 
 //TODO reificar callbacks
 class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
@@ -56,9 +55,6 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   val f_loaneePanel = (id: String) => (person: Person) =>
     new LoaneeInfoPanel(id, person)
 
-  val f_loaningFormPanel = (id: String) => (book: Book) =>
-    new LoaningFormPanel(id, book, changeToMoreInfoPanel)
-
   //MainContent
   val f_rankingPanel = ToLazyPanel(_: String, new ScalaRankingPanel(_: String, changeToMoreInfoPanel))
 
@@ -66,8 +62,7 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
     (list: List[Book]) => ToLazyPanel(id, new ScalaHorizontalBookPanel(_: String, list, changeToMoreInfoPanel))
 
   val f_bookInfoPanel = (id: String) =>
-    (book: Book) => new ScalaBookInfoPanel(id, bookService.initializeBookInfo(book),
-      changeToLoaningFormPanel, changeToMoreInfoPanel, changeToLoaneeInfoPanel)
+    (book: Book) => new ScalaBookInfoPanel(id, bookService.initializeBookInfo(book), changeToMoreInfoPanel, changeToLoaneeInfoPanel)
 
   /* initialization */
   this.initialize()
@@ -94,9 +89,6 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
 
   private def changeToPersonInfo(): IAjaxCallback[Person] =
     this.changeContent(f_personInfoPanel)
-
-  private def changeToLoaningFormPanel(): IAjaxCallback[Book] =
-    this.changeContent(f_loaningFormPanel)
 
   private def changeToProfilePanel(): IAjaxCallback[Person] = {
     this.changeContent((id: String) => (person: Person) =>
