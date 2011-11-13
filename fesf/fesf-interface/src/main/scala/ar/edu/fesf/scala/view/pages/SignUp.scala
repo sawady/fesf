@@ -10,7 +10,7 @@ import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.security.SecurityContextHelper
 import org.apache.wicket.spring.injection.annot.SpringBean
 import scala.reflect.BeanProperty
-import ar.edu.fesf.scala.view.ToGenericFormPanel
+import ar.edu.fesf.scala.view.ScalaGenericFormPanel
 
 class SignUp extends WebPage {
 
@@ -20,7 +20,7 @@ class SignUp extends WebPage {
 
   this.initialize()
   private def initialize() = {
-    this.add(ToGenericFormPanel("form", new PersonFormFieldsPanel(_: String, this.getPersonDTO())))
+    this.add(new ScalaGenericFormPanel("form", new PersonFormFieldsPanel(_: String, this.getPersonDTO())))
   }
 
   private def getPersonDTO(): PersonDTO = {

@@ -10,7 +10,6 @@ import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Book
 import java.util.List
 import ar.edu.fesf.services.dtos.CommentDTO
-import ar.edu.fesf.scala.view.ToGenericFormPanel
 import ar.edu.fesf.scala.view.application.SecuritySession
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.WebMarkupContainer
@@ -20,6 +19,7 @@ import org.apache.wicket.Component
 import ar.edu.fesf.model.Role
 import ar.edu.fesf.scala.view.ReplaceablePanel
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
+import ar.edu.fesf.scala.view.ScalaGenericFormPanel
 
 class CommentListPanel(id: String, book: Book,
                        comments: List[CommentDTO],
@@ -37,7 +37,7 @@ class CommentListPanel(id: String, book: Book,
         item.add(new CommentPanel("commentPanel", comment))
       }
     })
-    val commentForm = ToGenericFormPanel("commentForm", new CommentFieldsPanel(_: String, book,
+    val commentForm = new ScalaGenericFormPanel("commentForm", new CommentFieldsPanel(_: String, book,
       mySession.getPerson(), callback)).setOutputMarkupId(true)
     MetaDataRoleAuthorizationStrategy.authorize(commentForm, Component.RENDER, Role.USER.toString())
     this.add(commentForm)
