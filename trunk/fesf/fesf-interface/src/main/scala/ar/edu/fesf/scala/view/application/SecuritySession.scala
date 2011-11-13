@@ -36,6 +36,10 @@ class SecuritySession(request: Request) extends AuthenticatedWebSession(request)
     return null;
   }
 
+  def isLibrarianSignedIn(): Boolean = {
+    return this.signedIn() && this.getRoles().hasRole("LIBRARIAN")
+  }
+
   def attachPerson(aPerson: Person) = {
     this.setPerson(aPerson);
     this.getSecurityContextHelper().updatedUserRole(aPerson.getRole());

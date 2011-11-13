@@ -5,6 +5,8 @@ import ar.edu.fesf.services.PersonService
 import ar.edu.fesf.security.SecurityContextHelper
 import scala.reflect.BeanProperty
 import ar.edu.fesf.scala.view.application.SecuritySession
+import ar.edu.fesf.scala.view.IAjaxSimpleCallback
+import ar.edu.fesf.scala.view.AjaxSimpleReplacePanel
 
 @SerialVersionUID(1L)
 class ScalaHome extends WebPage with Serializable {
@@ -26,7 +28,16 @@ class ScalaHome extends WebPage with Serializable {
         mySession.attachPerson(personDB);
       }
     }
-    this.add(new ScalaHomeContentPanel("contentPanel"))
+
+    if (mySession.isLibrarianSignedIn()) {
+      this.add(new ScalaLibrarianHomeContentPanel("contentPanel", this.changeToUserHome()))
+    } else {
+      this.add(new ScalaHomeContentPanel("contentPanel"))
+    }
+  }
+
+  private def changeToUserHome(): IAjaxSimpleCallback = {
+    return new AjaxSimpleReplacePanel(this, new ScalaHomeContentPanel("contentPanel"))
   }
 
 }
