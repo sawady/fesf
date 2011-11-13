@@ -29,7 +29,7 @@ import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.scala.view.application.SecuritySession
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
-import ar.edu.fesf.scala.view.ToGenericFormPanel
+import ar.edu.fesf.scala.view.ScalaGenericFormPanel
 
 //TODO reificar callbacks
 class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
@@ -100,7 +100,7 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
 
   private def changeToProfilePanel(): IAjaxCallback[Person] = {
     this.changeContent((id: String) => (person: Person) =>
-      ToGenericFormPanel(id, new PersonFormFieldsPanel(_: String, new PersonDTO(person))))
+      new ScalaGenericFormPanel(id, new PersonFormFieldsPanel(_: String, new PersonDTO(person))))
   }
 
   private def loggedPerson(): Person = this.getSession().asInstanceOf[SecuritySession].getPerson()
