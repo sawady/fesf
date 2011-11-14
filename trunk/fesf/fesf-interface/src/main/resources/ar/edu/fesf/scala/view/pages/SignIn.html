@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<wicket:link><link rel="stylesheet" type="text/css" href="ScalaHome.css"/></wicket:link>	
+ 	<title>Sign In - Fesf Library</title>
+</head>
+<body>
+<div class="login">
+	<h3>Use the button below to signIn using your Google Account.</h3>
+	<h4>This way you don't have to remember so may passwords, and we can be sure that you are you :).</h4> 
+	<img src="http://cdn1.iconfinder.com/data/icons/yooicons_set01_socialbookmarks/128/social_google_box.png" width="100px"/>
+	<form action="j_spring_openid_security_check">
+		<input type="hidden" name="openid_identifier" value="https://www.google.com/accounts/o8/id"/> 
+		<button type="submit" value="Connect with Gmail">Connect with Gmail</button>
+	</form>
+
+</div>
+</body>
+
+</html>

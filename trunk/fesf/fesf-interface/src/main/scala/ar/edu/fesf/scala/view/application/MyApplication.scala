@@ -8,10 +8,10 @@ import org.apache.wicket.markup.html.WebPage
 import ar.edu.fesf.wicket.application.MounterURL
 import ar.edu.fesf.scala.view.pages.ScalaHome
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession
-import ar.edu.fesf.view.pages.signin.SignIn
 import org.apache.wicket.Page
 import org.springframework.web.context.WebApplicationContext
 import org.springframework.web.context.support.WebApplicationContextUtils
+import ar.edu.fesf.scala.view.pages.SignIn
 
 @SerialVersionUID(1L)
 class MyApplication extends AuthenticatedWebApplication {
