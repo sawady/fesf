@@ -10,6 +10,8 @@
           <generator class="native"/>
     </id>
     
+    <property name="available"/>
+    
     <property name="title"/>
     
     <property name="countOfLouns"/>
