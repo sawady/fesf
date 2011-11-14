@@ -9,14 +9,18 @@ import ar.edu.fesf.scala.view.application.SecuritySession
 class ScalaLibrarianHomeUserbarPanel(
   id: String,
   homeCallback: IAjaxSimpleCallback,
-  f_bookSearchPanel: String => Panel) extends Panel(id) {
+  f_bookSearchPanel: String => Panel,
+  signOutCallback: IAjaxSimpleCallback,
+  myLoansCallback: IAjaxCallback[Person],
+  profileCallback: IAjaxCallback[Person]) extends Panel(id) {
 
   this.initialize()
   def initialize() = {
     this.add(ToAjaxLink("homeLink", homeCallback))
     this.add(ToAjaxLink("titleLink", homeCallback))
     this.add(f_bookSearchPanel("searchbar"))
-    this.add(new ScalaLoggedOutUserbarPanel("authentication"))
+    this.add(new ScalaLoggedInUserbarPanel("authentication",
+      signOutCallback, myLoansCallback, profileCallback))
   }
 
 }

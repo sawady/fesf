@@ -33,7 +33,6 @@ class MyApplication extends AuthenticatedWebApplication {
 
     this.mountUrl("home", classOf[ScalaHome])
     this.mountUrl("login", classOf[SignIn])
-//    this.mountUrl("librarian", classOf[LibrarianHome])
 
   }
 

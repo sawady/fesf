@@ -17,6 +17,12 @@ import java.util.ArrayList
 import ar.edu.fesf.scala.view.AjaxNamedSimpleCallback
 import ar.edu.fesf.view.pages.librarian.UsersPanel
 import ar.edu.fesf.view.pages.loaning.LoaneesPanel
+import ar.edu.fesf.view.pages.generic.GenericFormPanel
+import ar.edu.fesf.services.dtos.NewBookDTO
+import ar.edu.fesf.view.pages.loaning.LoaneeInfoPanel
+import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
+import ar.edu.fesf.services.dtos.PersonDTO
+import ar.edu.fesf.services.dtos.EditBookDTO
 
 @AuthorizeInstantiation(Array("LIBRARIAN"))
 class ScalaLibrarianHomeContentPanel(
@@ -36,12 +42,16 @@ class ScalaLibrarianHomeContentPanel(
   //Userbar
   val f_bookSearchPanel = new ScalaBookSearchPanel(_: String, changeToResultsPanel)
 
-  //  //AuthenticatedUser
+  //Loaning
+  val f_loaneePanel = (id: String) => (person: Person) =>
+    new LoaneeInfoPanel(id, person)
+
+  //AuthenticatedUser
   val f_personInfoPanel = (id: String) => (person: Person) =>
     new PersonInfoPanel(id, person)
 
   val f_bookSearchResults = (id: String) =>
-    (list: List[Book]) => ToLazyPanel(id, new ScalaHorizontalBookPanel(_: String, list, changeToMoreInfoPanel))
+    (list: List[Book]) => ToLazyPanel(id, new ScalaHorizontalBookPanel(_: String, list, changeToEditBookPanel))
 
   val f_bookInfoPanel = (id: String) =>
     (book: Book) => new ScalaBookInfoPanel(id, bookService.initializeBookInfo(book), changeToMoreInfoPanel, changeToPersonInfo)
@@ -49,18 +59,30 @@ class ScalaLibrarianHomeContentPanel(
   this.initialize()
   private def initialize() = {
 
-    val list = new ArrayList[AjaxNamedSimpleCallback]()
-    list.add(new AjaxNamedSimpleCallback("Main Panel", this.changeToMainPanel()))
-    list.add(new AjaxNamedSimpleCallback("Users", this.changeToUsersPanel()))
-    list.add(new AjaxNamedSimpleCallback("Loanees", this.changeToLoaneesPanel()))
+    val sidebarCallbackList = new ArrayList[AjaxNamedSimpleCallback]()
+    sidebarCallbackList.add(new AjaxNamedSimpleCallback("Main Panel", this.changeToMainPanel()))
+    sidebarCallbackList.add(new AjaxNamedSimpleCallback("New Book", this.changeToNewBookPanel()))
 
-    this.add(new ScalaLibrarianOptionsPanel("sidebar", list))
-    this.add(new ScalaLibrarianHomeUserbarPanel("userbar", userHomeCallback, f_bookSearchPanel))
+    // TODO esto de aca abajo
+    //    list.add(new AjaxNamedSimpleCallback("Users", this.changeToUsersPanel()))
+    //    list.add(new AjaxNamedSimpleCallback("Loanees", this.changeToLoaneesPanel()))
+
+    this.add(new ScalaLibrarianOptionsPanel("sidebar", sidebarCallbackList))
+    this.add(new ScalaLibrarianHomeUserbarPanel("userbar", userHomeCallback, f_bookSearchPanel,
+      userHomeCallback, changeToLoaneeInfoPanel, changeToProfilePanel))
     this.add(new ScalaLibrarianMainContentPanel(CONTENT_ID))
   }
 
   private def changeToPersonInfo(): IAjaxCallback[Person] =
     this.changeContent(f_personInfoPanel)
+
+  private def changeToLoaneeInfoPanel(): IAjaxCallback[Person] =
+    this.changeContent(f_loaneePanel)
+
+  private def changeToProfilePanel(): IAjaxCallback[Person] = {
+    this.changeContent((id: String) => (person: Person) =>
+      new ScalaGenericFormPanel(id, new PersonFormFieldsPanel(_: String, new PersonDTO(person))))
+  }
 
   private def changeToMoreInfoPanel(): IAjaxCallback[Book] =
     this.changeContent(f_bookInfoPanel)
@@ -76,5 +98,15 @@ class ScalaLibrarianHomeContentPanel(
 
   private def changeToLoaneesPanel(): IAjaxSimpleCallback =
     this.changeContent(new LoaneesPanel(_: String))
+
+  private def changeToNewBookPanel(): IAjaxSimpleCallback = {
+    this.changeContent(new ScalaGenericFormPanel[NewBookDTO](_: String,
+      (innerID: String) => new ScalaBookNewFormFieldsPanel(innerID, this.changeToMoreInfoPanel())))
+  }
+
+  private def changeToEditBookPanel(): IAjaxCallback[Book] = {
+    this.changeContent((id: String) => (book: Book) => new ScalaGenericFormPanel[EditBookDTO](id,
+      (innerID: String) => new ScalaBookEditFormFieldsPanel(innerID, book, this.changeToMoreInfoPanel())))
+  }
 
 }
