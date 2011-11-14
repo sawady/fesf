@@ -11,11 +11,12 @@ import org.apache.wicket.markup.html.list.ListItem
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.basic.Label
+import ar.edu.fesf.scala.view.ReplaceablePanel
 
 @SerialVersionUID(1L)
 class ScalaHorizontalBookPanel(id: String,
                                books: List[Book],
-                               callback: IAjaxCallback[Book]) extends Panel(id) {
+                               callback: IAjaxCallback[Book]) extends Panel(id) with ReplaceablePanel {
 
   @SpringBean
   @BeanProperty

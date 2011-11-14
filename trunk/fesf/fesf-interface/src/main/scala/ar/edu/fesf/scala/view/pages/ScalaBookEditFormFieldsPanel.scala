@@ -1,4 +1,4 @@
-package ar.edu.fesf.view.pages.books
+package ar.edu.fesf.scala.view.pages
 import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.services.dtos.EditBookDTO
 import ar.edu.fesf.services.BookService
@@ -8,26 +8,36 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.form.RequiredTextField
 import scala.reflect.BeanProperty
 import org.apache.wicket.markup.html.form.TextArea
+import ar.edu.fesf.model.Book
+import ar.edu.fesf.controllers.IAjaxCallback
 
 @SerialVersionUID(1L)
-class BookEditFormFieldPanel(id: String, val editBookDTO: EditBookDTO, val callback: AjaxRequestTarget => Void)
+class ScalaBookEditFormFieldsPanel(
+  id: String,
+  book: Book,
+  callback: IAjaxCallback[Book])
   extends PanelServiceToForm[EditBookDTO](id) {
 
-  @SpringBean(name = "service.book")
+  @SpringBean
   @BeanProperty
-  var bookService: BookService = null
+  var bookService: BookService = _
+
+  val editBookDTO = new EditBookDTO(book)
 
   /* initialization */
-  this.add(new RequiredTextField[String]("title"),
-    new RequiredTextField[String]("isbn"),
-    new RequiredTextField[String]("publisher"),
-    new TextArea[String]("description"))
+  this.initialize()
+  private def initialize() = {
+    this.add(new RequiredTextField[String]("title"))
+    this.add(new RequiredTextField[String]("isbn"))
+    this.add(new RequiredTextField[String]("publisher"))
+    this.add(new TextArea[String]("description"))
+  }
 
   override def getObject() = this.editBookDTO
 
   override def doSubmit(target: AjaxRequestTarget, form: Form[EditBookDTO]) = {
-    this.bookService.registerEditBookDTO(this.editBookDTO)
-    this.callback(target)
+    val bookDB = this.bookService.registerEditBookDTO(this.editBookDTO)
+    callback(target, bookDB)
   }
 
 }

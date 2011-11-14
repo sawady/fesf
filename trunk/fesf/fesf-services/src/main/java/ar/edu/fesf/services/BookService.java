@@ -1,8 +1,8 @@
 package ar.edu.fesf.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.builders.BookBuilder;
@@ -28,18 +28,6 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private CategoryRepository categoryRepository;
 
-    public List<String> getFieldForSort() {
-        List<String> names = new ArrayList<String>();
-        names.add("title");
-        return names;
-    }
-
-    public List<String> getFieldNames() {
-        List<String> names = new ArrayList<String>();
-        names.add("title");
-        return names;
-    }
-
     @Transactional(readOnly = true)
     public List<Book> bookSearch(final String input) {
         List<Book> results = this.getBookRepository().bookSearch(input);
@@ -48,19 +36,18 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional
-    public void registerNewBook(final Book book) {
-        this.save(book);
-    }
-
-    @Transactional
-    public void registerNewBookDTO(final NewBookDTO bookDTO) {
-        this.registerNewBook(new BookBuilder().withTitle(bookDTO.getTitle()).withIsbn(new ISBN(bookDTO.getIsbn()))
+    @Secured(value = { "LIBRARIAN" })
+    public Book registerNewBookDTO(final NewBookDTO bookDTO) {
+        Book newBook = new BookBuilder().withTitle(bookDTO.getTitle()).withIsbn(new ISBN(bookDTO.getIsbn()))
                 .withPublisher(new Publisher(bookDTO.getPublisher())).withDescription(bookDTO.getDescription())
-                .withCountOfCopies(bookDTO.getCountOfCopies()).build());
+                .withCountOfCopies(bookDTO.getCountOfCopies()).build();
+        this.save(newBook);
+        return newBook;
     }
 
     @Transactional
-    public void registerEditBookDTO(final EditBookDTO bookDTO) {
+    @Secured(value = { "LIBRARIAN" })
+    public Book registerEditBookDTO(final EditBookDTO bookDTO) {
 
         Book bookDB = this.findById(bookDTO.getId());
 
@@ -81,6 +68,8 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
         this.save(bookDB);
 
+        return bookDB;
+
     }
 
     @Transactional(readOnly = true)
@@ -96,6 +85,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional
+    @Secured(value = { "USER" })
     public BookCopy getAvailableCopy(final Book book) {
         Book newBook = this.findByEquality(book);
         BookCopy bookCopy = newBook.getAvailableCopy();
@@ -136,6 +126,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional
+    @Secured(value = { "USER" })
     public void registerComment(final CommentDTO commentDTO, final Book book, final Person person) {
         Book bookDB = this.findByEquality(book);
         Comment newComment = new Comment(commentDTO.getBody(), commentDTO.getCalification(), bookDB, person);

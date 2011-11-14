@@ -10,10 +10,10 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:/META-INF/spring-web.xml,
 			classpath*:/META-INF/spring-persistence-context.xml,
-			classpath*:/META-INF/spring-services-context.xml,
 			classpath*:/META-INF/application-context.xml			
+			classpath*:/META-INF/spring-services-context.xml,
+			classpath*:/META-INF/spring-web.xml,
 		</param-value>
 	</context-param>
 
