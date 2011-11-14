@@ -15,6 +15,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.form.Form
 import ar.edu.fesf.services.BookService
 import ar.edu.fesf.scala.view.ReplaceablePanel
+import org.apache.wicket.markup.html.form.CheckBox
 
 class ScalaBookNewFormFieldsPanel(
   id: String,
@@ -41,6 +42,7 @@ class ScalaBookNewFormFieldsPanel(
         return publisherService.getPublishersNamedLike(input);
       }
     }.setRequired(true))
+    this.add(new CheckBox("available"));
   }
 
   override def getObject(): NewBookDTO = this.newBookDTO
