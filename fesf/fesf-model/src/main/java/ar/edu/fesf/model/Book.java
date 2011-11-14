@@ -14,6 +14,8 @@ public class Book extends Entity {
 
     private static final long serialVersionUID = 6298319531111903588L;
 
+    private boolean available = true;
+
     private String title;
 
     private ISBN isbn;
@@ -252,6 +254,14 @@ public class Book extends Entity {
 
     public UserFeedbackManager getUserFeedbackManager() {
         return this.userFeedbackManager;
+    }
+
+    public void setAvailable(final boolean available) {
+        this.available = available;
+    }
+
+    public boolean isAvailable() {
+        return this.available;
     }
 
 }
