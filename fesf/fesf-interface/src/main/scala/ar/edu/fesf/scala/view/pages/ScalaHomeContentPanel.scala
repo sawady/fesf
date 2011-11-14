@@ -70,7 +70,7 @@ class ScalaHomeContentPanel(id: String) extends ScalaContainerPanel(id) {
   private def initialize() = {
     this.add(f_rankingPanel(CONTENT_ID))
     this.add(new ScalaCategoriesSidebar("sidebar", changeToResultsPanel))
-    this.add(new ScalaHomeUserbarPanel("userbar", changeToRankingPanel, f_bookSearchPanel,
+    this.add(new ScalaHomeUserbarPanel("userbar", f_bookSearchPanel,
       changeToRankingPanel, changeToLoaneeInfoPanel, changeToProfilePanel))
   }
 

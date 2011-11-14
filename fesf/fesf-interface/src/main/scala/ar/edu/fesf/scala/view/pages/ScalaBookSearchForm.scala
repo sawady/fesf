@@ -10,6 +10,7 @@ import org.apache.wicket.model.PropertyModel
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton
 import org.apache.wicket.ajax.AjaxRequestTarget
 import java.util.List
+import ar.edu.fesf.scala.view.application.SecuritySession
 
 class ScalaBookSearchForm(
   id: String,
@@ -28,7 +29,11 @@ class ScalaBookSearchForm(
     this.add(new AjaxFallbackButton("submit", this) {
       override def onSubmit(target: AjaxRequestTarget, form: Form[_]) = {
         if (input != null) {
-          callback(target, bookService.bookSearch(input));
+          if (getSession().asInstanceOf[SecuritySession].isLibrarianSignedIn()) {
+            callback(target, bookService.bookSearchForLibrarian(input));
+          } else {
+            callback(target, bookService.bookSearch(input));
+          }
         }
       }
       override def onError(target: AjaxRequestTarget, form: Form[_]) = {

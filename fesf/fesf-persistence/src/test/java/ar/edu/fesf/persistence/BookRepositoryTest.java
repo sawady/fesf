@@ -101,12 +101,12 @@ public class BookRepositoryTest {
 
     @Test
     public void bookSearch() {
-        assertEquals("Must be Mago de Terramar", this.book.getId(), this.getBookRepository().bookSearch("Mago").get(0)
-                .getId());
-        assertEquals("Must be Mago de Terramar", this.book.getId(), this.getBookRepository().bookSearch("ago").get(0)
-                .getId());
-        assertEquals("Must be Mago de Terramar", this.book.getId(), this.getBookRepository().bookSearch("o").get(0)
-                .getId());
+        assertEquals("Must be Mago de Terramar", this.book.getId(), this.getBookRepository().bookSearch("Mago", true)
+                .get(0).getId());
+        assertEquals("Must be Mago de Terramar", this.book.getId(), this.getBookRepository().bookSearch("ago", true)
+                .get(0).getId());
+        assertEquals("Must be Mago de Terramar", this.book.getId(),
+                this.getBookRepository().bookSearch("o", true).get(0).getId());
     }
 
     @Test

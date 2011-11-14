@@ -10,14 +10,18 @@ import ar.edu.fesf.controllers.AjaxReplacePanel;
 import ar.edu.fesf.controllers.IAjaxCallback;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.services.LoaningService;
+import ar.edu.fesf.services.PersonService;
 import ar.edu.fesf.view.pages.generic.BackingPanel;
 
 public class LoaneesPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    @SpringBean(name = "service.loan")
+    @SpringBean
     private LoaningService loaningService;
+
+    @SpringBean
+    private PersonService personService;
 
     /* Methods */
 
@@ -50,7 +54,8 @@ public class LoaneesPanel extends Panel {
 
                     @Override
                     public Panel getContentPanel(final String id) {
-                        return new LoaneeInfoPanel(id, person);
+                        return new LoaneeInfoPanel(id, LoaneesPanel.this.getPersonService()
+                                .initializeLoaneeInfo(person));
                     }
 
                     @Override
@@ -87,6 +92,14 @@ public class LoaneesPanel extends Panel {
 
     public LoaningService getLoaningService() {
         return this.loaningService;
+    }
+
+    public void setPersonService(final PersonService personService) {
+        this.personService = personService;
+    }
+
+    public PersonService getPersonService() {
+        return this.personService;
     }
 
 }
