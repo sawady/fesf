@@ -44,13 +44,13 @@ public class SpringInitializedService {
         // this.getCategoryRepository().save(filosofia);
 
         Author author1 = new Author();
-        // author1.setName("Pablo Funes");
+        author1.setName("Pablo Funes");
         Author author2 = new Author();
-        // author2.setName("Guille Mori");
+        author2.setName("Guille Mori");
         Publisher publisher1 = new Publisher();
-        // publisher1.setName("Editorial Amboro");
+        publisher1.setName("Editorial Amboro");
         Publisher publisher2 = new Publisher();
-        // publisher2.setName("Editorial Canete");
+        publisher2.setName("Editorial Canete");
 
         Book magoDeTerramar = new BookBuilder().withTitle("Un Mago de Terramar").withCategory(drama)
                 .withCategory(aventura).withAuthor(author1).withAuthor(author2).withPublisher(publisher1)

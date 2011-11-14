@@ -65,10 +65,12 @@
 }
  
 .title {	
-
   text-align: left;
   color: #FFFFFF;
   font-size: 32px;
   line-height: 35%;
   text-shadow: 0px 2.0px 11.0px #214D48;
+}
+.title:hover{
+	cursor: pointer;
 }

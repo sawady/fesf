@@ -1,12 +1,13 @@
 <wicket:panel>
 
-<div wicket:id="loanee"/>
+<div /wicket:id="loanee"/>
 
-<div wicket:id="loans">
-	<p wicket:id="bookCopy.book.title"/>
-	<p wicket:id="loanDate"/>
-	<p wicket:id="agreedDate"/>
-<span wicket:id="actions"/>
+<h3>Current Loans</h3>
+<div class="loaneeLoans" wicket:id="loans">
+	<span class="textStyle">Title:</span><span wicket:id="bookCopy.book.title"/><br/>
+	<span class="textStyle">Loan Date:</span><span wicket:id="loanDate"/><br/>
+	<span class="textStyle">Agreed Return Date:</span><span wicket:id="agreedDate"/><br/>
+	<span wicket:id="actions"/>
 </div>
 
 </wicket:panel>

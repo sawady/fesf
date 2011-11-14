@@ -233,6 +233,14 @@ body {
 .bsrpTable{
 	width: 100%;
 }
+.bookInfoImage{
+	width: 137px;
+	height: 210px;
+	background-color: #A0A0A0;
+	float: left;
+	margin: 10px 15px;
+}
+
 /**********COMMENT*************/
 .commentPanel{
 	background-color: #CCCCFF;
@@ -263,3 +271,30 @@ body {
 	width: 100%;
 	margin: 5px 0 0 0;
 }
+
+/********* LOANEE LOANS ************/
+.loaneeLoans {
+	background-color: #CCCCFF;
+	margin: 5px 0;
+	padding: 10px;
+	border-radius: 0.5em;
+	width: 400px;
+}
+.textStyle{
+	font-weight: bold;
+	padding: 0 5px 0 0;
+}
+
+.login {
+    background-color: #CCCCFF;
+	margin: 5px 0;
+	padding: 10px;
+	border-radius: 0.5em;
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+
+
