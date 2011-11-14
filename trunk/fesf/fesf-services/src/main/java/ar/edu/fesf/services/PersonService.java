@@ -27,18 +27,6 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         return this.initializeFields(loanee, "currentLoans", "email");
     }
 
-    public List<String> getFieldNames() {
-        List<String> names = new ArrayList<String>();
-        names.add("name");
-        return names;
-    }
-
-    public List<String> getFieldsToSort() {
-        List<String> names = new ArrayList<String>();
-        names.add("name");
-        return names;
-    }
-
     public Role[] getRoles() {
         return Role.values();
     }

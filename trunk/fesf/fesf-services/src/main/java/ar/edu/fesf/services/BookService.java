@@ -30,7 +30,15 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     @Transactional(readOnly = true)
     public List<Book> bookSearch(final String input) {
-        List<Book> results = this.getBookRepository().bookSearch(input);
+        List<Book> results = this.getBookRepository().bookSearch(input, true);
+        this.initialize(results, List.class);
+        return results;
+    }
+
+    @Transactional(readOnly = true)
+    @Secured(value = { "LIBRARIAN" })
+    public List<Book> bookSearchForLibrarian(final String input) {
+        List<Book> results = this.getBookRepository().bookSearch(input, false);
         this.initialize(results, List.class);
         return results;
     }

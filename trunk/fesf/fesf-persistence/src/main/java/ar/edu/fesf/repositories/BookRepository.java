@@ -20,15 +20,22 @@ public class BookRepository extends HibernateGenericDAO<Book> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Book> bookSearch(final String input) {
-        String goodInput = input.toLowerCase(Locale.getDefault());
+    public List<Book> bookSearch(final String input, final boolean onlyAvailables) {
+
+        String onlyAvailablesString = "";
+        if (onlyAvailables) {
+            onlyAvailablesString = " and book.available = true ";
+        }
+
+        String toLowerCaseInput = input.toLowerCase(Locale.getDefault());
         return this
                 .getHibernateTemplate()
                 .find("select distinct book from "
                         + this.persistentClass.getName()
-                        + " book left join book.authors author left join book.categories category where lower(book.title) like '%"
-                        + goodInput + "%' or lower(author.name) like '%" + goodInput
-                        + "%' or lower(category.name) like '%" + goodInput + "%' order by book.countOfLouns desc");
+                        + " book left join book.authors author left join book.categories category where (lower(book.title) like '%"
+                        + toLowerCaseInput + "%' or lower(author.name) like '%" + toLowerCaseInput
+                        + "%' or lower(category.name) like '%" + toLowerCaseInput + "%')" + onlyAvailablesString
+                        + " order by book.countOfLouns desc");
     }
 
     @SuppressWarnings("unchecked")
