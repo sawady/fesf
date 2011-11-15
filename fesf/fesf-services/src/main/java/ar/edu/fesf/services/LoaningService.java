@@ -4,13 +4,17 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.fesf.dtos.BorrowItDTO;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
-import ar.edu.fesf.services.dtos.BorrowItDTO;
+import ar.edu.fesf.others.GenericTransactionalRepositoryService;
+import ar.edu.fesf.repositories.LoanRepository;
 
+@Service
 public class LoaningService extends GenericTransactionalRepositoryService<Loan> {
 
     private static final long serialVersionUID = 1L;
@@ -64,9 +68,18 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
         this.save(newLoan);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Person> getLoanees() {
         return this.getPersonService().getLoanees();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Person> findBastardLoanees() {
+        return this.getLoanRepository().findBastardLoanees();
+    }
+
+    private LoanRepository getLoanRepository() {
+        return (LoanRepository) this.getRepository();
     }
 
     /* Accessors */

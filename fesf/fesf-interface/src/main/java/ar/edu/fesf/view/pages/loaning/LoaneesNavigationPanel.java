@@ -24,7 +24,7 @@ public class LoaneesNavigationPanel extends Panel {
     }
 
     public void initialize(final IAjaxCallback<Person> ajaxCallback) {
-        this.add(new ListView<Person>("loaneeList", this.getLoaningService().getLoanees()) {
+        this.add(new ListView<Person>("loaneeList", this.getLoaningService().findBastardLoanees()) {
 
             private static final long serialVersionUID = 1L;
 

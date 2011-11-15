@@ -49,7 +49,11 @@
 			<artifactId>guava</artifactId>
 			<version>r09</version>
 		</dependency>
-		
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.unitils</groupId> -->
+<!-- 		    <artifactId>unitils</artifactId> -->
+<!-- 		    <version>3.2-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
 	  </dependencies>
 
 </project>

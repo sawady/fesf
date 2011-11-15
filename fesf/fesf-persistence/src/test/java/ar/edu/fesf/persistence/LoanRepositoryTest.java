@@ -55,6 +55,8 @@ public class LoanRepositoryTest {
 
     private Person esteban;
 
+    private Loan loan4;
+
     @Before
     public void setUp() {
 
@@ -73,6 +75,9 @@ public class LoanRepositoryTest {
         this.loan3 = new LoanBuilder().withAgreedReturnDate(new DateTime().plusDays(40))
                 .withBookCopy(this.book.getAvailableCopy()).withMaxLoanPeriodInDays(60).withPerson(this.esteban)
                 .build();
+        this.loan4 = new LoanBuilder().withAgreedReturnDate(new DateTime().minusDays(20))
+                .withBookCopy(this.book.getAvailableCopy()).withMaxLoanPeriodInDays(60).withPerson(this.esteban)
+                .build();
 
         this.loanRepository.save(this.loan1);
         this.loanRepository.save(this.loan2);
@@ -86,7 +91,7 @@ public class LoanRepositoryTest {
 
     @Test
     public void count() {
-        assertEquals("count must be 3", this.loanRepository.count(), 3);
+        assertEquals("count must be 4", this.loanRepository.count(), 4);
     }
 
     @Test
@@ -95,18 +100,18 @@ public class LoanRepositoryTest {
             Loan next = it.next();
             int loanID = next.getId();
             assertTrue("Must be some", loanID == this.loan1.getId() || loanID == this.loan2.getId()
-                    || loanID == this.loan3.getId());
+                    || loanID == this.loan3.getId() || loanID == this.loan4.getId());
         }
     }
 
     @Test
     public void personLoans() {
         Person estebanDB = this.personRepository.findByPropertyUnique("name", "Esteban");
-        assertEquals("Must be 2", 2, estebanDB.getCountOfCurrentLoans());
+        assertEquals("Must be 3", 3, estebanDB.getCountOfCurrentLoans());
 
         for (Loan loanDB : estebanDB.getCurrentLoans()) {
             assertTrue("Something's wrong with loanDB", loanDB.getId() == this.loan2.getId()
-                    || loanDB.getId() == this.loan3.getId());
+                    || loanDB.getId() == this.loan3.getId() || loanDB.getId() == this.loan4.getId());
         }
 
         Loan loan2DB = this.loanRepository.findByEquality(this.loan2);
@@ -122,8 +127,8 @@ public class LoanRepositoryTest {
         Loan loan2DB = this.loanRepository.findByEquality(this.loan2);
         Loan loan3DB = this.loanRepository.findByEquality(this.loan3);
 
-        assertEquals("Must be 2", 2, bookDB.getAvailableCopies().size());
-        assertEquals("Must be 3", 3, bookDB.getCountOfLouns());
+        assertEquals("Must be 1", 1, bookDB.getAvailableCopies().size());
+        assertEquals("Must be 4", 4, bookDB.getCountOfLouns());
         assertEquals("Must be equals book2", bookDB, loan1DB.getBook());
         assertFalse("Must not contain loan1 copy", bookDB.getAvailableCopies().contains(loan1DB.getBookCopy()));
         assertTrue("Must contain loan1 copy", bookDB.getRegistedCopies().contains(loan1DB.getBookCopy()));
@@ -131,6 +136,13 @@ public class LoanRepositoryTest {
         assertTrue("Must contain loan2 copy", bookDB.getRegistedCopies().contains(loan2DB.getBookCopy()));
         assertFalse("Must not contain loan3 copy", bookDB.getAvailableCopies().contains(loan3DB.getBookCopy()));
         assertTrue("Must contain loan3 copy", bookDB.getRegistedCopies().contains(loan3DB.getBookCopy()));
+    }
+
+    @Test
+    public void bastardLoanees() {
+        Person estebanDB = this.personRepository.findByEquality(this.esteban);
+        assertTrue("Must be Esteban", this.loanRepository.findBastardLoanees().contains(estebanDB));
+        assertEquals("Must be 1", 1, this.loanRepository.findBastardLoanees().size());
     }
 
     public LoanRepository getLoanRepository() {
@@ -203,6 +215,14 @@ public class LoanRepositoryTest {
 
     public void setEsteban(final Person esteban) {
         this.esteban = esteban;
+    }
+
+    public void setLoan4(final Loan loan4) {
+        this.loan4 = loan4;
+    }
+
+    public Loan getLoan4() {
+        return this.loan4;
     }
 
 }

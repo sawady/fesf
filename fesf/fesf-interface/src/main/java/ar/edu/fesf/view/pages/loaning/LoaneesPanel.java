@@ -32,6 +32,7 @@ public class LoaneesPanel extends Panel {
 
     private void initialize() {
         this.add(this.createNavigationPanel());
+        this.setOutputMarkupId(true);
     }
 
     private LoaneesNavigationPanel createNavigationPanel() {

@@ -4,16 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.builders.PersonBuilder;
+import ar.edu.fesf.dtos.PersonDTO;
 import ar.edu.fesf.model.EmailAddress;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Role;
+import ar.edu.fesf.others.GenericTransactionalRepositoryService;
 import ar.edu.fesf.repositories.PersonRepository;
-import ar.edu.fesf.services.dtos.PersonDTO;
 
+@Service
 public class PersonService extends GenericTransactionalRepositoryService<Person> implements Serializable {
 
     private static final long serialVersionUID = 281627290258132217L;

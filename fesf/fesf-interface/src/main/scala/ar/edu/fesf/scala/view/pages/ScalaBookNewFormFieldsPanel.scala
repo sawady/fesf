@@ -1,6 +1,6 @@
 package ar.edu.fesf.scala.view.pages
 import ar.edu.fesf.controllers.PanelServiceToForm
-import ar.edu.fesf.services.dtos.NewBookDTO
+import ar.edu.fesf.dtos.NewBookDTO
 import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Book
 import org.apache.wicket.markup.html.form.RequiredTextField

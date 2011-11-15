@@ -46,7 +46,7 @@ public class Book extends Entity {
 
     public Book(final String title, final ISBN isbn, final Publisher publisher, final String imagepath,
             final String description, final List<Author> authors, final Set<Category> categories,
-            final int countOfCopies) {
+            final int countOfCopies, final Boolean aVailable) {
         super();
         this.title = title;
         this.isbn = isbn;
@@ -55,6 +55,7 @@ public class Book extends Entity {
         this.description = description;
         this.authors = authors;
         this.categories = categories;
+        this.available = aVailable;
 
         for (Author author : authors) {
             author.addBook(this);
@@ -260,7 +261,7 @@ public class Book extends Entity {
         this.available = available;
     }
 
-    public boolean isAvailable() {
+    public boolean getAvailable() {
         return this.available;
     }
 

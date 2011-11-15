@@ -52,6 +52,12 @@ public class SecurityContextHelper implements Serializable {
         }
     }
 
+    @Transactional
+    public void signOut() {
+        // SecurityContextHolder.clearContext();
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }
+
     /**
      * 
      * @return true if the current user is authenticated

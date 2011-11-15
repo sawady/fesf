@@ -1,4 +1,4 @@
-package ar.edu.fesf.services.dtos;
+package ar.edu.fesf.dtos;
 
 import java.io.Serializable;
 
@@ -18,6 +18,8 @@ public class EditBookDTO implements Serializable {
 
     protected String description;
 
+    protected boolean available;
+
     public EditBookDTO() {
         super();
     }
@@ -28,6 +30,7 @@ public class EditBookDTO implements Serializable {
         this.isbn = book.getIsbn().getValue();
         this.publisher = book.getPublisher().getName();
         this.description = book.getDescription();
+        this.available = book.getAvailable();
     }
 
     public String getTitle() {
@@ -68,6 +71,14 @@ public class EditBookDTO implements Serializable {
 
     public int getId() {
         return this.id;
+    }
+
+    public boolean getAvailable() {
+        return this.available;
+    }
+
+    public void setAvailable(final boolean available) {
+        this.available = available;
     }
 
 }

@@ -14,7 +14,7 @@ import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 import ar.edu.fesf.model.UserFeedbackManager
 import ar.edu.fesf.services.UserFeedbackService
 import ar.edu.fesf.scala.view.ToAjaxSimpleCallback
-import ar.edu.fesf.services.dtos.CommentDTO
+import ar.edu.fesf.dtos.CommentDTO
 import java.util.List
 import org.apache.wicket.extensions.yui.calendar.DatePicker
 import ar.edu.fesf.scala.view.AjaxSimpleReplacePanel
