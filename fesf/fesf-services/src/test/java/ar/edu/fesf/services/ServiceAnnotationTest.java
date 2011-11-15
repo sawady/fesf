@@ -194,7 +194,7 @@ public class ServiceAnnotationTest {
      */
     @Test
     public void eachServiceMethodHasTransactionalAnnotation() {
-        for (Class serviceClass : this.serviceClasses) {
+        for (Class<?> serviceClass : this.serviceClasses) {
             Method[] serviceMethods = serviceClass.getMethods();
             for (Method serviceMethod : serviceMethods) {
                 if (this.isMethodDeclaredInServiceClass(serviceMethod, serviceClass)) {
