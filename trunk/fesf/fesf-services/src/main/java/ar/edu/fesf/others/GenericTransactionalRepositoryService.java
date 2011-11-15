@@ -1,4 +1,4 @@
-package ar.edu.fesf.services;
+package ar.edu.fesf.others;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -9,11 +9,12 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
+import ar.edu.fesf.exceptions.CannotFindFieldException;
 import ar.edu.fesf.model.Entity;
 import ar.edu.fesf.repositories.IGenericRepository;
-import ar.edu.fesf.services.exceptions.CannotFindFieldException;
 
-public class GenericTransactionalRepositoryService<T extends Entity> implements IGenericTranstactionalRepository<T> {
+public abstract class GenericTransactionalRepositoryService<T extends Entity> implements
+        IGenericTranstactionalRepository<T> {
 
     private static final long serialVersionUID = -6913034947685604978L;
 

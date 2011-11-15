@@ -7,10 +7,10 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.MinimumValidator;
 
 import ar.edu.fesf.controllers.PanelServiceToForm;
+import ar.edu.fesf.dtos.PersonDTO;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.scala.view.application.SecuritySession;
 import ar.edu.fesf.services.PersonService;
-import ar.edu.fesf.services.dtos.PersonDTO;
 
 public class PersonFormFieldsPanel extends PanelServiceToForm<PersonDTO> {
 

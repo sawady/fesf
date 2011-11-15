@@ -9,7 +9,7 @@ import org.apache.wicket.markup.html.list.ListItem
 import ar.edu.fesf.controllers.IAjaxCallback
 import ar.edu.fesf.model.Book
 import java.util.List
-import ar.edu.fesf.services.dtos.CommentDTO
+import ar.edu.fesf.dtos.CommentDTO
 import ar.edu.fesf.scala.view.application.SecuritySession
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.WebMarkupContainer

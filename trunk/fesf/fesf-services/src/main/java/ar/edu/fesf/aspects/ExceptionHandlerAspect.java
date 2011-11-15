@@ -1,10 +1,10 @@
-package ar.edu.fesf.services.aspects;
+package ar.edu.fesf.aspects;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 
-import ar.edu.fesf.services.exceptions.AuthenticationException;
+import ar.edu.fesf.exceptions.AuthenticationException;
 
 @Aspect
 public class ExceptionHandlerAspect {

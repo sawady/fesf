@@ -4,7 +4,7 @@ import org.apache.wicket.markup.html.panel.Panel
 import ar.edu.fesf.model.Comment
 import org.apache.wicket.model.CompoundPropertyModel
 import org.apache.wicket.markup.html.basic.Label
-import ar.edu.fesf.services.dtos.CommentDTO
+import ar.edu.fesf.dtos.CommentDTO
 
 class CommentPanel(id: String, comment: CommentDTO) extends Panel(id, new CompoundPropertyModel(comment)) {
 

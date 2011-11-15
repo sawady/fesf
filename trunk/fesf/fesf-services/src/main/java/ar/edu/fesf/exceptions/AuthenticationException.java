@@ -1,4 +1,4 @@
-package ar.edu.fesf.services.exceptions;
+package ar.edu.fesf.exceptions;
 
 public class AuthenticationException extends RuntimeException {
 

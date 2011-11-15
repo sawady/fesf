@@ -3,12 +3,15 @@ package ar.edu.fesf.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.fesf.dtos.CommentDTO;
 import ar.edu.fesf.model.Comment;
 import ar.edu.fesf.model.UserFeedbackManager;
-import ar.edu.fesf.services.dtos.CommentDTO;
+import ar.edu.fesf.others.GenericTransactionalRepositoryService;
 
+@Service
 public class UserFeedbackService extends GenericTransactionalRepositoryService<UserFeedbackManager> {
 
     private static final long serialVersionUID = 1L;

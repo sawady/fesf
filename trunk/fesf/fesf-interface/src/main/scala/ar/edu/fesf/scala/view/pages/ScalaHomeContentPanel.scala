@@ -24,7 +24,7 @@ import ar.edu.fesf.view.pages.persons.PersonInfoPanel
 import ar.edu.fesf.view.pages.loaning.LoaningFormPanel
 import ar.edu.fesf.model.Loan
 import ar.edu.fesf.view.pages.generic.GenericFormPanel
-import ar.edu.fesf.services.dtos.PersonDTO
+import ar.edu.fesf.dtos.PersonDTO
 import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.scala.view.application.SecuritySession

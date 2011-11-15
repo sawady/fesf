@@ -29,9 +29,14 @@ public class BookBuilder {
 
     private int countOfCopies;
 
+    private Boolean available;
+
     public Book build() {
+        if (this.available == null) {
+            this.available = true;
+        }
         return new Book(this.title, this.isbn, this.publisher, this.imagepath, this.description, this.authors,
-                this.categories, this.countOfCopies);
+                this.categories, this.countOfCopies, this.available);
     }
 
     public BookBuilder withCountOfCopies(final int count) {
@@ -81,6 +86,11 @@ public class BookBuilder {
 
     public BookBuilder withCategory(final Category category) {
         this.categories.add(category);
+        return this;
+    }
+
+    public BookBuilder withAvailable(final boolean aBoolean) {
+        this.available = aBoolean;
         return this;
     }
 
@@ -148,6 +158,14 @@ public class BookBuilder {
 
     public int getCountOfCopies() {
         return this.countOfCopies;
+    }
+
+    public boolean isAvailable() {
+        return this.available;
+    }
+
+    public void setAvailable(final boolean available) {
+        this.available = available;
     }
 
 }

@@ -1,10 +1,12 @@
 package ar.edu.fesf.services;
 
 import org.joda.time.DateTime;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.builders.BookBuilder;
 import ar.edu.fesf.builders.PersonBuilder;
+import ar.edu.fesf.dtos.BorrowItDTO;
 import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
@@ -15,8 +17,8 @@ import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.repositories.CategoryRepository;
-import ar.edu.fesf.services.dtos.BorrowItDTO;
 
+@Service
 public class SpringInitializedService {
 
     private CategoryRepository categoryRepository;
@@ -118,7 +120,7 @@ public class SpringInitializedService {
         this.personService.save(elias);
 
         this.loaningService.registerLoan(fede, new BorrowItDTO(new DateTime().plusDays(20).toString()), magoDeTerramar);
-        this.loaningService.registerLoan(fede, new BorrowItDTO(new DateTime().plusDays(20).toString()), maleficio);
+        this.loaningService.registerLoan(fede, new BorrowItDTO(new DateTime().minusDays(20).toString()), maleficio);
         this.loaningService
                 .registerLoan(elias, new BorrowItDTO(new DateTime().plusDays(20).toString()), magoDeTerramar);
 

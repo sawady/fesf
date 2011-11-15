@@ -1,4 +1,4 @@
-package ar.edu.fesf.services;
+package ar.edu.fesf.others;
 
 import java.io.Serializable;
 import java.util.Iterator;

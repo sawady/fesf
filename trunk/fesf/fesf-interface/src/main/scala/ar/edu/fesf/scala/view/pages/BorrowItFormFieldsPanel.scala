@@ -1,6 +1,6 @@
 package ar.edu.fesf.scala.view.pages
 import ar.edu.fesf.controllers.PanelServiceToForm
-import ar.edu.fesf.services.dtos.BorrowItDTO
+import ar.edu.fesf.dtos.BorrowItDTO
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.ajax.AjaxRequestTarget
 import ar.edu.fesf.controllers.IAjaxCallback

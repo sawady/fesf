@@ -4,7 +4,7 @@ import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.request.component.IRequestablePage
 import org.apache.wicket.behavior.Behavior
 import ar.edu.fesf.view.pages.generic.GenericFormPanel
-import ar.edu.fesf.services.dtos.PersonDTO
+import ar.edu.fesf.dtos.PersonDTO
 import ar.edu.fesf.controllers.PanelServiceToForm
 import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.security.SecurityContextHelper

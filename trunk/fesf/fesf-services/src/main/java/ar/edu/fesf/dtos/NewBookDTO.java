@@ -1,4 +1,4 @@
-package ar.edu.fesf.services.dtos;
+package ar.edu.fesf.dtos;
 
 public class NewBookDTO extends EditBookDTO {
 

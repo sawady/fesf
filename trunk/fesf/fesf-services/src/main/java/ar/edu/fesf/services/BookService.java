@@ -3,9 +3,13 @@ package ar.edu.fesf.services;
 import java.util.List;
 
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.builders.BookBuilder;
+import ar.edu.fesf.dtos.CommentDTO;
+import ar.edu.fesf.dtos.EditBookDTO;
+import ar.edu.fesf.dtos.NewBookDTO;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Category;
@@ -14,12 +18,11 @@ import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.UserFeedbackManager;
+import ar.edu.fesf.others.GenericTransactionalRepositoryService;
 import ar.edu.fesf.repositories.BookRepository;
 import ar.edu.fesf.repositories.CategoryRepository;
-import ar.edu.fesf.services.dtos.CommentDTO;
-import ar.edu.fesf.services.dtos.EditBookDTO;
-import ar.edu.fesf.services.dtos.NewBookDTO;
 
+@Service
 public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private static final long serialVersionUID = 7521127091837519541L;
@@ -48,7 +51,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     public Book registerNewBookDTO(final NewBookDTO bookDTO) {
         Book newBook = new BookBuilder().withTitle(bookDTO.getTitle()).withIsbn(new ISBN(bookDTO.getIsbn()))
                 .withPublisher(new Publisher(bookDTO.getPublisher())).withDescription(bookDTO.getDescription())
-                .withCountOfCopies(bookDTO.getCountOfCopies()).build();
+                .withCountOfCopies(bookDTO.getCountOfCopies()).withAvailable(bookDTO.getAvailable()).build();
         this.save(newBook);
         return newBook;
     }
@@ -73,6 +76,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         }
 
         bookDB.setPublisher(publisher);
+        bookDB.setAvailable(bookDTO.getAvailable());
 
         this.save(bookDB);
 

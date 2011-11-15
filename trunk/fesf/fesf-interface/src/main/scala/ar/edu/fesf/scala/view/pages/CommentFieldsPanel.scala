@@ -7,7 +7,7 @@ import org.apache.wicket.markup.html.form.TextArea
 import ar.edu.fesf.model.Person
 import ar.edu.fesf.model.Book
 import org.apache.wicket.ajax.AjaxRequestTarget
-import ar.edu.fesf.services.dtos.CommentDTO
+import ar.edu.fesf.dtos.CommentDTO
 import org.apache.wicket.markup.html.form.RequiredTextField
 import scala.reflect.BeanProperty
 import org.apache.wicket.markup.html.form.Form
