@@ -240,11 +240,22 @@ body {
 	float: left;
 	margin: 10px 15px;
 }
+.bookInfoSideInfo{
+	float: left;
+}
+.bookInfoInfo{
+	background-color: #EEEEFF;
+	margin: 5px 0;
+	padding: 10px;
+	border-radius: 0.5em;
+}
+
 .loanAndReservation {
 	background-color: #CCEEFF;
 	margin: 5px 0;
 	padding: 10px;
 	border-radius: 0.5em;
+	width:auto;
 }
 
 /**********COMMENT*************/
