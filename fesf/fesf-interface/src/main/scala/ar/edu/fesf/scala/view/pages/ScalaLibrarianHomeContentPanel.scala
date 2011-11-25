@@ -23,7 +23,7 @@ import ar.edu.fesf.view.pages.persons.PersonFormFieldsPanel
 import ar.edu.fesf.dtos.PersonDTO
 import ar.edu.fesf.dtos.EditBookDTO
 
-@AuthorizeInstantiation(Array("LIBRARIAN"))
+@AuthorizeInstantiation(Array("ROLE_LIBRARIAN"))
 class ScalaLibrarianHomeContentPanel(
   id: String,
   userHomeCallback: IAjaxSimpleCallback) extends ScalaContainerPanel(id) with ReplaceablePanel {
@@ -57,19 +57,20 @@ class ScalaLibrarianHomeContentPanel(
 
   this.initialize()
   private def initialize() = {
+    this.updateOptionsPanel()
+    this.add(new ScalaLibrarianHomeUserbarPanel("userbar", userHomeCallback, f_bookSearchPanel,
+      userHomeCallback, changeToLoaneeInfoPanel, changeToProfilePanel))
+    this.add(new LoaneesPanel(CONTENT_ID))
+  }
 
+  private def updateOptionsPanel() {
     val sidebarCallbackList = new ArrayList[AjaxNamedSimpleCallback]()
     sidebarCallbackList.add(new AjaxNamedSimpleCallback("Main Panel", this.changeToLoaneesPanel()))
     sidebarCallbackList.add(new AjaxNamedSimpleCallback("New Book", this.changeToNewBookPanel()))
     //    list.add(new AjaxNamedSimpleCallback("Loanees", this.changeToLoaneesPanel()))
-
     // TODO esto de aca abajo
     //    list.add(new AjaxNamedSimpleCallback("Users", this.changeToUsersPanel()))
-
-    this.add(new ScalaLibrarianOptionsPanel("sidebar", sidebarCallbackList))
-    this.add(new ScalaLibrarianHomeUserbarPanel("userbar", userHomeCallback, f_bookSearchPanel,
-      userHomeCallback, changeToLoaneeInfoPanel, changeToProfilePanel))
-    this.add(new LoaneesPanel(CONTENT_ID))
+    this.addOrReplace(new ScalaLibrarianOptionsPanel("sidebar", sidebarCallbackList))
   }
 
   private def changeToPersonInfo(): IAjaxCallback[Person] =
@@ -96,7 +97,7 @@ class ScalaLibrarianHomeContentPanel(
     this.changeContent(new LoaneesPanel(_: String))
 
   private def changeToNewBookPanel(): IAjaxSimpleCallback = {
-    this.changeContent(new ScalaGenericFormPanel[NewBookDTO](_: String,
+    this.changeContent((outterID: String) => new ScalaGenericFormPanel[NewBookDTO](outterID,
       (innerID: String) => new ScalaBookNewFormFieldsPanel(innerID, this.changeToMoreInfoPanel())))
   }
 

@@ -57,8 +57,8 @@ public final class UserDetailsImpl implements UserDetails {
         this.language = language;
         // By default every signeIn user is Granted as USER
         // TODO for test I added LIBRARIAN ROLE to every new user
-        this.gaL.add(new GrantedAuthorityImpl(Role.USER.toString()));
-        this.gaL.add(new GrantedAuthorityImpl(Role.LIBRARIAN.toString()));
+        this.gaL.add(new GrantedAuthorityImpl(Role.ROLE_USER.toString()));
+        this.gaL.add(new GrantedAuthorityImpl(Role.ROLE_LIBRARIAN.toString()));
     }
 
     public void updateRole(final Role role) {

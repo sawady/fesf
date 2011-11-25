@@ -11,7 +11,8 @@ import ar.edu.fesf.security.SecurityContextHelper
 import org.apache.wicket.spring.injection.annot.SpringBean
 import scala.reflect.BeanProperty
 
-class SignUp extends WebPage {
+@SerialVersionUID(1L)
+class SignUp extends WebPage with Serializable {
 
   @SpringBean
   @BeanProperty

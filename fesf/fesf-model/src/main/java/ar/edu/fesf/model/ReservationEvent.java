@@ -8,6 +8,16 @@ public class ReservationEvent extends Event {
 
     protected Book book;
 
+    public ReservationEvent() {
+        super();
+    }
+
+    public ReservationEvent(final Person person, final Book book) {
+        super();
+        this.person = person;
+        this.book = book;
+    }
+
     /* Methods */
     @Override
     public void updateUserCategories() {
@@ -15,6 +25,7 @@ public class ReservationEvent extends Event {
     }
 
     /* Accessors */
+    @Override
     public Book getBook() {
         return this.book;
     }

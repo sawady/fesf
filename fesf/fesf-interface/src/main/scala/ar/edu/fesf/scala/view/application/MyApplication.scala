@@ -12,6 +12,10 @@ import org.apache.wicket.Page
 import org.springframework.web.context.WebApplicationContext
 import org.springframework.web.context.support.WebApplicationContextUtils
 import ar.edu.fesf.scala.view.pages.SignIn
+import ar.edu.fesf.scala.view.pages.UpsPage
+import org.apache.wicket.settings.IExceptionSettings
+import org.springframework.security.core.context.SecurityContextHolder
+import ar.edu.fesf.security.FakeAuthentication
 
 @SerialVersionUID(1L)
 class MyApplication extends AuthenticatedWebApplication {
@@ -30,6 +34,9 @@ class MyApplication extends AuthenticatedWebApplication {
     this.getComponentInstantiationListeners().add(new SpringComponentInjector(this, this.getSpringContext(), true))
 
     this.getSpringInitializedService().initialize()
+
+    this.getApplicationSettings().setInternalErrorPage(classOf[UpsPage])
+    this.getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE)
 
     this.mountUrl("home", classOf[ScalaHome])
     this.mountUrl("login", classOf[SignIn])

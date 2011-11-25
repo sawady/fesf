@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -122,9 +123,24 @@ public class Book extends Entity {
         copy.freeCopy();
     }
 
+    public boolean isInTheReservationList(final Person person) {
+        Iterator<ReservationEvent> it = this.getReservationEvents().iterator();
+        boolean isInTheList = false;
+
+        while (it.hasNext() && !isInTheList) {
+            isInTheList = it.next().getPerson().getEmail().getValue().equals(person.getEmail().getValue());
+        }
+
+        return isInTheList;
+    }
+
     public void addReservationEvent(final ReservationEvent reservation) {
         this.getReservationEvents().add(reservation);
         reservation.setBook(this);
+    }
+
+    public int getReservationAmount() {
+        return this.getReservationEvents().size();
     }
 
     public ReservationEvent getReservationEventToInformAvailability() {

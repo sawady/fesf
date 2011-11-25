@@ -17,6 +17,7 @@ import ar.edu.fesf.model.Comment;
 import ar.edu.fesf.model.ISBN;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
+import ar.edu.fesf.model.ReservationEvent;
 import ar.edu.fesf.model.UserFeedbackManager;
 import ar.edu.fesf.others.GenericTransactionalRepositoryService;
 import ar.edu.fesf.repositories.BookRepository;
@@ -39,7 +40,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional(readOnly = true)
-    @Secured(value = { "LIBRARIAN" })
+    @Secured(value = { "ROLE_LIBRARIAN" })
     public List<Book> bookSearchForLibrarian(final String input) {
         List<Book> results = this.getBookRepository().bookSearch(input, false);
         this.initialize(results, List.class);
@@ -47,7 +48,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional
-    @Secured(value = { "LIBRARIAN" })
+    @Secured(value = { "ROLE_LIBRARIAN" })
     public Book registerNewBookDTO(final NewBookDTO bookDTO) {
         Book newBook = new BookBuilder().withTitle(bookDTO.getTitle()).withIsbn(new ISBN(bookDTO.getIsbn()))
                 .withPublisher(new Publisher(bookDTO.getPublisher())).withDescription(bookDTO.getDescription())
@@ -57,7 +58,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional
-    @Secured(value = { "LIBRARIAN" })
+    @Secured(value = { "ROLE_LIBRARIAN" })
     public Book registerEditBookDTO(final EditBookDTO bookDTO) {
 
         Book bookDB = this.findById(bookDTO.getId());
@@ -97,7 +98,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional
-    @Secured(value = { "USER" })
+    @Secured(value = { "ROLE_USER" })
     public BookCopy getAvailableCopy(final Book book) {
         Book newBook = this.findByEquality(book);
         BookCopy bookCopy = newBook.getAvailableCopy();
@@ -138,12 +139,26 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional
-    @Secured(value = { "USER" })
+    @Secured(value = { "ROLE_USER" })
     public void registerComment(final CommentDTO commentDTO, final Book book, final Person person) {
         Book bookDB = this.findByEquality(book);
         Comment newComment = new Comment(commentDTO.getBody(), commentDTO.getCalification(), bookDB, person);
         bookDB.addComment(newComment);
         this.save(bookDB);
+    }
+
+    @Transactional
+    @Secured(value = { "ROLE_USER" })
+    public void addReservationEvent(final Book book, final Person person) {
+        Book bookDB = this.findByEquality(book);
+        bookDB.addReservationEvent(new ReservationEvent(person, bookDB));
+    }
+
+    @Transactional
+    @Secured(value = { "ROLE_USER" })
+    public boolean isInTheReservationList(final Book book, final Person person) {
+        Book bookDB = this.findByEquality(book);
+        return bookDB.isInTheReservationList(person);
     }
 
     private BookRepository getBookRepository() {

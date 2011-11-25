@@ -38,7 +38,7 @@ class CommentListPanel(id: String, book: Book,
     })
     val commentForm = new ScalaGenericFormPanel("commentForm", new CommentFieldsPanel(_: String, book,
       mySession.getPerson(), callback)).setOutputMarkupId(true)
-    MetaDataRoleAuthorizationStrategy.authorize(commentForm, Component.RENDER, Role.USER.toString())
+    MetaDataRoleAuthorizationStrategy.authorize(commentForm, Component.RENDER, Role.ROLE_USER.toString())
     this.add(commentForm)
   }
 
