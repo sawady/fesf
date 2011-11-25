@@ -7,6 +7,8 @@ import scala.reflect.BeanProperty
 import ar.edu.fesf.scala.view.application.SecuritySession
 import ar.edu.fesf.scala.view.IAjaxSimpleCallback
 import ar.edu.fesf.scala.view.AjaxSimpleReplacePanel
+import org.springframework.security.core.context.SecurityContextHolder
+import ar.edu.fesf.security.FakeAuthentication
 
 @SerialVersionUID(1L)
 class ScalaHome extends WebPage with Serializable {
@@ -19,6 +21,10 @@ class ScalaHome extends WebPage with Serializable {
   this.initialize()
 
   private def initialize() = {
+
+    //FAKE
+    SecurityContextHolder.getContext().setAuthentication(new FakeAuthentication());
+
     val mySession = this.getSession().asInstanceOf[SecuritySession]
     if (mySession.isAuthenticatedUser()) {
       var personDB = this.getPersonService().findPersonByEmail(mySession.getAuthenticatedUser().getEmail())

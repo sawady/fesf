@@ -1,4 +1,4 @@
-package ar.edu.fesf.others;
+package ar.edu.fesf.exceptions;
 
 public class NoAvailableBookCopyException extends RuntimeException {
 

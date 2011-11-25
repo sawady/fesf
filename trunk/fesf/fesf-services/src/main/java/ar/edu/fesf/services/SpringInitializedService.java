@@ -56,7 +56,7 @@ public class SpringInitializedService {
 
         Book magoDeTerramar = new BookBuilder().withTitle("Un Mago de Terramar").withCategory(drama)
                 .withCategory(aventura).withAuthor(author1).withAuthor(author2).withPublisher(publisher1)
-                .withCountOfCopies(5).withIsbn(new ISBN("978-0307957122")).build();
+                .withCountOfCopies(2).withIsbn(new ISBN("978-0307957122")).build();
         this.bookService.save(magoDeTerramar);
 
         this.bookService.save(new BookBuilder().withTitle("Los Crimenes de la Calle Morgue").withCategory(drama)
@@ -111,10 +111,10 @@ public class SpringInitializedService {
 
         Person fede = new PersonBuilder().withName("Federico").withSurname("Sawady").withAge(21)
                 .withAddress("Colon 355").withPhone("42245630").withEmail(new EmailAddress("sawady.faso@gmail.com"))
-                .withRole(Role.LIBRARIAN).build();
+                .withRole(Role.ROLE_LIBRARIAN).build();
         Person elias = new PersonBuilder().withName("Elias").withSurname("Filipponi").withAge(30)
                 .withAddress("Ni idea").withPhone("43224568").withEmail(new EmailAddress("eliasfilipponi@gmail.com"))
-                .withRole(Role.LIBRARIAN).build();
+                .withRole(Role.ROLE_LIBRARIAN).build();
 
         this.personService.save(fede);
         this.personService.save(elias);

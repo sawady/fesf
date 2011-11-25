@@ -9,6 +9,7 @@ import ar.edu.fesf.security.SecurityContextHelper
 import ar.edu.fesf.model.Person
 import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import ar.edu.fesf.security.UserDetailsImpl
+import ar.edu.fesf.model.Role
 
 @SerialVersionUID(1L)
 class SecuritySession(request: Request) extends AuthenticatedWebSession(request) with Serializable {
@@ -37,7 +38,7 @@ class SecuritySession(request: Request) extends AuthenticatedWebSession(request)
   }
 
   def isLibrarianSignedIn(): Boolean = {
-    return this.signedIn() && this.getRoles().hasRole("LIBRARIAN")
+    return this.signedIn() && this.getRoles().hasRole(Role.ROLE_LIBRARIAN.toString())
   }
 
   def attachPerson(aPerson: Person) = {

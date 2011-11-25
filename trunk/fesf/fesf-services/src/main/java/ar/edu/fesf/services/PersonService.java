@@ -75,7 +75,7 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
     public Person registerNewPerson(final PersonDTO personDTO) {
         Person newPerson = new PersonBuilder().withName(personDTO.getName()).withSurname(personDTO.getSurname())
                 .withAge(personDTO.getAge()).withPhone(personDTO.getPhone()).withAddress(personDTO.getAddress())
-                .withRole(Role.USER).withEmail(new EmailAddress(personDTO.getEmail())).build();
+                .withRole(Role.ROLE_USER).withEmail(new EmailAddress(personDTO.getEmail())).build();
         this.save(newPerson);
         return newPerson;
     }
@@ -90,7 +90,7 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         personDB.setAge(personDTO.getAge());
         personDB.setPhone(personDTO.getPhone());
         personDB.setAddress(personDTO.getAddress());
-        personDB.setRole(Role.USER); // TODO ver tema
+        personDB.setRole(Role.ROLE_USER); // TODO ver tema
                                      // de roles
         personDB.setEmail(new EmailAddress(personDTO.getEmail()));
 
