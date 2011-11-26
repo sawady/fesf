@@ -12,6 +12,8 @@
 	<properties>
 		<jetty.version>6.1.16</jetty.version>
 		<wicket.version>1.5.0</wicket.version>
+		<cxf.version>2.3.5</cxf.version>
+		<jackson.version>1.8.2</jackson.version>		
 	</properties>
 
 	<dependencies>	
@@ -145,7 +147,7 @@
 			<scope>provided</scope>
 		</dependency>		
 		
-		<!-- scala -->
+	<!-- scala -->
 		<dependency>
 		    <groupId>org.scala-lang</groupId>
 		    <artifactId>scala-library</artifactId>
@@ -161,7 +163,70 @@
 		    <artifactId>specs_2.9.1</artifactId>
 		    <version>1.6.9</version>
 		</dependency>
+	<!-- /scala -->		
+	
+	<!-- CXF -->
+	<dependency>
+		<groupId>org.apache.cxf</groupId>
+		<artifactId>cxf-rt-frontend-jaxws</artifactId>
+		<version>${cxf.version}</version>
+	</dependency>
 
+	<dependency>
+		<groupId>org.apache.cxf</groupId>
+		<artifactId>cxf-rt-transports-http</artifactId>
+		<version>${cxf.version}</version>
+	</dependency>
+	
+	<!-- Jetty is needed if you're are not using the CXFServlet -->
+	<dependency>
+		<groupId>org.apache.cxf</groupId>
+		<artifactId>cxf-rt-transports-http-jetty</artifactId>
+		<version>${cxf.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.cxf</groupId>
+		<artifactId>cxf-bundle-jaxrs</artifactId>
+		<!-- 2.3.5 or 2.4.1 -->
+		<version>${cxf.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-server</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<!-- /CXF -->
+		
+	<!-- Jackson -->	
+	<dependency>
+		<groupId>org.codehaus.jackson</groupId>
+		<artifactId>jackson-mapper-asl</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.codehaus.jackson</groupId>
+		<artifactId>jackson-jaxrs</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.codehaus.jackson</groupId>
+		<artifactId>jackson-xc</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	<!-- /Jackson -->		
+		
+	<!-- urlrewritefilter para url restful -->
+	<dependency>
+		<groupId>org.tuckey</groupId>
+		<artifactId>urlrewritefilter</artifactId>
+		<version>3.1.0</version>
+	</dependency>
+	<!-- /urlrewritefilter -->
+		
 	</dependencies>
 
 
