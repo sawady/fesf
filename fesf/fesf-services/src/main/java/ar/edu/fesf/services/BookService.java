@@ -1,5 +1,6 @@
 package ar.edu.fesf.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.access.annotation.Secured;
@@ -48,7 +49,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     }
 
     @Transactional
-    @Secured(value = { "ROLE_LIBRARIAN" })
+    // @Secured(value = { "ROLE_LIBRARIAN" })
     public Book registerNewBookDTO(final NewBookDTO bookDTO) {
         Book newBook = new BookBuilder().withTitle(bookDTO.getTitle()).withIsbn(new ISBN(bookDTO.getIsbn()))
                 .withPublisher(new Publisher(bookDTO.getPublisher())).withDescription(bookDTO.getDescription())
@@ -181,6 +182,18 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     public PublisherService getPublisherService() {
         return this.publisherService;
+    }
+
+    @Transactional(readOnly = true)
+    public List<EditBookDTO> findAllBooks() {
+        List<Book> books = this.findAll();
+        List<EditBookDTO> dtoBooks = new ArrayList<EditBookDTO>(books.size());
+
+        for (Book book : books) {
+            dtoBooks.add(new EditBookDTO(book));
+        }
+
+        return dtoBooks;
     }
 
 }

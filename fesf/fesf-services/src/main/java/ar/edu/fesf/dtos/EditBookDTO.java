@@ -1,8 +1,12 @@
 package ar.edu.fesf.dtos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
+import ar.edu.fesf.model.Category;
 
 public class EditBookDTO implements Serializable {
 
@@ -18,6 +22,10 @@ public class EditBookDTO implements Serializable {
 
     protected String description;
 
+    protected List<String> categories = new ArrayList<String>();
+
+    protected List<String> authors = new ArrayList<String>();
+
     protected boolean available;
 
     public EditBookDTO() {
@@ -31,6 +39,14 @@ public class EditBookDTO implements Serializable {
         this.publisher = book.getPublisher().getName();
         this.description = book.getDescription();
         this.available = book.getAvailable();
+
+        for (Author author : book.getAuthors()) {
+            this.authors.add(author.getName());
+        }
+
+        for (Category category : book.getCategories()) {
+            this.categories.add(category.getName());
+        }
     }
 
     public String getTitle() {
