@@ -12,11 +12,12 @@ import ar.edu.fesf.model.Book
 import ar.edu.fesf.controllers.IAjaxCallback
 import org.apache.wicket.markup.html.form.CheckBox
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField
-import ar.edu.fesf.services.PublisherService
 import java.util.Iterator
 import java.util.ArrayList
 import scala.collection.JavaConversions._
 import java.util.HashSet
+import org.apache.wicket.markup.html.form.TextField
+import org.apache.wicket.model.IModel
 
 @SerialVersionUID(1L)
 class ScalaBookEditFormFieldsPanel(
@@ -28,10 +29,6 @@ class ScalaBookEditFormFieldsPanel(
   @SpringBean
   @BeanProperty
   var bookService: BookService = _
-
-  @SpringBean
-  @BeanProperty
-  var publisherService: PublisherService = _
 
   val editBookDTO = new EditBookDTO(book)
 
@@ -47,17 +44,28 @@ class ScalaBookEditFormFieldsPanel(
 
     this.add(new RequiredTextField[String]("title"))
     this.add(new RequiredTextField[String]("isbn"))
-    this.add(new AutoCompleteTextField[String]("publisher", classOf[String]) {
-      override def getChoices(input: String): Iterator[String] = {
-        return publisherService.getPublishersNamedLike(input);
-      }
-    }.setRequired(true))
     this.add(new TextArea[String]("description"))
     this.add(new CheckBox("available"));
 
-    this.add(new RepeatedTextFieldPanel("categories", this.rawCategories))
-    this.add(new RepeatedTextFieldPanel("authors", this.rawAuthors))
+    this.add(getAutoCompleteTextField("publisher", bookService.getPublishersNamedLike(_: String)).setRequired(true))
 
+    this.add(new RepeatedTextFieldPanel("categories", this.rawCategories,
+      getAutoCompleteTextField(_, _, bookService.getCategoriesNamedLike(_: String))))
+    this.add(new RepeatedTextFieldPanel("authors", this.rawAuthors,
+      getAutoCompleteTextField(_, _, bookService.getAuthorsNamedLike(_: String))))
+
+  }
+
+  private def getAutoCompleteTextField(id: String, f_service: (String) => Iterator[String]): TextField[String] = {
+    this.getAutoCompleteTextField(id, null, f_service)
+  }
+
+  private def getAutoCompleteTextField(id: String, model: IModel[String], f_service: (String) => Iterator[String]): TextField[String] = {
+    return new AutoCompleteTextField[String](id, model) {
+      override def getChoices(input: String): Iterator[String] = {
+        return f_service(input);
+      }
+    }
   }
 
   override def getObject() = this.editBookDTO
