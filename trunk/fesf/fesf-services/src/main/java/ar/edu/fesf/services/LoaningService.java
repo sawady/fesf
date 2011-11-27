@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,9 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
     private PersonService personService;
 
     private BookService bookService;
+
+    @Autowired
+    private EmailService emailService;
 
     /* Methods */
 
@@ -66,6 +70,11 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
         Loan newLoan = this.findById(loan.getId());
         newLoan.setFinished();
         this.save(newLoan);
+        Book book = newLoan.getBook();
+        if (book.isReserved()) {
+            this.emailService.adviceFirstWaitingUser(book.getReservationEventToInformAvailability());
+        }
+        this.bookService.save(book);
     }
 
     @Transactional(readOnly = true)
@@ -98,5 +107,13 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
 
     public void setBookService(final BookService bookService) {
         this.bookService = bookService;
+    }
+
+    public void setEmailService(final EmailService emailService) {
+        this.emailService = emailService;
+    }
+
+    public EmailService getEmailService() {
+        return this.emailService;
     }
 }

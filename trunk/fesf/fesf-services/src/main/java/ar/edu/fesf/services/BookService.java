@@ -1,7 +1,9 @@
 package ar.edu.fesf.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import ar.edu.fesf.builders.BookBuilder;
 import ar.edu.fesf.dtos.CommentDTO;
 import ar.edu.fesf.dtos.EditBookDTO;
 import ar.edu.fesf.dtos.NewBookDTO;
+import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.BookCopy;
 import ar.edu.fesf.model.Category;
@@ -21,6 +24,7 @@ import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.ReservationEvent;
 import ar.edu.fesf.model.UserFeedbackManager;
 import ar.edu.fesf.others.GenericTransactionalRepositoryService;
+import ar.edu.fesf.repositories.AuthorRepository;
 import ar.edu.fesf.repositories.BookRepository;
 import ar.edu.fesf.repositories.CategoryRepository;
 
@@ -32,6 +36,8 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     private PublisherService publisherService;
 
     private CategoryRepository categoryRepository;
+
+    private AuthorRepository authorRepository;
 
     @Transactional(readOnly = true)
     public List<Book> bookSearch(final String input) {
@@ -51,9 +57,34 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     @Transactional
     // @Secured(value = { "ROLE_LIBRARIAN" })
     public Book registerNewBookDTO(final NewBookDTO bookDTO) {
-        Book newBook = new BookBuilder().withTitle(bookDTO.getTitle()).withIsbn(new ISBN(bookDTO.getIsbn()))
-                .withPublisher(new Publisher(bookDTO.getPublisher())).withDescription(bookDTO.getDescription())
-                .withCountOfCopies(bookDTO.getCountOfCopies()).withAvailable(bookDTO.getAvailable()).build();
+        BookBuilder newBookBuilder = new BookBuilder().withTitle(bookDTO.getTitle())
+                .withIsbn(new ISBN(bookDTO.getIsbn())).withPublisher(new Publisher(bookDTO.getPublisher()))
+                .withDescription(bookDTO.getDescription()).withCountOfCopies(bookDTO.getCountOfCopies())
+                .withAvailable(bookDTO.getAvailable());
+
+        for (String category : bookDTO.getCategories()) {
+            List<Category> categoriesDB = this.getCategoryRepository().findByProperty("name", category);
+            if (categoriesDB.isEmpty()) {
+                Category newCategory = new Category(category);
+                this.getCategoryRepository().save(newCategory);
+                newBookBuilder.withCategory(newCategory);
+            } else {
+                newBookBuilder.withCategory(categoriesDB.get(0));
+            }
+        }
+
+        for (String author : bookDTO.getAuthors()) {
+            List<Author> authorsDB = this.getAuthorRepository().findByProperty("name", author);
+            if (authorsDB.isEmpty()) {
+                Author newAuthor = new Author(author);
+                this.getAuthorRepository().save(newAuthor);
+                newBookBuilder.withAuthor(newAuthor);
+            } else {
+                newBookBuilder.withAuthor(authorsDB.get(0));
+            }
+        }
+
+        Book newBook = newBookBuilder.build();
         this.save(newBook);
         return newBook;
     }
@@ -80,10 +111,34 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         bookDB.setPublisher(publisher);
         bookDB.setAvailable(bookDTO.getAvailable());
 
+        Set<Category> editedCategories = new HashSet<Category>();
+        for (String category : bookDTO.getCategories()) {
+            List<Category> categoriesDB = this.getCategoryRepository().findByProperty("name", category);
+            if (categoriesDB.isEmpty()) {
+                Category newCategory = new Category(category);
+                this.getCategoryRepository().save(newCategory);
+                editedCategories.add(newCategory);
+            } else {
+                editedCategories.add(categoriesDB.get(0));
+            }
+        }
+        bookDB.setCategories(editedCategories);
+
+        List<Author> editedAuthors = new ArrayList<Author>();
+        for (String author : bookDTO.getAuthors()) {
+            List<Author> authorsDB = this.getAuthorRepository().findByProperty("name", author);
+            if (authorsDB.isEmpty()) {
+                Author newAuthor = new Author(author);
+                this.getAuthorRepository().save(newAuthor);
+                editedAuthors.add(newAuthor);
+            } else {
+                editedAuthors.add(authorsDB.get(0));
+            }
+        }
+        bookDB.setAuthors(editedAuthors);
+
         this.save(bookDB);
-
         return bookDB;
-
     }
 
     @Transactional(readOnly = true)
@@ -162,6 +217,18 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return bookDB.isInTheReservationList(person);
     }
 
+    @Transactional(readOnly = true)
+    public List<EditBookDTO> findAllBooks() {
+        List<Book> books = this.findAll();
+        List<EditBookDTO> dtoBooks = new ArrayList<EditBookDTO>(books.size());
+
+        for (Book book : books) {
+            dtoBooks.add(new EditBookDTO(book));
+        }
+
+        return dtoBooks;
+    }
+
     private BookRepository getBookRepository() {
         return (BookRepository) this.getRepository();
     }
@@ -184,16 +251,12 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return this.publisherService;
     }
 
-    @Transactional(readOnly = true)
-    public List<EditBookDTO> findAllBooks() {
-        List<Book> books = this.findAll();
-        List<EditBookDTO> dtoBooks = new ArrayList<EditBookDTO>(books.size());
+    public AuthorRepository getAuthorRepository() {
+        return this.authorRepository;
+    }
 
-        for (Book book : books) {
-            dtoBooks.add(new EditBookDTO(book));
-        }
-
-        return dtoBooks;
+    public void setAuthorRepository(final AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
 }

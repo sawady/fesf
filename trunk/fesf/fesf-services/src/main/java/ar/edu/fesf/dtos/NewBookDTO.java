@@ -4,7 +4,7 @@ public class NewBookDTO extends EditBookDTO {
 
     private static final long serialVersionUID = 1L;
 
-    private int countOfCopies;
+    private int countOfCopies = 1;
 
     public NewBookDTO() {
         super();

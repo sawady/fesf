@@ -16,6 +16,13 @@ import org.apache.wicket.markup.html.form.Form
 import ar.edu.fesf.services.BookService
 import ar.edu.fesf.scala.view.ReplaceablePanel
 import org.apache.wicket.markup.html.form.CheckBox
+import org.apache.wicket.ajax.form.AjaxFormValidatingBehavior
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior
+import org.apache.wicket.ajax.AjaxRequestTarget
+import org.apache.wicket.ajax.markup.html.AjaxFallbackLink
+import scala.swing.TextField
+import java.util.ArrayList
+import scala.collection.JavaConversions._
 
 class ScalaBookNewFormFieldsPanel(
   id: String,
@@ -28,6 +35,9 @@ class ScalaBookNewFormFieldsPanel(
   @SpringBean
   @BeanProperty
   var publisherService: PublisherService = _
+
+  var rawCategories = new ArrayList[String]()
+  var rawAuthors = new ArrayList[String]()
 
   val newBookDTO = new NewBookDTO()
 
@@ -42,12 +52,25 @@ class ScalaBookNewFormFieldsPanel(
         return publisherService.getPublishersNamedLike(input);
       }
     }.setRequired(true))
+
+    this.add(new RepeatedTextFieldPanel("categories", this.rawCategories))
+    this.add(new RepeatedTextFieldPanel("authors", this.rawAuthors))
+
     this.add(new CheckBox("available"));
   }
 
   override def getObject(): NewBookDTO = this.newBookDTO
 
   override def doSubmit(target: AjaxRequestTarget, form: Form[NewBookDTO]) = {
+
+    for (category <- this.rawCategories) {
+      this.newBookDTO.addCategory(category)
+    }
+
+    for (author <- this.rawAuthors) {
+      this.newBookDTO.addAuthor(author)
+    }
+
     val newBook = this.getBookService().registerNewBookDTO(this.newBookDTO);
     submitCallback(target, newBook);
   }

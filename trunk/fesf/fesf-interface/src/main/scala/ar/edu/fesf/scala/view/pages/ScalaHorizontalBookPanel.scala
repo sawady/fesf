@@ -32,6 +32,8 @@ class ScalaHorizontalBookPanel(id: String,
           bookService.initializeBookInfo(book), callback))
       }
     })
+
+    this.add(new CustomEmailNotifierPanel("notifier", this.books));
   }
 
 }
