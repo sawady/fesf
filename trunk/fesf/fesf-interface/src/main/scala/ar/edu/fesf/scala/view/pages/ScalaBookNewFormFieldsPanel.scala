@@ -20,7 +20,6 @@ import org.apache.wicket.ajax.form.AjaxFormValidatingBehavior
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink
-import scala.swing.TextField
 import java.util.ArrayList
 import scala.collection.JavaConversions._
 
