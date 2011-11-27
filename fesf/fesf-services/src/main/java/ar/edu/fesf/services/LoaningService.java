@@ -20,8 +20,10 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
 
     private static final long serialVersionUID = 1L;
 
+    @Autowired
     private PersonService personService;
 
+    @Autowired
     private BookService bookService;
 
     @Autowired

@@ -1,6 +1,7 @@
 package ar.edu.fesf.services;
 
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +22,16 @@ import ar.edu.fesf.repositories.CategoryRepository;
 @Service
 public class SpringInitializedService {
 
+    @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
     private BookService bookService;
 
+    @Autowired
     private PersonService personService;
 
+    @Autowired
     private LoaningService loaningService;
 
     @Transactional

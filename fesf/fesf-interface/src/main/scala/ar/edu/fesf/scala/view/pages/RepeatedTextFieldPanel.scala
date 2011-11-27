@@ -10,10 +10,12 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.model.Model
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.Component
+import scala.collection.JavaConversions._
 
 class RepeatedTextFieldPanel(
   id: String,
-  list: List[String])
+  list: List[String],
+  f_textField: (String, IModel[String]) => TextField[String])
   extends FormComponentPanel[List[String]](id) {
 
   this.initialize()
@@ -28,13 +30,13 @@ class RepeatedTextFieldPanel(
     val container = new WebMarkupContainer("toUpdate")
     container.setOutputMarkupId(true)
 
-    var listview = new ListView[String]("inputs", list) {
+    val listview = new ListView[String]("inputs", list) {
       override def populateItem(item: ListItem[String]) = {
-        item.add(new TextField("input", item.getModel()))
+        item.add(f_textField("input", item.getModel()))
       }
-    }.setOutputMarkupId(true)
+    }.setReuseItems(true)
 
-    container.add(listview)
+    container.add(listview.setOutputMarkupId(true))
     container.add(new AjaxFallbackLink("addMore") {
       override def onClick(target: AjaxRequestTarget) = {
         list.add("")

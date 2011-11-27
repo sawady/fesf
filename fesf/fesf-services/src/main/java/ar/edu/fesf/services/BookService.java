@@ -2,9 +2,11 @@ package ar.edu.fesf.services;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,16 +29,20 @@ import ar.edu.fesf.others.GenericTransactionalRepositoryService;
 import ar.edu.fesf.repositories.AuthorRepository;
 import ar.edu.fesf.repositories.BookRepository;
 import ar.edu.fesf.repositories.CategoryRepository;
+import ar.edu.fesf.repositories.PublisherRepository;
 
 @Service
 public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     private static final long serialVersionUID = 7521127091837519541L;
 
-    private PublisherService publisherService;
+    @Autowired
+    private PublisherRepository publisherRepository;
 
+    @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
     private AuthorRepository authorRepository;
 
     @Transactional(readOnly = true)
@@ -99,7 +105,8 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         bookDB.setIsbn(new ISBN(bookDTO.getIsbn()));
         bookDB.setDescription(bookDTO.getDescription());
 
-        List<Publisher> publishersMatching = this.getPublisherService().findByProperty("name", bookDTO.getPublisher());
+        List<Publisher> publishersMatching = this.getPublisherRepository().findByProperty("name",
+                bookDTO.getPublisher());
 
         Publisher publisher;
         if (publishersMatching.isEmpty()) {
@@ -229,6 +236,39 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return dtoBooks;
     }
 
+    @Transactional(readOnly = true)
+    public Iterator<String> getPublishersNamedLike(final String input) {
+        List<String> names = new ArrayList<String>();
+
+        for (Publisher publisher : this.publisherRepository.findByPropertyLike("name", input)) {
+            names.add(publisher.getName());
+        }
+
+        return names.iterator();
+    }
+
+    @Transactional(readOnly = true)
+    public Iterator<String> getAuthorsNamedLike(final String input) {
+        List<String> names = new ArrayList<String>();
+
+        for (Author author : this.authorRepository.findByPropertyLike("name", input)) {
+            names.add(author.getName());
+        }
+
+        return names.iterator();
+    }
+
+    @Transactional(readOnly = true)
+    public Iterator<String> getCategoriesNamedLike(final String input) {
+        List<String> names = new ArrayList<String>();
+
+        for (Category category : this.categoryRepository.findByPropertyLike("name", input)) {
+            names.add(category.getName());
+        }
+
+        return names.iterator();
+    }
+
     private BookRepository getBookRepository() {
         return (BookRepository) this.getRepository();
     }
@@ -243,20 +283,20 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         return this.categoryRepository;
     }
 
-    public void setPublisherService(final PublisherService publisherService) {
-        this.publisherService = publisherService;
-    }
-
-    public PublisherService getPublisherService() {
-        return this.publisherService;
-    }
-
     public AuthorRepository getAuthorRepository() {
         return this.authorRepository;
     }
 
     public void setAuthorRepository(final AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
+    }
+
+    public void setPublisherRepository(final PublisherRepository publisherRepository) {
+        this.publisherRepository = publisherRepository;
+    }
+
+    public PublisherRepository getPublisherRepository() {
+        return this.publisherRepository;
     }
 
 }
