@@ -123,6 +123,10 @@ public class Book extends Entity {
         copy.freeCopy();
     }
 
+    public boolean isReserved() {
+        return !this.getReservationEvents().isEmpty();
+    }
+
     public boolean isInTheReservationList(final Person person) {
         Iterator<ReservationEvent> it = this.getReservationEvents().iterator();
         boolean isInTheList = false;

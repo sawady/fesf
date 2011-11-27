@@ -35,8 +35,10 @@
 	
 	<bean id="service.book" class="ar.edu.fesf.services.BookService">
 		<property name="repository" ref="persistence.BookRepository" />
+		<property name="authorRepository" ref="persistence.AuthorRepository" />
 		<property name="categoryRepository" ref="persistence.CategoryRepository" />
-		<property name="publisherService" ref="service.publisher" />		
+		<property name="publisherService" ref="service.publisher" />
+		
 	</bean>
 	
 	<bean id="service.userfeedback" class="ar.edu.fesf.services.UserFeedbackService">
@@ -52,6 +54,9 @@
 	<bean id="service.publisher" class="ar.edu.fesf.services.PublisherService">
 		<property name="repository" ref="persistence.PublisherRepository" />
 	</bean>	
+	
+	<bean id="service.email" class="ar.edu.fesf.services.EmailService">
+	</bean>
 	
 	<bean id="service.SpringInitializedService" class="ar.edu.fesf.services.SpringInitializedService">
 		<property name="categoryRepository" ref="persistence.CategoryRepository" />

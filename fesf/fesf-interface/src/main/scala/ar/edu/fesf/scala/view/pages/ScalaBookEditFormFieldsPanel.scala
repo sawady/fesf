@@ -14,6 +14,9 @@ import org.apache.wicket.markup.html.form.CheckBox
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField
 import ar.edu.fesf.services.PublisherService
 import java.util.Iterator
+import java.util.ArrayList
+import scala.collection.JavaConversions._
+import java.util.HashSet
 
 @SerialVersionUID(1L)
 class ScalaBookEditFormFieldsPanel(
@@ -32,9 +35,16 @@ class ScalaBookEditFormFieldsPanel(
 
   val editBookDTO = new EditBookDTO(book)
 
+  var rawCategories = new ArrayList[String]()
+  var rawAuthors = new ArrayList[String]()
+
   /* initialization */
   this.initialize()
   private def initialize() = {
+
+    this.rawCategories.addAll(editBookDTO.getCategories())
+    this.rawAuthors.addAll(editBookDTO.getAuthors())
+
     this.add(new RequiredTextField[String]("title"))
     this.add(new RequiredTextField[String]("isbn"))
     this.add(new AutoCompleteTextField[String]("publisher", classOf[String]) {
@@ -44,11 +54,27 @@ class ScalaBookEditFormFieldsPanel(
     }.setRequired(true))
     this.add(new TextArea[String]("description"))
     this.add(new CheckBox("available"));
+
+    this.add(new RepeatedTextFieldPanel("categories", this.rawCategories))
+    this.add(new RepeatedTextFieldPanel("authors", this.rawAuthors))
+
   }
 
   override def getObject() = this.editBookDTO
 
   override def doSubmit(target: AjaxRequestTarget, form: Form[EditBookDTO]) = {
+
+    this.editBookDTO.setCategories(new HashSet())
+    this.editBookDTO.setAuthors(new HashSet())
+
+    for (category <- this.rawCategories) {
+      this.editBookDTO.addCategory(category)
+    }
+
+    for (author <- this.rawAuthors) {
+      this.editBookDTO.addAuthor(author)
+    }
+
     val bookDB = this.bookService.registerEditBookDTO(this.editBookDTO)
     callback(target, bookDB)
   }

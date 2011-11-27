@@ -107,6 +107,19 @@ public class Person extends Entity implements Nameable, Serializable {
         return this.getCountOfCurrentLoans() >= 3;
     }
 
+    public List<Loan> expiredLoans() {
+        List<Loan> expired = new ArrayList<Loan>();
+
+        for (Loan loan : this.getCurrentLoans()) {
+            if (loan.isExpiredLoan()) {
+                expired.add(loan);
+            }
+        }
+
+        return expired;
+
+    }
+
     /* Accessors */
     public int getAge() {
         return this.age;

@@ -92,6 +92,10 @@ public class Loan extends Event {
         return this.getBookCopy().getBook();
     }
 
+    public boolean isExpiredLoan() {
+        return this.getAgreedReturnDate().isBeforeNow();
+    }
+
     /* Accesors */
 
     public BookCopy getBookCopy() {

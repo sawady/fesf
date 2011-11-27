@@ -1,8 +1,8 @@
 package ar.edu.fesf.dtos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
@@ -22,9 +22,9 @@ public class EditBookDTO implements Serializable {
 
     protected String description;
 
-    protected List<String> categories = new ArrayList<String>();
+    protected Set<String> categories = new HashSet<String>();
 
-    protected List<String> authors = new ArrayList<String>();
+    protected Set<String> authors = new HashSet<String>();
 
     protected boolean available;
 
@@ -46,6 +46,30 @@ public class EditBookDTO implements Serializable {
 
         for (Category category : book.getCategories()) {
             this.categories.add(category.getName());
+        }
+    }
+
+    public void addCategory(final String category) {
+
+        // Parche de emergencia
+        if (this.getCategories() == null) {
+            this.categories = new HashSet<String>();
+        }
+
+        if (category != null && !category.isEmpty()) {
+            this.getCategories().add(category);
+        }
+    }
+
+    public void addAuthor(final String author) {
+
+        // Parche de emergencia
+        if (this.getAuthors() == null) {
+            this.authors = new HashSet<String>();
+        }
+
+        if (author != null && !author.isEmpty()) {
+            this.getAuthors().add(author);
         }
     }
 
@@ -95,6 +119,22 @@ public class EditBookDTO implements Serializable {
 
     public void setAvailable(final boolean available) {
         this.available = available;
+    }
+
+    public Set<String> getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(final Set<String> categories) {
+        this.categories = categories;
+    }
+
+    public Set<String> getAuthors() {
+        return this.authors;
+    }
+
+    public void setAuthors(final Set<String> authors) {
+        this.authors = authors;
     }
 
 }
