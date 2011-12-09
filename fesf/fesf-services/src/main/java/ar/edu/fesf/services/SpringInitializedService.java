@@ -67,6 +67,16 @@ public class SpringInitializedService {
                 .withCountOfCopies(2).withIsbn(new ISBN("978-0307957122")).build();
         this.bookService.save(magoDeTerramar);
 
+        Book mujercitas = new BookBuilder().withTitle("Mujercitas").withCategory(drama).withCategory(aventura)
+                .withAuthor(author1).withAuthor(author2).withPublisher(publisher1).withCountOfCopies(2)
+                .withIsbn(new ISBN("978-0307977122")).build();
+        this.bookService.save(mujercitas);
+
+        Book justinBieber = new BookBuilder().withTitle("Justin Bieber Fan").withCategory(drama).withCategory(aventura)
+                .withAuthor(author1).withAuthor(author2).withPublisher(publisher1).withCountOfCopies(2)
+                .withIsbn(new ISBN("978-0307977122")).build();
+        this.bookService.save(justinBieber);
+
         this.bookService.save(new BookBuilder().withTitle("Los Crimenes de la Calle Morgue").withCategory(drama)
                 .withIsbn(new ISBN("978-0307957123")).withCategory(policial).withPublisher(publisher1)
                 .withCountOfCopies(1).build());
@@ -122,6 +132,10 @@ public class SpringInitializedService {
         // NewBookDTO bookDTO = this.googleBookService.search("978-1451648539").getItems().get(0);
         // this.bookService.registerNewBookDTO(bookDTO);
 
+        Person cristian = new PersonBuilder().withName("Cristian").withSurname("Lopez").withAge(32)
+                .withAddress("Devapp").withPhone("46546456").withEmail(new EmailAddress("cristianelopez@gmail.com"))
+                .withRole(Role.ROLE_LIBRARIAN).build();
+
         Person fede = new PersonBuilder().withName("Federico").withSurname("Sawady").withAge(21)
                 .withAddress("Colon 355").withPhone("42245630").withEmail(new EmailAddress("sawady.faso@gmail.com"))
                 .withRole(Role.ROLE_LIBRARIAN).build();
@@ -131,11 +145,17 @@ public class SpringInitializedService {
 
         this.personService.save(fede);
         this.personService.save(elias);
+        this.personService.save(cristian);
 
         this.loaningService.registerLoan(fede, new BorrowItDTO(new DateTime().plusDays(20).toString()), magoDeTerramar);
         this.loaningService.registerLoan(fede, new BorrowItDTO(new DateTime().minusDays(20).toString()), maleficio);
         this.loaningService
                 .registerLoan(elias, new BorrowItDTO(new DateTime().plusDays(20).toString()), magoDeTerramar);
+
+        this.loaningService
+                .registerLoan(cristian, new BorrowItDTO(new DateTime().minusDays(20).toString()), mujercitas);
+        this.loaningService.registerLoan(cristian, new BorrowItDTO(new DateTime().minusDays(20).toString()),
+                justinBieber);
 
         // Book magoDeTerramarDB = this.bookService.findByEquality(magoDeTerramar);
         magoDeTerramar.addComment(new Comment("Muy bueno wacho", 7, magoDeTerramar, fede));
