@@ -66,7 +66,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         BookBuilder newBookBuilder = new BookBuilder().withTitle(bookDTO.getTitle())
                 .withIsbn(new ISBN(bookDTO.getIsbn())).withPublisher(new Publisher(bookDTO.getPublisher()))
                 .withDescription(bookDTO.getDescription()).withCountOfCopies(bookDTO.getCountOfCopies())
-                .withAvailable(bookDTO.getAvailable());
+                .withAvailable(bookDTO.getAvailable()).withImagepath(bookDTO.getImageLink());
 
         for (String category : bookDTO.getCategories()) {
             List<Category> categoriesDB = this.getCategoryRepository().findByProperty("name", category);

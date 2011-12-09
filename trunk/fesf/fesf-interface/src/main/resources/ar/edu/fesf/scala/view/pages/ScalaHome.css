@@ -148,6 +148,7 @@ body {
 	clear:both;
 	color: #606c88;
 	padding: 7px 30px;
+	margin: 0 0;
 	/**-moz-box-shadow: 0px 7px 10px #37394d;
 	-webkit-box-shadow: 0px 7px 10px #37394d;
 	box-shadow: 0px 7px 10px #37394d;**/
@@ -233,12 +234,17 @@ body {
 .bsrpTable{
 	width: 100%;
 }
-.bookInfoImage{
-	width: 137px;
-	height: 210px;
-	background-color: #A0A0A0;
+.bookInfoImageDiv{
+	max-width: 137px;
+	max-height: 210px;
 	float: left;
 	margin: 10px 15px;
+}
+.bookInfoImage{
+	width: inherit;
+	height: inherit;
+	max-width: 137px;
+	max-height: 210px;
 }
 .bookInfoSideInfo{
 	float: left;
@@ -256,6 +262,22 @@ body {
 	padding: 10px;
 	border-radius: 0.5em;
 	width:auto;
+}
+
+.sideResults, .editBook {
+	float:left;
+	padding: 10px;
+}
+.sideResults {
+	background-color: #CCEEFF;
+	margin: 5px 10px;
+	padding: 10px;
+	border-radius: 0.5em;
+	width:auto;
+}
+.sizeInheritant, .editBook input {
+	width: 100%;
+	height:auto;
 }
 
 /**********COMMENT*************/
@@ -336,5 +358,6 @@ div.wicket-aa ul li.selected {
 div.wicket-aa li:hover{
     cursor: pointer;
 }
+
 
 

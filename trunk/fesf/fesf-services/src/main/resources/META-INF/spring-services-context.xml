@@ -45,6 +45,9 @@
 		<property name="repository" ref="persistence.LoanRepository" />
 	</bean>
 	
+	<bean id="service.googlebook" class="ar.edu.fesf.services.GoogleBookService">
+	</bean>
+	
 	<bean id="service.email" class="ar.edu.fesf.services.EmailService">
 	</bean>
 	

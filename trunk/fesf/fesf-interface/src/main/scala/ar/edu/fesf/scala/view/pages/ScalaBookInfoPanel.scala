@@ -19,6 +19,8 @@ import java.util.List
 import org.apache.wicket.extensions.yui.calendar.DatePicker
 import ar.edu.fesf.scala.view.AjaxSimpleReplacePanel
 import org.apache.wicket.markup.html.panel.Panel
+import org.apache.wicket.markup.html.image.Image
+import ar.edu.fesf.scala.view.StaticImage
 
 class ScalaBookInfoPanel(
   id: String,
@@ -46,6 +48,7 @@ class ScalaBookInfoPanel(
     this.add(new Label("isbn.value"))
     this.add(new Label("countOfAvailableCopies", book.getCountOfAvailableCopies().toString()))
     this.add(new BorrowItPanel("borrowIt", book, this.borrowCallback(), cannotBorrowCallback))
+    this.add(new StaticImage("bookImage", book.getImagepath()))
     val relatedBooks = this.getBookService().relatedBooks(book.getId(), 10)
     this.add(new ScalaRelatedBooksPanel("relatedBooks", relatedBooks, showMoreInfoCallback))
     this.addUserFeedbackInfo()
