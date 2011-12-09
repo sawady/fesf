@@ -99,7 +99,7 @@ public class EmailService implements Serializable {
                 bodyBuffer.append("\n\n");
             }
 
-            this.sendEmailTo("Please return these books inmediatly! /n FESF Library", bodyBuffer.toString(),
+            this.sendEmailTo("Please return these books inmediatly! FESF Library", bodyBuffer.toString(),
                     Lists.newArrayList(personDB));
 
         }
@@ -140,7 +140,7 @@ public class EmailService implements Serializable {
         result.append("\n");
 
         result.append("ISBN: ");
-        result.append(bookDB.getIsbn());
+        result.append(bookDB.getIsbn().getValue());
         result.append("\n");
 
         result.append("Available? ");

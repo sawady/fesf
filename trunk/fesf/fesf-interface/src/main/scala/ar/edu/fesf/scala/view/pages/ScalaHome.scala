@@ -22,8 +22,8 @@ class ScalaHome extends WebPage with Serializable {
 
   private def initialize() = {
 
-    //FAKE
-    SecurityContextHolder.getContext().setAuthentication(new FakeAuthentication());
+    //FAKE AUTHENTICATION
+    //    SecurityContextHolder.getContext().setAuthentication(new FakeAuthentication());
 
     val mySession = this.getSession().asInstanceOf[SecuritySession]
     if (mySession.isAuthenticatedUser()) {
