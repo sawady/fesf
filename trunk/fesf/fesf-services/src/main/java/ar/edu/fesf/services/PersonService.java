@@ -90,8 +90,7 @@ public class PersonService extends GenericTransactionalRepositoryService<Person>
         personDB.setAge(personDTO.getAge());
         personDB.setPhone(personDTO.getPhone());
         personDB.setAddress(personDTO.getAddress());
-        personDB.setRole(Role.ROLE_USER); // TODO ver tema
-                                     // de roles
+        personDB.setRole(Role.ROLE_USER);
         personDB.setEmail(new EmailAddress(personDTO.getEmail()));
 
         this.save(personDB);
