@@ -56,7 +56,7 @@ public final class UserDetailsImpl implements UserDetails {
         this.userName = username;
         this.language = language;
         // By default every signeIn user is Granted as USER
-        // TODO for test I added LIBRARIAN ROLE to every new user
+        // TODO for testing reasons I added LIBRARIAN ROLE to every new user
         this.gaL.add(new GrantedAuthorityImpl(Role.ROLE_USER.toString()));
         this.gaL.add(new GrantedAuthorityImpl(Role.ROLE_LIBRARIAN.toString()));
     }

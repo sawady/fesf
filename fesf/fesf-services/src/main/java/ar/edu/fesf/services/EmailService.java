@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.fesf.exceptions.MyEmailException;
+import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
+import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.Loan;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.ReservationEvent;
@@ -94,8 +96,7 @@ public class EmailService implements Serializable {
                 bodyBuffer.append("\n");
                 bodyBuffer.append("Agreed Date: ");
                 bodyBuffer.append(loan.getAgreedReturnDate().toLocalDate());
-                bodyBuffer.append("\n");
-                bodyBuffer.append("\n");
+                bodyBuffer.append("\n\n");
             }
 
             this.sendEmailTo("Please return these books inmediatly! /n FESF Library", bodyBuffer.toString(),
@@ -118,6 +119,7 @@ public class EmailService implements Serializable {
 
         for (Book book : books) {
             bodyBuffer.append(this.convertToEmailBodyBook(book));
+            bodyBuffer.append("\n\n\n");
         }
 
         List<Person> persons = new ArrayList<Person>(1);
@@ -132,8 +134,33 @@ public class EmailService implements Serializable {
         StringBuffer result = new StringBuffer();
 
         // TODO falta agregar todos los campos.
+
         result.append("Title: ");
         result.append(bookDB.getTitle());
+        result.append("\n");
+
+        result.append("ISBN: ");
+        result.append(bookDB.getIsbn());
+        result.append("\n");
+
+        result.append("Available? ");
+        result.append(bookDB.getAvailable());
+        result.append("\n");
+
+        result.append("Authors: ");
+        for (Author author : bookDB.getAuthors()) {
+            result.append(author.getName() + ". ");
+        }
+        result.append("\n");
+
+        result.append("Categories: ");
+        for (Category category : bookDB.getCategories()) {
+            result.append(category.getName() + ". ");
+        }
+        result.append("\n");
+
+        result.append("Description: ");
+        result.append(bookDB.getDescription());
         result.append("\n");
 
         return result.toString();

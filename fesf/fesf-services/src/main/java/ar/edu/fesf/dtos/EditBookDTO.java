@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import ar.edu.fesf.model.Author;
 import ar.edu.fesf.model.Book;
 import ar.edu.fesf.model.Category;
 
+@XmlRootElement(name = "editBookDTO")
 public class EditBookDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;

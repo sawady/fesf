@@ -68,7 +68,7 @@ public class GoogleBookService implements Serializable {
             return builder.toString();
 
         } catch (final Exception e) {
-            throw new TransactionException(e.getMessage());// TODO: Check if this is the appropriate exception
+            throw new TransactionException(e.getMessage());
         }
     }
 
