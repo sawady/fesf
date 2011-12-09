@@ -34,6 +34,9 @@ public class SpringInitializedService {
     @Autowired
     private LoaningService loaningService;
 
+    @Autowired
+    private GoogleBookService googleBookService;
+
     @Transactional
     public void initialize() {
 
@@ -114,6 +117,11 @@ public class SpringInitializedService {
         this.bookService.save(new BookBuilder().withTitle("Las locuras del emperador").withCategory(comedia)
                 .withCountOfCopies(5).withIsbn(new ISBN("978-0307957143")).withPublisher(publisher2).build());
 
+        // PRUEBA?
+
+        // NewBookDTO bookDTO = this.googleBookService.search("978-1451648539").getItems().get(0);
+        // this.bookService.registerNewBookDTO(bookDTO);
+
         Person fede = new PersonBuilder().withName("Federico").withSurname("Sawady").withAge(21)
                 .withAddress("Colon 355").withPhone("42245630").withEmail(new EmailAddress("sawady.faso@gmail.com"))
                 .withRole(Role.ROLE_LIBRARIAN).build();
@@ -166,6 +174,14 @@ public class SpringInitializedService {
 
     public void setCategoryRepository(final CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
+    }
+
+    public void setGoogleBookService(final GoogleBookService googleBookService) {
+        this.googleBookService = googleBookService;
+    }
+
+    public GoogleBookService getGoogleBookService() {
+        return this.googleBookService;
     }
 
 }

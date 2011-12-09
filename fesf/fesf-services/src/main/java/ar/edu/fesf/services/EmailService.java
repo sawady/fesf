@@ -82,7 +82,10 @@ public class EmailService implements Serializable {
             List<Loan> expiredLoans = personDB.expiredLoans();
 
             StringBuffer bodyBuffer = new StringBuffer();
-            bodyBuffer.append("These are your expired Loans\n\n");
+            bodyBuffer.append("Hi, ");
+            bodyBuffer.append(person.getName());
+            bodyBuffer
+                    .append(". We must inform you that some of your loans have expired. The list of them is the following: \n\n");
 
             for (Loan loan : expiredLoans) {
                 bodyBuffer.append(this.convertToEmailBodyBook(loan.getBook()));
@@ -95,7 +98,8 @@ public class EmailService implements Serializable {
                 bodyBuffer.append("\n");
             }
 
-            this.sendEmailTo("Please return the books!", bodyBuffer.toString(), Lists.newArrayList(personDB));
+            this.sendEmailTo("Please return these books inmediatly! /n FESF Library", bodyBuffer.toString(),
+                    Lists.newArrayList(personDB));
 
         }
     }

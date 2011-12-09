@@ -42,7 +42,7 @@ class RepeatedTextFieldPanel(
         list.add("")
         target.add(container)
       }
-    })
+    }.setOutputMarkupId(true))
 
     this.add(container)
   }

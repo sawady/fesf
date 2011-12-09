@@ -1,9 +1,12 @@
 <wicket:panel>
-	<tr>
-		<td></td>
-		<td wicket:id="toUpdate">
-			<span wicket:id="inputs"><input type="text" wicket:id="input"/></span>
-			<a href="#" wicket:id="addMore">Add more</a>
-		</td>		
+<table class="sizeInheritant" wicket:id="toUpdate">
+	<tr wicket:id="inputs">
+		<td class="sizeInheritant" colspan="2">
+			<input class="sizeInheritant" type="text" wicket:id="input"/>
+		</td>
 	</tr>
+	<tr>
+		<td class="sizeInheritant" colspan="2"><a href="#" wicket:id="addMore">Add more</a></td>
+	</tr>
+</table>
 </wicket:panel>

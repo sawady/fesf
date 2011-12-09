@@ -19,7 +19,7 @@ public class BookBuilder {
 
     private Publisher publisher;
 
-    private String imagepath;
+    private String imagepath = "http://t3.gstatic.com/images?q=tbn:ANd9GcRnOSqXTlETDlOV7TRVsDz9YYV2hmIJRMedBLFkfSH7aGFqlSLpDQ";
 
     private String description = "";
 

@@ -97,8 +97,9 @@ class ScalaLibrarianHomeContentPanel(
     this.changeContent(new LoaneesPanel(_: String))
 
   private def changeToNewBookPanel(): IAjaxSimpleCallback = {
-    this.changeContent((outterID: String) => new ScalaGenericFormPanel[NewBookDTO](outterID,
-      (innerID: String) => new ScalaBookNewFormFieldsPanel(innerID, this.changeToMoreInfoPanel())))
+    //    this.changeContent((outterID: String) => new ScalaGenericFormPanel[NewBookDTO](outterID,
+    //      (innerID: String) => new ScalaBookNewFormFieldsPanel(innerID, this.changeToMoreInfoPanel())))
+    this.changeContent((outterID: String) => new BookAutoCompletionPanel(outterID, changeToMoreInfoPanel()))
   }
 
   private def changeToEditBookPanel(): IAjaxCallback[Book] = {

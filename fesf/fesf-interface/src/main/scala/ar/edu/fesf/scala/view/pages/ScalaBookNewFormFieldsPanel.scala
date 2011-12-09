@@ -27,7 +27,10 @@ import org.apache.wicket.model.PropertyModel
 
 class ScalaBookNewFormFieldsPanel(
   id: String,
-  submitCallback: IAjaxCallback[Book]) extends PanelServiceToForm[NewBookDTO](id) with ReplaceablePanel {
+  submitCallback: IAjaxCallback[Book],
+  newBookDTO: NewBookDTO) extends PanelServiceToForm[NewBookDTO](id) with ReplaceablePanel {
+
+  def this(id: String, submitCallback: IAjaxCallback[Book]) = this(id, submitCallback, new NewBookDTO())
 
   @SpringBean
   @BeanProperty
@@ -36,10 +39,12 @@ class ScalaBookNewFormFieldsPanel(
   var rawCategories = new ArrayList[String]()
   var rawAuthors = new ArrayList[String]()
 
-  val newBookDTO = new NewBookDTO()
-
   this.initialize()
   private def initialize() {
+
+    this.rawCategories.addAll(newBookDTO.getCategories())
+    this.rawAuthors.addAll(newBookDTO.getAuthors())
+
     this.add(new RequiredTextField[String]("title"))
     this.add(new RequiredTextField[String]("isbn"))
     this.add(new RequiredTextField[Integer]("countOfCopies", classOf[Integer]).add(new MinimumValidator[Integer](1)))

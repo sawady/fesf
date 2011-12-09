@@ -28,6 +28,8 @@ public class EditBookDTO implements Serializable {
 
     protected boolean available;
 
+    protected String imageLink;
+
     public EditBookDTO() {
         super();
     }
@@ -137,4 +139,12 @@ public class EditBookDTO implements Serializable {
         this.authors = authors;
     }
 
+    public String getImageLink() {
+        return this.imageLink != null & this.imageLink != "" ? this.imageLink
+                : "http://t3.gstatic.com/images?q=tbn:ANd9GcRnOSqXTlETDlOV7TRVsDz9YYV2hmIJRMedBLFkfSH7aGFqlSLpDQ";
+    }
+
+    public void setImageLink(final String imageLink) {
+        this.imageLink = imageLink;
+    }
 }

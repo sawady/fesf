@@ -1,5 +1,7 @@
 package ar.edu.fesf.dtos;
 
+import ar.edu.fesf.model.Book;
+
 public class NewBookDTO extends EditBookDTO {
 
     private static final long serialVersionUID = 1L;
@@ -21,6 +23,10 @@ public class NewBookDTO extends EditBookDTO {
         // this.authors = this.authors;
         this.available = available;
         this.countOfCopies = countOfCopies;
+    }
+
+    public NewBookDTO(final Book book) {
+        super(book);
     }
 
     protected NewBookDTO(final int countOfCopies) {
