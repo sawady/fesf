@@ -27,7 +27,7 @@ class ScalaHome extends WebPage with Serializable {
 
     val mySession = this.getSession().asInstanceOf[SecuritySession]
     if (mySession.isAuthenticatedUser()) {
-      var personDB = this.getPersonService().findPersonByEmail(mySession.getAuthenticatedUser().getEmail())
+      var personDB = this.getPersonService().findPersonByEmail(mySession.getEmail())
       if (personDB == null) {
         this.setResponsePage(classOf[SignUp])
       } else {

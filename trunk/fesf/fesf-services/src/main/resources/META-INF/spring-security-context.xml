@@ -55,6 +55,57 @@
         <property name="userDetailsService" ref="userDetailsServiceImpl" />
         <property name="attributes2UserDetails" ref="openIDAttributes2UserDetails" />
     </bean>
+    
+    <bean id="ldapAuthProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+		<constructor-arg>
+			<bean class="org.springframework.security.ldap.authentication.BindAuthenticator">
+				<constructor-arg ref="ldapContextSource" />			
+				 <property name="userDnPatterns"><list><value>cn={0},OU=Buenos Aires</value></list></property>	
+			</bean>
+		</constructor-arg>	
+		<property name="userDetailsContextMapper" ref="inetOrgPersonContextMapper" />	
+	</bean>
+	
+	<bean id="inetOrgPersonContextMapper" class="ar.edu.fesf.security.PersonHxContextMapper"/>
+    
+	<bean id="ldapContextSource2" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+		<constructor-arg value="ldap://hxws-mbusso.hexacta.com:389/dc=gob,dc=ar" />
+		<property name="userDn" value="cn=manager,dc=gob,dc=ar" />
+		<property name="password" value="secret" />
+	</bean>
+	
+	<bean id="ldapContextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+		<constructor-arg value="ldap://10.30.0.7:389/ou=hexacta,dc=hexacta,dc=com" />
+		<property name="userDn" value="cn=htt,ou=htt,ou=hexacta,dc=hexacta,dc=com" />
+		<property name="password" value="Htt12345" />
+	</bean>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+
+    
+    
+    
+    
+    
 
     <bean id="openIDAttributes2UserDetails" class="ar.edu.fesf.security.OpenIDAttributes2UserDetailsImpl" />
 
