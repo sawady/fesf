@@ -34,7 +34,8 @@ public class ServiceAnnotationTest {
      * constant must be /com/bar/service.
      */
     private static final String SERVICE_BASE_PACKAGE_PATH = "/ar/edu/fesf/services";
-
+    
+    
     /*
      * A string which is used to identify setter methods. All methods whose name contains the given string are
      * considered as setter methods.
@@ -46,7 +47,7 @@ public class ServiceAnnotationTest {
      * considered as test classes.
      */
     private static final String TEST_CLASS_FILENAME_ID = "Test";
-
+    
     private List<Class<?>> serviceClasses;
 
     /**
@@ -118,7 +119,7 @@ public class ServiceAnnotationTest {
         return this.buildClassNameFromPath(pathWithoutFilenameSuffix);
     }
 
-    /**
+	/**
      * Parses the path which starts from the classpath root directory by using the absolute path given as a parameter.
      * Returns the parsed path. E.g. If the absolute path is /user/foo/classes/com/foo/Bar.class and the classpath root
      * directory is /user/foo/classes/, com/foo/Bar.class is returned.
@@ -127,7 +128,7 @@ public class ServiceAnnotationTest {
      * @return
      */
     private String parsePathFromClassPathRoot(final String absolutePath) {
-        int classpathRootIndex = absolutePath.indexOf(SERVICE_BASE_PACKAGE_PATH);
+        int classpathRootIndex = absolutePath.indexOf(SERVICE_BASE_PACKAGE_PATH.replace("/", "\\"));
         return absolutePath.substring(classpathRootIndex + 1);
     }
 
@@ -142,7 +143,7 @@ public class ServiceAnnotationTest {
         int prefixIndex = path.indexOf(PACKAGE_PATH_SEPARATOR);
         return path.substring(0, prefixIndex);
     }
-
+    
     /**
      * Builds a class name with package information from a path given as a parameter and returns the class name with
      * package information. e.g. If a path com/foo/Bar is given as a parameter, com.foo.Bar is returned.

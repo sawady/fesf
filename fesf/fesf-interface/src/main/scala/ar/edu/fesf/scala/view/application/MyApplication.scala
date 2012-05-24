@@ -16,14 +16,16 @@ import ar.edu.fesf.scala.view.pages.UpsPage
 import org.apache.wicket.settings.IExceptionSettings
 import org.springframework.security.core.context.SecurityContextHolder
 import ar.edu.fesf.security.FakeAuthentication
+import ar.edu.fesf.scala.view.pages.SignInLdap
+
 
 @SerialVersionUID(1L)
-class MyApplication extends AuthenticatedWebApplication {
+class MyApplication(authenticationMode: AuthenticationMode) extends AuthenticatedWebApplication {
 
   @SpringBean
   @BeanProperty
   var springInitializedService: SpringInitializedService = _
-
+  
   val mounterURL: MounterURL = new MounterURL(this)
 
   override def init() = {
@@ -39,23 +41,27 @@ class MyApplication extends AuthenticatedWebApplication {
     this.getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE)
 
     this.mountUrl("home", classOf[ScalaHome])
-    this.mountUrl("login", classOf[SignIn])
-
+    this.mountUrl("login", this.loginPage())
   }
-
+  
   private def mountUrl(mountPath: String, pageClass: Class[_ <: WebPage]) {
     this.mounterURL.mount(mountPath, pageClass, "");
   }
 
-  override def getWebSessionClass(): Class[_ <: AuthenticatedWebSession] = classOf[SecuritySession]
+  override def getWebSessionClass(): Class[_ <: AuthenticatedWebSession] = this.securitySession()
 
-  override def getSignInPageClass(): Class[_ <: WebPage] = classOf[SignIn]
+  override def getSignInPageClass(): Class[_ <: WebPage] = this.loginPage()
 
   override def getHomePage(): Class[_ <: Page] = classOf[ScalaHome]
 
-  def getSpringContext(): WebApplicationContext =
-    WebApplicationContextUtils.getWebApplicationContext(this.getServletContext())
+  def getSpringContext(): WebApplicationContext = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext())
 
   def getContextPath(): String = this.getServletContext().getContextPath()
+  
+  def loginPage(): Class[_ <: WebPage] = this.authenticationMode.loginPage()
+  
+  def securitySession(): Class[_ <: AuthenticatedWebSession] = this.authenticationMode.securitySession()
+
+
 
 }

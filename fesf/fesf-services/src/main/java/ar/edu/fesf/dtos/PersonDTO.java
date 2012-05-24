@@ -26,10 +26,12 @@ public class PersonDTO implements Serializable {
         super();
     }
 
-    public PersonDTO(final String name, final String surname, final String email) {
+    public PersonDTO(final String name, final String surname, final String email, final String address,final String phone ) {
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.address = address;
+        this.phone = phone;
     }
 
     public PersonDTO(final Person person) {

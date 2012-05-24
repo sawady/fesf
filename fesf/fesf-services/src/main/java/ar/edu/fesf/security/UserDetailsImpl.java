@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +28,7 @@ import ar.edu.fesf.model.Role;
  * 
  * @author <a href='mailto:a.vincelli@gmail.com'>Alessandro Vincelli</a>
  */
-public final class UserDetailsImpl implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -156,6 +157,14 @@ public final class UserDetailsImpl implements UserDetails {
     public void setEmail(final String email) {
         this.email = email;
     }
+    
+    public String getAddress() {
+    	return StringUtils.EMPTY;
+    }
+    
+    public String getPhone() {
+    	return StringUtils.EMPTY;
+    }
 
     public void setLanguage(final String language) {
         this.language = language;
@@ -168,5 +177,7 @@ public final class UserDetailsImpl implements UserDetails {
     public void setGaL(final Set<GrantedAuthority> gaL) {
         this.gaL = gaL;
     }
+    
+    
 
 }

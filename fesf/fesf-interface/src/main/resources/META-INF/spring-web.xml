@@ -5,7 +5,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
 	<bean id="wicketApplication" class="ar.edu.fesf.scala.view.application.MyApplication">
+		<constructor-arg index="0" ref="authenticationLdapMode"></constructor-arg>
 		<property name="springInitializedService" ref="service.SpringInitializedService"></property>
 	</bean>
+	
+	<bean id="authenticationLdapMode" class="ar.edu.fesf.scala.view.application.AuthenticationLdapMode"/>
+	
+	<bean id="authenticationOuathMode" class="ar.edu.fesf.scala.view.application.AuthenticationOuathMode"/>
+	
 
 </beans>

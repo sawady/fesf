@@ -66,6 +66,11 @@ public class SecurityContextHelper implements Serializable {
     public boolean isAuthenticatedUser() {
         return SecurityContextHolder.getContext().getAuthentication() != null;
     }
+    
+   @Transactional(readOnly = true)
+   public void authentication(Authentication authentication) {
+       SecurityContextHolder.getContext().setAuthentication(authentication);
+   }
 
     @Transactional(readOnly = true)
     public String[] getRoles() {

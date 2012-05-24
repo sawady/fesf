@@ -58,5 +58,9 @@ class SecuritySession(request: Request) extends AuthenticatedWebSession(request)
     this.setPerson(null);
     this.securityContextHelper.signOut();
   }
+  
+  def getEmail() : String = {
+    return this.getAuthenticatedUser().getEmail()
+  }
 
 }

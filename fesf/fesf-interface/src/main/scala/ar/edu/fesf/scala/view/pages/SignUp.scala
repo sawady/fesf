@@ -26,7 +26,7 @@ class SignUp extends WebPage with Serializable {
   private def getPersonDTO(): PersonDTO = {
     if (this.securityContextHelper.isAuthenticatedUser()) {
       val authenticatedUser = this.securityContextHelper.getAuthenticatedUser()
-      return new PersonDTO(authenticatedUser.getFirstName(), authenticatedUser.getLastName(), authenticatedUser.getEmail())
+      return new PersonDTO(authenticatedUser.getFirstName(), authenticatedUser.getLastName(), authenticatedUser.getEmail(), authenticatedUser.getAddress(), authenticatedUser.getPhone())
     } else {
       return new PersonDTO()
     }
