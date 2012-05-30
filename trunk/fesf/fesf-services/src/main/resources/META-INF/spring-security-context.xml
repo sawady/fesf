@@ -60,7 +60,8 @@
 		<constructor-arg>
 			<bean class="org.springframework.security.ldap.authentication.BindAuthenticator">
 				<constructor-arg ref="ldapContextSource" />			
-				 <property name="userDnPatterns"><list><value>cn={0},OU=Buenos Aires</value></list></property>	
+				 <property name="userDnPatterns"><list><value>${branch}</value></list></property>	
+				
 			</bean>
 		</constructor-arg>	
 		<property name="userDetailsContextMapper" ref="inetOrgPersonContextMapper" />	
@@ -69,9 +70,9 @@
 	<bean id="inetOrgPersonContextMapper" class="ar.edu.fesf.security.PersonHxContextMapper"/>
     
 	<bean id="ldapContextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-		<constructor-arg value="ldap://10.30.0.7:389/ou=hexacta,dc=hexacta,dc=com" />
-		<property name="userDn" value="cn=htt,ou=htt,ou=hexacta,dc=hexacta,dc=com" />
-		<property name="password" value="Htt12345" />
+		<constructor-arg value="${url}"/>
+		<property name="userDn" value="${userDn}" />
+		<property name="password" value="${password}" />
 	</bean>
 
 	
