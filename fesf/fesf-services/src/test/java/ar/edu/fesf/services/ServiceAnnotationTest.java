@@ -1,5 +1,6 @@
 package ar.edu.fesf.services;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.annotation.Annotation;
@@ -63,14 +64,14 @@ public class ServiceAnnotationTest {
 						.addClassLoader(ClasspathHelper.staticClassLoader())
 						.setUrls(ClasspathHelper.forPackage(PACKAGE_NAME)));
 		List<Class<?>> classes = reflections.getClasses(ResourcesClassScanner.class);
-
+		
+		assertFalse(classes.isEmpty());
 		for (Class<?> serviceClass : classes) {
 			assertTrue(serviceClass.getSimpleName()	+ " must be annotated with @Service annotation", serviceClass.isAnnotationPresent(Service.class));
 		}
     }
 
- 
-
+    
     /**
      * Checks if the method given as a parameter throws checked exceptions. Returns true if the method throws checked
      * exceptions and false otherwise.
