@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.reflections.Configuration;
 import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
@@ -28,15 +27,7 @@ public class FestReflections extends Reflections {
 
 	public List<Class<?>> getClasses(Class<ResourcesClassScanner> class1) {
 		Collection<String> classes = this.getStore().get(class1).values();
-		Collection<String> classNames = CollectionUtils.collect(classes, new ClassNameTransformer());
-		CollectionUtils.filter(classNames, new Predicate() {
-
-			@Override
-			public boolean evaluate(Object object) {
-				return !object.toString().contains("$");
-			}
-		});
-		return ReflectionUtils.forNames(classNames, this.configuration.getClassLoaders());
+		return ReflectionUtils.forNames(classes, this.configuration.getClassLoaders());
 	}
 
 	public Collection<Method> getPublicMethods(Set<Class<?>> classes) {
