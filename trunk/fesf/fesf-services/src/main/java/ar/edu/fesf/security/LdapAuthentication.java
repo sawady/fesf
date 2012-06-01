@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class LdapAuthentication implements Authentication {
 	
@@ -11,8 +12,11 @@ public class LdapAuthentication implements Authentication {
 	
 	private Authentication authentication;
 
+	private UserDetails userDetail;
+
 	public LdapAuthentication(Authentication authentication) {
 		this.authentication = authentication;
+		this.userDetail = new UserDetailsLdapImpl(this.authentication.getPrincipal());
 	}
 
 	@Override
@@ -22,7 +26,7 @@ public class LdapAuthentication implements Authentication {
 
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
-		return this.authentication.getAuthorities();
+		return this.userDetail.getAuthorities();
 	}
 
 	@Override
@@ -37,7 +41,7 @@ public class LdapAuthentication implements Authentication {
 
 	@Override
 	public Object getPrincipal() {
-		return new UserDetailsLdapImpl(this.authentication.getPrincipal());
+		return this.userDetail;
 	}
 
 	@Override
