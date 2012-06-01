@@ -44,7 +44,7 @@ public class LoaningService extends GenericTransactionalRepositoryService<Loan> 
         try {
             result = DateTime.parse(date);
         } catch (IllegalArgumentException e) {
-            result = DateTime.parse(date, DateTimeFormat.forPattern("MM/dd/yy"));
+            result = DateTime.parse(date, DateTimeFormat.forPattern("dd/MM/yy"));
         }
 
         return result;
