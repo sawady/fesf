@@ -1,22 +1,31 @@
 package ar.edu.fesf.security;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+
+import ar.edu.fesf.model.Role;
 
 public class UserDetailsLdapImpl extends UserDetailsImpl {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private PersonHx personHx;
+	
+	private Set<GrantedAuthority> gaL = new HashSet<GrantedAuthority>(1);
 
 	public UserDetailsLdapImpl(Object ldapUserDetailsImpl) {
 		this.personHx = (PersonHx) ldapUserDetailsImpl;
+		this.gaL.add(new GrantedAuthorityImpl(Role.ROLE_USER.toString()));
+        this.gaL.add(new GrantedAuthorityImpl(Role.ROLE_LIBRARIAN.toString()));
 	}
 
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
-		return this.personHx.getAuthorities();
+		return this.gaL;
 	}
 
 	@Override
