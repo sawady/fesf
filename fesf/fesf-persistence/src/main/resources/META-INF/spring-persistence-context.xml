@@ -25,7 +25,8 @@
 			<list>
 				<value>classpath*:META-INF/hibernate.properties</value>
 				<value>classpath*:META-INF/jdbc.properties</value>
-				<value>classpath*:META-INF/ldap.properties</value>				
+				<value>classpath*:META-INF/ldap.properties</value>
+				<value>classpath*:META-INF/smtp.properties</value>				
 			</list>
 		</property>
 	</bean>
