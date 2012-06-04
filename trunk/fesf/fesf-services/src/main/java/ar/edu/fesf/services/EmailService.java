@@ -36,9 +36,12 @@ public class EmailService implements Serializable {
 
     @Autowired
     private BookService bookService;
-
-    @Autowired
-    private LoaningService loaningService;
+    
+    private String from;
+    private String user;
+    private String password;
+    private String hostName;
+    private Integer port;
 
     @Transactional(readOnly = true)
     @Secured("ROLE_LIBRARIAN")
@@ -61,12 +64,12 @@ public class EmailService implements Serializable {
                 try {
                     final Email email = new SimpleEmail();
                     email.setMsg(body);
-                    email.setFrom("fesf.library@gmail.com");
+                    email.setFrom(from);
                     email.setTo(emails);
-                    email.setAuthentication("fesf.library@gmail.com", "fesffesf");
+                    email.setAuthentication(user, password);
                     email.setSubject(subject);
-                    email.setHostName("smtp.gmail.com");
-                    email.setSmtpPort(587);
+                    email.setHostName(hostName);
+                    email.setSmtpPort(port);
                     email.setTLS(true);
                     email.send();
                 } catch (EmailException e) {
@@ -165,29 +168,26 @@ public class EmailService implements Serializable {
 
         return result.toString();
     }
+    
 
-    public void setPersonService(final PersonService personService) {
-        this.personService = personService;
-    }
-
-    public PersonService getPersonService() {
-        return this.personService;
-    }
-
-    public void setBookService(final BookService bookService) {
-        this.bookService = bookService;
-    }
-
-    public BookService getBookService() {
-        return this.bookService;
-    }
-
-    public void setLoaningService(final LoaningService loaningService) {
-        this.loaningService = loaningService;
-    }
-
-    public LoaningService getLoaningService() {
-        return this.loaningService;
-    }
+    public void setFrom(final String from) {
+		this.from = from;
+	}
+    
+    public void setUser(final String user) {
+		this.user = user;
+	}
+    
+    public void setPassword(final String password) {
+		this.password = password;
+	}
+    
+    public void setHostName(final String hostName) {
+		this.hostName = hostName;
+	}
+    
+    public void setPort(final Integer port) {
+		this.port = port;
+	}
 
 }

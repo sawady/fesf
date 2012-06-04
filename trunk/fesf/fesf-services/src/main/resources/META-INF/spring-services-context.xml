@@ -49,6 +49,11 @@
 	</bean>
 	
 	<bean id="service.email" class="ar.edu.fesf.services.EmailService">
+		<property name="user" value="${user}" />
+		<property name="password" value="${password}" />
+		<property name="from" value="${from}" />
+		<property name="hostName" value="${hostName}" />
+		<property name="port" value="${port}" />		
 	</bean>
 	
 	<bean id="service.SpringInitializedService" class="ar.edu.fesf.services.SpringInitializedService">
