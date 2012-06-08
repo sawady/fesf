@@ -18,6 +18,7 @@ import scala.collection.JavaConversions._
 import java.util.HashSet
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.IModel
+import org.apache.wicket.markup.html.form.DropDownChoice
 
 @SerialVersionUID(1L)
 class ScalaBookEditFormFieldsPanel(
@@ -47,6 +48,7 @@ class ScalaBookEditFormFieldsPanel(
     this.add(new TextArea[String]("description"))
     this.add(new CheckBox("available"));
 
+    this.add(new DropDownChoice[String]("location", this.bookService.booksLocation()))
     this.add(getAutoCompleteTextField("publisher", bookService.getPublishersNamedLike(_: String)).setRequired(true))
 
     this.add(new RepeatedTextFieldPanel("categories", this.rawCategories,

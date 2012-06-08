@@ -45,9 +45,11 @@ public class Book extends Entity {
 
     private UserFeedbackManager userFeedbackManager = new UserFeedbackManager();
 
+	private String location;
+
     public Book(final String title, final ISBN isbn, final Publisher publisher, final String imagepath,
             final String description, final List<Author> authors, final Set<Category> categories,
-            final int countOfCopies, final Boolean aVailable) {
+            final int countOfCopies, final Boolean aVailable, String location) {
         super();
         this.title = title;
         this.isbn = isbn;
@@ -57,6 +59,7 @@ public class Book extends Entity {
         this.authors = authors;
         this.categories = categories;
         this.available = aVailable;
+        this.location = location;
 
         for (Author author : authors) {
             author.addBook(this);
@@ -284,5 +287,13 @@ public class Book extends Entity {
     public boolean getAvailable() {
         return this.available;
     }
+    
+    public void setLocation(String location) {
+		this.location = location;
+	}
+    
+    public String getLocation() {
+		return location;
+	}
 
 }
