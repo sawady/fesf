@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.TransformerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,7 @@ import ar.edu.fesf.others.GenericTransactionalRepositoryService;
 import ar.edu.fesf.repositories.AuthorRepository;
 import ar.edu.fesf.repositories.BookRepository;
 import ar.edu.fesf.repositories.CategoryRepository;
+import ar.edu.fesf.repositories.LocationRepository;
 import ar.edu.fesf.repositories.PublisherRepository;
 
 @Service
@@ -44,6 +47,9 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
 
     @Autowired
     private AuthorRepository authorRepository;
+    
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Transactional(readOnly = true)
     public List<Book> bookSearch(final String input) {
@@ -272,10 +278,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
     
     @Transactional(readOnly = true)
     public List<String> booksLocation() {
-    	List<String> locations = new ArrayList<String>();
-    	locations.add("bsAs");
-    	locations.add("Parana");
-    	return locations;    	
+    	return (List<String>) CollectionUtils.collect(this.locationRepository.findAll(), TransformerUtils.invokerTransformer("getName"));
     }
 
     private BookRepository getBookRepository() {
