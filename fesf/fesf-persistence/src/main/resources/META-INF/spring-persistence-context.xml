@@ -133,4 +133,8 @@
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 	
+	<bean id="persistence.LocationRepository" class="ar.edu.fesf.repositories.LocationRepository">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+	
 </beans>

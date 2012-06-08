@@ -14,16 +14,21 @@ import ar.edu.fesf.model.Category;
 import ar.edu.fesf.model.Comment;
 import ar.edu.fesf.model.EmailAddress;
 import ar.edu.fesf.model.ISBN;
+import ar.edu.fesf.model.Location;
 import ar.edu.fesf.model.Person;
 import ar.edu.fesf.model.Publisher;
 import ar.edu.fesf.model.Role;
 import ar.edu.fesf.repositories.CategoryRepository;
+import ar.edu.fesf.repositories.LocationRepository;
 
 @Service
 public class SpringInitializedService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Autowired
     private BookService bookService;
@@ -61,6 +66,11 @@ public class SpringInitializedService {
         publisher1.setName("Editorial Amboro");
         Publisher publisher2 = new Publisher();
         publisher2.setName("Editorial Canete");
+        
+        this.locationRepository.save(new Location("Buenos Aires"));
+        this.locationRepository.save(new Location("Parana"));
+        this.locationRepository.save(new Location("Bahia Blanca"));
+        this.locationRepository.save(new Location("La Plata"));
 
         Book magoDeTerramar = new BookBuilder().withTitle("Un Mago de Terramar").withCategory(drama)
                 .withCategory(aventura).withAuthor(author1).withAuthor(author2).withPublisher(publisher1)
