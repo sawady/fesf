@@ -31,12 +31,14 @@ public class BookBuilder {
 
     private Boolean available;
 
+	private String location;
+
     public Book build() {
         if (this.available == null) {
             this.available = true;
         }
         return new Book(this.title, this.isbn, this.publisher, this.imagepath, this.description, this.authors,
-                this.categories, this.countOfCopies, this.available);
+                this.categories, this.countOfCopies, this.available, this.location);
     }
 
     public BookBuilder withCountOfCopies(final int count) {
@@ -93,6 +95,11 @@ public class BookBuilder {
         this.available = aBoolean;
         return this;
     }
+    
+	public BookBuilder withLocation(String location) {
+		this.location = location;
+		return this;
+	}
 
     /*** ACCESSORS ***/
 

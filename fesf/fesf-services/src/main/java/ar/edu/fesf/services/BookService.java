@@ -66,7 +66,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         BookBuilder newBookBuilder = new BookBuilder().withTitle(bookDTO.getTitle())
                 .withIsbn(new ISBN(bookDTO.getIsbn())).withPublisher(new Publisher(bookDTO.getPublisher()))
                 .withDescription(bookDTO.getDescription()).withCountOfCopies(bookDTO.getCountOfCopies())
-                .withAvailable(bookDTO.getAvailable()).withImagepath(bookDTO.getImageLink());
+                .withAvailable(bookDTO.getAvailable()).withImagepath(bookDTO.getImageLink()).withLocation(bookDTO.getLocation());
 
         for (String category : bookDTO.getCategories()) {
             List<Category> categoriesDB = this.getCategoryRepository().findByProperty("name", category);
@@ -104,6 +104,7 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         bookDB.setTitle(bookDTO.getTitle());
         bookDB.setIsbn(new ISBN(bookDTO.getIsbn()));
         bookDB.setDescription(bookDTO.getDescription());
+        bookDB.setLocation(bookDTO.getLocation());
 
         List<Publisher> publishersMatching = this.getPublisherRepository().findByProperty("name",
                 bookDTO.getPublisher());
@@ -267,6 +268,14 @@ public class BookService extends GenericTransactionalRepositoryService<Book> {
         }
 
         return names.iterator();
+    }
+    
+    @Transactional(readOnly = true)
+    public List<String> booksLocation() {
+    	List<String> locations = new ArrayList<String>();
+    	locations.add("bsAs");
+    	locations.add("Parana");
+    	return locations;    	
     }
 
     private BookRepository getBookRepository() {

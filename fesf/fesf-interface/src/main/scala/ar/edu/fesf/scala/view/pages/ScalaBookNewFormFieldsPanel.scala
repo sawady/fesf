@@ -24,6 +24,7 @@ import scala.collection.JavaConversions._
 import org.apache.wicket.model.IModel
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.PropertyModel
+import org.apache.wicket.markup.html.form.DropDownChoice
 
 class ScalaBookNewFormFieldsPanel(
   id: String,
@@ -49,6 +50,7 @@ class ScalaBookNewFormFieldsPanel(
     this.add(new RequiredTextField[String]("isbn"))
     this.add(new RequiredTextField[Integer]("countOfCopies", classOf[Integer]).add(new MinimumValidator[Integer](1)))
     this.add(new TextArea[String]("description"))
+    this.add(new DropDownChoice[String]("location", this.bookService.booksLocation()))
 
     this.add(getAutoCompleteTextField("publisher", bookService.getPublishersNamedLike(_: String)).setRequired(true))
 

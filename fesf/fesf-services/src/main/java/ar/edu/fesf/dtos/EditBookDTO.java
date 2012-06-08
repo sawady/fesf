@@ -32,6 +32,8 @@ public class EditBookDTO implements Serializable {
     protected boolean available;
 
     protected String imageLink;
+    
+    protected String location;
 
     public EditBookDTO() {
         super();
@@ -44,6 +46,7 @@ public class EditBookDTO implements Serializable {
         this.publisher = book.getPublisher().getName();
         this.description = book.getDescription();
         this.available = book.getAvailable();
+        this.location = book.getLocation();
 
         for (Author author : book.getAuthors()) {
             this.authors.add(author.getName());
@@ -150,4 +153,12 @@ public class EditBookDTO implements Serializable {
     public void setImageLink(final String imageLink) {
         this.imageLink = imageLink;
     }
+    
+    public void setLocation(String location) {
+		this.location = location;
+	}
+    
+    public String getLocation() {
+		return location;
+	}
 }
