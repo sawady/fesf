@@ -57,12 +57,12 @@
 	</bean>
 	
 	<bean id="userNamesWithPrivileges" class="java.util.ArrayList">
-    <constructor-arg>
-        <list>
-            <value>pepe</value>
-        </list>
-    </constructor-arg>
-</bean>
+	    <constructor-arg>
+	        <list>
+	            <value>pepe</value>
+	        </list>
+	    </constructor-arg>
+	</bean>
 	
 	<bean id="service.email" class="ar.edu.fesf.services.EmailService">
 		<property name="user" value="${user}" />
