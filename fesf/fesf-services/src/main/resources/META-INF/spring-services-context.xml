@@ -48,6 +48,22 @@
 	<bean id="service.googlebook" class="ar.edu.fesf.services.GoogleBookService">
 	</bean>
 	
+	<bean id="service.role" class="ar.edu.fesf.services.RoleService">
+		<property name="roleManager" ref="roleManager" />
+	</bean>
+	
+	<bean id="roleManager" class="ar.edu.fesf.model.RoleManager">
+		<constructor-arg index="0" ref="userNamesWithPrivileges"></constructor-arg>
+	</bean>
+	
+	<bean id="userNamesWithPrivileges" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <value>pepe</value>
+        </list>
+    </constructor-arg>
+</bean>
+	
 	<bean id="service.email" class="ar.edu.fesf.services.EmailService">
 		<property name="user" value="${user}" />
 		<property name="password" value="${password}" />

@@ -9,6 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException
 import ar.edu.fesf.security.UserDetailsLdapImpl
 import ar.edu.fesf.security.LdapAuthentication
+import ar.edu.fesf.model.RoleManager
+import ar.edu.fesf.services.RoleService
 
 
 class SecurityLdapSession(request: Request) extends SecuritySession(request) with Serializable {
@@ -16,11 +18,15 @@ class SecurityLdapSession(request: Request) extends SecuritySession(request) wit
   @SpringBean(name = "ldapAuthProvider")
   @BeanProperty
   var ldapAuthProvider: AuthenticationProvider = _
+  
+  @SpringBean(name = "service.role")
+  @BeanProperty
+  var roleService: RoleService = _
 
   override def authenticate(username: String, password: String): Boolean = {
     try {
       var authentication = this.ldapAuthProvider.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-      this.securityContextHelper.authentication(new LdapAuthentication(authentication));
+      this.securityContextHelper.authentication(new LdapAuthentication(authentication, this.roleService));
       return this.securityContextHelper.isAuthenticatedUser()
     } catch {
       case ioe: AuthenticationException => return false

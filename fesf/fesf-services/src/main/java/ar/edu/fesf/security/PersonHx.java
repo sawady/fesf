@@ -48,5 +48,10 @@ public class PersonHx extends InetOrgPerson {
 	public String getMail() {
 		return this.initOrgPerson.getMail();
 	}
+	
+	@Override
+	public String getUsername() {
+		return this.initOrgPerson.getUsername();
+	}
 
 }

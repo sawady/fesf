@@ -17,10 +17,9 @@ public class UserDetailsLdapImpl extends UserDetailsImpl {
 	
 	private Set<GrantedAuthority> gaL = new HashSet<GrantedAuthority>(1);
 
-	public UserDetailsLdapImpl(Object ldapUserDetailsImpl) {
+	public UserDetailsLdapImpl(Object ldapUserDetailsImpl, Role role) {
 		this.personHx = (PersonHx) ldapUserDetailsImpl;
-		this.gaL.add(new GrantedAuthorityImpl(Role.ROLE_USER.toString()));
-        this.gaL.add(new GrantedAuthorityImpl(Role.ROLE_LIBRARIAN.toString()));
+		this.gaL.add(new GrantedAuthorityImpl(role.toString()));
 	}
 
 	@Override
