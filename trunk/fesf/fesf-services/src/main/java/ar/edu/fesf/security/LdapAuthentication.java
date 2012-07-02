@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import ar.edu.fesf.services.RoleService;
+
 public class LdapAuthentication implements Authentication {
 	
 	private static final long serialVersionUID = 1L;
@@ -14,9 +16,9 @@ public class LdapAuthentication implements Authentication {
 
 	private UserDetails userDetail;
 
-	public LdapAuthentication(Authentication authentication) {
+	public LdapAuthentication(Authentication authentication, RoleService roleService) {
 		this.authentication = authentication;
-		this.userDetail = new UserDetailsLdapImpl(this.authentication.getPrincipal());
+		this.userDetail = new UserDetailsLdapImpl(this.authentication.getPrincipal(), roleService.getRoleTo(((PersonHx)this.authentication.getPrincipal()).getUsername()));
 	}
 
 	@Override
