@@ -55,6 +55,10 @@ class BorrowItPanel(id: String,
           }
         }
       }
+    }else {
+      var link = ToAjaxLink("link", cannotBorrowCallback, personDB).add(f_borrowText("Cannot borrow a book, you have to sign in"))
+      link.setEnabled(false)
+      this.add(link)
     }
   }
 
