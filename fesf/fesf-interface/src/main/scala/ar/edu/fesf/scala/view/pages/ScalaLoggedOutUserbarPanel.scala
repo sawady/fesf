@@ -11,6 +11,5 @@ import ar.edu.fesf.scala.view.application.MyApplication
 class ScalaLoggedOutUserbarPanel(id: String) extends Panel(id) with ReplaceablePanel {
 
   this.add(new BookmarkablePageLink("signIn", WebApplication.get().asInstanceOf[MyApplication].loginPage()))
-  this.add(new BookmarkablePageLink("signUp", WebApplication.get().asInstanceOf[MyApplication].loginPage()))
 
 }
