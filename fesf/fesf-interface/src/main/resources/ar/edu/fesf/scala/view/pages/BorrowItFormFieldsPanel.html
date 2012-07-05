@@ -1,4 +1,11 @@
 <wicket:panel>
-<h3>Please tell when you want return the book</h3>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					input = $('input[id^="submit"]:eq(1)');
+					input.attr('onclick', 'if(confirm("You are borrowing a book. Are you sure?"))' + input.attr('onclick'));
+				});
+	</script>
+	<h3>Please tell when you want return the book</h3>
 <input type="text" wicket:id="agreedReturnDate" size="10" />
 </wicket:panel>

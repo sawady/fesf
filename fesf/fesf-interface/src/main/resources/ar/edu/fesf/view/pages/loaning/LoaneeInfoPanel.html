@@ -1,8 +1,19 @@
 <wicket:panel>
 
-<div /wicket:id="loanee"/>
+<div wicket:id="loanee"/>
+	<script type="text/javascript">
+		$(document).ready(
+				link = $('a[id^="action"]'); 				
+				function() {					
+					link.attr('onclick', 'if(confirm("You are returning a book. Are you sure?"))' + link.attr('onclick'));
+				});
 
-<h3>Current Loans</h3>
+		link.click(function(event) {
+			event.preventDefault();
+		}); 
+	</script>
+
+	<h3>Current Loans</h3>
 <div class="loaneeLoans" wicket:id="loans">
 	<span class="textStyle">Title:</span><span wicket:id="bookCopy.book.title"/><br/>
 	<span class="textStyle">Loan Date:</span><span wicket:id="loanDate"/><br/>
