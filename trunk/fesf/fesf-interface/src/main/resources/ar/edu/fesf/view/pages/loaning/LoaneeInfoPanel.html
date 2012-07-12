@@ -2,15 +2,17 @@
 
 <div wicket:id="loanee"/>
 	<script type="text/javascript">
-		$(document).ready(
-				link = $('a[id^="action"]'); 				
-				function() {					
+		$(document).ready(			
+				function() {
+					link = $('a[id^="action"]'); 	
 					link.attr('onclick', 'if(confirm("You are returning a book. Are you sure?"))' + link.attr('onclick'));
+		
+					link.click(function(event) {
+						event.preventDefault();
+					}); 				
+				
 				});
 
-		link.click(function(event) {
-			event.preventDefault();
-		}); 
 	</script>
 
 	<h3>Current Loans</h3>
