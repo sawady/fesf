@@ -56,6 +56,10 @@
 		<constructor-arg index="0" ref="userNamesWithPrivileges"></constructor-arg>
 	</bean>
 	
+	<bean id="userManager" class="ar.edu.fesf.security.UserManager">
+		<property name="personService" ref="service.person" />
+	</bean>
+	
 	<bean id="userNamesWithPrivileges" class="java.util.ArrayList">
 	    <constructor-arg>
 	        <list>
