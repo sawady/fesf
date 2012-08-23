@@ -60,7 +60,13 @@
 		<constructor-arg>
 			<bean class="org.springframework.security.ldap.authentication.BindAuthenticator">
 				<constructor-arg ref="ldapContextSource" />			
-				 <property name="userDnPatterns"><list><value>${branch}</value></list></property>	
+				 <property name="userDnPatterns">
+				 	<list>
+				 		<value>${branchBsAs}</value>
+				 		<value>${branchIt}</value>
+				 		<value>${branchManagment}</value>				 		
+				 	</list>
+				 </property>	
 				
 			</bean>
 		</constructor-arg>	
